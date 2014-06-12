@@ -1,0 +1,522 @@
+<?php
+
+/**
+ * @file
+ * Provide main functionality for ERPAL commerce module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function erpal_commerce_menu() {
+  $items = array();
+
+  $items['erpal_commerce/line_item/autocomplete'] = array(
+    'title' => 'line_item autocomplete',
+    'page callback' => 'erpal_commerce_line_item_autocomplete',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function erpal_commerce_menu_alter(&$items) {
+
+  // Change callback for order title.
+  if (!empty($items['admin/commerce/orders/%commerce_order'])) {
+    $items['admin/commerce/orders/%commerce_order']['title callback'] = 'erpal_commerce_order_label';
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function erpal_commerce_entity_info_alter(&$entity_info) {
+
+  // Change callback for order label.
+  $entity_info['commerce_order']['label callback'] = 'erpal_commerce_order_label';
+
+  // Integrate commerce_customer_profile entity with inline entity form.
+  $entity_info['commerce_customer_profile']['inline entity form'] = array(
+    'controller' => 'EntityInlineEntityFormController',
+  );
+}
+
+/**
+ * Entity label callback: returns the label for an individual order.
+ */
+function erpal_commerce_order_label($entity) {
+  $type = commerce_order_type_load($entity->type);
+  if (!$type) {
+    $type = new stdClass();
+    $type->name = t('Order');
+  }
+  return t('@type @number', array('@number' => $entity->order_number, '@type' => $type->name));
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function erpal_commerce_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+
+/**
+ * Defines line item types that serve as bundles of the line item entity type.
+ *
+ * @see hook_commerce_line_item_type_info_alter()
+ */
+function erpal_commerce_commerce_line_item_type_info() {
+  $line_item_types = array();
+
+  $line_item_types['invoice'] = array(
+    'type' => 'invoice',
+    'name' => t('Invoice'),
+    'description' => t('Invoice line items creates when any bundle of erpal_output is created.'),
+    'product' => FALSE,
+    'add_form_submit_value' => t('Add Invoice item'),
+    'base' => 'erpal_commerce_line_item',
+  );
+
+  return $line_item_types;
+}
+
+/**
+ * Add default settings for custom line item types.
+ *
+ * @param array $line_item_type
+ *   The info array of the line item type being configured.
+ */
+function erpal_commerce_line_item_configuration($line_item_type) {
+  switch ($line_item_type['type']) {
+    case 'invoice':
+
+      // Include the fields file.
+      module_load_include('inc', 'erpal_commerce', 'erpal_commerce.fields');
+
+      // Add default fields for line item 'invoice' commerce bundle.
+      $fields = erpal_commerce_invoice_line_item_default_fields();
+      erpal_core_add_fields($fields['fields'], 'field');
+      erpal_core_add_fields($fields['instances'], 'instance');
+      break;
+  }
+}
+
+/**
+ * Returns an appropriate title for line item.
+ */
+function erpal_commerce_line_item_title($line_item) {
+  return $line_item->line_item_label;
+}
+
+/**
+ * Returns the elements.
+ *
+ * necessary to add a line item through a line item manager widget.
+ */
+function erpal_commerce_line_item_add_form($element, &$form_state) {
+  $form = array();
+
+  $form['label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Label'),
+    '#description' => t('Enter the label of line item.'),
+    '#autocomplete_path' => 'erpal_commerce/line_item/autocomplete',
+    '#size' => 60,
+    '#maxlength' => 255,
+  );
+
+  $form['order'] = array(
+    '#type' => 'select',
+    '#title' => t('Order'),
+    '#description' => t('Choose order to which will be attached line item.'),
+    '#options' => erpal_commerce_orders(),
+  );
+
+  return $form;
+}
+
+/**
+ * Prepare line item.
+ *
+ * @param object $line_item
+ *   The newly created line item object.
+ * @param array $element
+ *   The array representing the widget form element.
+ * @param array $form_state
+ *   The present state of the form upon the latest submission.
+ * @param array $form
+ *   The actual form array.
+ *
+ * @return NULL
+ *   NULL if all is well or an error message if something goes wrong.
+ */
+function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_state, $form) {
+
+  if (!empty($element['actions']['label']['#value']) && $exists_line_item = commerce_line_item_load($element['actions']['label']['#value'])) {
+    $line_item = $exists_line_item;
+  }
+  else {
+    $line_item->line_item_label = $element['actions']['label']['#value'];
+    $line_item->commerce_unit_price = array(
+      $element['#language'] => array(
+        0 => array(
+          'amount' => 0,
+          'currency_code' => 'USD',
+        ),
+      ),
+    );
+
+    $field_language = field_language('commerce_line_item', $line_item, 'field_line_item_order');
+    $line_item->field_line_item_order[$field_language][0]['target_id'] = $element['actions']['order']['#value'];
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
+  // Fix path query maxlength.
+  if ($form_id == 'cat_ui_edit_form' && isset($form['cat_actions'])) {
+    foreach ($form['cat_actions'] as $key => $value) {
+      if (isset($value['path_query'])) {
+        $form['cat_actions'][$key]['path_query']['#maxlength'] = 255;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_state, $form_id) {
+
+  // Change title for commerce_order bundle.
+  if (empty($form_state['commerce_order']->order_id)) {
+    if ($form_state['commerce_order']->type != 'commerce_order') {
+      drupal_set_title(t('Create an @type', array('@type' => $form_state['commerce_order']->type)));
+    }
+  }
+  else {
+    // Change page title for edit order page.
+    drupal_set_title(t('Edit @order', array('@order' => $form_state['commerce_order']->order_number)));
+  }
+
+  // Change list of statuses for quote.
+  if ($form_state['commerce_order']->type == 'quote') {
+    // Fill default customer billing information.
+    if (isset($_GET['field_customer'])) {
+      $customer = crm_core_contact_load($_GET['field_customer']);
+      $language = $form['commerce_customer_billing']['#language'];
+      $customer_profiles = field_get_items('crm_core_contact', $customer, 'field_customer_profiles');
+
+      if (isset($customer_profiles[0]['target_id'])) {
+        $form['commerce_customer_billing'][$language]['#default_value'] = array($customer_profiles[0]['target_id']);
+      }
+    }
+  }
+
+  // Change list of statuses for order.
+  if ($form_state['commerce_order']->type == 'commerce_order') {
+    $form['order_status']['status']['#options'] = array(
+      'Pending' => $form['order_status']['status']['#options']['Pending'],
+      'Completed' => $form['order_status']['status']['#options']['Completed'],
+      'Canceled' => $form['order_status']['status']['#options']['Canceled'],
+    );
+  }
+
+  // Change list of statuses for invoice.
+  if ($form_state['commerce_order']->type == 'invoice') {
+    $form['order_status']['status']['#options'] = array(
+      'Invoiced' => $form['order_status']['status']['#options']['Invoiced'],
+      'Canceled' => $form['order_status']['status']['#options']['Canceled'],
+    );
+    $form['actions']['submit']['#value'] = t('Save invoice');
+  }
+
+  // Change list of selectable line item bundles.
+  if (!empty($form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['line_item_type'])) {
+    $options = &$form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['line_item_type']['#options'];
+  }
+  if (!empty($form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['bundle']['#options'])) {
+    $options = &$form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['bundle']['#options'];
+  }
+  if (!empty($options)) {
+    if ($form_state['commerce_order']->type == 'invoice') {
+      $options = array('invoice' => $options['invoice']);
+    }
+    else {
+      unset($options['invoice']);
+    }
+  }
+}
+
+/**
+ * Returns output for line item autocompletes.
+ */
+function erpal_commerce_line_item_autocomplete($string = '') {
+  $result = array();
+  if ($string) {
+    $result = db_select('commerce_line_item')
+      ->fields('commerce_line_item', array('line_item_id', 'line_item_label'))
+      ->condition('line_item_label', '%' . db_like($string) . '%', 'LIKE')
+      ->execute()
+      ->fetchAllKeyed();
+  }
+  drupal_json_output($result);
+}
+
+
+/**
+ * Alter default views defined by other modules.
+ *
+ * This hook is called right before all default views are cached to the
+ * database. It takes a keyed array of views by reference.
+ *
+ * Example usage to add a field to a view:
+ * @code
+ *   $handler =& $view->display['DISPLAY_ID']->handler;
+ *   // Add the user name field to the view.
+ *   $handler->display->display_options['fields']['name']['id'] = 'name';
+ *   $handler->display->display_options['fields']['name']['table'] = 'users';
+ *   $handler->display->display_options['fields']['name']['field'] = 'name';
+ *   $handler->display->display_options['fields']['name']['label'] = 'Author';
+ *   $handler->display->display_options['fields']['name']['link_to_user'] = 1;
+ * @endcode
+ */
+function erpal_commerce_views_default_views_alter(&$views) {
+  if (isset($views['commerce_line_item_table'])) {
+    unset($views['commerce_line_item_table']->display['default']->display_options['filters']);
+  }
+
+  // Add new VBO to invoice view.
+  if (isset($views['erpal_invoice_line_items'])) {
+    $views['erpal_invoice_line_items']->display['default']->handler->display
+    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::erpal_invoice_create_invoice']['selected'] = 0;
+
+    $views['erpal_invoice_line_items']->display['default']->handler->display
+    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::erpal_commerce_create_invoice'] = array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    );
+  }
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function erpal_commerce_field_widget_form_alter(&$element, &$form_state, $context) {
+  if ($context['field']['type'] == 'commerce_customer_profile_reference') {
+    if ($context['instance']['widget']['type'] == 'options_select') {
+      $columns = array(
+        'commerce_customer_address_name_line',
+        'commerce_customer_address_thoroughfare',
+        'commerce_customer_address_premise',
+        'commerce_customer_address_locality',
+        'commerce_customer_address_country',
+      );
+      $element['#options'] = erpal_commerce_generete_customer_labels($element['#options'], 'commerce_customer_address', $columns);
+    }
+  }
+}
+
+/**
+ * Generate customer lables for Customer profile manager field.
+ *
+ * @param array $profile_ids
+ *   Ids of customer profiles as array.
+ *
+ * @param string $field_name
+ *   Name of field which we use.
+ *
+ * @param array $columns
+ *   Columns of field which we will use for name.
+ *
+ * @return array
+ *   of labels with ids for customer profiles
+ */
+function erpal_commerce_generete_customer_labels($profile_ids, $field_name, $columns) {
+  $none = array_shift($profile_ids);
+  $labels = array('_none' => $none);
+  if ($profile_ids) {
+    $fields = array_merge(array('entity_id'), $columns);
+    $result = db_select('field_data_' . $field_name, $field_name)
+      ->fields($field_name, $fields)
+      ->condition('entity_id', $profile_ids, 'IN')
+      ->condition('entity_type', 'commerce_customer_profile')
+      ->execute()
+      ->fetchAllAssoc('entity_id');
+
+    foreach ($result as $key => $fields) {
+      $labels[$key] = implode(' -- ', (array) $fields);
+    }
+  }
+  return $labels;
+}
+
+/**
+ * Create array with all orders on site.
+ *
+ * @return array
+ *   of labels with ids for orders.
+ */
+function erpal_commerce_orders() {
+  return db_select('commerce_order')
+    ->fields('commerce_order', array('order_id', 'order_number'))
+    ->condition('type', 'commerce_order')
+    ->execute()
+    ->fetchAllKeyed();
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function erpal_commerce_action_info() {
+  return array(
+    'erpal_commerce_create_invoice' => array(
+      'type' => 'commerce_line_item',
+      'label' => t('Create invoice'),
+      'description' => t('Creates an invoice from line items'),
+      'configurable' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Callback for configurable bulk operation for creating an invoice.
+ */
+function erpal_commerce_create_invoice_form($context, &$form_state) {
+
+  // Include the forms file from the Order module.
+  module_load_include('inc', 'commerce_order_ui', 'includes/commerce_order.forms');
+
+  // Replicate order to invoice and unset unused fields.
+  $order = replicate_clone_entity('commerce_order', commerce_order_load(arg(1)));
+  $order->type = 'invoice';
+  $order->order_id = NULL;
+  unset($order->order_number);
+  unset($order->revision_id);
+  unset($order->revision_uid);
+  unset($order->uid);
+  unset($order->created);
+  unset($order->changed);
+  unset($order->hostname);
+  unset($order->field_order_date);
+  unset($order->field_order_text);
+  unset($order->field_order);
+  unset($order->commerce_line_items);
+
+  $form = commerce_order_order_form(array(), $form_state, $order);
+
+  // Hide not needed fields.
+  $hide_fields = array(
+    'commerce_line_items',
+    'field_commerce_billy_cancel_date',
+  );
+  foreach ($hide_fields as $hide_field) {
+    if (!empty($form[$hide_field])) {
+      $form[$hide_field]['#access'] = FALSE;
+    }
+  }
+
+  return $form;
+}
+
+/**
+ * Validate handler for bulk operation configuration form for creating invoice.
+ */
+function erpal_commerce_create_invoice_validate($form, &$form_state) {
+  commerce_order_order_form_validate($form, $form_state);
+}
+
+/**
+ * Submit handler for bulk operation configuration form for creating an invoice.
+ */
+function erpal_commerce_create_invoice_submit($form, &$form_state) {
+  commerce_order_order_form_submit($form, $form_state);
+
+  // Add to context order id for using in action.
+  $values['order_id'] = $form_state['commerce_order']->order_id;
+  return $values;
+}
+
+/**
+ * Callback for the action erpal_commerce_create_invoice.
+ *
+ * Create an invoice by invoice line items.
+ */
+function erpal_commerce_create_invoice(&$line_items, $context) {
+  $order = commerce_order_load($context['order_id']);
+
+  // Add line item to order.
+  $language = field_language('commerce_order', $order, 'commerce_line_items');
+  $order->commerce_line_items[$language][] = array(
+    'line_item_id' => $line_items->line_item_id,
+  );
+
+  // Ensure the attached line items are associated with the order if they do not
+  // have an order_id set yet.
+  foreach (entity_metadata_wrapper('commerce_order', $order)->commerce_line_items as $delta => $line_item_wrapper) {
+    if ($line_item_wrapper->order_id->value() != $order->order_id) {
+      $line_item_wrapper->order_id = $order->order_id;
+      $line_item_wrapper->save();
+    }
+  }
+  commerce_order_save($order);
+  drupal_set_message(t('Invoice <a href="@href">@invoice</a> was created.', array('@href' => url('order/' . $order->order_id), '@invoice' => $order->order_number)), 'status', FALSE);
+}
+
+/**
+ * Implements hook_flush_caches().
+ */
+function erpal_commerce_flush_caches() {
+  // Include the fields file.
+  module_load_include('inc', 'erpal_commerce', 'erpal_commerce.fields');
+
+  // Add default fields for 'order' commerce bundle.
+  $fields = erpal_commerce_order_default_fields();
+  erpal_core_add_fields($fields['fields'], 'field');
+  erpal_core_add_fields($fields['instances'], 'instance');
+
+  // Change field 'commerce_customer_billing' widget to 'options_select' and
+  // add dfv settings for all needed bundles of commerce order entity.
+  $commerce_order_types = array('invoice', 'commerce_order', 'quote');
+  foreach ($commerce_order_types as $commerce_order_type) {
+    $info_instance = field_info_instance('commerce_order', 'commerce_customer_billing', $commerce_order_type);
+    if (!empty($info_instance) && $info_instance['widget']['module'] != 'options') {
+      $info_instance['widget'] = array(
+        'module' => 'options',
+        'settings' => array(
+          'wrapper_type' => '',
+        ),
+        'type' => 'options_select',
+        'weight' => -5,
+      );
+      $info_instance['settings']['dfv'] = array(
+        'status' => 1,
+        'parent' => 'field_customer',
+        'view' => 'erpal_customer_profile:dfv_1',
+      );
+      field_update_instance($info_instance);
+    }
+  }
+
+  // Add default fields for working with commerce customer profile.
+  $fields = erpal_commerce_customer_profile_default_fields();
+  erpal_core_add_fields($fields['fields'], 'field');
+  erpal_core_add_fields($fields['instances'], 'instance');
+
+  // Add default fields for 'quote' commerce bundle.
+  $fields = erpal_commerce_quote_default_fields();
+  erpal_core_add_fields($fields['fields'], 'field');
+  erpal_core_add_fields($fields['instances'], 'instance');
+}

@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Erpal Commerce UI installation file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function erpal_commerce_ui_install() {
+  // Create default rules links.
+  $entity = entity_import('rules_link', '{
+    "settings" : {
+      "text" : "Create invoice",
+      "link_type" : "token",
+      "bundles" : { "commerce_order" : "commerce_order" },
+      "entity_link" : 0
+    },
+    "name" : "create_invoice",
+    "label" : "Create invoice",
+    "path" : "add\\/invoice",
+    "entity_type" : "commerce_order",
+    "rdf_mapping" : []
+  }');
+  entity_save('rules_link', $entity);
+
+  $entity = entity_import('rules_link', '{
+    "settings" : {
+      "text" : "Create order",
+      "link_type" : "token",
+      "bundles" : { "quote" : "quote" },
+      "entity_link" : 0
+    },
+    "name" : "create_order",
+    "label" : "Create order",
+    "path" : "add\\/order",
+    "entity_type" : "commerce_order",
+    "rdf_mapping" : []
+  }');
+  entity_save('rules_link', $entity);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function erpal_commerce_ui_uninstall() {
+  // Remove default rules links.
+  $result = db_select('rules_link', 'rl')
+    ->fields('rl', array('id', 'name'))
+    ->condition(
+      db_or()
+        ->condition('rl.name', 'create_invoice')
+        ->condition('rl.name', 'create_order')
+    )
+    ->execute()->fetchAllAssoc('id');
+
+  foreach ($result as $value) {
+    entity_delete('rules_link', $value->id);
+  }
+
+  // Remove variables.
+  variable_del('erpal_order_pdf_text_settings');
+  variable_del('erpal_order_pdf_logo');
+  variable_del('erpal_order_pdf_css_files');
+}
+
+/**
+ * Implements hook_enable().
+ */
+function erpal_commerce_ui_enable() {
+  // Init some defaults.
+  $settings = array(
+    'order_header' => 'My company<br/>Street 123, State<br/>United States',
+    'order_location' => 'Location',
+    'order_text' => '',
+    'order_footer' => 'My company, Street 123, State, United States',
+  );
+  variable_set('erpal_order_pdf_text_settings', $settings);
+}

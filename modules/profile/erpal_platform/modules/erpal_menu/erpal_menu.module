@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * @TODO.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function erpal_menu_menu() {
+  $menu['my_path'] = array(
+    'title' => 'Some title',
+    'page callback' => 'my_page',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'erpal-menu',
+  );
+  $menu['fourOfour'] = array(
+    'title' => '404',
+    'page callback' => 'my_page',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'erpal-menu',
+  );
+  $menu['admin/appearance/styleguide'] = array(
+    'title' => 'Styleguide',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'erpal-menu',
+  );
+  return $menu;
+}

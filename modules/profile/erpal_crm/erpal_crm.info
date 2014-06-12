@@ -1,0 +1,15 @@
+name = ERPAL CRM
+description = Provides base for the customer relations management system.
+core = 7.x
+package = ERPAL CRM
+
+dependencies[] = crm_core_activity
+dependencies[] = crm_core_contact
+dependencies[] = crm_core_relationship
+dependencies[] = erpal_budget
+dependencies[] = email
+dependencies[] = field_collection
+dependencies[] = image
+dependencies[] = url
+
+files[] = includes/relation.inline_entity_form.inc

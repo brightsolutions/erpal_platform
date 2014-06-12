@@ -1,0 +1,126 @@
+<?php
+
+/**
+ * @file
+ * Provides hook implementations for ERPAL CRM UI module.
+ */
+
+/**
+ * Implements hook_menu_alter().
+ *
+ * In general, here we change/drop menu items that comes from
+ * CRM Core module.
+ */
+function erpal_crm_ui_menu_alter(&$items) {
+
+  // Replace page with adding new activities.
+  if (isset($items['crm-core/contact/activity-add'])) {
+    $items['crm-core/activity/add'] = $items['crm-core/contact/activity-add'];
+    $items['crm-core/activity/add']['page callback'] = 'erpal_crm_ui_add_activity_page';
+    $items['crm-core/activity/add']['file'] = 'erpal_crm_ui.pages.inc';
+    $items['crm-core/activity/add']['file path'] = drupal_get_path('module', 'erpal_crm_ui');
+    unset($items['crm-core/contact/activity-add']);
+  }
+
+  // Change paths for pages where activity bundles can be created.
+  foreach (crm_core_activity_types() as $activity_type) {
+    $items['crm-core/activity/add/' . $activity_type->type] = $items['crm-core/contact/activity-add/' . $activity_type->type];
+    unset($items['crm-core/contact/activity-add/' . $activity_type->type]);
+  }
+
+  // Drop pages with activity and contact entity view.
+  // We replace them with page manager paths.
+  unset($items['crm-core/activity/%crm_core_activity']);
+  unset($items['crm-core/contact/%crm_core_contact']);
+
+  // Change callback for crm-core path, because we don't need one that comes
+  // from CRM Core UI module, but we can't just drop it.
+  $items['crm-core'] = array(
+    'page callback' => 'drupal_goto',
+    'page arguments' => array('crm-core/contact'),
+    'access arguments' => array('view any crm_core_contact entity'),
+  );
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function erpal_crm_ui_module_implements_alter(&$implementations, $hook) {
+  // Disallow execution of hook_ctools_plugin_directory() for CRM Core Contact
+  // module, because it implements only page manager path for contact view
+  // template, but we agreed to use simple export of pages instead.
+  if ($hook == 'ctools_plugin_directory') {
+    unset($implementations['crm_core_contact']);
+  }
+  // Drop implementation of hook_modules_installed() from CRM Core UI module,
+  // because it injects crm core menu in the blocks and displays it, but
+  // we don't need neither that block or that menu at all.
+  elseif ($hook == 'modules_installed') {
+    unset($implementations['crm_core_ui']);
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ *
+ * We provide our default views.
+ */
+function erpal_crm_ui_views_api() {
+  return array('api' => 3);
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ *
+ * We provide our default pages for page_manager.
+ */
+function erpal_crm_ui_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "page_manager" && $api == "pages_default") {
+    return array("version" => "1");
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function erpal_crm_ui_form_alter(&$form, &$form_state, $form_id) {
+  // We need to add another submit callback for the form with relationships
+  // creation, so after form submition it would redirect user to the path
+  // that we need, not pre-defined in the CRM Core module.
+  if ($form_id == 'crm_core_relationship_form') {
+    $form['actions']['submit']['#submit'][] = 'erpal_crm_ui_form_crm_core_relationship_form_submit';
+  }
+
+  // Hide forecast title and available fields. Add custom validation function.
+  if ($form_id == 'crm_core_activity_edit_sales_process_form') {
+    $language = $form['field_activity_sales_forecast']['#language'];
+    $form['field_activity_sales_forecast'][$language]['form']['title']['#access'] = FALSE;
+    $form['field_activity_sales_forecast'][$language]['form']['field_budget_available']['#access'] = FALSE;
+
+    array_unshift($form['#validate'], 'erpal_crm_ui_crm_core_activity_edit_sales_process_form_validate');
+  }
+}
+
+/**
+ * Submit callback for crm_core_relationship_form.
+ *
+ * Simply redirects user to a page with contact view.
+ */
+function erpal_crm_ui_form_crm_core_relationship_form_submit($form, &$form_state) {
+
+  $reverse = $form_state['values']['reverse'];
+  $source_contact = _crm_core_relationship_ui_get_contact_from_autocomplete_field_value($form_state['values']['source_contact']);
+  $destination_contact = _crm_core_relationship_ui_get_contact_from_autocomplete_field_value($form_state['values']['destination_contact']);
+
+  $redirect_contact = $reverse ? $destination_contact : $source_contact;
+  $form_state['redirect'] = 'crm-core/contact/' . $redirect_contact->contact_id;
+}
+
+/**
+ * Custom validation callback for crm_core_activity_edit_sales_process_form.
+ */
+function erpal_crm_ui_crm_core_activity_edit_sales_process_form_validate($form, &$form_state) {
+  // Set forecast title the same as Activity title.
+  $language = $form['field_activity_sales_forecast']['#language'];
+  form_set_value($form['field_activity_sales_forecast'][$language]['form']['title'], $form_state['values']['title'], $form_state);
+}

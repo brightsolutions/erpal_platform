@@ -1,0 +1,74 @@
+name = ERPAL
+description = Install ERPAL Platform
+core = 7.x
+php = 5.3
+distribution_name = ERPAL Platform
+exclusive = 1
+
+;core
+dependencies[] = user
+dependencies[] = menu
+dependencies[] = path
+dependencies[] = dblog
+dependencies[] = admin_menu
+dependencies[] = admin_menu_toolbar
+dependencies[] = search
+dependencies[] = update
+dependencies[] = text
+dependencies[] = system
+dependencies[] = node
+dependencies[] = filter
+dependencies[] = comment
+dependencies[] = field
+dependencies[] = field_sql_storage
+dependencies[] = field_ui
+dependencies[] = list
+dependencies[] = file
+dependencies[] = image
+dependencies[] = options
+dependencies[] = number
+dependencies[] = taxonomy
+dependencies[] = block
+
+;contrib
+dependencies[] = cat
+dependencies[] = ctools
+dependencies[] = date
+dependencies[] = date_api
+dependencies[] = date_item
+dependencies[] = date_popup
+dependencies[] = date_repeat
+dependencies[] = date_repeat_field
+dependencies[] = date_views
+dependencies[] = dfv
+dependencies[] = entity
+dependencies[] = entity_token
+dependencies[] = entityreference
+dependencies[] = entitycache
+dependencies[] = field_group
+dependencies[] = field_extrawidgets
+dependencies[] = libraries
+dependencies[] = page_manager
+dependencies[] = panels
+dependencies[] = panels_everywhere
+dependencies[] = panels_mini
+dependencies[] = references_dialog
+dependencies[] = relation_endpoint
+dependencies[] = relation
+dependencies[] = relation_dummy_field
+dependencies[] = relation_ui
+dependencies[] = token
+dependencies[] = views
+dependencies[] = views_bulk_operations
+dependencies[] = views_content
+
+;ERPAL modules
+dependencies[] = erpal_core
+dependencies[] = erpal_commerce
+dependencies[] = erpal_crm
+dependencies[] = erpal_invoice
+dependencies[] = erpal_project
+dependencies[] = erpal_quote
+
+; System Requirements.
+php_memory_limit = 128M

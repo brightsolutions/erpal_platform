@@ -1,0 +1,21 @@
+name = ERPAL Commerce UI
+description = Provide functionality with user interface for ERPAL Billable Platform!
+core = 7.x
+package = ERPAL Commerce
+
+dependencies[] = erpal_commerce
+dependencies[] = commerce_billy_pdf
+dependencies[] = views
+dependencies[] = views_bulk_operations
+dependencies[] = erpal_core_ui
+dependencies[] = commerce_order_ui
+dependencies[] = commerce_line_item_ui
+dependencies[] = commerce_product_ui
+dependencies[] = erpal_invoice_ui
+dependencies[] = erpal_quote_ui
+dependencies[] = replicate
+dependencies[] = rules_link
+dependencies[] = cat
+
+; Views includes
+files[] = includes/views/handlers/erpal_commerce_ui_field_handler.inc

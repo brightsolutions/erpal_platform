@@ -1,0 +1,522 @@
+<?php
+
+/**
+ * @file
+ * Provides an entity for recording work results.
+ */
+
+/**
+ * Include file with hook_entity_property_info().
+ */
+module_load_include('inc', 'erpal_payment_modality', 'erpal_payment_modality.info');
+
+/**
+ * Implements hook_entity_info().
+ */
+function erpal_payment_modality_entity_info() {
+  $return = array(
+    'erpal_payment_modality' => array(
+      'label' => t('ERPAL payment modality'),
+      'entity class' => 'ERPALPaymentModalityEntity',
+      'inline entity form' => array('controller' => 'ErpalPaymentModalityInlineEntityFormController'),
+      'controller class' => 'ERPALPaymentModalityController',
+      'base table' => 'erpal_payment_modality',
+      'revision table' => 'erpal_payment_modality_revision',
+      'fieldable' => TRUE,
+      'entity keys' => array(
+        'id' => 'payment_modality_id',
+        'bundle' => 'type',
+        'label' => 'title',
+        'revision' => 'revision_id',
+      ),
+      'bundle keys' => array(
+        'bundle' => 'type',
+      ),
+      'bundles' => array(),
+      'load hook' => 'erpal_payment_modality_load',
+      'view modes' => array(
+        'full' => array(
+          'label' => t('Full content'),
+          'custom settings' => FALSE,
+        ),
+      ),
+      'label callback' => 'erpal_payment_modality_label',
+      'uri callback' => 'entity_class_uri',
+      'access callback' => 'erpal_payment_modality_access',
+      'module' => 'erpal_payment_modality',
+      'permission labels' => array(
+        'singular' => t('payment modality'),
+        'plural' => t('payment modalities'),
+      ),
+    ),
+  );
+  $return['erpal_payment_modality_type'] = array(
+    'label' => t('ERPAL payment modality Type'),
+    'entity class' => 'ERPALPaymentModalityType',
+    'controller class' => 'ERPALPaymentModalityTypeController',
+    'base table' => 'erpal_payment_modality_type',
+    'fieldable' => FALSE,
+    'bundle of' => 'erpal_payment_modality',
+    'exportable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'name' => 'type',
+      'label' => 'label',
+    ),
+    'module' => 'erpal_payment_modality',
+    // Enable the entity API's admin UI.
+    'admin ui' => array(
+      'path' => 'admin/erpal/payment-modality-types',
+      'file' => 'erpal_payment_modality.admin.inc',
+      'controller class' => 'EntityDefaultUIController',
+    ),
+    'access callback' => 'erpal_payment_modality_type_access',
+  );
+
+  if (module_exists('uuid')) {
+    $return['erpal_payment_modality']['uuid'] = TRUE;
+    $return['erpal_payment_modality']['entity keys']['uuid'] = 'uuid';
+    $return['erpal_payment_modality']['entity keys']['revision uuid'] = 'vuuid';
+  }
+
+  return $return;
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Use this hook to specify payment modality bundles to avoid a recursion,
+ * as loading the payment modality types needs the entity info too.
+ */
+function erpal_payment_modality_entity_info_alter(&$entity_info) {
+  foreach (erpal_payment_modality_types() as $type => $info) {
+    $entity_info['erpal_payment_modality']['bundles'][$type] = array(
+      'label' => $info->label,
+      'admin' => array(
+        'path' => 'admin/erpal/payment-modality-types/manage/%erpal_payment_modality_type',
+        'real path' => 'admin/erpal/payment-modality-types/manage/' . $type,
+        'bundle argument' => 4,
+      ),
+    );
+  }
+
+  if (!empty($entity_info['commerce_line_item'])) {
+    $entity_info['commerce_line_item']['inline entity form'] = array(
+      'controller' => 'ErpalCommerceLineItemInlineEntityFormController',
+    );
+  }
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function erpal_payment_modality_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'entity_info_alter') {
+    $group = $implementations['erpal_payment_modality'];
+    unset($implementations['erpal_payment_modality']);
+    $implementations['erpal_payment_modality'] = $group;
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function erpal_payment_modality_permission() {
+  $permissions = array(
+    'administer payment_modality types' => array(
+      'title' => t('Administer payment modality types'),
+      'description' => t('Allows users to configure payment modality types and their fields.'),
+      'restrict access' => TRUE,
+    ),
+  );
+
+  $permissions += erpal_core_entity_access_permissions('erpal_payment_modality');
+
+  return $permissions;
+}
+
+/**
+ * Access callback for payment modality.
+ */
+function erpal_payment_modality_access($op, $payment_modality, $account = NULL, $entity_type = NULL) {
+  if (!isset($account)) {
+    $account = $GLOBALS['user'];
+  }
+  if (is_object($payment_modality)) {
+    $payment_modality_type = $payment_modality->type;
+  }
+  else {
+    $payment_modality_type = $payment_modality;
+  }
+
+  if ($op != 'view') {
+    // First grant access to the entity for the specified operation if no other
+    // module denies it and at least one other module says to grant access.
+    $access_results = module_invoke_all('erpal_entity_access', $op, $payment_modality, $account, $entity_type);
+
+    if (in_array(FALSE, $access_results, TRUE)) {
+      return FALSE;
+    }
+    elseif (in_array(TRUE, $access_results, TRUE)) {
+      return TRUE;
+    }
+  }
+
+  switch ($op) {
+    case 'create':
+      $access = (user_access('administer erpal_payment_modality entities', $account) ||
+        user_access('create erpal_payment_modality entities', $account) ||
+        user_access('create erpal_payment_modality entities of bundle ' . $payment_modality_type, $account));
+      return $access;
+
+    case 'view':
+      $access = (user_access('administer erpal_payment_modality entities', $account) ||
+        user_access('view any erpal_payment_modality entity', $account) ||
+        user_access('view any erpal_payment_modality entity of bundle ' . $payment_modality_type, $account));
+      return $access;
+
+    case 'edit':
+    case 'update':
+      $access = (user_access('administer erpal_payment_modality entities', $account) ||
+        user_access('edit any erpal_payment_modality entity', $account) ||
+        user_access('edit any erpal_payment_modality entity of bundle ' . $payment_modality_type));
+      return $access;
+
+    case 'delete':
+      $access = (user_access('administer erpal_payment_modality entities', $account) ||
+        user_access('delete any erpal_payment_modality entity', $account) ||
+        user_access('delete any erpal_payment_modality entity of bundle ' . $payment_modality_type));
+      return $access;
+
+    case 'create_view':
+      // Check if user has access permission to a view with
+      // create payment modality links.
+      if (user_access('administer erpal_payment_modality entities', $account) ||
+        user_access('create erpal_payment_modality entities', $account)) {
+        return TRUE;
+      }
+      // Allow access if account has create permissions
+      // for any erpal payment modality type.
+      foreach (array_keys(erpal_payment_modality_types()) as $type) {
+        if (entity_access('create', 'erpal_payment_modality', $type, $account)) {
+          return TRUE;
+        }
+      }
+      return FALSE;
+  }
+}
+
+/**
+ * Payment modality type access callback.
+ */
+function erpal_payment_modality_type_access() {
+  return user_access('administer payment_modality types');
+}
+
+/**
+ * Load a ERPAL payment modality object.
+ */
+function erpal_payment_modality_load($payment_modality_id, $reset = FALSE) {
+  if (empty($payment_modality_id)) {
+    return array();
+  }
+
+  if ($payment_modality_id !== FALSE) {
+    $payment_modality_id = array($payment_modality_id);
+  }
+
+  $payment_modalities = erpal_payment_modality_load_multiple($payment_modality_id, array(), $reset);
+  return reset($payment_modalities);
+}
+
+/**
+ * Load multiple payment modalities based on certain conditions.
+ */
+function erpal_payment_modality_load_multiple($payment_modality_ids = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('erpal_payment_modality', $payment_modality_ids, $conditions, $reset);
+}
+
+/**
+ * Save single payment modalities object to db. Wrapper for controller.
+ *
+ * @param object $payment_modality
+ *   Entity object of erpal_payment_modality type.
+ */
+function erpal_payment_modality_save($payment_modality) {
+  return entity_get_controller('erpal_payment_modality')->save($payment_modality);
+}
+
+/**
+ * Delete single payment modality.
+ *
+ * @todo This function should accept $payment_modality_id,
+ *   but payment modality object.
+ *
+ * @param object $payment_modality
+ *   Entity object of erpal_payment_modality type.
+ */
+function erpal_payment_modality_delete($payment_modality) {
+  erpal_payment_modality_delete_multiple(array($payment_modality->payment_modality_id));
+}
+
+/**
+ * Delete multiple payment modalities. Wrapper for controller.
+ *
+ * @param array $payment_modality_ids
+ *   array of entity ids that should be deleted.
+ */
+function erpal_payment_modality_delete_multiple($payment_modality_ids) {
+  entity_get_controller('erpal_payment_modality')->delete($payment_modality_ids);
+}
+
+/**
+ * Implements hook_field_extra_fields().
+ */
+function erpal_payment_modality_field_extra_fields() {
+  $extra = array();
+
+  foreach (erpal_payment_modality_types() as $type) {
+    $extra['erpal_payment_modality'][$type->type] = array(
+      'form' => array(
+        'title' => array(
+          'label' => 'Title',
+          'description' => t('ERPAL payment modality module element'),
+          'weight' => -5,
+        ),
+      ),
+    );
+  }
+
+  return $extra;
+}
+
+/**
+ * Load payment modality Type.
+ */
+function erpal_payment_modality_type_load($payment_modality_type) {
+  return erpal_payment_modality_types($payment_modality_type);
+}
+
+/**
+ * List of payment modality Types.
+ */
+function erpal_payment_modality_types($type_name = NULL) {
+  $types = entity_load_multiple_by_name('erpal_payment_modality_type', isset($type_name) ? array($type_name) : FALSE);
+  return isset($type_name) ? reset($types) : $types;
+}
+
+/**
+ * Returns the human-readable names of an payment modality types.
+ *
+ * @return array
+ *   An array as used by hook_options_list().
+ */
+function erpal_payment_modality_type_get_names() {
+  $names =& drupal_static(__FUNCTION__, array());
+  if (empty($names)) {
+    $types = erpal_payment_modality_types();
+    foreach ($types as $type) {
+      $names[$type->type] = check_plain($type->label);
+    }
+  }
+
+  return $names;
+}
+
+
+/**
+ * Returns the human-readable name of an payment modality type.
+ *
+ * @param string $type_name
+ *   The machine name for an payment modality type.
+ *
+ * @return string
+ *   A human readable name for the payment modality type or FALSE.
+ */
+function erpal_payment_modality_type_get_name($type_name) {
+  $names = erpal_payment_modality_type_get_names();
+  if (isset($names[$type_name])) {
+    return $names[$type_name];
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Creates or saves an payment modality type.
+ *
+ * @param object $payment_modality_type
+ *   The payment modality type info to be saved
+ */
+function erpal_payment_modality_type_save($payment_modality_type) {
+  return entity_get_controller('erpal_payment_modality_type')->save($payment_modality_type);
+}
+
+/**
+ * Implements hook_erpal_payment_modality_type_insert().
+ */
+function erpal_payment_modality_erpal_payment_modality_type_insert($payment_modality_type) {
+  module_load_include('inc', 'erpal_payment_modality', 'erpal_payment_modality.fields');
+
+  $fields = erpal_payment_modality_add_default_fields();
+  erpal_core_add_fields($fields['fields'], 'field');
+  erpal_core_add_fields($fields['instances'], 'instance');
+}
+
+/**
+ * Implements hook_flush_caches().
+ */
+function erpal_payment_modality_flush_caches() {
+  // Change field 'commerce_line_items' widget to 'inline_entity_form' and
+  // add new view for display.
+  $commerce_order_types = array('quote', 'commerce_order');
+  foreach ($commerce_order_types as $commerce_order_type) {
+    $info_instance = field_info_instance('commerce_order', 'commerce_line_items', $commerce_order_type);
+    if (!empty($info_instance)) {
+      $view = 'erpal_line_items|block_1';
+      $info_instance['display']['administrator']['settings']['view'] = $view;
+      $info_instance['display']['customer']['settings']['view'] = $view;
+      $info_instance['display']['default']['settings']['view'] = $view;
+
+      $info_instance['widget'] = array(
+        'module' => 'inline_entity_form',
+        'settings' => array(
+          'fields' => array(),
+          'type_settings' => array(),
+        ),
+        'type' => 'inline_entity_form',
+        'weight' => -10,
+      );
+      field_update_instance($info_instance);
+    }
+  }
+
+  // Change field 'commerce_product' widget to 'inline_entity_form'.
+  $info_instance = field_info_instance('commerce_line_item', 'commerce_product', 'product');
+  if (!empty($info_instance) && $info_instance['widget']['module'] != 'inline_entity_form') {
+    $info_instance['widget'] = array(
+      'module' => 'inline_entity_form',
+      'settings' => array(
+        'autocomplete_match' => 'contains',
+        'autocomplete_path' => 'commerce_product/autocomplete',
+        'fields' => array(),
+        'size' => 60,
+        'type_settings' => array(),
+      ),
+      'type' => 'inline_entity_form_single',
+      'weight' => -10,
+    );
+    field_update_instance($info_instance);
+  }
+}
+
+/**
+ * Implements hook_forms().
+ *
+ * Create form for adding/editing erpal_payment_modality.
+ * Their id is like 'erpal_payment_modality_edit_' . $bundle . '_form'.
+ *
+ * @see entity_ui_get_form()
+ */
+function erpal_payment_modality_forms($form_id, $args) {
+  $forms = array();
+
+  // Check whether it is erpal_payment_modality form.
+  if (strpos($form_id, 'erpal_payment_modality_edit_') === 0) {
+    $forms[$form_id] = array(
+      'callback' => 'erpal_payment_modality_form',
+    );
+  }
+
+  return $forms;
+}
+
+/**
+ * Payment modality view callback.
+ */
+function erpal_payment_modality_view($payment_modality, $view_mode = 'full') {
+  $langcode = $GLOBALS['language_content']->language;
+  module_invoke_all('entity_view', $payment_modality, 'erpal_payment_modality', $view_mode, $langcode);
+  $build = $payment_modality->view('full', $langcode);
+
+  return $build;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function erpal_payment_modality_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'erpal_payment_modality') . '/views',
+  );
+}
+
+/**
+ * Implements hook_file_download_access().
+ */
+function erpal_payment_modality_file_download_access($file_item, $entity_type, $entity) {
+  if ($entity_type == 'erpal_payment_modality') {
+    return erpal_payment_modality_access('view', $entity);
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function erpal_payment_modality_theme($existing, $type, $theme, $path) {
+  return array(
+    'payment_modality' => array(
+      'render element' => 'elements',
+      'template' => 'payment_modality',
+      'path' => $path . '/templates',
+    ),
+  );
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function erpal_payment_modality_preprocess_payment_modality(&$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  $variables['payment_modality'] = $variables['elements']['#payment_modality'];
+  $variables['content'] = entity_build_content('erpal_payment_modality', $variables['payment_modality']);
+
+  // Add classes based upon payment modality type.
+  $variables['classes_array'][] = 'payment_modality';
+  $variables['classes_array'][] = 'payment_modality-' . $variables['payment_modality']->type;
+
+  $entity = $variables['payment_modality'];
+  $variables['theme_hook_suggestions'][] = 'payment_modality__' . $entity->type;
+  $variables['theme_hook_suggestions'][] = 'payment_modality__' . $entity->payment_modality_id;
+}
+
+/**
+ * Helper to check uuid fields existence.
+ */
+function _erpal_payment_modality_check_uuid() {
+  $schema_changed = FALSE;
+  module_load_include('install', 'uuid', 'uuid');
+  $field = uuid_schema_field_definition();
+  if (!db_field_exists('erpal_payment_modality', 'uuid')) {
+    db_add_field('erpal_payment_modality', 'uuid', $field);
+    db_add_index('erpal_payment_modality', 'uuid', array('uuid'));
+    $schema_changed = TRUE;
+  }
+  if (!db_field_exists('erpal_payment_modality_revision', 'vuuid')) {
+    db_add_field('erpal_payment_modality_revision', 'vuuid', $field);
+    db_add_index('erpal_payment_modality_revision', 'vuuid', array('vuuid'));
+    $schema_changed = TRUE;
+  }
+  if ($schema_changed) {
+    drupal_get_schema(NULL, TRUE);
+  }
+}
+
+/**
+ * Implements hook_uuid_sync().
+ */
+function erpal_payment_modality_uuid_sync() {
+  _erpal_payment_modality_check_uuid();
+}

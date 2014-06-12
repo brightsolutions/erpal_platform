@@ -1,0 +1,6 @@
+name = ERPAL Platform
+description = This module provides some infrastructure for the ERPAL platform distribution
+core = 7.x
+package = ERPAL Platform
+
+dependencies[] = date_item

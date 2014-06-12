@@ -1,0 +1,281 @@
+<?php
+
+/**
+ * @file
+ * @TODO.
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function erpal_layout_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "page_manager" && $api == "pages_default") {
+    return array("version" => "1");
+  }
+  if ($module == "panels" && $api == "layouts") {
+    return array("version" => "1");
+  }
+}
+
+/**
+ * Implements hook_default_page_manager_handlers().
+ */
+function erpal_layout_default_page_manager_handlers() {
+  $export = array();
+
+  $handler = new stdClass();
+  $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
+  $handler->api_version = 1;
+  $handler->name = 'site_template_panel_context';
+  $handler->task = 'site_template';
+  $handler->subtask = '';
+  $handler->handler = 'panel_context';
+  $handler->weight = 0;
+  $handler->conf = array(
+    'title' => 'ERPAL default',
+    'no_blocks' => 1,
+    'pipeline' => 'standard',
+    'body_classes_to_remove' => '',
+    'body_classes_to_add' => '',
+    'css_id' => '',
+    'css' => '',
+    'contexts' => array(),
+    'relationships' => array(),
+  );
+  $display = new panels_display();
+  $display->layout = 'erpalsitetemplate';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'top' => NULL,
+      'left' => NULL,
+      'right' => NULL,
+      'bottom' => NULL,
+      'righttabs' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '';
+  $display->uuid = '3854b10e-0fba-4f76-a395-539ed1ab4321';
+  $display->content = array();
+  $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-072a687a-5a38-4591-9ae9-ac06c745670f';
+  $pane->panel = 'bottom';
+  $pane->type = 'block';
+  $pane->subtype = 'system-powered-by';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '072a687a-5a38-4591-9ae9-ac06c745670f';
+  $display->content['new-072a687a-5a38-4591-9ae9-ac06c745670f'] = $pane;
+  $display->panels['bottom'][0] = 'new-072a687a-5a38-4591-9ae9-ac06c745670f';
+  $pane = new stdClass();
+  $pane->pid = 'new-bf44ebdd-7f82-4db8-8b33-eecd5e00c089';
+  $pane->panel = 'left';
+  $pane->type = 'block';
+  $pane->subtype = 'menu-erpal-menu';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_title' => 1,
+    'override_title_text' => 'Menu',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'bf44ebdd-7f82-4db8-8b33-eecd5e00c089';
+  $display->content['new-bf44ebdd-7f82-4db8-8b33-eecd5e00c089'] = $pane;
+  $display->panels['left'][0] = 'new-bf44ebdd-7f82-4db8-8b33-eecd5e00c089';
+  $pane = new stdClass();
+  $pane->pid = 'new-8bb5efef-a892-4216-9c47-8d8290b4a63d';
+  $pane->panel = 'right';
+  $pane->type = 'page_breadcrumb';
+  $pane->subtype = 'page_breadcrumb';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array();
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '8bb5efef-a892-4216-9c47-8d8290b4a63d';
+  $display->content['new-8bb5efef-a892-4216-9c47-8d8290b4a63d'] = $pane;
+  $display->panels['right'][0] = 'new-8bb5efef-a892-4216-9c47-8d8290b4a63d';
+  $pane = new stdClass();
+  $pane->pid = 'new-fc749562-787b-4fc7-9de0-52e4cd994c99';
+  $pane->panel = 'right';
+  $pane->type = 'page_messages';
+  $pane->subtype = 'page_messages';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array();
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = 'fc749562-787b-4fc7-9de0-52e4cd994c99';
+  $display->content['new-fc749562-787b-4fc7-9de0-52e4cd994c99'] = $pane;
+  $display->panels['right'][1] = 'new-fc749562-787b-4fc7-9de0-52e4cd994c99';
+  $pane = new stdClass();
+  $pane->pid = 'new-70ce4aba-f141-4439-b17f-101f99fd6eda';
+  $pane->panel = 'right';
+  $pane->type = 'block';
+  $pane->subtype = 'system-help';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 2;
+  $pane->locks = array();
+  $pane->uuid = '70ce4aba-f141-4439-b17f-101f99fd6eda';
+  $display->content['new-70ce4aba-f141-4439-b17f-101f99fd6eda'] = $pane;
+  $display->panels['right'][2] = 'new-70ce4aba-f141-4439-b17f-101f99fd6eda';
+  $pane = new stdClass();
+  $pane->pid = 'new-2afe3fab-96f2-401b-be3b-f06439833880';
+  $pane->panel = 'right';
+  $pane->type = 'page_actions';
+  $pane->subtype = 'page_actions';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array();
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 3;
+  $pane->locks = array();
+  $pane->uuid = '2afe3fab-96f2-401b-be3b-f06439833880';
+  $display->content['new-2afe3fab-96f2-401b-be3b-f06439833880'] = $pane;
+  $display->panels['right'][3] = 'new-2afe3fab-96f2-401b-be3b-f06439833880';
+  $pane = new stdClass();
+  $pane->pid = 'new-2e487454-10c6-4d97-b0fc-6b783caeb1b4';
+  $pane->panel = 'right';
+  $pane->type = 'page_content';
+  $pane->subtype = 'page_content';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => 'argument_page_content_1',
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 4;
+  $pane->locks = array();
+  $pane->uuid = '2e487454-10c6-4d97-b0fc-6b783caeb1b4';
+  $display->content['new-2e487454-10c6-4d97-b0fc-6b783caeb1b4'] = $pane;
+  $display->panels['right'][4] = 'new-2e487454-10c6-4d97-b0fc-6b783caeb1b4';
+  $pane = new stdClass();
+  $pane->pid = 'new-6c70aeca-92eb-4936-aeef-66eaae2774ac';
+  $pane->panel = 'righttabs';
+  $pane->type = 'page_tabs';
+  $pane->subtype = 'page_tabs';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'type' => 'both',
+    'id' => 'tabs',
+    'override_title' => 1,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '6c70aeca-92eb-4936-aeef-66eaae2774ac';
+  $display->content['new-6c70aeca-92eb-4936-aeef-66eaae2774ac'] = $pane;
+  $display->panels['righttabs'][0] = 'new-6c70aeca-92eb-4936-aeef-66eaae2774ac';
+  $pane = new stdClass();
+  $pane->pid = 'new-b7451377-e1bf-4545-beba-bfdcee169716';
+  $pane->panel = 'top';
+  $pane->type = 'page_logo';
+  $pane->subtype = 'page_logo';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array();
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'b7451377-e1bf-4545-beba-bfdcee169716';
+  $display->content['new-b7451377-e1bf-4545-beba-bfdcee169716'] = $pane;
+  $display->panels['top'][0] = 'new-b7451377-e1bf-4545-beba-bfdcee169716';
+  $pane = new stdClass();
+  $pane->pid = 'new-dd1b652b-c2d7-43f8-a1ee-289a540b3e63';
+  $pane->panel = 'top';
+  $pane->type = 'block';
+  $pane->subtype = 'system-user-menu';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_title' => 1,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = 'dd1b652b-c2d7-43f8-a1ee-289a540b3e63';
+  $display->content['new-dd1b652b-c2d7-43f8-a1ee-289a540b3e63'] = $pane;
+  $display->panels['top'][1] = 'new-dd1b652b-c2d7-43f8-a1ee-289a540b3e63';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = '0';
+  $handler->conf['display'] = $display;
+
+  $export['site_template_panel_context_2'] = $handler;
+
+  return $export;
+}

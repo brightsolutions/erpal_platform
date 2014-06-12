@@ -1,0 +1,175 @@
+<?php
+
+/**
+ * @file
+ * Provides the UI for viewing payment modalities.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function erpal_payment_modality_ui_menu() {
+  $payment_modality_paths = array(
+    'payment_modality_add' => 'admin/erpal/add-content/payment_modality/add',
+  );
+  foreach ($payment_modality_paths as $key => $path) {
+    $items[$path] = array(
+      'title' => 'Add an payment modality',
+      'page callback' => 'erpal_payment_modality_add_payment_modality',
+      'access callback' => 'entity_access',
+      'access arguments' => array('create_view', 'erpal_payment_modality'),
+      'type' => MENU_NORMAL_ITEM,
+      'file' => 'erpal_payment_modality.pages.inc',
+      'file path' => drupal_get_path('module', 'erpal_payment_modality'),
+      'weight' => 5,
+    );
+
+    foreach (erpal_payment_modality_types() as $type => $info) {
+      $items[$path . '/' . $type] = array(
+        'title' => 'Add payment modality @type',
+        'title arguments' => array('@type' => $info->label),
+        'description' => $info->description,
+        'page callback' => 'erpal_payment_modality_entity_ui_get_form_wrapper',
+        'page arguments' => array(5),
+        'access callback' => 'entity_access',
+        'access arguments' => array('create', 'erpal_payment_modality'),
+        'type' => MENU_NORMAL_ITEM,
+        'file' => 'erpal_payment_modality.pages.inc',
+        'file path' => drupal_get_path('module', 'erpal_payment_modality'),
+      );
+    }
+  }
+
+  $items['erpal/payment_modality/%erpal_payment_modality'] = array(
+    'title' => 'payment_modality',
+    'page callback' => 'erpal_payment_modality_view',
+    'page arguments' => array(2),
+    'title callback' => 'entity_label',
+    'title arguments' => array('erpal_payment_modality', 2),
+    'access callback' => 'entity_access',
+    'access arguments' => array('view', 'erpal_payment_modality', 2),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['erpal/payment_modality/%erpal_payment_modality/view'] = array(
+    'title' => 'View',
+    'weight' => -10,
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  $items['erpal/payment_modality/%erpal_payment_modality/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'entity_ui_get_form',
+    'page arguments' => array('erpal_payment_modality', 2, 'edit'),
+    'access callback' => 'entity_access',
+    'access arguments' => array('edit', 'erpal_payment_modality', 2),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'erpal_payment_modality.pages.inc',
+    'file path' => drupal_get_path('module', 'erpal_payment_modality'),
+  );
+  $items['erpal/payment_modality/%erpal_payment_modality/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('erpal_payment_modality_form_delete_confirm', 2),
+    'access callback' => 'entity_access',
+    'access arguments' => array('edit', 'erpal_payment_modality', 2),
+    'weight' => 1,
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'erpal_payment_modality.pages.inc',
+    'file path' => drupal_get_path('module', 'erpal_payment_modality'),
+  );
+  $items['admin/erpal/payment_modality-types/list'] = array(
+    'title' => 'List',
+    'weight' => -10,
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_admin_menu_map().
+ */
+function erpal_payment_modality_ui_admin_menu_map() {
+  $map = $arguments = array();
+  $erpal_payment_modality_types = array_keys(erpal_payment_modality_types());
+  foreach ($erpal_payment_modality_types as $type) {
+    $arguments[] = array(
+      '%erpal_payment_modality_type' => array($type),
+      '%entity_object' => array($type),
+    );
+  }
+  if ($arguments) {
+    $map['admin/erpal/payment_modality-types/manage/%erpal_payment_modality_type'] = array(
+      // Link generated items directly to the "payment modality Types" item.
+      'parent' => 'admin/erpal/payment_modality-types',
+      // Hide the "List" item, as this expansion will expose all available
+      // options.
+      'hide' => 'admin/erpal/payment_modality-types/list',
+      // Create expansion arguments for the '%erpal_payment_modality_type'
+      // placeholder.
+      'arguments' => $arguments,
+    );
+  }
+
+  return $map;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function erpal_payment_modality_ui_form_alter(&$form, &$form_state, $form_id) {
+  // Alter the operations links so they looks like CTools dropbutton.
+  if ($form_id == 'erpal_payment_modality_type_overview_form') {
+    $ops_count = $form['table']['#header'][2]['colspan'];
+    $form['table']['#header'][2] = t('Operations');
+
+    erpal_core_ui_ctools_add_dropbutton_files();
+    foreach ($form['table']['#rows'] as $key => $row) {
+      $payment_modality = theme('erpal_core_ui_ctools_dropbutton', array(
+        'ops_count' => $ops_count,
+        'links' => $row,
+        'index' => $key,
+      ));
+
+      $form['table']['#rows'][$key] = array_merge(array_slice($row, 0, count($row) - $ops_count), array($payment_modality));
+    }
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function erpal_payment_modality_ui_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'erpal_payment_modality_ui') . '/views',
+  );
+}
+
+
+/**
+ * Payment modality UI view callback.
+ */
+function erpal_payment_modality_ui_view($payment_modality) {
+  return erpal_payment_modality_view($payment_modality);
+}
+
+/**
+ * Perform alterations before an entity form is included in the IEF widget.
+ *
+ * @param array $entity_form
+ *   Nested array of form elements that comprise the entity form.
+ * @param array $form_state
+ *   The form state of the parent form.
+ */
+function erpal_payment_modality_ui_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  // Show Delivery unit field if selected delivery value in Due with field.
+  if ($entity_form['#entity_type'] == 'erpal_payment_modality') {
+    $entity_form['field_delivery_unit']['#states'] = array(
+      'visible' => array(
+        ':input[name*="field_due_with"]' => array('value' => 'delivery'),
+      ),
+    );
+  }
+}

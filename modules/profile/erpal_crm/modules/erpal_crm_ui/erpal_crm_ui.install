@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Contains implementation of hooks that should be executed during module
+ * install or uninstall processes.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function erpal_crm_ui_install() {
+
+  // Drop menus that comes from CRM Core, but we don't need them.
+  foreach (crm_core_ui_get_menus() as $menu_name => $menu) {
+    $menu = menu_load($menu_name);
+    if (!empty($menu)) {
+      menu_delete($menu);
+    }
+  }
+}

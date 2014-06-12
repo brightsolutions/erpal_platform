@@ -1,0 +1,7 @@
+name = ERPAL Layout
+description = Delivers panels layouts and settungs for page manager.
+core = 7.x
+package = ERPAL Basic
+
+dependencies[] = panels_everywhere
+dependencies[] = erpal_menu

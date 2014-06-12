@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for payment modality UI module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Set weight of the module to 20. It should be more than
+ * of views module for hook_menu_alter().
+ */
+function erpal_payment_modality_ui_install() {
+  db_query("UPDATE {system} SET weight = 20 WHERE name = 'erpal_payment_modality_ui'");
+}
+
+/**
+ * Implements hook_enable().
+ */
+function erpal_payment_modality_ui_enable() {
+  $menu_items = array(
+    array(
+      'link_path' => 'admin/structure/erpal/payment_modality-types',
+      'link_title' => 'Administer ERPAL payment modality types',
+      'menu_name' => 'erpal-admin-menu',
+    ),
+  );
+  foreach ($menu_items as $item) {
+    menu_link_save($item);
+  }
+}
+
+/**
+ * Implements hook_disable().
+ */
+function erpal_payment_modality_ui_disable() {
+  // Remove links from erpal-admin-menu.
+  $conditions = array(
+    'erpal-admin-menu' => array(
+      'admin/structure/erpal/payment_modality-types',
+    ),
+  );
+  erpal_core_ui_remove_links($conditions);
+}

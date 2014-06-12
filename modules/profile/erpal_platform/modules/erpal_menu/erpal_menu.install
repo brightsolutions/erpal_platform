@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * @TODO.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function erpal_menu_install() {
+  $menu = array();
+  $menu['menu_name'] = "erpal-menu";
+  $menu['title'] = "ERPAL Menu";
+  $menu['description'] = "ERPAL Main Menu";
+  menu_save($menu);
+}

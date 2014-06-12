@@ -1,0 +1,606 @@
+<?php
+
+/**
+ * @file
+ * Code for the ERPAL commerce user interface functional module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function erpal_commerce_ui_menu() {
+  $items['order-pdf/%commerce_order'] = array(
+    'title' => 'Order',
+    'page callback' => 'erpal_commerce_ui_pdf',
+    'page arguments' => array(1),
+    'access callback' => 'erpal_commerce_ui_order_view_access',
+    'access arguments' => array(1),
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/commerce/config/billy-order/pdf'] = array(
+    'title' => 'Order PDF',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('erpal_commerce_ui_pdf_admin_form'),
+    'access arguments' => array('configure order settings'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'erpal_commerce_ui.admin.inc',
+  );
+  $items['admin/commerce/orders/%commerce_order/order_pdf'] = array(
+    'title' => 'Pdf',
+    'page callback' => 'commerce_order_ui_order_view',
+    'page arguments' => array(3, 4),
+    'access callback' => 'erpal_commerce_ui_order_view_access',
+    'access arguments' => array(3),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -5,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_commerce_billy_order_types_alter().
+ *
+ * Alter the order types to which need add invoice fields.
+ */
+function erpal_commerce_ui_commerce_billy_order_types_alter(&$order_types) {
+  $order_types = array_diff($order_types, array('commerce_order'));
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function erpal_commerce_ui_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'erpal_commerce_ui') . '/includes/views',
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ *
+ * We provide our default pages for page_manager.
+ */
+function erpal_commerce_ui_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "page_manager" && $api == "pages_default") {
+    return array("version" => "1");
+  }
+  if ($module == "cat" && $api == "cat") {
+    return array("version" => "1");
+  }
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function erpal_commerce_ui_menu_alter(&$items) {
+  // Rename menu item for quote.
+  if (!empty($items['admin/commerce/orders/add/quote'])) {
+    $items['admin/commerce/orders/add/quote']['title'] = t('Add @type');
+  }
+
+  // Rename menu item for invoice.
+  if (!empty($items['admin/commerce/orders/add/invoice'])) {
+    $items['admin/commerce/orders/add/invoice']['title'] = t('Add @type');
+  }
+
+  // Rules link for quote replication to order.
+  if (!empty($items['add/order/%/%'])) {
+    unset($items['add/order/%/%']['access callback']);
+    $items['add/order/%/%']['access arguments'] = array('configure order settings');
+    $items['add/order/%/%']['type'] = MENU_LOCAL_ACTION;
+  }
+
+  // Rules link for order replication to invoice.
+  if (!empty($items['add/invoice/%/%'])) {
+    unset($items['add/invoice/%/%']['access callback']);
+    $items['add/invoice/%/%']['access arguments'] = array('configure order settings');
+    $items['add/invoice/%/%']['type'] = MENU_LOCAL_ACTION;
+  }
+
+  // Just create simple page and for user which not admin.
+  if (!empty($items['admin/commerce/orders/add/quote'])) {
+    $items['quote/add'] = $items['admin/commerce/orders/add/quote'];
+  }
+
+  if (!empty($items['admin/commerce/orders/add'])) {
+    $items['order/add'] = $items['admin/commerce/orders/add'];
+  }
+
+  if (!empty($items['admin/commerce/orders/%commerce_order/view'])) {
+    $items['order/%commerce_order/view'] = $items['admin/commerce/orders/%commerce_order/view'];
+  }
+
+  if ($items['admin/commerce/orders/%commerce_order/edit']) {
+    $items['order/%commerce_order/edit'] = $items['admin/commerce/orders/%commerce_order/edit'];
+    $items['order/%commerce_order/edit']['page arguments'] = array(1);
+    $items['order/%commerce_order/edit']['access arguments'] = array('update', 1);
+  }
+
+  $items['order/%/invoice']['type'] = MENU_CALLBACK;
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+
+  // Add local tasks for adding quote/orders on pages for quotes/orders menage.
+  $local_tasks = array(
+    array(
+      'root_path' => 'quotes',
+      'menu_item' => 'quote/add',
+    ),
+    array(
+      'root_path' => 'admin/erpal/orders',
+      'menu_item' => 'admin/commerce/orders/add',
+      'title'     => 'Create Order',
+    ),
+    array(
+      'root_path' => 'orders',
+      'menu_item' => 'order/add',
+      'title'     => 'Create Order',
+    ),
+    array(
+      'root_path' => 'admin/erpal/orders',
+      'menu_item' => 'admin/commerce/config/custom-order-number',
+      'title'     => 'Settings',
+    ),
+    array(
+      'root_path' => 'admin/erpal/orders',
+      'menu_item' => 'admin/commerce/config/billy-order/pdf',
+      'title' => 'PDF Settings',
+    ),
+  );
+
+  // Add rules link on invoice/% page.
+  if ($root_path == 'invoice/%') {
+    $arg = 1;
+    $link = rules_link_render('create_invoice', arg($arg));
+    $local_tasks[] = array(
+      'root_path' => $root_path,
+      'menu_item' => $link['#href'],
+      'title'     => 'Create Simple Invoice',
+    );
+  }
+
+  $order_pages = array('admin/commerce/orders/%/order_pdf', 'order/%');
+  if (in_array($root_path, $order_pages)) {
+
+    // Finds arg with order id.
+    $arg = 3;
+    if ($root_path == 'order/%') {
+      $arg = 1;
+    }
+
+    // Add download pdf on 'commerce_order', 'quote' bundles.
+    $order = commerce_order_load(arg($arg));
+
+    if (in_array($order->type, array('commerce_order'))) {
+      $local_tasks[] = array(
+        'root_path' => $root_path,
+        'menu_item' => 'order-pdf/' . arg($arg),
+        'title'     => 'Download PDF',
+        'query'     => array(),
+      );
+    }
+
+    // Add Create order link on quote page.
+    if ($order->type == 'quote') {
+      $link = rules_link_render('create_order', arg($arg));
+      $local_tasks[] = array(
+        'root_path' => $root_path,
+        'menu_item' => $link['#href'],
+        'title'     => 'Create Order',
+      );
+    }
+
+    // Add download pdf on 'invoice' bundle.
+    if ($order->type == 'invoice') {
+      $local_tasks[] = array(
+        'root_path' => $root_path,
+        'menu_item' => 'invoice-pdf/' . arg($arg),
+        'title'     => 'Download PDF',
+        'query'     => array(),
+      );
+    }
+
+    // Add Create invoice link on order page.
+    if ($order->type == 'commerce_order') {
+      $local_tasks[] = array(
+        'root_path' => $root_path,
+        'menu_item' => 'invoice/' . arg($arg),
+        'title'     => 'Create invoice',
+        'query'     => array(),
+      );
+
+      $link = rules_link_render('create_invoice', arg($arg));
+      $local_tasks[] = array(
+        'root_path' => $root_path,
+        'menu_item' => $link['#href'],
+        'title'     => 'Create Simple Invoice',
+      );
+    }
+  }
+
+  foreach ($local_tasks as $local_task) {
+    if ($root_path == $local_task['root_path']) {
+      $item = menu_get_item($local_task['menu_item']);
+      if ($item['access']) {
+
+        // If title is empty just add 'Create quote' by default.
+        $item['title'] = 'Create quote';
+        if (!empty($local_task['title'])) {
+          $item['title'] = $local_task['title'];
+        }
+
+        // If query is empty just add destination by default.
+        $item['localized_options']['query'] = drupal_get_destination();
+        if (isset($local_task['query'])) {
+          $item['localized_options']['query'] = $local_task['query'];
+        }
+
+        $data['actions']['output'][] = array(
+          '#theme' => 'menu_local_action',
+          '#link' => $item,
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function erpal_commerce_ui_entity_info_alter(&$info) {
+  $info['commerce_order']['view modes']['order_pdf'] = array(
+    'label' => t('PDF'),
+    'custom settings' => FALSE,
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function erpal_commerce_ui_theme() {
+  // Register the template specific for the commerce pdf order.
+  $items['commerce_order__order__order_pdf'] = array(
+    'render element' => 'elements',
+    'template' => 'commerce_order--order--order_pdf',
+    'path' => drupal_get_path('module', 'erpal_commerce_ui') . '/templates',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_preprocess_entity().
+ */
+function erpal_commerce_ui_preprocess_entity(&$variables) {
+  $entity_type = $variables['entity_type'];
+  $view_mode = $variables['view_mode'];
+
+  // Replace default template.
+  if ($entity_type == 'commerce_order' && $view_mode == 'order_pdf') {
+    $order = $variables['commerce_order'];
+    if (in_array($order->type, array('commerce_order'))) {
+      foreach ($variables['theme_hook_suggestions'] as &$theme_name) {
+        if ($theme_name == $entity_type . '__' . $order->type . '__' . $view_mode) {
+          $theme_name = $entity_type . '__order__' . $view_mode;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Menu item access callback: prevent view access to the admin order display.
+ *
+ * For customers who have 'view' access to the order but not administration
+ * pages.
+ *
+ * @param object $order
+ *   The order object as loaded via the menu item wildcard.
+ *
+ * @return bool
+ *   Boolean indicating the user's access to view the page.
+ */
+function erpal_commerce_ui_order_view_access($order) {
+  $types = array('commerce_order');
+  if (in_array($order->type, $types)) {
+    return commerce_order_admin_order_view_access($order);
+  }
+  return FALSE;
+}
+
+/**
+ * Page callback for order PDF.
+ */
+function erpal_commerce_ui_pdf($order) {
+  $order->pdf_download = TRUE;
+  $html = erpal_commerce_ui_pdf_html($order);
+  $filename = preg_replace('/[^a-z0-9]/', '_', drupal_strtolower('order_' . $order->order_number)) . '.pdf';
+
+  try {
+    commerce_billy_pdf_output($html, $filename);
+    drupal_exit();
+  }
+  catch (DOMPDF_Exception $e) {
+    drupal_set_message(t('Error generating PDF order. Please contact the website administrator.'), 'error');
+    watchdog('erpal_commerce_ui', 'DOMPDF exception while generating pdf order: %message', array('%message' => $e->getMessage()), WATCHDOG_ERROR);
+    return '';
+  }
+}
+
+/**
+ * Helper function that returns the generated HTML for the order PDFs.
+ *
+ * @param object[] $orders
+ *   Array of order objects.
+ */
+function erpal_commerce_ui_pdf_html($orders) {
+  // Backwards compatibilty: also accept a single order object.
+  if (is_object($orders)) {
+    $orders = array($orders);
+  }
+  foreach ($orders as $order) {
+    $vars['viewed_orders'][] = entity_view('commerce_order', array($order->order_id => $order), 'order_pdf', NULL, TRUE);
+  }
+  $css_files = variable_get('erpal_order_pdf_css_files', array(drupal_get_path('module', 'erpal_commerce_ui') . '/css/pdf.css'));
+  $vars['inline_css'] = "";
+  foreach ($css_files as $file) {
+    $vars['inline_css'] .= file_get_contents($file);
+  }
+
+  return theme('commerce_billy_pdf_page', $vars);
+}
+
+/**
+ * Implements hook_commerce_order_view().
+ */
+function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
+
+  // Add content variables for the PDF generation.
+  $settings = variable_get('erpal_order_pdf_text_settings', array());
+  $custom_date_format = !empty($settings['order_date_format']) ? $settings['order_date_format'] : 'Y-m-d';
+
+  // Add Vendor address to order header if exists.
+  if (in_array($view_mode, array('quote_pdf', 'order_pdf', 'pdf'))) {
+
+    // If this order is invoice need to change invoice_header field.
+    if (!empty($order->content['invoice_header'])) {
+      $order->content['order_header'] =& $order->content['invoice_header'];
+    }
+
+    // Just load commerce_customer_profile for current Vendor.
+    $vendor = field_get_items('commerce_order', $order, 'field_vendor_address');
+    if ($vendor) {
+      $commerce_profile = commerce_customer_profile_load($vendor[0]['profile_id']);
+      $commerce_profile_view = entity_view('commerce_customer_profile', array($commerce_profile));
+      $order->content['order_header'] = array(
+        '#markup' => drupal_render($commerce_profile_view),
+      );
+    }
+
+    // If Vendor is empty just take default settings.
+    else {
+      $order->content['order_header'] = array(
+        '#markup' => isset($settings['order_header']) ? $settings['order_header'] : '',
+      );
+    }
+
+  }
+  if ($view_mode == 'order_pdf') {
+
+    // Set correct title for quote, order and invoice.
+    drupal_set_title(erpal_commerce_order_label($order));
+
+    // Set quote/order footer.
+    $order->content['order_footer'] = array(
+      '#markup' => isset($settings['order_footer']) ? $settings['order_footer'] : '',
+    );
+
+    // Set quote/order text.
+    $text = field_get_items('commerce_order', $order, 'field_order_text');
+    if ($text) {
+      $order->content['order_text'] = array(
+        '#markup' => $text[0]['value'],
+      );
+    }
+    else {
+      $order->content['order_text'] = array(
+        '#markup' => isset($settings['order_text']) ? $settings['order_text'] : '',
+      );
+    }
+
+    $date = '';
+    $field_order_date = field_get_items('commerce_order', $order, 'field_order_date');
+    if ($field_order_date) {
+      $date = $field_order_date[0]['target_id'];
+    }
+
+    if ($date) {
+      $date = entity_metadata_wrapper('date_item', $date);
+      $date = $date->field_date_item_single->value();
+    }
+    else {
+      $date = $order->created;
+    }
+
+    $date = format_date($date, 'custom', $custom_date_format);
+
+    if (!empty($settings['order_location'])) {
+      $header_date_text = t('@location, @date', array('@location' => $settings['order_location'], '@date' => $date));
+    }
+    else {
+      $header_date_text = $date;
+    }
+    $order->content['order_header_date'] = array(
+      '#markup' => $header_date_text,
+    );
+    $type = commerce_order_type_load($order->type);
+    if (!$type) {
+      $type = new stdClass();
+      $type->name = 'Order';
+    }
+    $order->content['order_number'] = array(
+      '#markup' => t('@name No.: @id', array('@name' => $type->name, '@id' => $order->order_number)),
+    );
+    $order->content['order_logo'] = array(
+      '#value' => variable_get('erpal_order_pdf_logo', 'misc/druplicon.png'),
+    );
+    if (empty($order->pdf_download)) {
+      $css_files = variable_get('erpal_order_pdf_css_files', array(drupal_get_path('module', 'erpal_commerce_ui') . '/css/pdf.css'));
+      foreach ($css_files as $file) {
+        $order->content['#attached']['css'][] = $file;
+      }
+      $order->content['order_logo']['#value'] = '/' . $order->content['order_logo']['#value'];
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function erpal_commerce_ui_form_commerce_order_order_form_alter(&$form, &$form_state, $form_id) {
+  $form['actions']['submit']['#submit'][] = 'erpal_commerce_ui_order_form_submit';
+}
+
+/**
+ * Submit callback: redirect to the appropriate page for the specified order.
+ */
+function erpal_commerce_ui_order_form_submit($form, &$form_state) {
+
+  // Extract the order from the form state.
+  $order = $form_state['commerce_order'];
+
+  // Redirect to the pdf view mode.
+  if (in_array($order->type, array('commerce_order', 'quote', 'invoice'))) {
+    $form_state['redirect'] = 'order/' . $order->order_id;
+  }
+}
+
+/**
+ * Implements hook_default_page_manager_pages_alter().
+ */
+function erpal_commerce_ui_default_page_manager_pages_alter(&$pages) {
+  if (isset($pages['activity_template'])) {
+    $pane = new stdClass();
+    $pane->pid = 'new-40773955-7efe-4a99-a045-57c3bd5f005f';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_quote-panel_pane_2';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_activity_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 4;
+    $pane->locks = array();
+    $pane->uuid = '40773955-7efe-4a99-a045-57c3bd5f005f';
+
+    $pages['activity_template']->default_handlers['page_activity_template_panel_context']
+    ->conf['display']->content['new-40773955-7efe-4a99-a045-57c3bd5f005f'] = $pane;
+    $pages['activity_template']->default_handlers['page_activity_template_panel_context']
+    ->conf['display']->panels['middle'][4] = 'new-40773955-7efe-4a99-a045-57c3bd5f005f';
+
+    $pane = new stdClass();
+    $pane->pid = 'new-1d3bf16c-b641-4f9e-bd5f-221a280f5063';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_order-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_activity_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 5;
+    $pane->locks = array();
+    $pane->uuid = '1d3bf16c-b641-4f9e-bd5f-221a280f5063';
+
+    $pages['activity_template']->default_handlers['page_activity_template_panel_context']
+    ->conf['display']->content['new-1d3bf16c-b641-4f9e-bd5f-221a280f5063'] = $pane;
+    $pages['activity_template']->default_handlers['page_activity_template_panel_context']
+    ->conf['display']->panels['middle'][5] = 'new-1d3bf16c-b641-4f9e-bd5f-221a280f5063';
+  }
+
+  if (isset($pages['contact_view_template'])) {
+    $pane = new stdClass();
+    $pane->pid = 'new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_order-panel_pane_3';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_contact_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 3;
+    $pane->locks = array();
+    $pane->uuid = '3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->content['new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb'] = $pane;
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->panels['middle'][3] = 'new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
+
+    $pane = new stdClass();
+    $pane->pid = 'new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_quote-panel_pane_3';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_contact_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 4;
+    $pane->locks = array();
+    $pane->uuid = '0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->content['new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9'] = $pane;
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->panels['middle'][4] = 'new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function erpal_commerce_ui_views_pre_render(&$view) {
+  if ($view->name == 'erpal_invoice_line_items') {
+    $order = commerce_order_load(arg(1));
+    $view->build_info['title'] = t('Create invoice for order') . ' ' . l($order->order_number, 'order/' . $order->order_id);
+  }
+}

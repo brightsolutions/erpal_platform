@@ -1,0 +1,19 @@
+name = ERPAL Commerce
+description = ERPAL Commerce Module. Provide functionality for integration with commerce and components which use commerce functionality!
+core = 7.x
+package = ERPAL Commerce
+
+dependencies[] = commerce_order_types
+dependencies[] = commerce_order
+dependencies[] = commerce_line_item
+dependencies[] = commerce_product_reference
+dependencies[] = entityreference
+dependencies[] = inline_entity_form
+dependencies[] = date_item
+dependencies[] = erpal_crm
+dependencies[] = erpal_core
+dependencies[] = erpal_invoice
+dependencies[] = erpal_quote
+dependencies[] = custom_order_number
+dependencies[] = dfv
+dependencies[] = entityreference_prepopulate

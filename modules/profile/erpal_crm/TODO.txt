@@ -1,0 +1,4 @@
+- We need to add File fields to the CRM Core Activities.
+- Add commerce profile from Bilable platform to a contact
+- Accesses for CRM IU Pages
+- Write views filter handler that will filter by referenced label

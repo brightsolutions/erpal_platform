@@ -1,0 +1,57 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the erpal platform install profile.
+ */
+
+
+/**
+ * Implements hook_install().
+ *
+ * Performs actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function erpal_platform_install() { 
+  // Set time limit to unlimited
+  drupal_set_time_limit(0);
+  // enable omegatheme and erpal theme and set ti to default
+    
+  // disable all themes
+  db_update('system')
+    ->fields(array('status' => 0))
+    ->condition('type', 'theme')
+    ->execute();
+    
+  // enable $default_theme  
+  $default_theme = 'erpal';
+  db_update('system')
+    ->fields(array('status' => 1))
+    ->condition('type', 'theme')
+    ->condition('name', $default_theme)
+    ->execute();
+  
+  // enable $admin_theme
+  /*$admin_theme = 'adaptivetheme_admin';
+  db_update('system')
+    ->fields(array('status' => 1))
+    ->condition('type', 'theme')
+    ->condition('name', $admin_theme)
+    ->execute();*/
+    
+  // enable maintenance theme  
+  $maintenance_theme = 'erpal_maintenance';  
+  db_update('system')
+    ->fields(array('status' => 1))
+    ->condition('type', 'theme')
+    ->condition('name', $maintenance_theme)
+    ->execute();
+    
+  // set $admin_theme as admin theme
+  variable_set('admin_theme', $admin_theme);
+  // $default_theme as default
+  variable_set('theme_default', $default_theme);   
+}
+
+
+

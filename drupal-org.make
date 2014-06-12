@@ -39,6 +39,9 @@ projects[entity][version] = "1.5"
 projects[entity][subdir] = "contrib"
 projects[entity][patch][] = "http://drupal.org/files/2003826-16-check_path_index_uri.patch"
 
+projects[entitycache][version] = "1.2"
+projects[entitycache][subdir] = "contrib"
+
 projects[entityreference][version] = "1.1"
 projects[entityreference][subdir] = "contrib"
 
@@ -76,6 +79,10 @@ projects[panels_everywhere][subdir] = "contrib"
 
 projects[pm_existing_pages][version] = "1.4"
 projects[pm_existing_pages][subdir] = "contrib"
+
+projects[references_dialog][version] = "1.0-alpha4"
+projects[references_dialog][subdir] = "contrib"
+projects[references_dialog][patch][] = "http://drupal.org/files/references_dialog-1856978-4.patch"
 
 projects[relation][version] = "1.0-rc4"
 projects[relation][subdir] = "contrib"

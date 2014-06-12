@@ -1,0 +1,6 @@
+name = ERPAL Menu
+description = Delivers default menu for ERPAL.
+core = 7.x
+package = ERPAL Basic
+
+dependencies[] = menu
