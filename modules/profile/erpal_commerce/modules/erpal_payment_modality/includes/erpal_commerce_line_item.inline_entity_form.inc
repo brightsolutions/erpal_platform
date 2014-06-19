@@ -22,4 +22,27 @@ class ErpalCommerceLineItemInlineEntityFormController extends CommerceLineItemIn
     return $fields;
   }
 
+  /**
+   * Returns an array of default settings in the form of key => value.
+   */
+  public function defaultSettings() {
+    $defaults = parent::defaultSettings();
+    $defaults['allow_existing'] = TRUE;
+    $defaults['match_operator'] = 'CONTAINS';
+
+    return $defaults;
+  }
+
+  /**
+   * Overrides EntityInlineEntityFormController::settingsForm().
+   */
+  public function settingsForm($field, $instance) {
+    $form = parent::settingsForm($field, $instance);
+
+    // Adding existing entities is not supported for line items.
+    $form['allow_existing']['#access'] = TRUE;
+    $form['match_operator']['#access'] = TRUE;
+
+    return $form;
+  }
 }

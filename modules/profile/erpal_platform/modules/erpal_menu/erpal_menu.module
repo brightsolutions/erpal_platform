@@ -6,28 +6,44 @@
  */
 
 /**
- * Implements hook_menu().
+ * Implements hook_flush_caches().
  */
-function erpal_menu_menu() {
-  $menu['my_path'] = array(
-    'title' => 'Some title',
-    'page callback' => 'my_page',
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
+function erpal_menu_flush_caches() {
+  $items[] = array(
+    'link_path' => 'crm-core/contact',
+    'link_title' => 'Contacts',
     'menu_name' => 'erpal-menu',
   );
-  $menu['fourOfour'] = array(
-    'title' => '404',
-    'page callback' => 'my_page',
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
+  $items[] = array(
+    'link_path' => 'crm-core/activity',
+    'link_title' => 'Activities',
     'menu_name' => 'erpal-menu',
   );
-  $menu['admin/appearance/styleguide'] = array(
-    'title' => 'Styleguide',
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
+  $items[] = array(
+    'link_path' => 'quotes',
+    'link_title' => 'Quotes',
     'menu_name' => 'erpal-menu',
   );
-  return $menu;
+  $items[] = array(
+    'link_path' => 'orders',
+    'link_title' => 'Orders',
+    'menu_name' => 'erpal-menu',
+  );
+  $items[] = array(
+    'link_path' => 'invoices',
+    'link_title' => 'Invoices',
+    'menu_name' => 'erpal-menu',
+  );
+
+  foreach ($items as $item) {
+    $result = db_select('menu_links', 'ml')
+      ->fields('ml')
+      ->condition('link_path', $item['link_path'], '=')
+      ->condition('menu_name', $item['menu_name'], '=')
+      ->execute()
+      ->fetchAllAssoc('mlid');
+    if (!count($result)) {
+      menu_link_save($item);
+    }
+  }
 }

@@ -46,6 +46,11 @@ function erpal_commerce_ui_replicate_order($commerce_order) {
         $line_item_wrapper->order_id = $order->order_id;
         $line_item_wrapper->save();
       }
+
+      if ($line_item_wrapper->type->value() == 'invoice') {
+        $line_item_wrapper->field_line_item_order->set($commerce_order->order_id);
+        $line_item_wrapper->save();
+      }
     }
     drupal_set_message(t('commerce_order has been replicated!'));
   }
@@ -69,13 +74,13 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
   $id = $replica->order_id;
   $replica->order_id = NULL;
   $replica->status = 'pending';
-  unset($replica->order_number);
-  unset($replica->revision_id);
-  unset($replica->revision_uid);
-  unset($replica->uid);
-  unset($replica->created);
-  unset($replica->changed);
-  unset($replica->hostname);
+  unset($replica->order_number,
+        $replica->revision_id,
+        $replica->revision_uid,
+        $replica->uid,
+        $replica->created,
+        $replica->changed,
+        $replica->hostname);
 
   $commerce_line_items = field_get_items('commerce_order', $replica, 'commerce_line_items');
   $language = field_language('commerce_order', $replica, 'commerce_line_items');
@@ -86,8 +91,7 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
       $line_item = commerce_line_item_load($value['line_item_id']);
       $type = $replica->type == 'quote' ? 'product' : 'invoice';
       $line_item_new = commerce_line_item_new($type);
-      unset($line_item->line_item_id);
-      unset($line_item->order_id);
+      unset($line_item->line_item_id, $line_item->order_id);
 
       // Replicate payment modality for line items.
       $instance = field_info_instance('commerce_line_item', 'field_payment_modality', 'product');
@@ -98,11 +102,11 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
         if ($field_payment_modality) {
           foreach ($field_payment_modality as $value) {
             $payment_modality = erpal_payment_modality_load($value['target_id']);
-            unset($payment_modality->payment_modality_id);
-            unset($payment_modality->created);
-            unset($payment_modality->changed);
-            unset($payment_modality->revision_id);
-            unset($payment_modality->default_revision);
+            unset($payment_modality->payment_modality_id,
+                  $payment_modality->created,
+                  $payment_modality->changed,
+                  $payment_modality->revision_id,
+                  $payment_modality->default_revision);
             $payment_modality->uid = $GLOBALS['user']->uid;
             erpal_payment_modality_save($payment_modality);
             $line_item->field_payment_modality[$language][] = array(
@@ -123,16 +127,16 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
 
   if ($replica->type == 'commerce_order') {
     $replica->type = 'invoice';
-    unset($replica->field_order_date);
-    unset($replica->field_order_text);
-    unset($replica->field_order);
+    unset($replica->field_order_date,
+          $replica->field_order_text,
+          $replica->field_order);
   }
 
   if ($replica->type == 'quote') {
     $replica->type = 'commerce_order';
-    unset($replica->field_sales_process);
-    unset($replica->field_quote_text);
-    unset($replica->field_valid_until);
+    unset($replica->field_sales_process,
+          $replica->field_quote_text,
+          $replica->field_valid_until);
 
     $wrapper = entity_metadata_wrapper('commerce_order', $replica);
     $wrapper->field_quote->set($id);

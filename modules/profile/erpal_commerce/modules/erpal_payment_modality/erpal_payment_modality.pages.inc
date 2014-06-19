@@ -58,7 +58,7 @@ function erpal_payment_modality_form($form, &$form_state, $payment_modality) {
   );
 
   // Show delete button if entity exists and user has appropriate permission.
-  if ($form_state['op'] == 'edit' && entity_access('delete', 'erpal_payment_modality', $payment_modality)) {
+  if (isset($form_state['op']) && $form_state['op'] == 'edit' && entity_access('delete', 'erpal_payment_modality', $payment_modality)) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete'),
@@ -67,7 +67,7 @@ function erpal_payment_modality_form($form, &$form_state, $payment_modality) {
   }
 
   // Set title.
-  if ($form_state['op'] == 'add') {
+  if (isset($form_state['op']) && $form_state['op'] == 'add') {
     $erpal_payment_modality_type = erpal_payment_modality_types($payment_modality->type);
     drupal_set_title(t('Add new payment modality @label', array('@label' => $erpal_payment_modality_type->label)));
   }

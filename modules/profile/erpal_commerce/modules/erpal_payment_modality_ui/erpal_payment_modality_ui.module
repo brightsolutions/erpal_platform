@@ -147,29 +147,9 @@ function erpal_payment_modality_ui_views_api() {
   );
 }
 
-
 /**
  * Payment modality UI view callback.
  */
 function erpal_payment_modality_ui_view($payment_modality) {
   return erpal_payment_modality_view($payment_modality);
-}
-
-/**
- * Perform alterations before an entity form is included in the IEF widget.
- *
- * @param array $entity_form
- *   Nested array of form elements that comprise the entity form.
- * @param array $form_state
- *   The form state of the parent form.
- */
-function erpal_payment_modality_ui_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
-  // Show Delivery unit field if selected delivery value in Due with field.
-  if ($entity_form['#entity_type'] == 'erpal_payment_modality') {
-    $entity_form['field_delivery_unit']['#states'] = array(
-      'visible' => array(
-        ':input[name*="field_due_with"]' => array('value' => 'delivery'),
-      ),
-    );
-  }
 }

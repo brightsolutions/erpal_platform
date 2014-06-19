@@ -129,10 +129,6 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
   // Add local tasks for adding quote/orders on pages for quotes/orders menage.
   $local_tasks = array(
     array(
-      'root_path' => 'quotes',
-      'menu_item' => 'quote/add',
-    ),
-    array(
       'root_path' => 'admin/erpal/orders',
       'menu_item' => 'admin/commerce/orders/add',
       'title'     => 'Create Order',
@@ -161,7 +157,7 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
     $local_tasks[] = array(
       'root_path' => $root_path,
       'menu_item' => $link['#href'],
-      'title'     => 'Create Simple Invoice',
+      'title'     => 'Create Invoice from Order',
     );
   }
 
@@ -219,7 +215,7 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
       $local_tasks[] = array(
         'root_path' => $root_path,
         'menu_item' => $link['#href'],
-        'title'     => 'Create Simple Invoice',
+        'title'     => 'Create Invoice from Order',
       );
     }
   }
@@ -592,6 +588,32 @@ function erpal_commerce_ui_default_page_manager_pages_alter(&$pages) {
     ->conf['display']->content['new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9'] = $pane;
     $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
     ->conf['display']->panels['middle'][4] = 'new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
+
+    $pane = new stdClass();
+    $pane->pid = 'new-27eb24b2-05bc-4c00-9a53-a2ca721ceb29';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_invoice-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_contact_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 5;
+    $pane->locks = array();
+    $pane->uuid = '27eb24b2-05bc-4c00-9a53-a2ca721ceb29';
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->content['new-27eb24b2-05bc-4c00-9a53-a2ca721ceb29'] = $pane;
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->panels['middle'][5] = 'new-27eb24b2-05bc-4c00-9a53-a2ca721ceb29';
   }
 }
 
