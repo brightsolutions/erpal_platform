@@ -69,6 +69,12 @@ dependencies[] = erpal_crm
 dependencies[] = erpal_invoice
 dependencies[] = erpal_project
 dependencies[] = erpal_quote
+dependencies[] = erpal_core_ui
+dependencies[] = erpal_commerce_ui
+dependencies[] = erpal_crm_ui
+dependencies[] = erpal_invoice_ui
+dependencies[] = erpal_project_ui
+dependencies[] = erpal_quote_ui
 
 ; System Requirements.
 php_memory_limit = 128M
