@@ -13,26 +13,31 @@ function erpal_menu_flush_caches() {
     'link_path' => 'crm-core/contact',
     'link_title' => 'Contacts',
     'menu_name' => 'erpal-menu',
+    'weight' => 0,
   );
   $items[] = array(
     'link_path' => 'crm-core/activity',
     'link_title' => 'Activities',
     'menu_name' => 'erpal-menu',
+    'weight' => 2,
   );
   $items[] = array(
     'link_path' => 'quotes',
     'link_title' => 'Quotes',
     'menu_name' => 'erpal-menu',
+    'weight' => 3,
   );
   $items[] = array(
     'link_path' => 'orders',
     'link_title' => 'Orders',
     'menu_name' => 'erpal-menu',
+    'weight' => 4,
   );
   $items[] = array(
     'link_path' => 'invoices',
     'link_title' => 'Invoices',
     'menu_name' => 'erpal-menu',
+    'weight' => 5,
   );
 
   foreach ($items as $item) {
