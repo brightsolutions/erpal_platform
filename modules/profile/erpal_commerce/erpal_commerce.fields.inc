@@ -669,7 +669,7 @@ function erpal_commerce_customer_profile_default_fields() {
     'entity_type' => 'commerce_order',
     'field_name' => 'field_vendor',
     'label' => 'Vendor',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'dfv' => array(
         'parent' => '',
@@ -744,7 +744,7 @@ function erpal_commerce_customer_profile_default_fields() {
     'entity_type' => 'commerce_order',
     'field_name' => 'field_vendor',
     'label' => 'Vendor',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'dfv' => array(
         'parent' => '',
@@ -818,7 +818,7 @@ function erpal_commerce_customer_profile_default_fields() {
     'entity_type' => 'commerce_order',
     'field_name' => 'field_vendor',
     'label' => 'Vendor',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'dfv' => array(
         'parent' => '',
@@ -892,7 +892,7 @@ function erpal_commerce_customer_profile_default_fields() {
     'entity_type' => 'commerce_order',
     'field_name' => 'field_customer',
     'label' => 'Customer',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'behaviors' => array(
         'prepopulate' => array(
@@ -938,7 +938,7 @@ function erpal_commerce_customer_profile_default_fields() {
     'entity_type' => 'commerce_order',
     'field_name' => 'field_customer',
     'label' => 'Customer',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'behaviors' => array(
         'prepopulate' => array(
@@ -984,7 +984,7 @@ function erpal_commerce_customer_profile_default_fields() {
     'entity_type' => 'commerce_order',
     'field_name' => 'field_customer',
     'label' => 'Customer',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'behaviors' => array(
         'prepopulate' => array(

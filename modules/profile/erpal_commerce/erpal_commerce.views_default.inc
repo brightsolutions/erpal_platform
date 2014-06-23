@@ -83,6 +83,7 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['arguments']['contact_id']['table'] = 'crm_core_contact';
   $handler->display->display_options['arguments']['contact_id']['field'] = 'contact_id';
   $handler->display->display_options['arguments']['contact_id']['relationship'] = 'reverse_field_customer_profiles_crm_core_contact';
+  $handler->display->display_options['arguments']['contact_id']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['contact_id']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['contact_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['contact_id']['summary']['format'] = 'default_summary';
