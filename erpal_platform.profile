@@ -159,7 +159,7 @@ function erpal_platform_vendor_form_submit($form, $form_state){
   global $user;
   $vendor = $form_state['values']['vendor'];
   $vendor_address = $vendor['vendor_address'];
-  $entity_type = "crm_core_contact";
+  $entity_type = 'crm_core_contact';
 
   $entity = crm_core_contact_create(array('type' => 'organization'));
 
@@ -195,4 +195,11 @@ function erpal_platform_vendor_form_submit($form, $form_state){
   $entity->field_customer_profiles[LANGUAGE_NONE][0]['target_id'] = $profile->profile_id;
 
   crm_core_contact_save($entity);
+
+  // Set default vendor.
+  $settings = array(
+    'vendor_id' => $entity->contact_id,
+    'customer_profile_id' => $profile->profile_id,
+  );
+  variable_set('erpal_vendor_settings', $settings);
 }
