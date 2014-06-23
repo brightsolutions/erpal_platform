@@ -962,7 +962,7 @@ function _erpal_crm_contact_type_default_instances($type) {
     'entity_type' => 'crm_core_contact',
     'field_name' => 'field_contact_picture',
     'label' => $type == 'individual' ? 'Picture' : 'Logo',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
