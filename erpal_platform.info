@@ -29,6 +29,7 @@ dependencies[] = options
 dependencies[] = number
 dependencies[] = taxonomy
 dependencies[] = block
+dependencies[] = locale
 
 ;contrib
 dependencies[] = cat
@@ -63,18 +64,15 @@ dependencies[] = views_bulk_operations
 dependencies[] = views_content
 
 ;ERPAL modules
-dependencies[] = erpal_core
-dependencies[] = erpal_commerce
-dependencies[] = erpal_crm
-dependencies[] = erpal_invoice
-dependencies[] = erpal_project
-dependencies[] = erpal_quote
 dependencies[] = erpal_core_ui
 dependencies[] = erpal_commerce_ui
 dependencies[] = erpal_crm_ui
 dependencies[] = erpal_invoice_ui
 dependencies[] = erpal_project_ui
 dependencies[] = erpal_quote_ui
+dependencies[] = erpal_payment_modality_ui
+dependencies[] = erpal_layout
+dependencies[] = erpal_menu
 
 ; System Requirements.
 php_memory_limit = 128M
