@@ -184,7 +184,7 @@ projects[erpal_theme][download][branch] = "7.x-3.x"
 
 ; ### Libraries ###
 libraries[dompdf][download][type] = "file"
-libraries[dompdf][download][url] = "https://github.com/dompdf/dompdf/archive/master.zip"
+libraries[dompdf][download][url] = "https://github.com/dompdf/dompdf/releases/download/v0.6.1/dompdf-0.6.1.zip"
 
 ; ### Themes ###
 projects[omega][version] = "4.2"
