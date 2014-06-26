@@ -2,8 +2,17 @@
 
 /**
  * @file
- * @TODO.
+ * Code for the Erpal Layout.
  */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function erpal_layout_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
 
 /**
  * Implements hook_ctools_plugin_api().
@@ -60,16 +69,16 @@ function erpal_layout_default_page_manager_handlers() {
   $display->uuid = '3854b10e-0fba-4f76-a395-539ed1ab4321';
   $display->content = array();
   $display->panels = array();
-  $pane = new stdClass();
-  $pane->pid = 'new-072a687a-5a38-4591-9ae9-ac06c745670f';
+   $pane = new stdClass();
+  $pane->pid = 'new-6c6f0e47-777e-4c4c-968a-8193f9457c94';
   $pane->panel = 'bottom';
-  $pane->type = 'block';
-  $pane->subtype = 'system-powered-by';
+  $pane->type = 'powered_by';
+  $pane->subtype = 'powered_by';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
-    'override_title' => 0,
-    'override_title_text' => '',
+    'types' => array(),
+    'field_name' => '',
   );
   $pane->cache = array();
   $pane->style = array(
@@ -79,9 +88,9 @@ function erpal_layout_default_page_manager_handlers() {
   $pane->extras = array();
   $pane->position = 0;
   $pane->locks = array();
-  $pane->uuid = '072a687a-5a38-4591-9ae9-ac06c745670f';
-  $display->content['new-072a687a-5a38-4591-9ae9-ac06c745670f'] = $pane;
-  $display->panels['bottom'][0] = 'new-072a687a-5a38-4591-9ae9-ac06c745670f';
+  $pane->uuid = '6c6f0e47-777e-4c4c-968a-8193f9457c94';
+  $display->content['new-6c6f0e47-777e-4c4c-968a-8193f9457c94'] = $pane;
+  $display->panels['bottom'][0] = 'new-6c6f0e47-777e-4c4c-968a-8193f9457c94';
   $pane = new stdClass();
   $pane->pid = 'new-bf44ebdd-7f82-4db8-8b33-eecd5e00c089';
   $pane->panel = 'left';
