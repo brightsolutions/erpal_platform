@@ -203,7 +203,14 @@ function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
  * Implements hook_form_FORM_ID_alter().
  */
 function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_state, $form_id) {
-
+  global $user;
+  // Set current user info.
+  if (empty($form['user']['name']['#default_value'])) {
+    $form['user']['name']['#default_value'] = $user->name;
+  }
+  if (empty($form['user']['mail']['#default_value'])) {
+    $form['user']['mail']['#default_value'] = $user->mail;
+  }
   // Change title for commerce_order bundle.
   if (empty($form_state['commerce_order']->order_id)) {
     if ($form_state['commerce_order']->type != 'commerce_order') {
@@ -236,9 +243,6 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
       }
     }
   }
-
-
-
 
   // Change list of statuses for order.
   if ($form_state['commerce_order']->type == 'commerce_order') {

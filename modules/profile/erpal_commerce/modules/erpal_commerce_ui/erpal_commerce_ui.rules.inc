@@ -52,7 +52,8 @@ function erpal_commerce_ui_replicate_order($commerce_order) {
         $line_item_wrapper->save();
       }
     }
-    drupal_set_message(t('commerce_order has been replicated!'));
+
+    drupal_set_message(t('@bundle has been replicated!', array('@bundle' => $commerce_order->type)));
   }
   return array('new_commerce_order' => $new);
 }
@@ -71,20 +72,20 @@ function erpal_commerce_ui_replicate_order($commerce_order) {
  * @see replicate_clone_entity()
  */
 function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
+  global $user;
   $id = $replica->order_id;
   $replica->order_id = NULL;
   $replica->status = 'pending';
+  $replica->uid = $user->uid;
+  $commerce_line_items = field_get_items('commerce_order', $replica, 'commerce_line_items');
+  $language = field_language('commerce_order', $replica, 'commerce_line_items');
   unset($replica->order_number,
         $replica->revision_id,
         $replica->revision_uid,
-        $replica->uid,
         $replica->created,
         $replica->changed,
-        $replica->hostname);
-
-  $commerce_line_items = field_get_items('commerce_order', $replica, 'commerce_line_items');
-  $language = field_language('commerce_order', $replica, 'commerce_line_items');
-  unset($replica->commerce_line_items);
+        $replica->hostname,
+        $replica->commerce_line_items);
   // Replicate commerce lite items.
   if ($commerce_line_items) {
     foreach ($commerce_line_items as $value) {
@@ -107,7 +108,7 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
                   $payment_modality->changed,
                   $payment_modality->revision_id,
                   $payment_modality->default_revision);
-            $payment_modality->uid = $GLOBALS['user']->uid;
+            $payment_modality->uid = $user->uid;
             erpal_payment_modality_save($payment_modality);
             $line_item->field_payment_modality[$language][] = array(
               'target_id' => $payment_modality->payment_modality_id,
