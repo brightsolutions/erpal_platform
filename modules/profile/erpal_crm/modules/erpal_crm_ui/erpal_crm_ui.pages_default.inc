@@ -511,29 +511,6 @@ function erpal_crm_ui_default_page_manager_pages() {
   $display->content['new-390b92f0-4ac3-4537-afaa-fde188a35430'] = $pane;
   $display->panels['middle'][0] = 'new-390b92f0-4ac3-4537-afaa-fde188a35430';
   $pane = new stdClass();
-  $pane->pid = 'new-bc5e6dae-08b4-4c3a-8437-8acd39546a17';
-  $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'erpal_crm_contact_relationships-panel_pane_1';
-  $pane->shown = TRUE;
-  $pane->access = array();
-  $pane->configuration = array(
-    'context' => array(
-      0 => 'argument_entity_id:crm_core_contact_1',
-    ),
-  );
-  $pane->cache = array();
-  $pane->style = array(
-    'settings' => NULL,
-  );
-  $pane->css = array();
-  $pane->extras = array();
-  $pane->position = 1;
-  $pane->locks = array();
-  $pane->uuid = 'bc5e6dae-08b4-4c3a-8437-8acd39546a17';
-  $display->content['new-bc5e6dae-08b4-4c3a-8437-8acd39546a17'] = $pane;
-  $display->panels['middle'][1] = 'new-bc5e6dae-08b4-4c3a-8437-8acd39546a17';
-  $pane = new stdClass();
   $pane->pid = 'new-d20a4404-5437-4adf-b3ee-274cd4ca7038';
   $pane->panel = 'middle';
   $pane->type = 'views_panes';
@@ -551,11 +528,34 @@ function erpal_crm_ui_default_page_manager_pages() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 2;
+  $pane->position = 1;
   $pane->locks = array();
   $pane->uuid = 'd20a4404-5437-4adf-b3ee-274cd4ca7038';
   $display->content['new-d20a4404-5437-4adf-b3ee-274cd4ca7038'] = $pane;
-  $display->panels['middle'][2] = 'new-d20a4404-5437-4adf-b3ee-274cd4ca7038';
+  $display->panels['middle'][1] = 'new-d20a4404-5437-4adf-b3ee-274cd4ca7038';
+  $pane = new stdClass();
+  $pane->pid = 'new-bc5e6dae-08b4-4c3a-8437-8acd39546a17';
+  $pane->panel = 'middle';
+  $pane->type = 'views_panes';
+  $pane->subtype = 'erpal_crm_contact_relationships-panel_pane_1';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'argument_entity_id:crm_core_contact_1',
+    ),
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 2;
+  $pane->locks = array();
+  $pane->uuid = 'bc5e6dae-08b4-4c3a-8437-8acd39546a17';
+  $display->content['new-bc5e6dae-08b4-4c3a-8437-8acd39546a17'] = $pane;
+  $display->panels['middle'][2] = 'new-bc5e6dae-08b4-4c3a-8437-8acd39546a17';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-390b92f0-4ac3-4537-afaa-fde188a35430';
   $handler->conf['display'] = $display;
