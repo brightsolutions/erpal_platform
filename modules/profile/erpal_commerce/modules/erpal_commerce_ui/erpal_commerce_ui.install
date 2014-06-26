@@ -77,4 +77,26 @@ function erpal_commerce_ui_enable() {
     'order_footer' => 'My company, Street 123, State, United States',
   );
   variable_set('erpal_order_pdf_text_settings', $settings);
+
+  // Reorder invoice fields.
+  $fields = array(
+    'field_vendor' => 0,
+    'field_customer' => 1,
+    'field_vendor_address' => 2,
+    'commerce_customer_billing' => 3,
+    'field_invoice_due_date' => 4,
+    'field_commerce_billy_cancel_date' => 5,
+    'field_commerce_billy_i_date' => 6,
+    'field_invoice_credit_period' => 7,
+    'commerce_order_total' => 8,
+    'commerce_line_items' => 9,
+  );
+
+  $instances = field_info_instances('commerce_order', 'invoice');
+  foreach ($instances as $field_name => $instance) {
+    if (isset($fields[$field_name])) {
+      $instance['widget']['weight'] = $fields[$field_name];
+      field_update_instance($instance);
+    }
+  }
 }
