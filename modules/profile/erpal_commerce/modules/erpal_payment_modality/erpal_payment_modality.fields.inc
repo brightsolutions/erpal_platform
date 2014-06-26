@@ -348,7 +348,7 @@ function erpal_payment_modality_add_default_fields() {
       'settings' => array(
         'fields' => array(),
         'type_settings' => array(
-          'allow_existing' => 1,
+          'allow_existing' => 0,
           'delete_references' => 1,
           'label_plural' => 'payment modalities',
           'label_singular' => 'payment modality',
