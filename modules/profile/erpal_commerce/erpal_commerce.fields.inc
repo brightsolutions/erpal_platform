@@ -1030,7 +1030,7 @@ function erpal_commerce_customer_profile_default_fields() {
     ),
     'entity_type' => 'crm_core_contact',
     'field_name' => 'field_customer_profiles',
-    'label' => 'Customer profiles',
+    'label' => 'Address',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1067,7 +1067,7 @@ function erpal_commerce_customer_profile_default_fields() {
     ),
     'entity_type' => 'crm_core_contact',
     'field_name' => 'field_customer_profiles',
-    'label' => 'Customer profiles',
+    'label' => 'Address',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1104,7 +1104,7 @@ function erpal_commerce_customer_profile_default_fields() {
     ),
     'entity_type' => 'crm_core_contact',
     'field_name' => 'field_customer_profiles',
-    'label' => 'Customer profiles',
+    'label' => 'Address',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1124,7 +1124,7 @@ function erpal_commerce_customer_profile_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Customer');
-  t('Customer profiles');
+  t('Address');
   t('Vendor');
   t('Vendor address');
 

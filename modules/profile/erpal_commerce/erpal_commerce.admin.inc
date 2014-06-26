@@ -66,7 +66,7 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
   );
   $form['erpal_vendor_settings']['customer_profile_id'] = array(
     '#type' => 'select',
-    '#title' => t('Customer Profile'),
+    '#title' => t('Vendor address'),
     '#default_value' => isset($settings['customer_profile_id']) ? $settings['customer_profile_id'] : '',
     '#options' => $profiles,
   );
