@@ -62,6 +62,7 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
     '#default_value' => isset($settings['vendor_id']) ? $settings['vendor_id'] : '',
     '#options' => $contacts,
     '#ajax' => $ajax,
+    '#required' => TRUE,
   );
   $form['erpal_vendor_settings']['customer_profile_id'] = array(
     '#type' => 'select',
