@@ -538,32 +538,6 @@ function erpal_commerce_ui_default_page_manager_pages_alter(&$pages) {
 
   if (isset($pages['contact_view_template'])) {
     $pane = new stdClass();
-    $pane->pid = 'new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
-    $pane->panel = 'middle';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'erpal_order-panel_pane_3';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'context' => array(
-        0 => 'argument_entity_id:crm_core_contact_1',
-      ),
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 3;
-    $pane->locks = array();
-    $pane->uuid = '3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
-    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
-    ->conf['display']->content['new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb'] = $pane;
-    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
-    ->conf['display']->panels['middle'][3] = 'new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
-
-    $pane = new stdClass();
     $pane->pid = 'new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
     $pane->panel = 'middle';
     $pane->type = 'views_panes';
@@ -581,13 +555,39 @@ function erpal_commerce_ui_default_page_manager_pages_alter(&$pages) {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 4;
+    $pane->position = 3;
     $pane->locks = array();
     $pane->uuid = '0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
     $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
     ->conf['display']->content['new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9'] = $pane;
     $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
-    ->conf['display']->panels['middle'][4] = 'new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
+    ->conf['display']->panels['middle'][3] = 'new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
+
+    $pane = new stdClass();
+    $pane->pid = 'new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_order-panel_pane_3';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_contact_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 4;
+    $pane->locks = array();
+    $pane->uuid = '3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->content['new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb'] = $pane;
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->panels['middle'][4] = 'new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
 
     $pane = new stdClass();
     $pane->pid = 'new-27eb24b2-05bc-4c00-9a53-a2ca721ceb29';
