@@ -18,6 +18,7 @@ function erpal_crm_install() {
     'label' => $t('Sales forecast'),
     'description' => $t('Possible forecast of sales success.'),
   ));
+  variable_set('budget_' . $sales_forecast->type, 'money');
   erpal_budget_type_save($sales_forecast);
 
   // We need to add our fields to already existing activity bundles.
