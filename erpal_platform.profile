@@ -82,6 +82,7 @@ function erpal_platform_vendor_form($form, &$form_state){
     '#title' => st('Data privacy:'),
     '#type' => 'select',
     '#options' => $privacy,
+    '#default_value' => array(2),
   );
   $form['vendor']['vendor_email'] = array(
     '#type' => 'fieldset',
@@ -97,6 +98,7 @@ function erpal_platform_vendor_form($form, &$form_state){
     '#title' => st('Data privacy:'),
     '#type' => 'select',
     '#options' => $privacy,
+    '#default_value' => array(2),
   );
   $form['vendor']['vendor_address'] = array(
     '#type' => 'fieldset',
