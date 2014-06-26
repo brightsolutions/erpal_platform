@@ -19,6 +19,21 @@ function erpal_payment_modality_install() {
     'description' => $t('Default Payment modality.'),
   ));
   erpal_payment_modality_type_save($payment_modality);
+
+  // Create default rules links.
+  $entity = entity_import('rules_link', '{
+    "settings" : {
+      "text" : "Create invoice",
+      "link_type" : "token",
+      "bundles" : { "payment_modality" : "payment_modality" },
+      "entity_link" : 0
+    },
+    "name" : "create_invoice_line_item",
+    "label" : "Create invoice line item",
+    "path" : "create_invoice_line_item",
+    "entity_type" : "erpal_payment_modality"
+  }');
+  entity_save('rules_link', $entity);
 }
 
 /**

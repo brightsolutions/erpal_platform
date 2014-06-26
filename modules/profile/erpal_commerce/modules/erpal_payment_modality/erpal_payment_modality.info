@@ -6,6 +6,7 @@ core = 7.x
 dependencies[] = erpal_core_ui
 dependencies[] = erpal_commerce
 dependencies[] = views_field_view
+dependencies[] = rules_link
 
 ; Module includes
 files[] = includes/erpal_payment_modality.controller.inc

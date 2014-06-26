@@ -75,6 +75,15 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = 'Label';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  /* Field: ERPAL payment modality: Create invoice line item */
+  $handler->display->display_options['fields']['create_invoice_line_item']['id'] = 'create_invoice_line_item';
+  $handler->display->display_options['fields']['create_invoice_line_item']['table'] = 'views_entity_erpal_payment_modality';
+  $handler->display->display_options['fields']['create_invoice_line_item']['field'] = 'create_invoice_line_item';
+  $handler->display->display_options['fields']['create_invoice_line_item']['label'] = 'Create invoice';
+  $handler->display->display_options['fields']['create_invoice_line_item']['rules_link'] = array(
+    'rules_link_parameters' => '',
+    'rules_link_rewrite' => '',
+  );
   /* Contextual filter: ERPAL payment modality: Payment modality ID */
   $handler->display->display_options['arguments']['payment_modality_id']['id'] = 'payment_modality_id';
   $handler->display->display_options['arguments']['payment_modality_id']['table'] = 'erpal_payment_modality';
@@ -88,6 +97,24 @@ function erpal_payment_modality_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $translatables['erpal_payment_modality'] = array(
+    t('Master'),
+    t('ERPAL payment modality'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Amount'),
+    t('Amount type'),
+    t('Due with'),
+    t('Label'),
+    t('Create invoice'),
+    t('All'),
+    t('Block'),
+  );
+
   $export['erpal_payment_modality'] = $view;
 
   $view = new view();

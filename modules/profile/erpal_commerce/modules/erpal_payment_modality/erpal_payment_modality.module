@@ -648,3 +648,26 @@ function erpal_payment_modality_inline_entity_form_entity_form_alter(&$entity_fo
     );
   }
 }
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function erpal_payment_modality_views_pre_render(&$view) {
+  // Hide Create invoice line item column in view.
+  if ($view->name == 'erpal_payment_modality') {
+    $order = NULL;
+    // Hide from user pages.
+    if (arg(0) == 'order' && is_numeric(arg(1))) {
+      $order = commerce_order_load(arg(1));
+    }
+    // Hide from admin pages.
+    if (arg(0) == 'admin' && is_numeric(arg(3))) {
+      $order = commerce_order_load(arg(3));
+    }
+    if ($order && $order->type == 'commerce_order') {
+      return;
+    }
+    unset($view->field['create_invoice_line_item']);
+    unset($view->display_handler->handlers['field']['create_invoice_line_item']);
+  }
+}
