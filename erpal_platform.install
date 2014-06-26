@@ -33,4 +33,6 @@ function erpal_platform_install() {
   variable_set('theme_default', $themes['default_theme']);
   // Enable themes.
   theme_enable($themes);
+
+  variable_set('preprocess_js', 1);
 }
