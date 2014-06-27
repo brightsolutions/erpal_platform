@@ -2,7 +2,7 @@
 
 /**
  * @file
- * @TODO.
+ * ERPAL menu module.
  */
 
 /**
@@ -38,6 +38,12 @@ function erpal_menu_flush_caches() {
     'link_title' => 'Invoices',
     'menu_name' => 'erpal-menu',
     'weight' => 5,
+  );
+  $items[] = array(
+    'link_path' => 'products',
+    'link_title' => 'Products',
+    'menu_name' => 'erpal-menu',
+    'weight' => 6,
   );
 
   foreach ($items as $item) {
