@@ -98,6 +98,27 @@ function erpal_crm_ui_form_alter(&$form, &$form_state, $form_id) {
     $form['field_activity_sales_forecast'][$language]['form']['field_budget_available']['#access'] = FALSE;
 
     array_unshift($form['#validate'], 'erpal_crm_ui_crm_core_activity_edit_sales_process_form_validate');
+
+    // Set default field values.
+    if (arg(1) == 'contact') {
+      $contact_id = $form['contact_id']['#value'];
+      $contact = crm_core_contact_load($contact_id);
+      $language = field_language('crm_core_contact', $contact, 'contact_name');
+      $contact_name = implode(' ', $contact->contact_name[$language][0]['safe']);
+      $contact_name = trim($contact_name) . ' (' . $contact_id . ')';
+
+      switch ($contact->type) {
+        case 'organization':
+          $language = $form['field_activity_customer']['#language'];
+          $form['field_activity_customer'][$language][0]['target_id']['#default_value'] = $contact_name;
+          break;
+
+        case 'individual':
+          $language = $form['field_activity_main_contact']['#language'];
+          $form['field_activity_main_contact'][$language][0]['target_id']['#default_value'] = $contact_name;
+          break;
+      }
+    }
   }
 }
 

@@ -758,7 +758,7 @@ function _erpal_crm_activity_type_sales_process_field_instances($type) {
         'path' => '',
         'size' => 60,
       ),
-      'type' => 'entityreference_autocomplete_tags',
+      'type' => 'entityreference_autocomplete',
       'weight' => 3,
     ),
   );
