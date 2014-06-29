@@ -25,6 +25,16 @@ function erpal_commerce_menu() {
     'type' => MENU_NORMAL_ITEM,
     'file' => 'erpal_commerce.admin.inc',
   );
+  $items['order/%commerce_order/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('erpal_commerce_order_delete_form', 1),
+    'access callback' => 'commerce_order_access',
+    'access arguments' => array('delete', 1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 20,
+    'context' => MENU_CONTEXT_INLINE,
+  );
   return $items;
 }
 
@@ -228,6 +238,15 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
   else {
     // Change page title for edit order page.
     drupal_set_title(t('Edit @order', array('@order' => $form_state['commerce_order']->order_number)));
+    // Add delete button.
+    $form['actions']['delete'] = array(
+      '#type' => 'submit',
+      '#value' => t('Delete'),
+      '#weight' => 41,
+      '#submit' => array('erpal_commerce_order_delete_redirect'),
+    );
+    $form['actions']['delete']['#suffix'] = $form['actions']['submit']['#suffix'];
+    $form['actions']['submit']['#suffix'] = '';
   }
 
   // Fill default customer billing information.
@@ -718,4 +737,55 @@ function erpal_commerce_flush_caches() {
   $fields = erpal_commerce_quote_default_fields();
   erpal_core_add_fields($fields['fields'], 'field');
   erpal_core_add_fields($fields['instances'], 'instance');
+}
+
+/**
+ * Form for the order deletion confirmation form.
+ *
+ * @see erpal_commerce_order_delete_form_submit()
+ */
+function erpal_commerce_order_delete_form($form, &$form_state, $order) {
+  $form['commerce_order'] = array('#type' => 'value', '#value' => $order);
+
+  return confirm_form($form,
+    t('Are you sure you want to delete %order_number?', array('%order_number' => $order->order_number)),
+    'order/' . $order->order_id,
+    t('This action cannot be undone.'),
+    t('Delete'),
+    t('Cancel')
+  );
+}
+
+/**
+ * Executes order deletion.
+ *
+ * @see erpal_commerce_order_delete_form()
+ */
+function erpal_commerce_order_delete_form_submit($form, &$form_state) {
+  if ($form_state['values']['confirm']) {
+    $order = $form_state['values']['commerce_order'];
+    if (commerce_order_delete($order->order_id)) {
+      watchdog('erpal_commerce', '@type: deleted %order_number.', array('@type' => $order->type, '%order_number' => $order->order_number));
+      drupal_set_message(t('@type %order_number has been deleted.', array('@type' => $order->type, '%order_number' => $order->order_number)));
+    }
+    else {
+      drupal_set_message(t('@type %order_number could not be deleted.', array('@type' => $order->type, '%order_number' => $order->order_number)), 'error');
+    }
+  }
+
+  $redirect = array(
+    'commerce_order' => 'orders',
+    'quote' => 'quotes',
+    'invoice' => 'invoices',
+  );
+  $form_state['redirect'] = $redirect[$order->type];
+}
+
+/**
+ * Redirect to order deletion.
+ *
+ * @see erpal_commerce_order_delete_form()
+ */
+function erpal_commerce_order_delete_redirect($form, &$form_state) {
+  drupal_goto('order/' .$form_state['commerce_order']->order_id . '/delete');
 }
