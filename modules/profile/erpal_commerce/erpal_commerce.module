@@ -495,6 +495,13 @@ function erpal_commerce_field_widget_form_alter(&$element, &$form_state, $contex
       $element['#options'] = erpal_commerce_generete_customer_labels($element['#options'], 'commerce_customer_address', $columns);
     }
   }
+
+  //change button label for line items field.
+  if ($context['field']['type'] == 'commerce_line_item_reference') {
+    if ($context['instance']['widget']['type'] == 'inline_entity_form') {
+      $element['actions']['ief_add_existing']['#value'] = t('Add existing product');
+    }
+  }
 }
 
 /**
