@@ -92,7 +92,7 @@ function erpal_commerce_ui_views_default_views() {
       ),
     ),
     'action::system_send_email_action' => array(
-      'selected' => 1,
+      'selected' => 0,
       'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
@@ -272,7 +272,7 @@ function erpal_commerce_ui_views_default_views() {
       ),
     ),
     'action::system_send_email_action' => array(
-      'selected' => 1,
+      'selected' => 0,
       'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,

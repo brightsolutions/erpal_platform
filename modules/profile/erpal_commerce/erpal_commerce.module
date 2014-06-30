@@ -366,6 +366,12 @@ function erpal_commerce_views_default_views_alter(&$views) {
       'label' => '',
     );
 
+    // Disable set to invoiced.
+    $view->display['default']->handler->display
+    ->display_options['fields']['views_bulk_operations']['vbo_operations']['rules_component::rules_commerce_billy_set_to_invoiced']['selected'] = 0;
+    $view->display['page_1']->handler->display
+    ->display_options['fields']['views_bulk_operations']['vbo_operations']['rules_component::rules_commerce_billy_set_to_invoiced']['selected'] = 0;
+
     /* Display: Invoices by Contact */
 
     $handler = $view->new_display('panel_pane', 'Invoices by Contact', 'panel_pane_1');
