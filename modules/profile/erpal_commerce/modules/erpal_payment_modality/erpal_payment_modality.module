@@ -647,6 +647,13 @@ function erpal_payment_modality_inline_entity_form_entity_form_alter(&$entity_fo
       ),
     );
   }
+  if ($entity_form['#entity_type'] == 'commerce_line_item') { dpm($entity_form);
+    $entity_form['#title'] = t('Add new product');
+    $entity_form['line_item_details']['#title'] = t('Product details');
+    $entity_form['quantity']['#description'] = t('The quantity of products.');
+    $entity_form['actions']['ief_add_save']['#value'] = t('Create product');
+    $entity_form['actions']['ief_edit_save']['#value'] = t('Update product');
+  }
 }
 
 /**
