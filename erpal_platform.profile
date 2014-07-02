@@ -50,11 +50,6 @@ function erpal_platform_vendor_form($form, &$form_state){
   drupal_set_title(st('Vendor information'));
   module_load_include('inc', 'locale', 'locale');
   $countries = country_get_list();
-  $privacy = array(
-    '' => st('- None -'),
-    1 => 'privacy',
-    2 => 'public',
-  );
 
   $form = array();
   $form['vendor'] = array(
@@ -78,12 +73,6 @@ function erpal_platform_vendor_form($form, &$form_state){
     '#type' => 'textfield',
     '#maxlength' => 255,
   );
-  $form['vendor']['vendor_phone']['privacy'] = array(
-    '#title' => st('Data privacy:'),
-    '#type' => 'select',
-    '#options' => $privacy,
-    '#default_value' => array(2),
-  );
   $form['vendor']['vendor_email'] = array(
     '#type' => 'fieldset',
     '#tree' => TRUE,
@@ -93,12 +82,6 @@ function erpal_platform_vendor_form($form, &$form_state){
     '#title' => st('Email:'),
     '#type' => 'textfield',
     '#maxlength' => 255,
-  );
-  $form['vendor']['vendor_email']['privacy'] = array(
-    '#title' => st('Data privacy:'),
-    '#type' => 'select',
-    '#options' => $privacy,
-    '#default_value' => array(2),
   );
   $form['vendor']['vendor_address'] = array(
     '#type' => 'fieldset',
@@ -162,15 +145,16 @@ function erpal_platform_vendor_form_submit($form, $form_state){
   $vendor = $form_state['values']['vendor'];
   $vendor_address = $vendor['vendor_address'];
   $entity_type = 'crm_core_contact';
-
   $entity = crm_core_contact_create(array('type' => 'organization'));
+  // Privacy public.
+  $privacy = 2;
 
   // Create phone field collection.
   $phone = entity_create('field_collection_item', array('field_name' => 'field_contact_phone_bundle'));
   $phone->setHostEntity($entity_type, $entity);
   $phone = entity_metadata_wrapper('field_collection_item', $phone);
   $phone->field_contact_phone->set($vendor['vendor_phone']['phone']);
-  $phone->field_contact_data_privacy->set($vendor['vendor_phone']['privacy']);
+  $phone->field_contact_data_privacy->set($privacy);
   $phone->save(TRUE);
 
   // Create email field collection.
@@ -178,7 +162,7 @@ function erpal_platform_vendor_form_submit($form, $form_state){
   $email->setHostEntity($entity_type, $entity);
   $email = entity_metadata_wrapper('field_collection_item', $email);
   $email->field_contact_email->set($vendor['vendor_email']['email']);
-  $email->field_contact_data_privacy->set($vendor['vendor_email']['privacy']);
+  $email->field_contact_data_privacy->set($privacy);
   $email->save(TRUE);
 
   // Create customer profile.
