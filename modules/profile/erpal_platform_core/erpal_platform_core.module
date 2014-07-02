@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * ERPAL platform module.
+ */
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function erpal_platform_core_views_pre_render(&$view) {
+  // Add results amount to every view.
+  $view->add_item('default', 'footer', 'views', 'result', array('content' => 'Displaying @start - @end of @total'));
+}
