@@ -35,6 +35,13 @@ function erpal_commerce_menu() {
     'weight' => 20,
     'context' => MENU_CONTEXT_INLINE,
   );
+  // Autocomplete url for commerce lite items field.
+  $items['erpal_inline_entity_form/autocomplete'] = array(
+    'title' => 'Inline Entity Form Autocomplete',
+    'page callback' => 'erpal_commerce_inline_entity_form_autocomplete',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 
@@ -503,11 +510,136 @@ function erpal_commerce_field_widget_form_alter(&$element, &$form_state, $contex
   }
 
   // Change button label for line items field.
-  if ($context['field']['type'] == 'commerce_line_item_reference') {
+  if ($context['field']['field_name'] == 'commerce_line_items') {
     if ($context['instance']['widget']['type'] == 'inline_entity_form') {
       $element['actions']['ief_add_existing']['#value'] = t('Add existing product');
       $element['actions']['ief_add']['#value'] = t('Add new product');
     }
+  }
+  // Change button label for customer profile field.
+  if ($context['field']['field_name'] == 'field_customer_profiles') {
+    if ($context['instance']['widget']['type'] == 'inline_entity_form') {
+      $element['actions']['ief_add']['#value'] = t('Add new address');
+    }
+  }
+}
+
+/**
+ * Perform alterations before the reference form is included in the IEF widget.
+ *
+ * The reference form is used to add existing entities through an autocomplete
+ * field
+ *
+ * @param $reference_form
+ *   Nested array of form elements that comprise the reference form.
+ * @param $form_state
+ *   The form state of the parent form.
+ */
+function erpal_commerce_inline_entity_form_reference_form_alter(&$reference_form, &$form_state) {
+  $ief_id = $reference_form['#ief_id'];
+
+  if ($form_state['inline_entity_form'][$ief_id]['settings']['entity_type'] == 'commerce_line_item') {
+    $instance = $form_state['inline_entity_form'][$ief_id]['instance'];
+    $autocomplete_path = 'erpal_inline_entity_form/autocomplete/' . $instance['entity_type'];
+    $autocomplete_path .= '/' . $instance['field_name'] . '/' . $instance['bundle'];
+    $reference_form['entity_id']['#autocomplete_path'] = $autocomplete_path;
+    $reference_form['#title'] = t('Add existing product');
+    $reference_form['entity_id']['#title'] = t('Product');
+    $reference_form['actions']['ief_reference_save']['#value'] = t('Add product');
+    $reference_form['#ief_element_submit'][0] = 'erpal_commerce_inline_entity_form_reference_form_submit';
+    unset($reference_form['#element_validate'][0]);
+  }
+}
+
+/**
+ * Returns output for inline entity form autocompletes for commerce line items field.
+ */
+function erpal_commerce_inline_entity_form_autocomplete($entity_type, $field_name, $bundle, $string = '') {
+  $field = field_info_field($field_name);
+  $instance = field_info_instance($entity_type, $field_name, $bundle);
+  $settings = inline_entity_form_settings($field, $instance);
+  $controller = inline_entity_form_get_controller($instance);
+  // The current entity type is not supported, or the string is empty.
+  // strlen() is used instead of empty() since '0' is a valid value.
+  if (!$field || !$instance || !$controller || !strlen($string)) {
+    return MENU_ACCESS_DENIED;
+  }
+
+  $results = array();
+  if ($field['type'] == 'commerce_line_item_reference') {
+    $match_operator = strtolower($controller->getSetting('match_operator'));
+    $products = commerce_product_match_products($field, $instance, $string, $match_operator, array(), 10, TRUE);
+
+    // Loop through the products and convert them into autocomplete output.
+    foreach ($products as $product_id => $data) {
+      $results[] = t('@label (!entity_id)', array('@label' => $data['title'], '!entity_id' => $product_id));
+    }
+  }
+
+  $matches = array();
+  foreach ($results as $result) {
+    // Strip things like starting/trailing white spaces, line breaks and tags.
+    $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(decode_entities(strip_tags($result)))));
+    $matches[$key] = '<div class="reference-autocomplete">' . $result . '</div>';
+  }
+
+  drupal_json_output($matches);
+}
+
+/**
+ * Submits the form for adding existing entities.
+ *
+ * Adds the specified entity to the IEF form state.
+ *
+ * @param $reference_form
+ *  The reference entity form.
+ * @param $form_state
+ *   The form state of the parent form.
+ */
+function erpal_commerce_inline_entity_form_reference_form_submit($reference_form, &$form_state) {
+  $ief_id = $reference_form['#ief_id'];
+  $entity_type = $reference_form['#entity_type'];
+  $form_values = drupal_array_get_nested_value($form_state['values'], $reference_form['#parents']);
+  $product = entity_load_single('commerce_product', $form_values['entity_id']);
+  $type = $form_state['inline_entity_form'][$ief_id]['form settings']['bundle'];
+  $order_id = $form_state['build_info']['args'][0]->order_id;
+  $attach_entity = commerce_product_line_item_new($product, 1, $order_id, array(), $type);
+
+  // Determine the correct weight of the new element.
+  $weight = 0;
+  if (!empty($form_state['inline_entity_form'][$ief_id]['entities'])) {
+    $weight = max(array_keys($form_state['inline_entity_form'][$ief_id]['entities'])) + 1;
+  }
+
+  $form_state['inline_entity_form'][$ief_id]['entities'][] = array(
+    'entity' => $attach_entity,
+    'weight' => $weight,
+    'form' => NULL,
+    'needs_save' => TRUE,
+  );
+}
+
+/**
+ * Perform alterations before an entity form is included in the IEF widget.
+ *
+ * @param array $entity_form
+ *   Nested array of form elements that comprise the entity form.
+ * @param array $form_state
+ *   The form state of the parent form.
+ */
+function erpal_commerce_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if ($entity_form['#entity_type'] == 'commerce_line_item') {
+    $entity_form['#title'] = t('Add new product');
+    $entity_form['line_item_details']['#title'] = t('Product details');
+    $entity_form['quantity']['#description'] = t('The quantity of products.');
+    $entity_form['actions']['ief_add_save']['#value'] = t('Create product');
+    $entity_form['actions']['ief_edit_save']['#value'] = t('Update product');
+  }
+  dpm($entity_form);
+  if ($entity_form['#bundle'] == 'billing' && $entity_form['#entity_type'] == 'commerce_customer_profile') {
+    $entity_form['#title'] = t('Add new address');
+    $entity_form['actions']['ief_add_save']['#value'] = t('Create address');
+    $entity_form['actions']['ief_edit_save']['#value'] = t('Update address');
   }
 }
 
