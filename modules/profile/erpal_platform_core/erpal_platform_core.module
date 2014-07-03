@@ -10,5 +10,7 @@
  */
 function erpal_platform_core_views_pre_render(&$view) {
   // Add results amount to every view.
-  $view->add_item('default', 'footer', 'views', 'result', array('content' => 'Displaying @start - @end of @total'));
+  $total = isset($view->totals_row) ? $view->totals_row : count($view->result);
+  $view->attachment_after = t('Found @count rows', array('@count' => $total));
 }
+
