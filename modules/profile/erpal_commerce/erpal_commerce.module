@@ -635,7 +635,7 @@ function erpal_commerce_inline_entity_form_entity_form_alter(&$entity_form, &$fo
     $entity_form['actions']['ief_add_save']['#value'] = t('Create product');
     $entity_form['actions']['ief_edit_save']['#value'] = t('Update product');
   }
-  dpm($entity_form);
+
   if ($entity_form['#bundle'] == 'billing' && $entity_form['#entity_type'] == 'commerce_customer_profile') {
     $entity_form['#title'] = t('Add new address');
     $entity_form['actions']['ief_add_save']['#value'] = t('Create address');
@@ -715,7 +715,7 @@ function erpal_commerce_action_info() {
  * Callback for configurable bulk operation for creating an invoice.
  */
 function erpal_commerce_create_invoice_form($context, &$form_state) {
-
+  global $user;
   // Include the forms file from the Order module.
   module_load_include('inc', 'commerce_order_ui', 'includes/commerce_order.forms');
 
@@ -726,7 +726,6 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
   unset($order->order_number,
         $order->revision_id,
         $order->revision_uid,
-        $order->uid,
         $order->created,
         $order->changed,
         $order->hostname,
@@ -734,7 +733,7 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
         $order->field_order_text,
         $order->field_order,
         $order->commerce_line_items);
-
+  $order->uid = $user->uid;
   $form = commerce_order_order_form(array(), $form_state, $order);
 
   // Hide not needed fields.
