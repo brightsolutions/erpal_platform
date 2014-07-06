@@ -648,12 +648,80 @@ function erpal_crm_ui_views_default_views() {
   /* Display: Activities by Sales Process */
   $handler = $view->new_display('panel_pane', 'Activities by Sales Process', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Activities';
+  $handler->display->display_options['title'] = 'Communication';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Entity Reference: Referenced Entity */
   $handler->display->display_options['relationships']['field_activity_sales_process_target_id']['id'] = 'field_activity_sales_process_target_id';
   $handler->display->display_options['relationships']['field_activity_sales_process_target_id']['table'] = 'field_data_field_activity_sales_process';
   $handler->display->display_options['relationships']['field_activity_sales_process_target_id']['field'] = 'field_activity_sales_process_target_id';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: CRM Core Activity: Activity ID */
+  $handler->display->display_options['fields']['activity_id']['id'] = 'activity_id';
+  $handler->display->display_options['fields']['activity_id']['table'] = 'crm_core_activity';
+  $handler->display->display_options['fields']['activity_id']['field'] = 'activity_id';
+  $handler->display->display_options['fields']['activity_id']['label'] = '';
+  $handler->display->display_options['fields']['activity_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['activity_id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['activity_id']['separator'] = '';
+  /* Field: CRM Core Activity: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'crm_core_activity';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = 'Activity title';
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['path'] = 'crm-core/activity/[activity_id]';
+  /* Field: CRM Core Activity: Type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'crm_core_activity';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  /* Field: CRM Activity: Date */
+  $handler->display->display_options['fields']['field_activity_event_date']['id'] = 'field_activity_event_date';
+  $handler->display->display_options['fields']['field_activity_event_date']['table'] = 'field_data_field_activity_event_date';
+  $handler->display->display_options['fields']['field_activity_event_date']['field'] = 'field_activity_event_date';
+  $handler->display->display_options['fields']['field_activity_event_date']['type'] = 'entityreference_entity_view';
+  $handler->display->display_options['fields']['field_activity_event_date']['settings'] = array(
+    'view_mode' => 'default',
+    'links' => 0,
+  );
+  /* Field: CRM Activity: Customer */
+  $handler->display->display_options['fields']['field_activity_customer']['id'] = 'field_activity_customer';
+  $handler->display->display_options['fields']['field_activity_customer']['table'] = 'field_data_field_activity_customer';
+  $handler->display->display_options['fields']['field_activity_customer']['field'] = 'field_activity_customer';
+  $handler->display->display_options['fields']['field_activity_customer']['settings'] = array(
+    'link' => 1,
+  );
+  /* Field: CRM Activity: Participants */
+  $handler->display->display_options['fields']['field_activity_participants']['id'] = 'field_activity_participants';
+  $handler->display->display_options['fields']['field_activity_participants']['table'] = 'field_data_field_activity_participants';
+  $handler->display->display_options['fields']['field_activity_participants']['field'] = 'field_activity_participants';
+  $handler->display->display_options['fields']['field_activity_participants']['settings'] = array(
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_activity_participants']['delta_offset'] = '0';
+  /* Field: CRM Activity: Sales process */
+  $handler->display->display_options['fields']['field_activity_sales_process']['id'] = 'field_activity_sales_process';
+  $handler->display->display_options['fields']['field_activity_sales_process']['table'] = 'field_data_field_activity_sales_process';
+  $handler->display->display_options['fields']['field_activity_sales_process']['field'] = 'field_activity_sales_process';
+  $handler->display->display_options['fields']['field_activity_sales_process']['settings'] = array(
+    'link' => 1,
+  );
+  /* Field: CRM Activity: Next contact date */
+  $handler->display->display_options['fields']['field_activity_next_contact_date']['id'] = 'field_activity_next_contact_date';
+  $handler->display->display_options['fields']['field_activity_next_contact_date']['table'] = 'field_data_field_activity_next_contact_date';
+  $handler->display->display_options['fields']['field_activity_next_contact_date']['field'] = 'field_activity_next_contact_date';
+  $handler->display->display_options['fields']['field_activity_next_contact_date']['type'] = 'entityreference_entity_view';
+  $handler->display->display_options['fields']['field_activity_next_contact_date']['settings'] = array(
+    'view_mode' => 'default',
+    'links' => 0,
+  );
+  /* Field: CRM Activity: Notes */
+  $handler->display->display_options['fields']['field_activity_notes']['id'] = 'field_activity_notes';
+  $handler->display->display_options['fields']['field_activity_notes']['table'] = 'field_data_field_activity_notes';
+  $handler->display->display_options['fields']['field_activity_notes']['field'] = 'field_activity_notes';
+  $handler->display->display_options['fields']['field_activity_notes']['type'] = 'text_trimmed';
+  $handler->display->display_options['fields']['field_activity_notes']['settings'] = array(
+    'trim_length' => '400',
+  );
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: CRM Core Activity: Activity ID */
   $handler->display->display_options['arguments']['activity_id']['id'] = 'activity_id';
