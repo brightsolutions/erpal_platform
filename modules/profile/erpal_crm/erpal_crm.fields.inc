@@ -206,9 +206,11 @@ function _erpal_crm_activity_type_sales_process_fields() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        1 => 'In progress',
-        2 => 'Completed',
-        3 => 'Aborted',
+        1 => 'Lead',
+        2 => 'Opportunity',
+        3 => 'Prospect',
+        4 => 'Win',
+        5 => 'Lost',
       ),
       'allowed_values_function' => '',
     ),
