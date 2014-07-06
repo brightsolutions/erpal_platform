@@ -78,6 +78,9 @@ function erpal_crm_ui_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "page_manager" && $api == "pages_default") {
     return array("version" => "1");
   }
+  if ($module == "cat" && $api == "cat") {
+    return array("version" => "1");
+  }
 }
 
 /**
@@ -118,6 +121,27 @@ function erpal_crm_ui_form_alter(&$form, &$form_state, $form_id) {
           $form['field_activity_main_contact'][$language][0]['target_id']['#default_value'] = $contact_name;
           break;
       }
+    }
+  }
+
+  // Prepopulate field_activity_participants field.
+  $forms = array(
+    'crm_core_activity_edit_meeting_form',
+    'crm_core_activity_edit_phone_call_form',
+    'crm_core_activity_edit_email_form',
+  );
+  $params = drupal_get_query_parameters();
+  if (in_array($form_id, $forms) && isset($params['field_activity_sales_process'])) {
+    $activity = crm_core_activity_load($params['field_activity_sales_process']);
+    $participants = field_get_items('crm_core_activity', $activity, 'field_activity_participants');
+
+    if (isset($participants[0]['target_id'])) {
+      $contact = crm_core_contact_load($participants[0]['target_id']);
+      $language = field_language('crm_core_contact', $contact, 'contact_name');
+      $contact_name = implode(' ', $contact->contact_name[$language][0]['safe']);
+      $contact_name = trim($contact_name) . ' (' . $contact->contact_id . ')';
+      $language = $form['field_activity_participants']['#language'];
+      $form['field_activity_participants'][$language]['#default_value'] = $contact_name;
     }
   }
 }

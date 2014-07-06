@@ -207,10 +207,10 @@ function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_
  */
 function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
   // Fix path query maxlength.
-  if ($form_id == 'cat_ui_edit_form' && isset($form['cat_actions'])) {
+  if (in_array($form_id, array('cat_ui_add_form', 'cat_ui_edit_form')) && isset($form['cat_actions'])) {
     foreach ($form['cat_actions'] as $key => $value) {
       if (isset($value['path_query'])) {
-        $form['cat_actions'][$key]['path_query']['#maxlength'] = 255;
+        $form['cat_actions'][$key]['path_query']['#maxlength'] = 512;
       }
     }
   }
