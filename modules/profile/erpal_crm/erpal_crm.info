@@ -11,5 +11,6 @@ dependencies[] = email
 dependencies[] = field_collection
 dependencies[] = image
 dependencies[] = url
+dependencies[] = rules_conditional
 
 files[] = includes/relation.inline_entity_form.inc

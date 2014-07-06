@@ -96,6 +96,9 @@ projects[rules][subdir] = "contrib"
 projects[rules_link][version] = "1.0"
 projects[rules_link][subdir] = "contrib"
 
+projects[rules_conditional][version] = "1.0-beta2"
+projects[rules_conditional][subdir] = "contrib"
+
 projects[token][version] = "1.5"
 projects[token][subdir] = "contrib"
 
