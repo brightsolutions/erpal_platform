@@ -124,7 +124,7 @@ projects[date_item][subdir] = "contrib"
 projects[date_item][download][type] = "git"
 projects[date_item][download][url] = "http://git.drupal.org/project/date_item.git"
 projects[date_item][download][branch] = "7.x-3.x"
-projects[date_item][download][revision] = "0e19dfd7dfedd3047731dc56e34e40204971dd89"
+projects[date_item][download][revision] = "2828bee909e24f7a8fb5cfd5c922b72c2eb90f94"
 
 projects[dfv][subdir] = "contrib"
 projects[dfv][download][type] = "git"

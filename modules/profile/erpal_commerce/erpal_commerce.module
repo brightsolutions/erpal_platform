@@ -66,7 +66,7 @@ function erpal_commerce_entity_info_alter(&$entity_info) {
 
   // Integrate commerce_customer_profile entity with inline entity form.
   $entity_info['commerce_customer_profile']['inline entity form'] = array(
-    'controller' => 'EntityInlineEntityFormController',
+    'controller' => 'CommerceCustomerProfileInlineEntityFormController',
   );
 }
 
