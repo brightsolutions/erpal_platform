@@ -285,7 +285,7 @@ function erpal_commerce_views_default_views() {
   $view->core = 0;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->display->display_options['title'] = 'Products';
@@ -357,6 +357,14 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['empty']['empty_text']['table'] = 'commerce_product';
   $handler->display->display_options['empty']['empty_text']['field'] = 'empty_text';
   $handler->display->display_options['empty']['empty_text']['add_path'] = 'admin/commerce/products/add';
+  /* Field: Commerce Product revision: Product ID */
+  $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
+  $handler->display->display_options['fields']['product_id']['table'] = 'commerce_product_revision';
+  $handler->display->display_options['fields']['product_id']['field'] = 'product_id';
+  $handler->display->display_options['fields']['product_id']['label'] = '';
+  $handler->display->display_options['fields']['product_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['product_id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['product_id']['link_to_product'] = 0;
   /* Field: Commerce Product: SKU */
   $handler->display->display_options['fields']['sku']['id'] = 'sku';
   $handler->display->display_options['fields']['sku']['table'] = 'commerce_product';
@@ -366,7 +374,9 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'commerce_product';
   $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['link_to_product'] = 1;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['path'] = 'product/[product_id]';
+  $handler->display->display_options['fields']['title']['link_to_product'] = 0;
   /* Field: Commerce Product: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'commerce_product';
@@ -403,7 +413,7 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['filters']['sku']['expose']['label'] = 'Filter by SKUs containing';
   $handler->display->display_options['filters']['sku']['expose']['operator'] = 'sku_op';
   $handler->display->display_options['filters']['sku']['expose']['identifier'] = 'sku';
-
+  
   /* Display: Products */
   $handler = $view->new_display('page', 'Products', 'products_page');
   $handler->display->display_options['path'] = 'products';

@@ -112,13 +112,87 @@ function erpal_commerce_ui_menu_alter(&$items) {
     $items['order/%commerce_order/view'] = $items['admin/commerce/orders/%commerce_order/view'];
   }
 
-  if ($items['admin/commerce/orders/%commerce_order/edit']) {
+  if (!empty($items['admin/commerce/orders/%commerce_order/edit'])) {
     $items['order/%commerce_order/edit'] = $items['admin/commerce/orders/%commerce_order/edit'];
     $items['order/%commerce_order/edit']['page arguments'] = array(1);
     $items['order/%commerce_order/edit']['access arguments'] = array('update', 1);
   }
-
+  
+  if (!empty($items['admin/commerce/products/add'])) {
+    $items['product/add'] = $items['admin/commerce/products/add'];
+    $items['product/add']['file path'] = drupal_get_path('module', 'commerce_product_ui');
+  }
+  foreach (commerce_product_types() as $type => $product_type) {
+    if (!empty($items['admin/commerce/products/add/' . strtr($type, array('_' => '-'))])) {
+      $items['product/add/' . strtr($type, array('_' => '-'))] = $items['admin/commerce/products/add/' . strtr($type, array('_' => '-'))];
+      $items['product/add/' . strtr($type, array('_' => '-'))]['file path'] = drupal_get_path('module', 'commerce_product_ui');
+    }
+  }
+  if (!empty($items['admin/commerce/products/%commerce_product'])) {
+    $items['product/%commerce_product'] = $items['admin/commerce/products/%commerce_product'];
+    $items['product/%commerce_product']['title arguments'] = array(1);
+    $items['product/%commerce_product']['page arguments'] = array(1);
+    $items['product/%commerce_product']['access arguments'] = array('update', 1);
+    $items['product/%commerce_product']['file path'] = drupal_get_path('module', 'commerce_product_ui');
+  }
+  if (!empty($items['admin/commerce/products/%commerce_product/edit'])) {
+    $items['product/%commerce_product/edit'] = $items['admin/commerce/products/%commerce_product/edit'];
+  }
+  if (!empty($items['admin/commerce/products/%commerce_product/delete'])) {
+    $items['product/%commerce_product/delete'] = $items['admin/commerce/products/%commerce_product/delete'];
+    $items['product/%commerce_product/delete']['page arguments'] = array(1);
+    $items['product/%commerce_product/delete']['access arguments'] = array('delete', 1);
+  }
   $items['order/%/invoice']['type'] = MENU_CALLBACK;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * The Product UI module instantiates the Product add/edit form at particular
+ * paths in the Commerce IA. It uses its own form ID to do so and alters the
+ * form here to add in appropriate redirection and an additional button.
+ *
+ * @see commerce_product_ui_product_form()
+ */
+function erpal_commerce_ui_form_commerce_product_ui_product_form_alter(&$form, &$form_state) {
+  $product = $form_state['commerce_product'];
+
+  // Add a submit handler to the save button to add a redirect.
+  $form['actions']['submit']['#submit'][] = 'erpal_commerce_ui_product_form_submit';
+
+
+  // Add the save and continue button for new products.
+  if (empty($product->product_id)) {
+    $form['actions']['save_continue'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save and add another'),
+      '#submit' => $form['actions']['submit']['#submit'],
+      '#suffix' => l(t('Cancel'), 'products'),
+      '#weight' => 45,
+    );
+  }
+  else {
+    $form['actions']['submit']['#suffix'] = l(t('Cancel'), 'products');
+  }
+}
+
+/**
+ * Submit callback for commerce_product_ui_product_form().
+ *
+ * @see commerce_product_ui_form_commerce_product_ui_product_form_alter()
+ */
+function erpal_commerce_ui_product_form_submit($form, &$form_state) {
+  // Set the redirect based on the button clicked.
+  $array_parents = $form_state['triggering_element']['#array_parents'];
+  $submit_element = array_pop($array_parents);
+
+  if ($submit_element == 'save_continue') {
+    $form_state['redirect'] = 'product/add/' . strtr($form_state['commerce_product']->type, array('_' => '-'));
+  }
+  elseif (arg(0) == 'product' && arg(1) == 'add') {
+    $form_state['redirect'] = 'products';
+  }
 }
 
 /**
@@ -147,6 +221,11 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
       'root_path' => 'admin/erpal/orders',
       'menu_item' => 'admin/commerce/config/billy-order/pdf',
       'title' => 'PDF Settings',
+    ),
+    array(
+      'root_path' => 'products',
+      'menu_item' => 'product/add/product',
+      'title' => 'Add product',
     ),
   );
 
