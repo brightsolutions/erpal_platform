@@ -32,7 +32,8 @@ function _erpal_platform_set_theme($target_theme) {
 function erpal_platform_install_tasks(){
   $tasks = array();
 
-  drupal_get_messages('status', TRUE); //remove all messages we don't need them
+  // Remove all messages we don't need them.
+  drupal_get_messages('status', TRUE);
 
   $tasks['erpal_platform_vendor_form'] = array(
     'display_name' => st('Vendor information'),
@@ -146,6 +147,7 @@ function erpal_platform_vendor_form_submit($form, $form_state){
   $vendor_address = $vendor['vendor_address'];
   $entity_type = 'crm_core_contact';
   $entity = crm_core_contact_create(array('type' => 'organization'));
+
   // Privacy public.
   $privacy = 2;
 
@@ -168,17 +170,25 @@ function erpal_platform_vendor_form_submit($form, $form_state){
   // Create customer profile.
   $profile = commerce_customer_profile_new('billing');
   $profile->uid = $user->uid;
-  $profile->commerce_customer_address[LANGUAGE_NONE][0]['country'] = $vendor_address['country'];
-  $profile->commerce_customer_address[LANGUAGE_NONE][0]['name_line'] = $vendor_address['fullname'];
-  $profile->commerce_customer_address[LANGUAGE_NONE][0]['first_name'] = $vendor_address['fullname'];
-  $profile->commerce_customer_address[LANGUAGE_NONE][0]['locality'] = $vendor_address['city'];
-  $wrapper->commerce_customer_address[LANGUAGE_NONE][0]['thoroughfare'] = $vendor_address['street'];
-  $profile->commerce_customer_address[LANGUAGE_NONE][0]['postal_code'] = $vendor_address['postal_code'];
+
+  // Take field language.
+  $lang = field_language('commerce_customer_profile', $profile, 'commerce_customer_address');
+  $profile->commerce_customer_address[$lang][0]['country'] = $vendor_address['country'];
+  $profile->commerce_customer_address[$lang][0]['name_line'] = $vendor_address['fullname'];
+  $profile->commerce_customer_address[$lang][0]['first_name'] = $vendor_address['fullname'];
+  $profile->commerce_customer_address[$lang][0]['locality'] = $vendor_address['city'];
+  $wrapper->commerce_customer_address[$lang][0]['thoroughfare'] = $vendor_address['street'];
+  $profile->commerce_customer_address[$lang][0]['postal_code'] = $vendor_address['postal_code'];
   commerce_customer_profile_save($profile);
 
-  $entity->contact_name[LANGUAGE_NONE][0]['family'] = $vendor['organization'];
-  $entity->contact_name[LANGUAGE_NONE][0]['safe']['family'] = $vendor['organization'];
-  $entity->field_customer_profiles[LANGUAGE_NONE][0]['target_id'] = $profile->profile_id;
+  // Take field language.
+  $lang = field_language('crm_core_contact', $entity, 'contact_name');
+  $entity->contact_name[$lang][0]['family'] = $vendor['organization'];
+  $entity->contact_name[$lang][0]['safe']['family'] = $vendor['organization'];
+
+  // Add customer profile to crm contact.
+  $lang = field_language('crm_core_contact', $entity, 'field_customer_profiles');
+  $entity->field_customer_profiles[$lang][0]['target_id'] = $profile->profile_id;
 
   crm_core_contact_save($entity);
 

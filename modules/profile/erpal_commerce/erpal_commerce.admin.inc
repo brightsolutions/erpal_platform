@@ -26,6 +26,7 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
   }
 
   if (isset($form_state['triggering_element']) || !empty($settings['vendor_id'])) {
+
     // Get profiles list.
     $param = isset($form_state['values']) ? $form_state['values']['erpal_vendor_settings']['vendor_id'] : $settings['vendor_id'];
     $view = views_get_view('erpal_customer_profile');

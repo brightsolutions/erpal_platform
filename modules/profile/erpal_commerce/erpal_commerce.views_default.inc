@@ -121,7 +121,7 @@ function erpal_commerce_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -270,7 +270,7 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
-
+  
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'invoice/%';
@@ -279,7 +279,7 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 1;
-
+  
   /* Display: Revenue */
   $handler = $view->new_display('panel_pane', 'Revenue', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -383,18 +383,6 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['date_format'] = 'short';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
-  /* Field: Commerce Line item: Order */
-  $handler->display->display_options['fields']['field_line_item_order']['id'] = 'field_line_item_order';
-  $handler->display->display_options['fields']['field_line_item_order']['table'] = 'field_data_field_line_item_order';
-  $handler->display->display_options['fields']['field_line_item_order']['field'] = 'field_line_item_order';
-  $handler->display->display_options['fields']['field_line_item_order']['settings'] = array(
-    'link' => 0,
-  );
-  /* Field: Commerce Order: Order type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'commerce_order';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['relationship'] = 'order_id';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Commerce Line Item: Type */
@@ -414,11 +402,21 @@ function erpal_commerce_views_default_views() {
       'label' => 'Commerce Line item: Order (field_line_item_order)',
     ),
   );
-
+  
   /* Display: Revenue page */
   $handler = $view->new_display('page', 'Revenue page', 'page_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Revenue';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Commerce Line Item: Order ID */
+  $handler->display->display_options['relationships']['order_id']['id'] = 'order_id';
+  $handler->display->display_options['relationships']['order_id']['table'] = 'commerce_line_item';
+  $handler->display->display_options['relationships']['order_id']['field'] = 'order_id';
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_customer_target_id']['id'] = 'field_customer_target_id';
+  $handler->display->display_options['relationships']['field_customer_target_id']['table'] = 'field_data_field_customer';
+  $handler->display->display_options['relationships']['field_customer_target_id']['field'] = 'field_customer_target_id';
+  $handler->display->display_options['relationships']['field_customer_target_id']['relationship'] = 'order_id';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: Commerce Line Item */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -511,6 +509,27 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['relationship'] = 'order_id';
+  /* Field: Commerce Order: Invoice date */
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['id'] = 'field_commerce_billy_i_date';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['table'] = 'field_data_field_commerce_billy_i_date';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['field'] = 'field_commerce_billy_i_date';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['relationship'] = 'order_id';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_repeat_rule' => 'show',
+  );
+  /* Field: Commerce Order: Customer */
+  $handler->display->display_options['fields']['field_customer']['id'] = 'field_customer';
+  $handler->display->display_options['fields']['field_customer']['table'] = 'field_data_field_customer';
+  $handler->display->display_options['fields']['field_customer']['field'] = 'field_customer';
+  $handler->display->display_options['fields']['field_customer']['relationship'] = 'order_id';
+  $handler->display->display_options['fields']['field_customer']['settings'] = array(
+    'link' => 0,
+  );
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -533,6 +552,36 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['filters']['order_number']['expose']['operator'] = 'order_number_op';
   $handler->display->display_options['filters']['order_number']['expose']['identifier'] = 'order_number';
   $handler->display->display_options['filters']['order_number']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: Commerce Order: Invoice date (field_commerce_billy_i_date) */
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['id'] = 'field_commerce_billy_i_date_value';
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['table'] = 'field_data_field_commerce_billy_i_date';
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['field'] = 'field_commerce_billy_i_date_value';
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['relationship'] = 'order_id';
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['expose']['operator_id'] = 'field_commerce_billy_i_date_value_op';
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['expose']['label'] = 'Delivery date';
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['expose']['operator'] = 'field_commerce_billy_i_date_value_op';
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['expose']['identifier'] = 'field_commerce_billy_i_date_value';
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['form_type'] = 'date_popup';
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['relationship'] = 'field_customer_target_id';
+  $handler->display->display_options['filters']['contact_name']['operator'] = 'word';
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Customer';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
   );
@@ -568,9 +617,12 @@ function erpal_commerce_views_default_views() {
     t('Page'),
     t('Revenue'),
     t('Created date'),
-    t('Order type'),
     t('View panes'),
     t('Revenue page'),
+    t('CRM Core Contact entity referenced from field_customer'),
+    t('Invoice date'),
+    t('Customer'),
+    t('Delivery date'),
   );
 
   $export['erpal_invoice_line_items'] = $view;
@@ -752,4 +804,176 @@ function erpal_commerce_views_default_views() {
 
   $export['erpal_products'] = $view;
   return $export;
+}
+
+/**
+ * Alter default views defined by other modules.
+ *
+ * This hook is called right before all default views are cached to the
+ * database. It takes a keyed array of views by reference.
+ *
+ * Example usage to add a field to a view:
+ * @code
+ *   $handler =& $view->display['DISPLAY_ID']->handler;
+ *   // Add the user name field to the view.
+ *   $handler->display->display_options['fields']['name']['id'] = 'name';
+ *   $handler->display->display_options['fields']['name']['table'] = 'users';
+ *   $handler->display->display_options['fields']['name']['field'] = 'name';
+ *   $handler->display->display_options['fields']['name']['label'] = 'Author';
+ *   $handler->display->display_options['fields']['name']['link_to_user'] = 1;
+ * @endcode
+ */
+function erpal_commerce_views_default_views_alter(&$views) {
+
+  if (isset($views['commerce_line_item_table'])) {
+    unset($views['commerce_line_item_table']->display['default']->display_options['filters']);
+  }
+
+  // Add new VBO to invoice view.
+  if (isset($views['erpal_invoice_line_items'])) {
+    $views['erpal_invoice_line_items']->display['default']->handler->display
+    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::erpal_invoice_create_invoice']['selected'] = 0;
+
+    $views['erpal_invoice_line_items']->display['default']->handler->display
+    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::erpal_commerce_create_invoice'] = array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    );
+  }
+
+  if (isset($views['erpal_invoice'])) {
+    $view = $views['erpal_invoice'];
+    // Disable VBO action Delete item.
+    $view->display['default']->handler->display
+    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::views_bulk_operations_delete_item']['selected'] = 0;
+    // Enable custom invoice deletion VBO.
+    $view->display['default']->handler->display
+    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::erpal_commerce_delete_invoice'] = array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    );
+
+    // Disable set to invoiced.
+    $view->display['default']->handler->display
+    ->display_options['fields']['views_bulk_operations']['vbo_operations']['rules_component::rules_commerce_billy_set_to_invoiced']['selected'] = 0;
+    $view->display['page_1']->handler->display
+    ->display_options['fields']['views_bulk_operations']['vbo_operations']['rules_component::rules_commerce_billy_set_to_invoiced']['selected'] = 0;
+
+    /* Display: Invoices by Contact */
+
+    $handler = $view->new_display('panel_pane', 'Invoices by Contact', 'panel_pane_1');
+    $handler->display->display_options['defaults']['title'] = FALSE;
+    $handler->display->display_options['title'] = 'Invoices';
+    $handler->display->display_options['defaults']['empty'] = FALSE;
+    /* No results behavior: Global: Text area */
+    $handler->display->display_options['empty']['area']['id'] = 'area';
+    $handler->display->display_options['empty']['area']['table'] = 'views';
+    $handler->display->display_options['empty']['area']['field'] = 'area';
+    $handler->display->display_options['empty']['area']['empty'] = TRUE;
+    $handler->display->display_options['empty']['area']['content'] = 'Invoices not found. Please, create new invoice. ';
+    $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+    $handler->display->display_options['defaults']['relationships'] = FALSE;
+    /* Relationship: Entity Reference: Referenced Entity */
+    $handler->display->display_options['relationships']['field_customer_target_id']['id'] = 'field_customer_target_id';
+    $handler->display->display_options['relationships']['field_customer_target_id']['table'] = 'field_data_field_customer';
+    $handler->display->display_options['relationships']['field_customer_target_id']['field'] = 'field_customer_target_id';
+    $handler->display->display_options['defaults']['fields'] = FALSE;
+    /* Field: Commerce Order: Order ID */
+    $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
+    $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
+    $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
+    $handler->display->display_options['fields']['order_id']['label'] = '';
+    $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
+    $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
+    /* Field: Commerce Order: Order number */
+    $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
+    $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
+    $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
+    $handler->display->display_options['fields']['order_number']['label'] = 'Invoice number';
+    $handler->display->display_options['fields']['order_number']['alter']['make_link'] = TRUE;
+    $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
+    /* Field: Commerce Order: Invoice PDF */
+    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['id'] = 'commerce_billy_pdf_invoice_link';
+    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['table'] = 'views_entity_commerce_order';
+    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['field'] = 'commerce_billy_pdf_invoice_link';
+    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['label'] = 'Download PDF';
+    /* Field: Commerce Order: Customer */
+    $handler->display->display_options['fields']['field_customer']['id'] = 'field_customer';
+    $handler->display->display_options['fields']['field_customer']['table'] = 'field_data_field_customer';
+    $handler->display->display_options['fields']['field_customer']['field'] = 'field_customer';
+    $handler->display->display_options['fields']['field_customer']['settings'] = array(
+      'link' => 1,
+    );
+    /* Field: Commerce Order: Order status */
+    $handler->display->display_options['fields']['status']['id'] = 'status';
+    $handler->display->display_options['fields']['status']['table'] = 'commerce_order';
+    $handler->display->display_options['fields']['status']['field'] = 'status';
+    $handler->display->display_options['fields']['status']['label'] = 'Invoice status';
+    /* Field: Commerce Order: Order total */
+    $handler->display->display_options['fields']['commerce_order_total']['id'] = 'commerce_order_total';
+    $handler->display->display_options['fields']['commerce_order_total']['table'] = 'field_data_commerce_order_total';
+    $handler->display->display_options['fields']['commerce_order_total']['field'] = 'commerce_order_total';
+    $handler->display->display_options['fields']['commerce_order_total']['label'] = 'Invoice total';
+    $handler->display->display_options['fields']['commerce_order_total']['click_sort_column'] = 'amount';
+    $handler->display->display_options['fields']['commerce_order_total']['settings'] = array(
+      'calculation' => FALSE,
+    );
+    /* Field: Commerce Order: Invoice date */
+    $handler->display->display_options['fields']['field_commerce_billy_i_date']['id'] = 'field_commerce_billy_i_date';
+    $handler->display->display_options['fields']['field_commerce_billy_i_date']['table'] = 'field_data_field_commerce_billy_i_date';
+    $handler->display->display_options['fields']['field_commerce_billy_i_date']['field'] = 'field_commerce_billy_i_date';
+    $handler->display->display_options['fields']['field_commerce_billy_i_date']['settings'] = array(
+      'format_type' => 'short',
+      'fromto' => 'both',
+      'multiple_number' => '',
+      'multiple_from' => '',
+      'multiple_to' => '',
+    );
+    /* Field: Commerce Order: Edit link */
+    $handler->display->display_options['fields']['edit_order']['id'] = 'edit_order';
+    $handler->display->display_options['fields']['edit_order']['table'] = 'commerce_order';
+    $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
+    $handler->display->display_options['fields']['edit_order']['alter']['alter_text'] = TRUE;
+    $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
+    $handler->display->display_options['fields']['edit_order']['alter']['make_link'] = TRUE;
+    $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
+    $handler->display->display_options['defaults']['arguments'] = FALSE;
+    /* Contextual filter: CRM Contact: Contact ID */
+    $handler->display->display_options['arguments']['contact_id']['id'] = 'contact_id';
+    $handler->display->display_options['arguments']['contact_id']['table'] = 'crm_core_contact';
+    $handler->display->display_options['arguments']['contact_id']['field'] = 'contact_id';
+    $handler->display->display_options['arguments']['contact_id']['relationship'] = 'field_customer_target_id';
+    $handler->display->display_options['arguments']['contact_id']['default_action'] = 'empty';
+    $handler->display->display_options['arguments']['contact_id']['default_argument_type'] = 'fixed';
+    $handler->display->display_options['arguments']['contact_id']['summary']['number_of_records'] = '0';
+    $handler->display->display_options['arguments']['contact_id']['summary']['format'] = 'default_summary';
+    $handler->display->display_options['arguments']['contact_id']['summary_options']['items_per_page'] = '25';
+    $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+    $handler->display->display_options['defaults']['filters'] = FALSE;
+    /* Filter criterion: Commerce Order: Order type */
+    $handler->display->display_options['filters']['type']['id'] = 'type';
+    $handler->display->display_options['filters']['type']['table'] = 'commerce_order';
+    $handler->display->display_options['filters']['type']['field'] = 'type';
+    $handler->display->display_options['filters']['type']['value'] = array(
+      'invoice' => 'invoice',
+    );
+    $handler->display->display_options['filters']['type']['group'] = 1;
+    $handler->display->display_options['argument_input'] = array(
+      'contact_id' => array(
+        'type' => 'context',
+        'context' => 'entity:crm_core_contact.contact-id',
+        'context_optional' => 0,
+        'panel' => '0',
+        'fixed' => '',
+        'label' => 'CRM Contact: Contact ID',
+      ),
+    );
+
+  }
 }
