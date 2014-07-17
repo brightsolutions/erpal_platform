@@ -117,7 +117,7 @@ function erpal_commerce_ui_menu_alter(&$items) {
     $items['order/%commerce_order/edit']['page arguments'] = array(1);
     $items['order/%commerce_order/edit']['access arguments'] = array('update', 1);
   }
-  
+
   if (!empty($items['admin/commerce/products/add'])) {
     $items['product/add'] = $items['admin/commerce/products/add'];
     $items['product/add']['file path'] = drupal_get_path('module', 'commerce_product_ui');
@@ -701,7 +701,7 @@ function erpal_commerce_ui_default_page_manager_pages_alter(&$pages) {
  * Implements hook_views_pre_render().
  */
 function erpal_commerce_ui_views_pre_render(&$view) {
-  if ($view->name == 'erpal_invoice_line_items') {
+  if ($view->name == 'erpal_invoice_line_items' && $view->current_display == 'page_1') {
     $order = commerce_order_load(arg(1));
     $view->build_info['title'] = t('Create invoice for order') . ' ' . l($order->order_number, 'order/' . $order->order_id);
   }
