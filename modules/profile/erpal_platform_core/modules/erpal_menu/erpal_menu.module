@@ -40,10 +40,16 @@ function erpal_menu_flush_caches() {
     'weight' => 5,
   );
   $items[] = array(
+    'link_path' => 'invoices/line_items',
+    'link_title' => 'Invoice line items',
+    'menu_name' => 'erpal-menu',
+    'weight' => 6,
+  );
+  $items[] = array(
     'link_path' => 'products',
     'link_title' => 'Products',
     'menu_name' => 'erpal-menu',
-    'weight' => 6,
+    'weight' => 7,
   );
 
   foreach ($items as $item) {

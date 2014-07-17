@@ -389,6 +389,31 @@ function erpal_commerce_ui_default_page_manager_pages() {
   $pane->uuid = '43357c17-2da1-41c5-9ae7-44011ee3ea1f';
   $display->content['new-43357c17-2da1-41c5-9ae7-44011ee3ea1f'] = $pane;
   $display->panels['middle'][4] = 'new-43357c17-2da1-41c5-9ae7-44011ee3ea1f';
+
+  $pane = new stdClass();
+  $pane->pid = 'new-f1c5541f-27f7-48bc-8478-f11140602cc5';
+  $pane->panel = 'middle';
+  $pane->type = 'views_panes';
+  $pane->subtype = 'erpal_invoice_line_items-panel_pane_1';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'argument_entity_id:commerce_order_1',
+    ),
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 5;
+  $pane->locks = array();
+  $pane->uuid = 'f1c5541f-27f7-48bc-8478-f11140602cc5';
+  $display->content['new-f1c5541f-27f7-48bc-8478-f11140602cc5'] = $pane;
+  $display->panels['middle'][5] = 'new-f1c5541f-27f7-48bc-8478-f11140602cc5';
+
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
