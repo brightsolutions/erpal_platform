@@ -41,7 +41,7 @@ function erpal_menu_flush_caches() {
   );
   $items[] = array(
     'link_path' => 'invoices/line_items',
-    'link_title' => 'Invoice line items',
+    'link_title' => 'Revenue',
     'menu_name' => 'erpal-menu',
     'weight' => 6,
   );
