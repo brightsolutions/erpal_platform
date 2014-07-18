@@ -117,9 +117,21 @@ projects[views_bulk_operations][subdir] = "contrib"
 projects[views_field_view][version] = "1.1"
 projects[views_field_view][subdir] = "contrib"
 
+projects[pathauto][subdir] = "contrib"
+projects[pathauto][version] = "1.2"
+
+projects[subpathauto][subdir] = "contrib"
+projects[subpathauto][version] = "1.3"
+
 
 
 ; ### DEV VERSIONS of contrib modules ###
+projects[pathauto_entity][subdir] = "contrib"
+projects[pathauto_entity][download][type] = "git"
+projects[pathauto_entity][download][url] = "http://git.drupal.org/project/pathauto_entity.git"
+projects[pathauto_entity][download][branch] = "7.x-1.x"
+projects[pathauto_entity][download][revision] = "3422ef11300485a79a5af7711b3611cc7c93ce99"
+
 projects[date_item][subdir] = "contrib"
 projects[date_item][download][type] = "git"
 projects[date_item][download][url] = "http://git.drupal.org/project/date_item.git"

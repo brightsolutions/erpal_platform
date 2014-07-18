@@ -619,7 +619,7 @@ function erpal_commerce_create_invoice(&$line_items, $context) {
     }
   }
   commerce_order_save($order);
-  drupal_set_message(t('Invoice <a href="@href">@invoice</a> was created.', array('@href' => url('order/' . $order->order_id), '@invoice' => $order->order_number)), 'status', FALSE);
+  drupal_set_message(t('Invoice <a href="@href">@invoice</a> was created.', array('@href' => url('admin/commerce/orders/' . $order->order_id), '@invoice' => $order->order_number)), 'status', FALSE);
 }
 
 /**
@@ -670,6 +670,7 @@ function erpal_commerce_delete_invoice(&$invoice, $context) {
  * Implements hook_flush_caches().
  */
 function erpal_commerce_flush_caches() {
+
   // Include the fields file.
   module_load_include('inc', 'erpal_commerce', 'erpal_commerce.fields');
 
@@ -722,7 +723,7 @@ function erpal_commerce_order_delete_form($form, &$form_state, $order) {
 
   return confirm_form($form,
     t('Are you sure you want to delete %order_number?', array('%order_number' => $order->order_number)),
-    'order/' . $order->order_id,
+    'admin/commerce/orders/' . $order->order_id,
     t('This action cannot be undone.'),
     t('Delete'),
     t('Cancel')
@@ -760,5 +761,5 @@ function erpal_commerce_order_delete_form_submit($form, &$form_state) {
  * @see erpal_commerce_order_delete_form()
  */
 function erpal_commerce_order_delete_redirect($form, &$form_state) {
-  drupal_goto('order/' .$form_state['commerce_order']->order_id . '/delete');
+  drupal_goto('admin/commerce/orders/' .$form_state['commerce_order']->order_id . '/delete');
 }

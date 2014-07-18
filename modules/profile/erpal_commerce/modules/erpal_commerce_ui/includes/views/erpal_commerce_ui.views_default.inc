@@ -19,7 +19,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'ERPAL Order';
@@ -113,19 +113,12 @@ function erpal_commerce_ui_views_default_views() {
       'label' => '',
     ),
   );
-  /* Field: Commerce Order: Order ID */
-  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
-  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['label'] = '';
-  $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
   /* Field: Commerce Order: Order number */
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-  $handler->display->display_options['fields']['order_number']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['order_number']['alter']['path'] = 'admin/commerce/orders/[order_id]/order_pdf';
+  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Order: Order PDF */
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['id'] = 'erpal_commerce_ui_order_link';
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['table'] = 'views_entity_commerce_order';
@@ -203,7 +196,7 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
     3 => 0,
   );
-
+  
   /* Display: Admin page */
   $handler = $view->new_display('page', 'Admin page', 'page');
   $handler->display->display_options['path'] = 'admin/erpal/orders';
@@ -215,7 +208,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['weight'] = '0';
-
+  
   /* Display: User page */
   $handler = $view->new_display('page', 'User page', 'page_1');
   $handler->display->display_options['defaults']['fields'] = FALSE;
@@ -293,19 +286,12 @@ function erpal_commerce_ui_views_default_views() {
       'label' => '',
     ),
   );
-  /* Field: Commerce Order: Order ID */
-  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
-  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['label'] = '';
-  $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
   /* Field: Commerce Order: Order number */
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-  $handler->display->display_options['fields']['order_number']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
+  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Order: Order PDF */
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['id'] = 'erpal_commerce_ui_order_link';
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['table'] = 'views_entity_commerce_order';
@@ -333,12 +319,10 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_order']['id'] = 'edit_order';
   $handler->display->display_options['fields']['edit_order']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
-  $handler->display->display_options['fields']['edit_order']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
-  $handler->display->display_options['fields']['edit_order']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
   $handler->display->display_options['path'] = 'orders';
-
+  
   /* Display: Activity by Order */
   $handler = $view->new_display('panel_pane', 'Activity by Order', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -397,7 +381,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-
+  
   /* Display: Orders by Activity */
   $handler = $view->new_display('panel_pane', 'Orders by Activity', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -423,19 +407,12 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['relationships']['field_sales_process_target_id']['relationship'] = 'field_quote_target_id';
   $handler->display->display_options['relationships']['field_sales_process_target_id']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Commerce Order: Order ID */
-  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
-  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['label'] = '';
-  $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
   /* Field: Commerce Order: Order number */
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-  $handler->display->display_options['fields']['order_number']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
+  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Order: Order PDF */
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['id'] = 'erpal_commerce_ui_order_link';
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['table'] = 'views_entity_commerce_order';
@@ -463,9 +440,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_order']['id'] = 'edit_order';
   $handler->display->display_options['fields']['edit_order']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
-  $handler->display->display_options['fields']['edit_order']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
-  $handler->display->display_options['fields']['edit_order']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: CRM Core Activity: Activity ID */
@@ -498,7 +473,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-
+  
   /* Display: Orders by Contact */
   $handler = $view->new_display('panel_pane', 'Orders by Contact', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -510,19 +485,12 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['relationships']['field_customer_target_id']['field'] = 'field_customer_target_id';
   $handler->display->display_options['relationships']['field_customer_target_id']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Commerce Order: Order ID */
-  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
-  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['label'] = '';
-  $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
   /* Field: Commerce Order: Order number */
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-  $handler->display->display_options['fields']['order_number']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
+  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Order: Order PDF */
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['id'] = 'erpal_commerce_ui_order_link';
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['table'] = 'views_entity_commerce_order';
@@ -585,7 +553,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'CRM Contact: Contact ID',
     ),
   );
-
+  
   /* Display: Quote by Order */
   $handler = $view->new_display('panel_pane', 'Quote by Order', 'panel_pane_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -604,19 +572,12 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['relationships']['reverse_field_quote_commerce_order']['table'] = 'commerce_order';
   $handler->display->display_options['relationships']['reverse_field_quote_commerce_order']['field'] = 'reverse_field_quote_commerce_order';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Commerce Order: Order ID */
-  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
-  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['label'] = '';
-  $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
   /* Field: Commerce Order: Order number */
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-  $handler->display->display_options['fields']['order_number']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
+  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Order: Quote PDF */
   $handler->display->display_options['fields']['erpal_quote_ui_order_link']['id'] = 'erpal_quote_ui_order_link';
   $handler->display->display_options['fields']['erpal_quote_ui_order_link']['table'] = 'views_entity_commerce_order';
@@ -644,9 +605,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_order']['id'] = 'edit_order';
   $handler->display->display_options['fields']['edit_order']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
-  $handler->display->display_options['fields']['edit_order']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
-  $handler->display->display_options['fields']['edit_order']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Commerce Order: Order ID */
@@ -679,7 +638,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-
+  
   /* Display: Invoices by Order */
   $handler = $view->new_display('panel_pane', 'Invoices by Order', 'panel_pane_5');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -703,19 +662,12 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['relationships']['field_line_item_order_target_id']['field'] = 'field_line_item_order_target_id';
   $handler->display->display_options['relationships']['field_line_item_order_target_id']['relationship'] = 'commerce_line_items_line_item_id';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Commerce Order: Order ID */
-  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
-  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['label'] = '';
-  $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
   /* Field: Commerce Order: Order number */
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-  $handler->display->display_options['fields']['order_number']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
+  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Order: Invoice PDF */
   $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['id'] = 'commerce_billy_pdf_invoice_link';
   $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['table'] = 'views_entity_commerce_order';
@@ -743,9 +695,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_order']['id'] = 'edit_order';
   $handler->display->display_options['fields']['edit_order']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
-  $handler->display->display_options['fields']['edit_order']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
-  $handler->display->display_options['fields']['edit_order']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Commerce Order: Order ID */
@@ -778,7 +728,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-
+  
   /* Display: Orders by Invoice */
   $handler = $view->new_display('panel_pane', 'Orders by Invoice', 'panel_pane_6');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -802,19 +752,12 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['relationships']['order_id']['field'] = 'order_id';
   $handler->display->display_options['relationships']['order_id']['relationship'] = 'reverse_field_line_item_order_commerce_line_item';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Commerce Order: Order ID */
-  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
-  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['fields']['order_id']['label'] = '';
-  $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
   /* Field: Commerce Order: Order number */
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-  $handler->display->display_options['fields']['order_number']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
+  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Order: Order PDF */
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['id'] = 'erpal_commerce_ui_order_link';
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['table'] = 'views_entity_commerce_order';
@@ -842,9 +785,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_order']['id'] = 'edit_order';
   $handler->display->display_options['fields']['edit_order']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
-  $handler->display->display_options['fields']['edit_order']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
-  $handler->display->display_options['fields']['edit_order']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Commerce Order: Order ID */
@@ -877,6 +818,61 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
+  $translatables['erpal_order'] = array(
+    t('Master'),
+    t('ERPAL Order'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Orders not found. Please, create new order.'),
+    t('Commerce Order'),
+    t('- Choose an operation -'),
+    t('Order number'),
+    t('Order PDF'),
+    t('Customer'),
+    t('Order status'),
+    t('Order total'),
+    t('Edit link'),
+    t('Admin page'),
+    t('User page'),
+    t('Edit'),
+    t('Activity by Order'),
+    t('Sales process'),
+    t('Commerce Order entity referenced from field_quote'),
+    t('Activity not found. Please, create new Activity or add Activity to the quote.'),
+    t('All'),
+    t('View panes'),
+    t('Orders by Activity'),
+    t('Orders'),
+    t('CRM Activity entity referenced from field_sales_process'),
+    t('Orders by Contact'),
+    t('CRM Core Contact entity referenced from field_customer'),
+    t('Quote by Order'),
+    t('Quote'),
+    t('Quotes not found. Please, create new quote.'),
+    t('Commerce Order referencing Commerce Order from field_quote'),
+    t('Quote PDF'),
+    t('Invoices by Order'),
+    t('Invoices'),
+    t('Invoices not found. Please, create new invoice.'),
+    t('Line items referenced by commerce_line_items'),
+    t('Commerce Order entity referenced from field_line_item_order'),
+    t('Invoice PDF'),
+    t('Orders by Invoice'),
+    t('Commerce Line item referencing Commerce Order from field_line_item_order'),
+    t('Order'),
+  );
+
 
   $export['erpal_order'] = $view;
 

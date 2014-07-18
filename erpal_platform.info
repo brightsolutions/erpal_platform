@@ -62,6 +62,9 @@ dependencies[] = token
 dependencies[] = views
 dependencies[] = views_bulk_operations
 dependencies[] = views_content
+dependencies[] = pathauto_entity
+dependencies[] = subpathauto
+dependencies[] = pathauto
 
 ;ERPAL modules
 dependencies[] = erpal_core_ui

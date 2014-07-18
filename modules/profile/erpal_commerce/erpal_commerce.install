@@ -10,6 +10,17 @@
  */
 function erpal_commerce_install() {
 
+  // Enable pathauto generetion for commerce_order, commerce_product entities.
+  $available = variable_get('pathauto_entity_available_entity_types', array());
+  $available['commerce_order'] = 'commerce_order';
+  $available['commerce_product'] = 'commerce_product';
+  variable_set('pathauto_entity_available_entity_types', $available);
+  variable_set('subpathauto_ignore_admin', 0);
+  variable_set('pathauto_commerce_order_commerce_order_pattern', 'order/[commerce-order:order-id]');
+  variable_set('pathauto_commerce_order_invoice_pattern', 'invoice/[commerce-order:order-id]');
+  variable_set('pathauto_commerce_order_quote_pattern', 'quote/[commerce-order:order-id]');
+  variable_set('pathauto_commerce_product_product_pattern', 'product/[commerce-product:product-id]');
+
   // Disable custom order number for invoice bundle, because it generate by
   // commerce billy module.
   variable_set('custom_order_number_invoice_nr_enable', FALSE);

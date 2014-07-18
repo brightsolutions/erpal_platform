@@ -143,7 +143,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
         'path' => 'order/add',
         'path_router' => 'order/add',
         'path_original' => 'order/add',
-        'path_pattern' => 'order/%',
+        'path_pattern' => 'admin/commerce/orders/%',
         'path_query' => array(
           'field_customer' => '[crm_core_contact:contact-id]',
         ),
