@@ -184,3 +184,45 @@ function erpal_crm_field_widget_form_alter(&$element, &$form_state, $context){
     }
   }
 }
+
+/**
+ * Implements hook_references_dialog_entity_admin_paths().
+ */
+function erpal_crm_references_dialog_entity_admin_paths() {
+  return array(
+    'crm_core_contact' => array(
+      'add' => 'crm-core/contact/add/[bundle]',
+      'edit' => 'crm-core/contact/[entity_id]/edit',
+    ),
+    'crm_core_activity' => array(
+      'add' => 'crm-core/activity/add/[bundle]',
+      'edit' => 'crm-core/activity/[entity_id]/edit',
+    ),
+  );
+}
+
+/**
+ * Implements hook_flush_caches().
+ */
+function erpal_crm_flush_caches() {
+  // Change field 'field_activity_participants' widget to
+  // 'entityreference_autocomplete' and unlock field.
+  $contact_types = crm_core_activity_types();
+  foreach ($contact_types as $contact_type) {
+    $info_instance = field_info_instance('crm_core_activity', 'field_activity_participants', $contact_type->type);
+    if (!empty($info_instance) && $info_instance['widget']['type'] != 'entityreference_autocomplete') {
+      $info_instance['widget']['type'] = 'entityreference_autocomplete';
+      $info_instance['widget']['references_dialog_add'] = 1;
+      $info_instance['widget']['references_dialog_edit'] = 1;
+      $info_instance['widget']['references_dialog_search'] = 1;
+      $info_instance['widget']['references_dialog_search_view'] = '';
+      field_update_instance($info_instance);
+    }
+  }
+
+  $info_field = field_info_field('field_activity_participants');
+  if (!empty($info_field) && $info_field['locked']) {
+    $info_field['locked'] = FALSE;
+    field_update_field($info_field);
+  }
+}
