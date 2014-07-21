@@ -80,9 +80,8 @@ projects[panels_everywhere][subdir] = "contrib"
 projects[pm_existing_pages][version] = "1.4"
 projects[pm_existing_pages][subdir] = "contrib"
 
-projects[references_dialog][version] = "1.0-alpha4"
+projects[references_dialog][version] = "1.0-beta1"
 projects[references_dialog][subdir] = "contrib"
-projects[references_dialog][patch][] = "http://drupal.org/files/references_dialog-1856978-4.patch"
 
 projects[relation][version] = "1.0-rc4"
 projects[relation][subdir] = "contrib"
@@ -141,8 +140,8 @@ projects[date_item][download][revision] = "2828bee909e24f7a8fb5cfd5c922b72c2eb90
 projects[dfv][subdir] = "contrib"
 projects[dfv][download][type] = "git"
 projects[dfv][download][url] = "http://git.drupal.org/project/dfv.git"
-projects[dfv][download][branch] = "7.x-1.x"
-projects[dfv][download][revision] = "9b1d122440b818acada26aa5789487565f1cb8f6"
+projects[dfv][download][branch] = "1.x-dev"
+projects[dfv][download][revision] = "24deb8540cc2195ee63aaae6917edd1fafaf02d1"
 
 projects[name][subdir] = "contrib"
 projects[name][version] = "1.x-dev"

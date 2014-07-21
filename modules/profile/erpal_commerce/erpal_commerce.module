@@ -763,3 +763,15 @@ function erpal_commerce_order_delete_form_submit($form, &$form_state) {
 function erpal_commerce_order_delete_redirect($form, &$form_state) {
   drupal_goto('admin/commerce/orders/' .$form_state['commerce_order']->order_id . '/delete');
 }
+
+/**
+ * Implements hook_references_dialog_entity_admin_paths().
+ */
+function erpal_commerce_references_dialog_entity_admin_paths() {
+  return array(
+    'commerce_order' => array(
+      'add' => 'admin/commerce/orders/add/[bundle]',
+      'edit' => 'admin/commerce/orders/[entity_id]/edit',
+    ),
+  );
+}
