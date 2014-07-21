@@ -241,6 +241,9 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
       $language = $form['field_vendor_address']['#language'];
       $form['field_vendor_address'][$language]['#default_value'] = $settings['customer_profile_id'];
     }
+    if ($form_state['commerce_order']->type == 'invoice') {
+      $form['actions']['submit']['#validate'][] = 'erpal_commerce_invoice_form_validate';
+    }
   }
   else {
     // Change page title for edit order page.
@@ -303,6 +306,13 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
       unset($options['invoice']);
     }
   }
+}
+
+/**
+ * Change status AGAIN for properly work of rules in commerce billy module.
+ */
+function erpal_commerce_invoice_form_validate(&$form, &$form_state) {
+  $form_state['values']['status'] = $form_state['values']['status_original'];
 }
 
 /**
@@ -548,7 +558,7 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
   module_load_include('inc', 'commerce_order_ui', 'includes/commerce_order.forms');
 
   // Replicate order to invoice and unset unused fields.
-  $order = replicate_clone_entity('commerce_order', commerce_order_load(arg(1)));
+  $order = replicate_clone_entity('commerce_order', commerce_order_load(arg(3)));
   $order->type = 'invoice';
   $order->order_id = NULL;
   unset($order->order_number,
@@ -761,5 +771,9 @@ function erpal_commerce_order_delete_form_submit($form, &$form_state) {
  * @see erpal_commerce_order_delete_form()
  */
 function erpal_commerce_order_delete_redirect($form, &$form_state) {
-  drupal_goto('admin/commerce/orders/' .$form_state['commerce_order']->order_id . '/delete');
+  $des = drupal_get_destination();
+  if (!empty($des['destination'])) {
+    unset($_GET['destination']);
+  }
+  drupal_goto('admin/commerce/orders/' . $form_state['commerce_order']->order_id . '/delete', array('query' => $des));
 }
