@@ -717,7 +717,7 @@ function erpal_commerce_views_default_views() {
   $view->core = 0;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->display->display_options['title'] = 'Products';
@@ -825,12 +825,6 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['fields']['status']['field'] = 'status';
   $handler->display->display_options['fields']['status']['type'] = 'active-disabled';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Commerce Product: Operations links */
-  $handler->display->display_options['fields']['operations']['id'] = 'operations';
-  $handler->display->display_options['fields']['operations']['table'] = 'commerce_product';
-  $handler->display->display_options['fields']['operations']['field'] = 'operations';
-  $handler->display->display_options['fields']['operations']['label'] = 'Operations';
-  $handler->display->display_options['fields']['operations']['add_destination'] = 1;
   /* Sort criterion: Commerce Product: SKU */
   $handler->display->display_options['sorts']['sku']['id'] = 'sku';
   $handler->display->display_options['sorts']['sku']['table'] = 'commerce_product';
@@ -845,7 +839,7 @@ function erpal_commerce_views_default_views() {
   $handler->display->display_options['filters']['sku']['expose']['label'] = 'Filter by SKUs containing';
   $handler->display->display_options['filters']['sku']['expose']['operator'] = 'sku_op';
   $handler->display->display_options['filters']['sku']['expose']['identifier'] = 'sku';
-
+  
   /* Display: Products */
   $handler = $view->new_display('page', 'Products', 'products_page');
   $handler->display->display_options['path'] = 'products';
@@ -879,7 +873,6 @@ function erpal_commerce_views_default_views() {
     t('Type'),
     t('Price'),
     t('Status'),
-    t('Operations'),
     t('Filter by SKUs containing'),
   );
 
