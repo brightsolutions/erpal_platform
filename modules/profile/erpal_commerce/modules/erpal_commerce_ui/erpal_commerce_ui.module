@@ -218,15 +218,6 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
     ),
   );
 
-  // Add rules link on invoice/% page.
-  if ($root_path == 'invoice/%') {
-    $link = rules_link_render('create_invoice', arg(1));
-    $local_tasks[] = array(
-      'root_path' => $root_path,
-      'menu_item' => $link['#href'],
-      'title'     => 'Create Invoice from Order',
-    );
-  }
   // Add download pdf on 'commerce_order' bundle.
   if ($root_path == 'admin/commerce/orders/%/order_pdf') {
     $local_tasks[] = array(
@@ -252,19 +243,12 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
         'title'     => 'Download PDF',
         'query'     => array(),
       );
-      // Add Create invoice link on order page.
-      $local_tasks[] = array(
-        'root_path' => $root_path,
-        'menu_item' => 'invoice/' . arg($arg),
-        'title'     => 'Create invoice',
-        'query'     => array(),
-      );
 
       $link = rules_link_render('create_invoice', arg($arg));
       $local_tasks[] = array(
         'root_path' => $root_path,
         'menu_item' => $link['#href'],
-        'title'     => 'Create Invoice from Order',
+        'title'     => 'Create Invoice',
       );
     }
 

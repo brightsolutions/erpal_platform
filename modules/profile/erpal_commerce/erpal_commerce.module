@@ -206,6 +206,7 @@ function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_
  * Implements hook_form_alter().
  */
 function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
+
   // Fix path query maxlength.
   if (in_array($form_id, array('cat_ui_add_form', 'cat_ui_edit_form')) && isset($form['cat_actions'])) {
     foreach ($form['cat_actions'] as $key => $value) {
@@ -213,6 +214,24 @@ function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
         $form['cat_actions'][$key]['path_query']['#maxlength'] = 512;
       }
     }
+  }
+
+  // Small changes for exposed filters on revenue.
+  if ($form_id == 'views_exposed_form') {
+    $ids = array(
+      'views-exposed-form-erpal-invoice-line-items-page-2',
+      'views-exposed-form-erpal-invoice-line-items-panel-pane-1',
+    );
+
+    // So if line item referenced to commerce_order - not delivered, if to
+    // invoice than line item is delivered.
+    if (in_array($form['#id'], $ids)) {
+      if (!empty($form['type']['#options'])) {
+        $form['type']['#options']['commerce_order'] = t('No');
+        $form['type']['#options']['invoice'] = t('Yes');
+      }
+    }
+
   }
 }
 
