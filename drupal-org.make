@@ -82,6 +82,7 @@ projects[pm_existing_pages][subdir] = "contrib"
 
 projects[references_dialog][version] = "1.0-beta1"
 projects[references_dialog][subdir] = "contrib"
+projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/references_dialog-add-bundle-to-entity-access_2308071_1.patch"
 
 projects[relation][version] = "1.0-rc4"
 projects[relation][subdir] = "contrib"

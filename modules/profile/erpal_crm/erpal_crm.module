@@ -210,12 +210,12 @@ function erpal_crm_flush_caches() {
   $contact_types = crm_core_activity_types();
   foreach ($contact_types as $contact_type) {
     $info_instance = field_info_instance('crm_core_activity', 'field_activity_participants', $contact_type->type);
-    if (!empty($info_instance) && $info_instance['widget']['type'] != 'entityreference_autocomplete') {
+    if (!empty($info_instance) && !$info_instance['widget']['settings']['references_dialog_add']) {
       $info_instance['widget']['type'] = 'entityreference_autocomplete';
-      $info_instance['widget']['references_dialog_add'] = 1;
-      $info_instance['widget']['references_dialog_edit'] = 1;
-      $info_instance['widget']['references_dialog_search'] = 1;
-      $info_instance['widget']['references_dialog_search_view'] = '';
+      $info_instance['widget']['settings']['references_dialog_add'] = 1;
+      $info_instance['widget']['settings']['references_dialog_edit'] = 1;
+      $info_instance['widget']['settings']['references_dialog_search'] = 1;
+      $info_instance['widget']['settings']['references_dialog_search_view'] = '';
       field_update_instance($info_instance);
     }
   }
