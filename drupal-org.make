@@ -142,7 +142,7 @@ projects[dfv][subdir] = "contrib"
 projects[dfv][download][type] = "git"
 projects[dfv][download][url] = "http://git.drupal.org/project/dfv.git"
 projects[dfv][download][branch] = "7.x-1.x"
-projects[dfv][download][revision] = "24deb8540cc2195ee63aaae6917edd1fafaf02d1"
+projects[dfv][download][revision] = "566e0a2460dfef56bb31ede51b31d66175daa4f4"
 
 projects[name][subdir] = "contrib"
 projects[name][version] = "1.x-dev"
