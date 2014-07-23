@@ -25,16 +25,7 @@ function erpal_commerce_ui_menu() {
     'type' => MENU_LOCAL_TASK,
     'file' => 'erpal_commerce_ui.admin.inc',
   );
-  $items['admin/commerce/orders/%commerce_order/order_pdf'] = array(
-    'title' => 'Pdf',
-    'page callback' => 'commerce_order_ui_order_view',
-    'page arguments' => array(3, 4),
-    'access callback' => 'erpal_commerce_ui_order_view_access',
-    'access arguments' => array(3),
-    'type' => MENU_LOCAL_TASK,
-    'weight' => -5,
-    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-  );
+
   return $items;
 }
 
