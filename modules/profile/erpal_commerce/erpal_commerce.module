@@ -68,6 +68,25 @@ function erpal_commerce_entity_info_alter(&$entity_info) {
   $entity_info['commerce_customer_profile']['inline entity form'] = array(
     'controller' => 'CommerceCustomerProfileInlineEntityFormController',
   );
+
+  // Add callbeck uri for commerce_line_item.
+  $entity_info['commerce_line_item']['uri callback'] = 'erpal_commerce_line_item_uri';
+}
+
+/**
+ * Callback for entity uri of order, it need for correct working of order
+ *  deletion.
+ */
+function erpal_commerce_commerce_order_uri($order) {
+  return array('path' => 'admin/commerce/orders/' . $order->order_id);
+}
+
+/**
+ * Callback for entity uri of line item, it need for correct working of order
+ *  deletion.
+ */
+function erpal_commerce_line_item_uri($order) {
+  return array('path' => NULL);
 }
 
 /**
