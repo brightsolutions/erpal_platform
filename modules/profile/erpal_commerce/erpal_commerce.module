@@ -275,7 +275,11 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
     if (isset($form['field_vendor']) && isset($form['field_vendor_address'])) {
       $settings = variable_get('erpal_vendor_settings', array());
       $language = $form['field_vendor']['#language'];
-      $form['field_vendor'][$language]['#default_value'] = $settings['vendor_id'];
+      $vendor = crm_core_contact_load($settings['vendor_id']);
+      $vendor_name = implode(' ', $vendor->contact_name[$language][0]['safe']);
+      $vendor_name = trim($vendor_name) . ' (' . $settings['vendor_id'] . ')';
+      $form['field_vendor'][$language][0]['target_id']['#default_value'] = $vendor_name;
+
       $language = $form['field_vendor_address']['#language'];
       $form['field_vendor_address'][$language]['#default_value'] = $settings['customer_profile_id'];
     }
