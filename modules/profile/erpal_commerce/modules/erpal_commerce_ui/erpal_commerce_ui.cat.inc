@@ -217,6 +217,111 @@ function erpal_commerce_ui_cat_items_settings_info() {
   );
   $cat_item->weight = -97;
   $export['create_invoice_link'] = $cat_item;
+  
+  $cat_item = new stdClass();
+  $cat_item->api_version = 1;
+  $cat_item->machine_name = 'add_product';
+  $cat_item->name = 'Add product';
+  $cat_item->catch_subpaths = 0;
+  $cat_item->category = '';
+  $cat_item->path = 'products';
+  $cat_item->data = array(
+    'access' => array(),
+    'active_trail_path' => '',
+    'arguments' => array(),
+    'name' => 'Add product',
+    'path' => 'products',
+    'category' => '',
+    'cat_actions' => array(
+      0 => array(
+        'path' => 'product/add/product',
+        'path_router' => 'product/add/product',
+        'path_original' => 'product/add/product',
+        'path_pattern' => 'product/%/%',
+        'path_query' => array(),
+        'path_destination' => TRUE,
+        'title' => 'Add product',
+        'css_id' => '',
+        'css_class' => '',
+        'active' => FALSE,
+      ),
+    ),
+    'cat_tabs' => array(),
+    'machine_name' => 'add_product',
+    'path_original' => 'products',
+    'path_pattern' => 'products',
+    'path_query' => array(),
+    'path_router' => 'products',
+    'reusable' => 0,
+    'cat_remove' => array(),
+  );
+  $cat_item->weight = 0;
+  $export['add_product'] = $cat_item;
+  
+  $cat_item = new stdClass();
+  $cat_item->api_version = 1;
+  $cat_item->machine_name = 'create_order';
+  $cat_item->name = 'Create Order';
+  $cat_item->catch_subpaths = 0;
+  $cat_item->category = '';
+  $cat_item->path = 'orders';
+  $cat_item->data = array(
+    'access' => array(),
+    'active_trail_path' => '',
+    'arguments' => array(),
+    'name' => 'Create Order',
+    'path' => 'orders',
+    'category' => '',
+    'cat_actions' => array(
+      0 => array(
+        'path' => 'order/add',
+        'path_router' => 'order/add',
+        'path_original' => 'order/add',
+        'path_pattern' => 'order/%',
+        'path_query' => array(),
+        'path_destination' => TRUE,
+        'title' => 'Create Order',
+        'css_id' => '',
+        'css_class' => '',
+        'active' => TRUE,
+      ),
+      1 => array(
+        'path' => 'admin/commerce/config/custom-order-number',
+        'path_router' => 'admin/commerce/config/custom-order-number',
+        'path_original' => 'admin/commerce/config/custom-order-number',
+        'path_pattern' => 'admin/%/%/%',
+        'path_query' => array(),
+        'path_destination' => TRUE,
+        'title' => 'Settings',
+        'css_id' => '',
+        'css_class' => '',
+        'active' => TRUE,
+      ),
+      2 => array(
+        'path' => 'admin/commerce/config/billy-order/pdf',
+        'path_router' => 'admin/commerce/config/billy-order/pdf',
+        'path_original' => 'admin/commerce/config/billy-order/pdf',
+        'path_pattern' => 'admin/%/%/%/%',
+        'path_query' => array(),
+        'path_destination' => FALSE,
+        'title' => 'PDF Settings',
+        'css_id' => '',
+        'css_class' => '',
+        'active' => FALSE,
+      ),
+    ),
+    'cat_tabs' => array(),
+    'machine_name' => 'create_order',
+    'path_original' => 'orders',
+    'path_pattern' => 'orders',
+    'path_query' => array(),
+    'path_router' => 'orders',
+    'reusable' => 0,
+    'cat_remove' => array(),
+  );
+  $cat_item->weight = 0;
+  $export['create_order'] = $cat_item;
+
 
   return $export;
 }

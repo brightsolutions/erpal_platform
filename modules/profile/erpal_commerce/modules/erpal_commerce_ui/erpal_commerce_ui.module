@@ -71,6 +71,9 @@ function erpal_commerce_ui_ctools_plugin_api($module = NULL, $api = NULL) {
   }
 }
 
+/**
+ * Implements hook_admin_paths().
+ */
 function erpal_commerce_ui_admin_paths() {
   $paths = array(
     'admin/commerce/orders/*/view' => FALSE, 
@@ -190,48 +193,11 @@ function erpal_commerce_ui_product_form_submit($form, &$form_state) {
 function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 
   // Add local tasks for adding quote/orders on pages for quotes/orders menage.
-  $local_tasks = array(
-    array(
-      'root_path' => 'admin/erpal/orders',
-      'menu_item' => 'admin/commerce/orders/add',
-      'title'     => 'Create Order',
-    ),
-    array(
-      'root_path' => 'orders',
-      'menu_item' => 'order/add',
-      'title'     => 'Create Order',
-    ),
-    array(
-      'root_path' => 'admin/erpal/orders',
-      'menu_item' => 'admin/commerce/config/custom-order-number',
-      'title'     => 'Settings',
-    ),
-    array(
-      'root_path' => 'admin/erpal/orders',
-      'menu_item' => 'admin/commerce/config/billy-order/pdf',
-      'title' => 'PDF Settings',
-    ),
-    array(
-      'root_path' => 'products',
-      'menu_item' => 'product/add/product',
-      'title' => 'Add product',
-    ),
-  );
-
-  // Add download pdf on 'commerce_order' bundle.
-  if ($root_path == 'admin/commerce/orders/%/order_pdf') {
-    $local_tasks[] = array(
-      'root_path' => $root_path,
-      'menu_item' => 'order-pdf/' . arg(3),
-      'title'     => 'Download PDF',
-      'query'     => array(),
-    );
-  }
+  $local_tasks = array();
 
   $order_pages = array('admin/commerce/orders/%');
   if (in_array($root_path, $order_pages)) {
 
-    // Finds arg with order id.
     $arg = 3;
     $order = commerce_order_load(arg($arg));
 
@@ -262,15 +228,6 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
       );
     }
 
-    // Add download pdf on 'invoice' bundle.
-    if ($order->type == 'invoice') {
-      $local_tasks[] = array(
-        'root_path' => $root_path,
-        'menu_item' => 'invoice-pdf/' . arg($arg),
-        'title'     => 'Download PDF',
-        'query'     => array(),
-      );
-    }
   }
 
   foreach ($local_tasks as $local_task) {
