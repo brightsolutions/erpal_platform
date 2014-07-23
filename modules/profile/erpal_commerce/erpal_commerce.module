@@ -577,7 +577,13 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
   module_load_include('inc', 'commerce_order_ui', 'includes/commerce_order.forms');
 
   // Replicate order to invoice and unset unused fields.
-  $order = replicate_clone_entity('commerce_order', commerce_order_load(arg(3)));
+  if (is_numeric(arg(3))) {
+    $order = replicate_clone_entity('commerce_order', commerce_order_load(arg(3)));
+  }
+  else {
+    $order = commerce_order_new($user->uid, NULL, 'invoice');
+  }
+
   $order->type = 'invoice';
   $order->order_id = NULL;
   unset($order->order_number,
