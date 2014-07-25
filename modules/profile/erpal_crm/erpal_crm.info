@@ -12,6 +12,8 @@ dependencies[] = field_collection
 dependencies[] = image
 dependencies[] = url
 dependencies[] = rules_conditional
-dependencies[] = references_dialog
+dependencies[] = relation_dialog
+dependencies[] = relation_add
+dependencies[] = relation_view_formatter
 
 files[] = includes/relation.inline_entity_form.inc

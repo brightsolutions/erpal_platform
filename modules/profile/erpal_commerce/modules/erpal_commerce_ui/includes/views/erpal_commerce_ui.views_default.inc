@@ -19,7 +19,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'ERPAL Order';
@@ -196,7 +196,7 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
     3 => 0,
   );
-  
+
   /* Display: Admin page */
   $handler = $view->new_display('page', 'Admin page', 'page');
   $handler->display->display_options['path'] = 'admin/erpal/orders';
@@ -208,7 +208,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['weight'] = '0';
-  
+
   /* Display: User page */
   $handler = $view->new_display('page', 'User page', 'page_1');
   $handler->display->display_options['defaults']['fields'] = FALSE;
@@ -322,7 +322,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
   $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
   $handler->display->display_options['path'] = 'orders';
-  
+
   /* Display: Activity by Order */
   $handler = $view->new_display('panel_pane', 'Activity by Order', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -381,7 +381,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-  
+
   /* Display: Orders by Activity */
   $handler = $view->new_display('panel_pane', 'Orders by Activity', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -473,7 +473,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-  
+
   /* Display: Orders by Contact */
   $handler = $view->new_display('panel_pane', 'Orders by Contact', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -553,7 +553,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'CRM Contact: Contact ID',
     ),
   );
-  
+
   /* Display: Quote by Order */
   $handler = $view->new_display('panel_pane', 'Quote by Order', 'panel_pane_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -638,7 +638,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-  
+
   /* Display: Invoices by Order */
   $handler = $view->new_display('panel_pane', 'Invoices by Order', 'panel_pane_5');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -728,7 +728,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-  
+
   /* Display: Orders by Invoice */
   $handler = $view->new_display('panel_pane', 'Orders by Invoice', 'panel_pane_6');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -985,7 +985,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -1141,7 +1141,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
-  
+
   /* Display: Revenue */
   $handler = $view->new_display('panel_pane', 'Revenue', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1309,7 +1309,7 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: Revenue page */
   $handler = $view->new_display('page', 'Revenue page', 'page_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1581,7 +1581,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 0;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->display->display_options['title'] = 'Products';
@@ -1703,7 +1703,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['sku']['expose']['label'] = 'Filter by SKUs containing';
   $handler->display->display_options['filters']['sku']['expose']['operator'] = 'sku_op';
   $handler->display->display_options['filters']['sku']['expose']['identifier'] = 'sku';
-  
+
   /* Display: Products */
   $handler = $view->new_display('page', 'Products', 'products_page');
   $handler->display->display_options['path'] = 'products';
@@ -1950,20 +1950,53 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['attach'] = array(
-    0 => 'commerce_order:field_vendor:commerce_order',
-    1 => 'commerce_order:field_vendor:invoice',
-    2 => 'commerce_order:field_vendor:quote',
-    3 => 'commerce_order:field_customer:commerce_order',
-    4 => 'commerce_order:field_customer:invoice',
-    5 => 'commerce_order:field_customer:quote',
-    6 => 'crm_core_activity:field_activity_participants:meeting',
-    7 => 'crm_core_activity:field_activity_participants:phone_call',
-    8 => 'crm_core_activity:field_activity_participants:email',
-    9 => 'crm_core_activity:field_activity_participants:sales_process',
-    10 => 'crm_core_activity:field_activity_customer:phone_call',
-    11 => 'crm_core_activity:field_activity_customer:email',
-    12 => 'crm_core_activity:field_activity_customer:sales_process',
-    13 => 'crm_core_activity:field_activity_main_contact:sales_process',
+    0 => 'crm_core_activity:field_activity_participants:meeting',
+    1 => 'crm_core_activity:field_activity_participants:phone_call',
+    2 => 'crm_core_activity:field_activity_participants:email',
+    3 => 'crm_core_activity:field_activity_participants:sales_process',
+    4 => 'crm_core_activity:field_activity_customer:meeting',
+    5 => 'crm_core_activity:field_activity_customer:phone_call',
+    6 => 'crm_core_activity:field_activity_customer:email',
+    7 => 'crm_core_activity:field_activity_customer:sales_process',
+    8 => 'crm_core_activity:field_activity_main_contact:sales_process',
+    9 => 'commerce_order:field_customer:commerce_order',
+    10 => 'commerce_order:field_customer:invoice',
+    11 => 'commerce_order:field_customer:quote',
+    12 => 'commerce_order:field_vendor:commerce_order',
+    13 => 'commerce_order:field_vendor:invoice',
+    14 => 'commerce_order:field_vendor:quote',
+  );
+
+  /* Display: Reference dialog Search 2 */
+  $handler = $view->new_display('references_dialog', 'Reference dialog Search 2', 'references_dialog_2');
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Contact';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Contact: Contact Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'individual' => 'individual',
+  );
+  $handler->display->display_options['attach'] = array(
+    0 => 'crm_core_contact::individual',
   );
   $translatables['erpal_contact_search'] = array(
     t('Master'),
@@ -1986,6 +2019,7 @@ function erpal_commerce_ui_views_default_views() {
     t('Email'),
     t('Phone'),
     t('Reference dialog Search'),
+    t('Reference dialog Search 2'),
   );
 
   $export['erpal_contact_search'] = $view;

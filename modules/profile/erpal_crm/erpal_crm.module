@@ -170,22 +170,6 @@ function _erpal_crm_erpal_budget_type_sales_forecast_add_default_fields() {
 }
 
 /**
- * Implements hook_field_widget_form_alter().
- */
-function erpal_crm_field_widget_form_alter(&$element, &$form_state, $context){
-  // Disable Edit button for relation field items.
-  if (isset($element['#field_name']) && $element['#field_name'] == 'field_contact_relation' && $element['#entity_type'] == 'crm_core_contact') {
-    if (isset($element['entities'])) {
-      foreach ($element['entities'] as $key => $value) {
-        if (is_numeric($key)) {
-          unset($element['entities'][$key]['actions']['ief_entity_edit']);
-        }
-      }
-    }
-  }
-}
-
-/**
  * Implements hook_references_dialog_entity_admin_paths().
  */
 function erpal_crm_references_dialog_entity_admin_paths() {
