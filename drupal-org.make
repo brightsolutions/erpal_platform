@@ -177,10 +177,10 @@ projects[commerce][download][revision] = "40751b9e89d18be0df5245c863d00907443254
 projects[commerce][patch][] = "http://drupal.org/files/issues/commerce-made-order_number-to-be-unique-only-for-commerce_order-type_2236731_4.patch"
 
 projects[relation_dialog][subdir] = "contrib"
-projects[relation_dialog][version] = "7.x-1.x"
+projects[relation_dialog][version] = "1.x-dev"
 projects[relation_dialog][download][type] = "git"
 projects[relation_dialog][download][url] = "http://git.drupal.org/project/relation_dialog.git"
-projects[relation_dialog][download][revision] = " fa981fe904a306bc65ec309fd7eef9dbf741a244"
+projects[relation_dialog][download][revision] = "fa981fe904a306bc65ec309fd7eef9dbf741a244"
 projects[relation_dialog][patch][] = "https://www.drupal.org/files/issues/relation_dialog-add-entities-support_2309579_1.patch"
 
 ; ### ERPAL contributed modules ###
