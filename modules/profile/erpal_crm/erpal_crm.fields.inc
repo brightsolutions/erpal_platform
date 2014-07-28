@@ -105,33 +105,6 @@ function _erpal_crm_activity_type_default_fields() {
     'type' => 'entityreference',
   );
 
-  $fields['field_activity_references'] = array(
-    'field_name' => 'field_activity_references',
-    'active' => TRUE,
-    'cardinality' => 1,
-    'deleted' => FALSE,
-    'entity_types' => array('crm_core_activity'),
-    'locked' => FALSE,
-    'module' => 'entityreference',
-    'settings' => array(
-      'handler' => 'base',
-      'handler_settings' => array(
-        'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 0,
-          ),
-        ),
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(),
-      ),
-      'target_type' => 'node',
-    ),
-    'translatable' => 0,
-    'type' => 'entityreference',
-  );
-
   $fields['field_activity_event_date'] = array(
     'field_name' => 'field_activity_event_date',
     'active' => TRUE,
@@ -639,46 +612,6 @@ function _erpal_crm_activity_type_default_field_instances($type) {
       ),
       'type' => 'inline_entity_form_single',
       'weight' => 3,
-    ),
-  );
-
-  $instances['field_activity_references'] = array(
-    'bundle' => $type,
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 3,
-      ),
-    ),
-    'entity_type' => 'crm_core_activity',
-    'field_name' => 'field_activity_references',
-    'label' => 'Refers to',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-        'references_dialog_add' => 1,
-        'references_dialog_edit' => 1,
-        'references_dialog_search' => 1,
-        'references_dialog_search_view' => '',
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 6,
     ),
   );
 
