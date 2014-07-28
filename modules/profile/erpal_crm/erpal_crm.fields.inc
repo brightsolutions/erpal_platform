@@ -1077,6 +1077,11 @@ function _erpal_crm_contact_type_default_instances($type) {
  *   Name of field_collection field.
  */
 function _erpal_crm_contact_type_field_collection_instances($field_name) {
+  $labels = array(
+    'field_contact_email_bundle' => 'Email type',
+    'field_contact_phone_bundle' => 'Phone type',
+    'field_contact_url_bundle' => 'URL type',
+  );
 
   $instances['field_contact_data_privacy'] = array(
     'bundle' => $field_name,
@@ -1094,7 +1099,7 @@ function _erpal_crm_contact_type_field_collection_instances($field_name) {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_contact_data_privacy',
-    'label' => 'Data privacy',
+    'label' => $labels[$field_name],
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
