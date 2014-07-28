@@ -471,55 +471,57 @@ function _erpal_crm_erpal_budget_type_sales_forecast_default_fields() {
  */
 function _erpal_crm_activity_type_common_field_instances($type) {
 
-  $instances['field_activity_customer'] = array(
-    'bundle' => $type,
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 5,
-      ),
-    ),
-    'entity_type' => 'crm_core_activity',
-    'field_name' => 'field_activity_customer',
-    'label' => 'Customer',
-    'required' => 1,
-    'settings' => array(
-      'behaviors' => array(
-        'prepopulate' => array(
-          'action' => 'none',
-          'action_on_edit' => 0,
-          'fallback' => 'none',
-          'providers' => array(
-            'og_context' => FALSE,
-            'url' => 1,
-          ),
-          'skip_perm' => 0,
-          'status' => 1,
+  if ($type == 'sales_process') {
+    $instances['field_activity_customer'] = array(
+      'bundle' => $type,
+      'default_value' => NULL,
+      'deleted' => 0,
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 5,
         ),
       ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
+      'entity_type' => 'crm_core_activity',
+      'field_name' => 'field_activity_customer',
+      'label' => 'Customer',
+      'required' => 1,
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-        'references_dialog_add' => 1,
-        'references_dialog_edit' => 1,
-        'references_dialog_search' => 1,
-        'references_dialog_search_view' => '',
+        'behaviors' => array(
+          'prepopulate' => array(
+            'action' => 'none',
+            'action_on_edit' => 0,
+            'fallback' => 'none',
+            'providers' => array(
+              'og_context' => FALSE,
+              'url' => 1,
+            ),
+            'skip_perm' => 0,
+            'status' => 1,
+          ),
+        ),
+        'user_register_form' => FALSE,
       ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 1,
-    ),
-  );
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => 60,
+          'references_dialog_add' => 1,
+          'references_dialog_edit' => 1,
+          'references_dialog_search' => 1,
+          'references_dialog_search_view' => '',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => 1,
+      ),
+    );
+  }
 
   $instances['field_activity_next_contact_date'] = array(
     'bundle' => $type,
