@@ -90,6 +90,7 @@ projects[relation][subdir] = "contrib"
 projects[relation_add][version] = "1.2"
 projects[relation_add][subdir] = "contrib"
 projects[relation_add][patch][] = "https://www.drupal.org/files/issues/relation_add-duplicate-primary-key-17901-1.patch"
+projects[relation_add][patch][] = "https://www.drupal.org/files/issues/relation_add-fix-notices-undefined-index-2191933_4.patch"
 
 projects[relation_view_formatter][version] = "1.0-alpha1"
 projects[relation_view_formatter][subdir] = "contrib"
