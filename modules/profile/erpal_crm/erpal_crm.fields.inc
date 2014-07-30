@@ -105,33 +105,6 @@ function _erpal_crm_activity_type_default_fields() {
     'type' => 'entityreference',
   );
 
-  $fields['field_activity_references'] = array(
-    'field_name' => 'field_activity_references',
-    'active' => TRUE,
-    'cardinality' => 1,
-    'deleted' => FALSE,
-    'entity_types' => array('crm_core_activity'),
-    'locked' => FALSE,
-    'module' => 'entityreference',
-    'settings' => array(
-      'handler' => 'base',
-      'handler_settings' => array(
-        'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 0,
-          ),
-        ),
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(),
-      ),
-      'target_type' => 'node',
-    ),
-    'translatable' => 0,
-    'type' => 'entityreference',
-  );
-
   $fields['field_activity_event_date'] = array(
     'field_name' => 'field_activity_event_date',
     'active' => TRUE,
@@ -498,55 +471,57 @@ function _erpal_crm_erpal_budget_type_sales_forecast_default_fields() {
  */
 function _erpal_crm_activity_type_common_field_instances($type) {
 
-  $instances['field_activity_customer'] = array(
-    'bundle' => $type,
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 5,
-      ),
-    ),
-    'entity_type' => 'crm_core_activity',
-    'field_name' => 'field_activity_customer',
-    'label' => 'Customer',
-    'required' => 1,
-    'settings' => array(
-      'behaviors' => array(
-        'prepopulate' => array(
-          'action' => 'none',
-          'action_on_edit' => 0,
-          'fallback' => 'none',
-          'providers' => array(
-            'og_context' => FALSE,
-            'url' => 1,
-          ),
-          'skip_perm' => 0,
-          'status' => 1,
+  if ($type == 'sales_process') {
+    $instances['field_activity_customer'] = array(
+      'bundle' => $type,
+      'default_value' => NULL,
+      'deleted' => 0,
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 5,
         ),
       ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
+      'entity_type' => 'crm_core_activity',
+      'field_name' => 'field_activity_customer',
+      'label' => 'Customer',
+      'required' => 1,
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-        'references_dialog_add' => 1,
-        'references_dialog_edit' => 1,
-        'references_dialog_search' => 1,
-        'references_dialog_search_view' => '',
+        'behaviors' => array(
+          'prepopulate' => array(
+            'action' => 'none',
+            'action_on_edit' => 0,
+            'fallback' => 'none',
+            'providers' => array(
+              'og_context' => FALSE,
+              'url' => 1,
+            ),
+            'skip_perm' => 0,
+            'status' => 1,
+          ),
+        ),
+        'user_register_form' => FALSE,
       ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 1,
-    ),
-  );
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => 60,
+          'references_dialog_add' => 1,
+          'references_dialog_edit' => 1,
+          'references_dialog_search' => 1,
+          'references_dialog_search_view' => '',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => 1,
+      ),
+    );
+  }
 
   $instances['field_activity_next_contact_date'] = array(
     'bundle' => $type,
@@ -639,46 +614,6 @@ function _erpal_crm_activity_type_default_field_instances($type) {
       ),
       'type' => 'inline_entity_form_single',
       'weight' => 3,
-    ),
-  );
-
-  $instances['field_activity_references'] = array(
-    'bundle' => $type,
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 3,
-      ),
-    ),
-    'entity_type' => 'crm_core_activity',
-    'field_name' => 'field_activity_references',
-    'label' => 'Refers to',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-        'references_dialog_add' => 1,
-        'references_dialog_edit' => 1,
-        'references_dialog_search' => 1,
-        'references_dialog_search_view' => '',
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 6,
     ),
   );
 
@@ -1077,6 +1012,11 @@ function _erpal_crm_contact_type_default_instances($type) {
  *   Name of field_collection field.
  */
 function _erpal_crm_contact_type_field_collection_instances($field_name) {
+  $labels = array(
+    'field_contact_email_bundle' => 'Email type',
+    'field_contact_phone_bundle' => 'Phone type',
+    'field_contact_url_bundle' => 'URL type',
+  );
 
   $instances['field_contact_data_privacy'] = array(
     'bundle' => $field_name,
@@ -1094,7 +1034,7 @@ function _erpal_crm_contact_type_field_collection_instances($field_name) {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_contact_data_privacy',
-    'label' => 'Data privacy',
+    'label' => $labels[$field_name],
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
