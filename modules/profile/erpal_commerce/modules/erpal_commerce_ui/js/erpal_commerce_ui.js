@@ -4,7 +4,7 @@
   Drupal.behaviors.erpalChangeTab = {
     attach: function (context, settings) {
 
-      if ($(".vbo-views-form").length == 0){
+      if ($(".section-order").length > 0 && $(".vbo-views-form").length == 0){
         var tabsID = Drupal.settings.panelsTabs.tabsID;
 
         for (var key in Drupal.settings.panelsTabs.tabsID) {
