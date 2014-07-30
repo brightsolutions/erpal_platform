@@ -23,7 +23,7 @@ function erpal_payment_modality_install() {
   // Create default rules links.
   $entity = entity_import('rules_link', '{
     "settings" : {
-      "text" : "Create invoice",
+      "text" : "Set billable",
       "link_type" : "token",
       "bundles" : { "payment_modality" : "payment_modality" },
       "entity_link" : 0
