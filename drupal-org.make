@@ -77,6 +77,9 @@ projects[panels][subdir] = "contrib"
 projects[panels_everywhere][version] = "1.0-rc1"
 projects[panels_everywhere][subdir] = "contrib"
 
+projects[path_breadcrumbs][version] = "3.0"
+projects[path_breadcrumbs][subdir] = "contrib"
+
 projects[pm_existing_pages][version] = "1.4"
 projects[pm_existing_pages][subdir] = "contrib"
 

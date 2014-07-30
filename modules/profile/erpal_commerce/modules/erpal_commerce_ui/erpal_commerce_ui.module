@@ -60,6 +60,9 @@ function erpal_commerce_ui_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "cat" && $api == "cat") {
     return array("version" => "1");
   }
+  if ($module == "path_breadcrumbs" && $api == "breadcrumbs") {
+    return array("version" => "1");
+  }
 }
 
 /**
@@ -67,8 +70,8 @@ function erpal_commerce_ui_ctools_plugin_api($module = NULL, $api = NULL) {
  */
 function erpal_commerce_ui_admin_paths() {
   $paths = array(
-    'admin/commerce/orders/*/view' => FALSE, 
-    'admin/commerce/orders/*' => FALSE, 
+    'admin/commerce/orders/*/view' => FALSE,
+    'admin/commerce/orders/*' => FALSE,
     'admin/commerce/orders/*/edit' => FALSE,
     'admin/commerce/products/*' => FALSE,
     'admin/commerce/products/*/edit' => FALSE,
