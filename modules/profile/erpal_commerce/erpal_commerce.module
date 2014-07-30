@@ -289,7 +289,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
   }
   else {
     // Change page title for edit order page.
-    drupal_set_title(t('Edit @order', array('@order' => $form_state['commerce_order']->order_number)));
+    drupal_set_title(t('Edit @type @order', array('@order' => $form_state['commerce_order']->order_number, '@type' => $form_state['commerce_order']->type)));
     // Add delete button.
     $form['actions']['delete'] = array(
       '#type' => 'submit',

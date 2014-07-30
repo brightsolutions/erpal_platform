@@ -91,7 +91,7 @@ function erpal_commerce_ui_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '%commerce_order:order-number';
+  $display->title = 'Quote %commerce_order:order-number';
   $display->uuid = '991f0569-aa46-470e-a8d5-3e18b03cd620';
   $display->content = array();
   $display->panels = array();
@@ -260,7 +260,7 @@ function erpal_commerce_ui_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '%commerce_order:order-number';
+  $display->title = 'Order %commerce_order:order-number';
   $display->uuid = '582569a3-8dcc-4f8a-814f-48a0997efea4';
   $display->content = array();
   $display->panels = array();
@@ -465,7 +465,7 @@ function erpal_commerce_ui_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '%commerce_order:order-number';
+  $display->title = 'Invoice %commerce_order:order-number';
   $display->uuid = '98229ac5-b855-4aa6-b21e-151e2292e341';
   $display->content = array();
   $display->panels = array();
