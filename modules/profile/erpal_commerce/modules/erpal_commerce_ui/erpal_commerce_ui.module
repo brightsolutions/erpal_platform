@@ -363,7 +363,28 @@ function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
   // Add content variables for the PDF generation.
   $settings = variable_get('erpal_order_pdf_text_settings', array());
   $custom_date_format = !empty($settings['order_date_format']) ? $settings['order_date_format'] : 'Y-m-d';
+  // Just load commerce_customer_profile for current Vendor.
+  $vendor = field_get_items('commerce_order', $order, 'field_vendor_address');
+  if ($vendor) {
+    $commerce_profile = commerce_customer_profile_load($vendor[0]['profile_id']);
+    $commerce_profile_view = entity_view('commerce_customer_profile', array($commerce_profile));
+    $commerce_customer_address = field_get_items('commerce_customer_profile', $commerce_profile, 'commerce_customer_address');
+    $countries = country_get_list();
+  }
+  $date = '';
+  $field_order_date = field_get_items('commerce_order', $order, 'field_order_date');
+  if ($field_order_date) {
+    $date = $field_order_date[0]['target_id'];
+  }
 
+  if ($date) {
+    $date = entity_metadata_wrapper('date_item', $date);
+    $date = $date->field_date_item_single->value();
+  }
+  else {
+    $date = $order->created;
+  }
+  $date = format_date($date, 'custom', $custom_date_format);
   // Add Vendor address to order header if exists.
   if (in_array($view_mode, array('quote_pdf', 'order_pdf', 'pdf'))) {
 
@@ -372,20 +393,37 @@ function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
       $order->content['order_header'] =& $order->content['invoice_header'];
     }
 
-    // Just load commerce_customer_profile for current Vendor.
-    $vendor = field_get_items('commerce_order', $order, 'field_vendor_address');
     if ($vendor) {
-      $commerce_profile = commerce_customer_profile_load($vendor[0]['profile_id']);
-      $commerce_profile_view = entity_view('commerce_customer_profile', array($commerce_profile));
       $order->content['order_header'] = array(
         '#markup' => drupal_render($commerce_profile_view),
       );
+      $address = array(
+        $commerce_customer_address[0]['name_line'],
+        $commerce_customer_address[0]['postal_code'] . ' '. $commerce_customer_address[0]['locality'],
+        $countries[$commerce_customer_address[0]['country']],
+      );
+      // Set quote/order footer.
+      $order->content['order_footer'] = array(
+        '#markup' => implode(', ', $address),
+      );
+      $order->content['invoice_footer'] = array(
+        '#markup' => implode(', ', $address),
+      );
+
+      $header_date_text = t('@location, @date', array('@location' => $commerce_customer_address[0]['locality'], '@date' => $date));
+      $order->content['invoice_header_date'] = array(
+      '#markup' => $header_date_text,
+    );
     }
 
     // If Vendor is empty just take default settings.
     else {
       $order->content['order_header'] = array(
         '#markup' => isset($settings['order_header']) ? $settings['order_header'] : '',
+      );
+      // Set quote/order footer.
+      $order->content['order_footer'] = array(
+        '#markup' => isset($settings['order_footer']) ? $settings['order_footer'] : '',
       );
     }
 
@@ -394,11 +432,6 @@ function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
 
     // Set correct title for quote, order and invoice.
     drupal_set_title(erpal_commerce_order_label($order));
-
-    // Set quote/order footer.
-    $order->content['order_footer'] = array(
-      '#markup' => isset($settings['order_footer']) ? $settings['order_footer'] : '',
-    );
 
     // Set quote/order text.
     $text = field_get_items('commerce_order', $order, 'field_order_text');
@@ -413,23 +446,10 @@ function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
       );
     }
 
-    $date = '';
-    $field_order_date = field_get_items('commerce_order', $order, 'field_order_date');
-    if ($field_order_date) {
-      $date = $field_order_date[0]['target_id'];
+    if ($vendor) {
+      $header_date_text = t('@location, @date', array('@location' => $commerce_customer_address[0]['locality'], '@date' => $date));
     }
-
-    if ($date) {
-      $date = entity_metadata_wrapper('date_item', $date);
-      $date = $date->field_date_item_single->value();
-    }
-    else {
-      $date = $order->created;
-    }
-
-    $date = format_date($date, 'custom', $custom_date_format);
-
-    if (!empty($settings['order_location'])) {
+    elseif (!empty($settings['order_location'])) {
       $header_date_text = t('@location, @date', array('@location' => $settings['order_location'], '@date' => $date));
     }
     else {
