@@ -81,12 +81,13 @@ function erpal_payment_modality_create_invoice_line_item_delivery($payment_modal
       $total = commerce_line_items_total(array($line_item));
       $field_amount_type = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount_type');
       $field_amount = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount');
+
       if (!empty($field_amount_type) && !empty($field_amount)) {
         if ($field_amount_type[0]['value'] == 'percent') {
           $total['amount'] = ($field_amount[0]['value'] / 100) * $total['amount'];
         }
         else {
-          $total['amount'] = $field_amount[0]['value'];
+          $total['amount'] = commerce_currency_decimal_to_amount($field_amount[0]['value'], $total['currency_code']);
         }
 
         // Add all data to new invoice line item.

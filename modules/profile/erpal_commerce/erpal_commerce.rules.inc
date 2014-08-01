@@ -81,7 +81,7 @@ function erpal_commerce_create_invoice_line_item($line_item) {
                 $total['amount'] = ($field_amount[0]['value'] / 100) * $total['amount'];
               }
               else {
-                $total['amount'] = $field_amount[0]['value'];
+                $total['amount'] = commerce_currency_decimal_to_amount($field_amount[0]['value'], $total['currency_code']);
               }
 
               // Add all data to new invoice line item.

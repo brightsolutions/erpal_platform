@@ -3,7 +3,6 @@
   // Just change default tab if bulk operation was submited.
   Drupal.behaviors.erpalChangeTab = {
     attach: function (context, settings) {
-
       if ($(".view-erpal-invoice-line-items").length &&
         $(".view-erpal-invoice-line-items .vbo-views-form").length == 0){
         var tabsID = Drupal.settings.panelsTabs.tabsID;
