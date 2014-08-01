@@ -193,8 +193,8 @@ function erpal_crm_flush_caches() {
   // 'entityreference_autocomplete' and unlock field.
   $contact_types = crm_core_activity_types();
   foreach ($contact_types as $contact_type) {
-    $info_instance = field_info_instance('crm_core_activity', 'field_activity_participants', $contact_type->type);
-    if (!empty($info_instance) && isset($info_instance['widget']['settings']['references_dialog_add']) && !$info_instance['widget']['settings']['references_dialog_add']) {
+    $info_instance = field_info_instance('crm_core_activity', 'field_activity_participants', $contact_type->type); dpm($info_instance);
+    if (!empty($info_instance) && !isset($info_instance['widget']['settings']['references_dialog_add'])) {
       $info_instance['widget']['type'] = 'entityreference_autocomplete';
       $info_instance['widget']['settings']['references_dialog_add'] = 1;
       $info_instance['widget']['settings']['references_dialog_edit'] = 1;
