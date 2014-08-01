@@ -51,6 +51,11 @@ function erpal_platform_vendor_form($form, &$form_state){
   drupal_set_title(st('Vendor information'));
   module_load_include('inc', 'locale', 'locale');
   $countries = country_get_list();
+  // Get all currencies.
+  $currencies = array();
+  foreach (commerce_currencies() as $code => $currency) {
+    $currencies[$code] = $currency['name'];
+  }
 
   $form = array();
   $form['vendor'] = array(
@@ -118,6 +123,21 @@ function erpal_platform_vendor_form($form, &$form_state){
     '#title' => st('Postal Code:'),
     '#type' => 'textfield',
     '#maxlength' => 10,
+  );
+  $form['vendor']['currency'] = array(
+    '#title' => st('Default currency'),
+    '#type' => 'select',
+    '#description' => st('Select the default currency.'),
+    '#options' => $currencies,
+    '#default_value' => array('EUR'),
+    '#required' => TRUE,
+  );
+  $form['vendor']['vat_rate'] = array(
+    '#title' => st('Default VAT rate'),
+    '#type' => 'textfield',
+    '#description' => st('Enter the default VAT rate in percent for your country.'),
+    '#maxlength' => 255,
+    '#required' => TRUE,
   );
   $form['submit'] = array(
     '#value' => st('Save and continue'),
@@ -196,6 +216,8 @@ function erpal_platform_vendor_form_submit($form, $form_state){
   $settings = array(
     'vendor_id' => $entity->contact_id,
     'customer_profile_id' => $profile->profile_id,
+    'currency' => $vendor['currency'],
+    'vat_rate' => $vendor['vat_rate'],
   );
   variable_set('erpal_vendor_settings', $settings);
 }

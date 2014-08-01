@@ -199,6 +199,67 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Admin page */
   $handler = $view->new_display('page', 'Admin page', 'page');
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Commerce Order: Order type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'commerce_order' => 'commerce_order',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Commerce Order: Order status */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = array(
+    'canceled' => 'canceled',
+    'pending' => 'pending',
+    'processing' => 'processing',
+    'completed' => 'completed',
+  );
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Order status';
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['status']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Commerce Order: Customer (field_customer) */
+  $handler->display->display_options['filters']['field_customer_target_id']['id'] = 'field_customer_target_id';
+  $handler->display->display_options['filters']['field_customer_target_id']['table'] = 'field_data_field_customer';
+  $handler->display->display_options['filters']['field_customer_target_id']['field'] = 'field_customer_target_id';
+  $handler->display->display_options['filters']['field_customer_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_customer_target_id']['expose']['operator_id'] = 'field_customer_target_id_op';
+  $handler->display->display_options['filters']['field_customer_target_id']['expose']['label'] = 'Customer';
+  $handler->display->display_options['filters']['field_customer_target_id']['expose']['operator'] = 'field_customer_target_id_op';
+  $handler->display->display_options['filters']['field_customer_target_id']['expose']['identifier'] = 'field_customer_target_id';
+  $handler->display->display_options['filters']['field_customer_target_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Commerce Order: Order number */
+  $handler->display->display_options['filters']['order_number']['id'] = 'order_number';
+  $handler->display->display_options['filters']['order_number']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['order_number']['field'] = 'order_number';
+  $handler->display->display_options['filters']['order_number']['operator'] = 'contains';
+  $handler->display->display_options['filters']['order_number']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['order_number']['expose']['operator_id'] = 'order_number_op';
+  $handler->display->display_options['filters']['order_number']['expose']['label'] = 'Order number';
+  $handler->display->display_options['filters']['order_number']['expose']['operator'] = 'order_number_op';
+  $handler->display->display_options['filters']['order_number']['expose']['identifier'] = 'order_number';
+  $handler->display->display_options['filters']['order_number']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
   $handler->display->display_options['path'] = 'admin/erpal/orders';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'ERPAL Orders';
@@ -321,6 +382,67 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
   $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
   $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Commerce Order: Order type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'commerce_order' => 'commerce_order',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Commerce Order: Order status */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = array(
+    'canceled' => 'canceled',
+    'pending' => 'pending',
+    'processing' => 'processing',
+    'completed' => 'completed',
+  );
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Order status';
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['status']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Commerce Order: Customer (field_customer) */
+  $handler->display->display_options['filters']['field_customer_target_id']['id'] = 'field_customer_target_id';
+  $handler->display->display_options['filters']['field_customer_target_id']['table'] = 'field_data_field_customer';
+  $handler->display->display_options['filters']['field_customer_target_id']['field'] = 'field_customer_target_id';
+  $handler->display->display_options['filters']['field_customer_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_customer_target_id']['expose']['operator_id'] = 'field_customer_target_id_op';
+  $handler->display->display_options['filters']['field_customer_target_id']['expose']['label'] = 'Customer';
+  $handler->display->display_options['filters']['field_customer_target_id']['expose']['operator'] = 'field_customer_target_id_op';
+  $handler->display->display_options['filters']['field_customer_target_id']['expose']['identifier'] = 'field_customer_target_id';
+  $handler->display->display_options['filters']['field_customer_target_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Commerce Order: Order number */
+  $handler->display->display_options['filters']['order_number']['id'] = 'order_number';
+  $handler->display->display_options['filters']['order_number']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['order_number']['field'] = 'order_number';
+  $handler->display->display_options['filters']['order_number']['operator'] = 'contains';
+  $handler->display->display_options['filters']['order_number']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['order_number']['expose']['operator_id'] = 'order_number_op';
+  $handler->display->display_options['filters']['order_number']['expose']['label'] = 'Order number';
+  $handler->display->display_options['filters']['order_number']['expose']['operator'] = 'order_number_op';
+  $handler->display->display_options['filters']['order_number']['expose']['identifier'] = 'order_number';
+  $handler->display->display_options['filters']['order_number']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
   $handler->display->display_options['path'] = 'orders';
 
   /* Display: Activity by Order */
@@ -733,7 +855,11 @@ function erpal_commerce_ui_views_default_views() {
   $handler = $view->new_display('panel_pane', 'Orders by Invoice', 'panel_pane_6');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Orders';
+  $handler->display->display_options['defaults']['query'] = FALSE;
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['defaults']['empty'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
