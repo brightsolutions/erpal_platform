@@ -514,6 +514,12 @@ function erpal_commerce_inline_entity_form_entity_form_alter(&$entity_form, &$fo
     $entity_form['quantity']['#description'] = t('The quantity of products.');
     $entity_form['actions']['ief_add_save']['#value'] = t('Create product');
     $entity_form['actions']['ief_edit_save']['#value'] = t('Update product');
+    if ($entity_form['#op'] == 'edit') {
+      $language = $entity_form['commerce_product']['#language'];
+      $entity_form['commerce_product'][$language]['form']['sku']['#disabled'] = TRUE;
+      $entity_form['commerce_product'][$language]['form']['title']['#disabled'] = TRUE;
+      $entity_form['commerce_product'][$language]['form']['commerce_price']['#disabled'] = TRUE;
+    }
   }
 
   if ($entity_form['#bundle'] == 'billing' && $entity_form['#entity_type'] == 'commerce_customer_profile') {
