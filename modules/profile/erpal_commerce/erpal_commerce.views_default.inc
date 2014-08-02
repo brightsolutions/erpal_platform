@@ -68,6 +68,12 @@ function erpal_commerce_views_default_views_alter(&$views) {
     /* Display: Invoices by Contact */
 
     $handler = $view->new_display('panel_pane', 'Invoices by Contact', 'panel_pane_1');
+    $handler->display->display_options['defaults']['footer'] = FALSE;
+    /* Footer: Global: Result summary */
+    $handler->display->display_options['footer']['result']['id'] = 'result';
+    $handler->display->display_options['footer']['result']['table'] = 'views';
+    $handler->display->display_options['footer']['result']['field'] = 'result';
+    $handler->display->display_options['footer']['result']['content'] = '@total rows';
     $handler->display->display_options['defaults']['title'] = FALSE;
     $handler->display->display_options['title'] = 'Invoices';
     $handler->display->display_options['defaults']['empty'] = FALSE;

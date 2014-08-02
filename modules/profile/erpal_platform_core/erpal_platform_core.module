@@ -4,14 +4,3 @@
  * @file
  * ERPAL platform module.
  */
-
-/**
- * Implements hook_views_pre_render().
- */
-function erpal_platform_core_views_pre_render(&$view) {
-  // Add results amount to every view.
-  $total = isset($view->totals_row) ? $view->totals_row : count($view->result);
-  if ($total) {
-    $view->attachment_after = t('@count rows', array('@count' => $total));
-  }
-}

@@ -199,6 +199,12 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Admin page */
   $handler = $view->new_display('page', 'Admin page', 'page');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Commerce Order: Order type */
@@ -272,6 +278,12 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: User page */
   $handler = $view->new_display('page', 'User page', 'page_1');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: Commerce Order */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -447,6 +459,12 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Activity by Order */
   $handler = $view->new_display('panel_pane', 'Activity by Order', 'panel_pane_2');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Sales process';
   $handler->display->display_options['defaults']['pager'] = FALSE;
@@ -506,6 +524,12 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Orders by Activity */
   $handler = $view->new_display('panel_pane', 'Orders by Activity', 'panel_pane_1');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Orders';
   $handler->display->display_options['defaults']['empty'] = FALSE;
@@ -598,6 +622,12 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Orders by Contact */
   $handler = $view->new_display('panel_pane', 'Orders by Contact', 'panel_pane_3');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Orders';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
@@ -678,6 +708,12 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Quote by Order */
   $handler = $view->new_display('panel_pane', 'Quote by Order', 'panel_pane_4');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Quote';
   $handler->display->display_options['defaults']['empty'] = FALSE;
@@ -763,6 +799,12 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Invoices by Order */
   $handler = $view->new_display('panel_pane', 'Invoices by Order', 'panel_pane_5');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Invoices';
   $handler->display->display_options['defaults']['empty'] = FALSE;
@@ -853,6 +895,12 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Orders by Invoice */
   $handler = $view->new_display('panel_pane', 'Orders by Invoice', 'panel_pane_6');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Orders';
   $handler->display->display_options['defaults']['query'] = FALSE;
@@ -1111,7 +1159,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -1272,9 +1320,15 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
-  
+
   /* Display: Revenue */
   $handler = $view->new_display('panel_pane', 'Revenue', 'panel_pane_1');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Revenue';
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
@@ -1440,9 +1494,15 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: Revenue page */
   $handler = $view->new_display('page', 'Revenue page', 'page_2');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Revenue';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
@@ -2048,6 +2108,12 @@ $translatables['erpal_invoice_line_items'] = array(
 
   /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['title'] = 'Products';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -2170,6 +2236,12 @@ $translatables['erpal_invoice_line_items'] = array(
 
   /* Display: Products */
   $handler = $view->new_display('page', 'Products', 'products_page');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['path'] = 'products';
   $handler->display->display_options['menu']['title'] = 'List';
   $handler->display->display_options['menu']['weight'] = '-10';
@@ -2277,6 +2349,12 @@ $translatables['erpal_invoice_line_items'] = array(
 
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
@@ -2410,6 +2488,12 @@ $translatables['erpal_invoice_line_items'] = array(
 
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
@@ -2433,6 +2517,12 @@ $translatables['erpal_invoice_line_items'] = array(
 
   /* Display: Reference dialog Search 2 */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search 2', 'references_dialog_2');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
@@ -2522,6 +2612,12 @@ $translatables['erpal_invoice_line_items'] = array(
 
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
