@@ -149,6 +149,12 @@ function erpal_crm_ui_views_default_views() {
 
   /* Display: Contact list */
   $handler = $view->new_display('panel_pane', 'Contact list', 'panel_pane_4');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
@@ -169,6 +175,12 @@ function erpal_crm_ui_views_default_views() {
 
   /* Display: Main contact of activity */
   $handler = $view->new_display('panel_pane', 'Main contact of activity', 'panel_pane_3');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Main contact';
   $handler->display->display_options['defaults']['empty'] = FALSE;
@@ -205,6 +217,12 @@ function erpal_crm_ui_views_default_views() {
 
   /* Display: Customer of activity */
   $handler = $view->new_display('panel_pane', 'Customer of activity', 'panel_pane_2');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Customer';
   $handler->display->display_options['defaults']['empty'] = FALSE;
@@ -248,6 +266,12 @@ function erpal_crm_ui_views_default_views() {
 
   /* Display: Participiants of activity */
   $handler = $view->new_display('panel_pane', 'Participiants of activity', 'panel_pane_1');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Participiants';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
@@ -448,6 +472,12 @@ function erpal_crm_ui_views_default_views() {
 
   /* Display: Activity list */
   $handler = $view->new_display('panel_pane', 'Activity list', 'panel_pane_1');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: CRM Core Activity */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -585,6 +615,12 @@ function erpal_crm_ui_views_default_views() {
 
   /* Display: Activities by Contact */
   $handler = $view->new_display('panel_pane', 'Activities by Contact', 'panel_pane_2');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Activities';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
@@ -647,8 +683,17 @@ function erpal_crm_ui_views_default_views() {
 
   /* Display: Activities by Sales Process */
   $handler = $view->new_display('panel_pane', 'Activities by Sales Process', 'panel_pane_3');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Communication';
+  $handler->display->display_options['defaults']['query'] = FALSE;
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Entity Reference: Referenced Entity */
   $handler->display->display_options['relationships']['field_activity_sales_process_target_id']['id'] = 'field_activity_sales_process_target_id';
@@ -966,6 +1011,12 @@ function erpal_crm_ui_views_default_views() {
 
   /* Display: Contact relationships */
   $handler = $view->new_display('panel_pane', 'Contact relationships', 'panel_pane_1');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['argument_input'] = array(
     'endpoints_entity_id' => array(
       'type' => 'panel',

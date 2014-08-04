@@ -62,6 +62,9 @@ dependencies[] = token
 dependencies[] = views
 dependencies[] = views_bulk_operations
 dependencies[] = views_content
+dependencies[] = pathauto_entity
+dependencies[] = subpathauto
+dependencies[] = pathauto
 
 ;ERPAL modules
 dependencies[] = erpal_core_ui
@@ -76,6 +79,7 @@ dependencies[] = erpal_payment_modality_ui
 dependencies[] = erpal_layout
 dependencies[] = erpal_menu
 dependencies[] = erpal_platform_core
+dependencies[] = erpal_report
 
 ; System Requirements.
 php_memory_limit = 128M

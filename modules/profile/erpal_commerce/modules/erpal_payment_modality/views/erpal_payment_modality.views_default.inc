@@ -79,7 +79,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['fields']['create_invoice_line_item']['id'] = 'create_invoice_line_item';
   $handler->display->display_options['fields']['create_invoice_line_item']['table'] = 'views_entity_erpal_payment_modality';
   $handler->display->display_options['fields']['create_invoice_line_item']['field'] = 'create_invoice_line_item';
-  $handler->display->display_options['fields']['create_invoice_line_item']['label'] = 'Create invoice';
+  $handler->display->display_options['fields']['create_invoice_line_item']['label'] = 'Set billable';
   $handler->display->display_options['fields']['create_invoice_line_item']['rules_link'] = array(
     'rules_link_parameters' => '',
     'rules_link_rewrite' => '',
@@ -110,7 +110,7 @@ function erpal_payment_modality_views_default_views() {
     t('Amount type'),
     t('Due with'),
     t('Label'),
-    t('Create invoice'),
+    t('Set billable'),
     t('All'),
     t('Block'),
   );

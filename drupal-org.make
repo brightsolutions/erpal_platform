@@ -77,15 +77,26 @@ projects[panels][subdir] = "contrib"
 projects[panels_everywhere][version] = "1.0-rc1"
 projects[panels_everywhere][subdir] = "contrib"
 
+projects[path_breadcrumbs][version] = "3.0"
+projects[path_breadcrumbs][subdir] = "contrib"
+
 projects[pm_existing_pages][version] = "1.4"
 projects[pm_existing_pages][subdir] = "contrib"
 
-projects[references_dialog][version] = "1.0-alpha4"
+projects[references_dialog][version] = "1.0-beta1"
 projects[references_dialog][subdir] = "contrib"
-projects[references_dialog][patch][] = "http://drupal.org/files/references_dialog-1856978-4.patch"
+projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/references_dialog-add-bundle-to-entity-access_2308071_1.patch"
 
 projects[relation][version] = "1.0-rc4"
 projects[relation][subdir] = "contrib"
+
+projects[relation_add][version] = "1.2"
+projects[relation_add][subdir] = "contrib"
+projects[relation_add][patch][] = "https://www.drupal.org/files/issues/relation_add-duplicate-primary-key-17901-1.patch"
+projects[relation_add][patch][] = "https://www.drupal.org/files/issues/relation_add-fix-notices-undefined-index-2191933_4.patch"
+
+projects[relation_view_formatter][version] = "1.0-alpha1"
+projects[relation_view_formatter][subdir] = "contrib"
 
 projects[replicate][version] = "1.1"
 projects[replicate][subdir] = "contrib"
@@ -117,9 +128,21 @@ projects[views_bulk_operations][subdir] = "contrib"
 projects[views_field_view][version] = "1.1"
 projects[views_field_view][subdir] = "contrib"
 
+projects[pathauto][subdir] = "contrib"
+projects[pathauto][version] = "1.2"
+
+projects[subpathauto][subdir] = "contrib"
+projects[subpathauto][version] = "1.3"
+
 
 
 ; ### DEV VERSIONS of contrib modules ###
+projects[pathauto_entity][subdir] = "contrib"
+projects[pathauto_entity][download][type] = "git"
+projects[pathauto_entity][download][url] = "http://git.drupal.org/project/pathauto_entity.git"
+projects[pathauto_entity][download][branch] = "7.x-1.x"
+projects[pathauto_entity][download][revision] = "3422ef11300485a79a5af7711b3611cc7c93ce99"
+
 projects[date_item][subdir] = "contrib"
 projects[date_item][download][type] = "git"
 projects[date_item][download][url] = "http://git.drupal.org/project/date_item.git"
@@ -130,7 +153,7 @@ projects[dfv][subdir] = "contrib"
 projects[dfv][download][type] = "git"
 projects[dfv][download][url] = "http://git.drupal.org/project/dfv.git"
 projects[dfv][download][branch] = "7.x-1.x"
-projects[dfv][download][revision] = "9b1d122440b818acada26aa5789487565f1cb8f6"
+projects[dfv][download][revision] = "566e0a2460dfef56bb31ede51b31d66175daa4f4"
 
 projects[name][subdir] = "contrib"
 projects[name][version] = "1.x-dev"
@@ -157,6 +180,13 @@ projects[commerce][download][type] = "git"
 projects[commerce][download][url] = "http://git.drupal.org/project/commerce.git"
 projects[commerce][download][revision] = "40751b9e89d18be0df5245c863d0090744325441"
 projects[commerce][patch][] = "http://drupal.org/files/issues/commerce-made-order_number-to-be-unique-only-for-commerce_order-type_2236731_4.patch"
+
+projects[relation_dialog][subdir] = "contrib"
+projects[relation_dialog][version] = "1.x-dev"
+projects[relation_dialog][download][type] = "git"
+projects[relation_dialog][download][url] = "http://git.drupal.org/project/relation_dialog.git"
+projects[relation_dialog][download][revision] = "fa981fe904a306bc65ec309fd7eef9dbf741a244"
+projects[relation_dialog][patch][] = "https://www.drupal.org/files/issues/relation_dialog-add-entities-support_2309579_1.patch"
 
 ; ### ERPAL contributed modules ###
 projects[erpal_core][subdir] = "erpal"

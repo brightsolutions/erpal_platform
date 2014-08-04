@@ -26,6 +26,7 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
   }
 
   if (isset($form_state['triggering_element']) || !empty($settings['vendor_id'])) {
+
     // Get profiles list.
     $param = isset($form_state['values']) ? $form_state['values']['erpal_vendor_settings']['vendor_id'] : $settings['vendor_id'];
     $view = views_get_view('erpal_customer_profile');
@@ -44,6 +45,13 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
       }
     }
   }
+
+  // Get all currencies.
+  $currencies = array();
+  foreach (commerce_currencies() as $code => $currency) {
+    $currencies[$code] = $currency['name'];
+  }
+
   // Ajax settings array.
   $ajax = array(
     'callback' => 'erpal_commerce_vendor_settings_form_field_callback',
@@ -70,7 +78,21 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
     '#default_value' => isset($settings['customer_profile_id']) ? $settings['customer_profile_id'] : '',
     '#options' => $profiles,
   );
-
+  $form['erpal_vendor_settings']['currency'] = array(
+    '#type' => 'select',
+    '#title' => t('Default currency'),
+    '#default_value' => isset($settings['currency']) ? $settings['currency'] : '',
+    '#options' => $currencies,
+    '#required' => TRUE,
+  );
+  $form['erpal_vendor_settings']['vat_rate'] = array(
+    '#title' => st('Default VAT rate'),
+    '#type' => 'textfield',
+    '#default_value' => isset($settings['vat_rate']) ? $settings['vat_rate'] : '',
+    '#description' => st('Enter the default VAT rate in percent for your country.'),
+    '#maxlength' => 255,
+    '#required' => TRUE,
+  );
   $form = system_settings_form($form);
   // Use custom submit handler.
   $form['#submit'] = array('erpal_commerce_vendor_settings_form_submit');

@@ -13,9 +13,10 @@
  * @see system_install()
  */
 function erpal_platform_install() {
-  // Set time limit to unlimited
+
+  // Set time limit to unlimited.
   drupal_set_time_limit(0);
-  // disable all themes
+  // Disable all themes.
   db_update('system')
     ->fields(array('status' => 0))
     ->condition('type', 'theme')
@@ -27,9 +28,10 @@ function erpal_platform_install() {
     'maintenance_theme' => 'erpal_maintenance',
   );
 
-  // set $admin_theme as admin theme
+  // Set $admin_theme as admin theme.
   variable_set('admin_theme', $themes['admin_theme']);
-  // $default_theme as default
+
+  // $default_theme as default.
   variable_set('theme_default', $themes['default_theme']);
   // Enable themes.
   theme_enable($themes);

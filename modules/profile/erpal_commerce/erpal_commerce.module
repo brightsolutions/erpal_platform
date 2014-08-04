@@ -68,6 +68,25 @@ function erpal_commerce_entity_info_alter(&$entity_info) {
   $entity_info['commerce_customer_profile']['inline entity form'] = array(
     'controller' => 'CommerceCustomerProfileInlineEntityFormController',
   );
+
+  // Add callbeck uri for commerce_line_item.
+  $entity_info['commerce_line_item']['uri callback'] = 'erpal_commerce_line_item_uri';
+}
+
+/**
+ * Callback for entity uri of order, it need for correct working of order
+ *  deletion.
+ */
+function erpal_commerce_commerce_order_uri($order) {
+  return array('path' => 'admin/commerce/orders/' . $order->order_id);
+}
+
+/**
+ * Callback for entity uri of line item, it need for correct working of order
+ *  deletion.
+ */
+function erpal_commerce_line_item_uri($order) {
+  return array('path' => NULL);
 }
 
 /**
@@ -206,6 +225,7 @@ function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_
  * Implements hook_form_alter().
  */
 function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
+
   // Fix path query maxlength.
   if (in_array($form_id, array('cat_ui_add_form', 'cat_ui_edit_form')) && isset($form['cat_actions'])) {
     foreach ($form['cat_actions'] as $key => $value) {
@@ -213,6 +233,24 @@ function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
         $form['cat_actions'][$key]['path_query']['#maxlength'] = 512;
       }
     }
+  }
+
+  // Small changes for exposed filters on revenue.
+  if ($form_id == 'views_exposed_form') {
+    $ids = array(
+      'views-exposed-form-erpal-invoice-line-items-page-2',
+      'views-exposed-form-erpal-invoice-line-items-panel-pane-1',
+    );
+
+    // So if line item referenced to commerce_order - not delivered, if to
+    // invoice than line item is delivered.
+    if (in_array($form['#id'], $ids)) {
+      if (!empty($form['type']['#options'])) {
+        $form['type']['#options']['commerce_order'] = t('No');
+        $form['type']['#options']['invoice'] = t('Yes');
+      }
+    }
+
   }
 }
 
@@ -237,14 +275,21 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
     if (isset($form['field_vendor']) && isset($form['field_vendor_address'])) {
       $settings = variable_get('erpal_vendor_settings', array());
       $language = $form['field_vendor']['#language'];
-      $form['field_vendor'][$language]['#default_value'] = $settings['vendor_id'];
+      $vendor = crm_core_contact_load($settings['vendor_id']);
+      $vendor_name = implode(' ', $vendor->contact_name[$language][0]['safe']);
+      $vendor_name = trim($vendor_name) . ' (' . $settings['vendor_id'] . ')';
+      $form['field_vendor'][$language][0]['target_id']['#default_value'] = $vendor_name;
+
       $language = $form['field_vendor_address']['#language'];
       $form['field_vendor_address'][$language]['#default_value'] = $settings['customer_profile_id'];
+    }
+    if ($form_state['commerce_order']->type == 'invoice') {
+      $form['actions']['submit']['#validate'][] = 'erpal_commerce_invoice_form_validate';
     }
   }
   else {
     // Change page title for edit order page.
-    drupal_set_title(t('Edit @order', array('@order' => $form_state['commerce_order']->order_number)));
+    drupal_set_title(t('Edit @type @order', array('@order' => $form_state['commerce_order']->order_number, '@type' => $form_state['commerce_order']->type)));
     // Add delete button.
     $form['actions']['delete'] = array(
       '#type' => 'submit',
@@ -306,6 +351,13 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
 }
 
 /**
+ * Change status AGAIN for properly work of rules in commerce billy module.
+ */
+function erpal_commerce_invoice_form_validate(&$form, &$form_state) {
+  $form_state['values']['status'] = $form_state['values']['status_original'];
+}
+
+/**
  * Returns output for line item autocompletes.
  */
 function erpal_commerce_line_item_autocomplete($string = '') {
@@ -318,178 +370,6 @@ function erpal_commerce_line_item_autocomplete($string = '') {
       ->fetchAllKeyed();
   }
   drupal_json_output($result);
-}
-
-
-/**
- * Alter default views defined by other modules.
- *
- * This hook is called right before all default views are cached to the
- * database. It takes a keyed array of views by reference.
- *
- * Example usage to add a field to a view:
- * @code
- *   $handler =& $view->display['DISPLAY_ID']->handler;
- *   // Add the user name field to the view.
- *   $handler->display->display_options['fields']['name']['id'] = 'name';
- *   $handler->display->display_options['fields']['name']['table'] = 'users';
- *   $handler->display->display_options['fields']['name']['field'] = 'name';
- *   $handler->display->display_options['fields']['name']['label'] = 'Author';
- *   $handler->display->display_options['fields']['name']['link_to_user'] = 1;
- * @endcode
- */
-function erpal_commerce_views_default_views_alter(&$views) {
-  if (isset($views['commerce_line_item_table'])) {
-    unset($views['commerce_line_item_table']->display['default']->display_options['filters']);
-  }
-
-  // Add new VBO to invoice view.
-  if (isset($views['erpal_invoice_line_items'])) {
-    $views['erpal_invoice_line_items']->display['default']->handler->display
-    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::erpal_invoice_create_invoice']['selected'] = 0;
-
-    $views['erpal_invoice_line_items']->display['default']->handler->display
-    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::erpal_commerce_create_invoice'] = array(
-      'selected' => 1,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 1,
-      'override_label' => 0,
-      'label' => '',
-    );
-  }
-
-  if (isset($views['erpal_invoice'])) {
-    $view = $views['erpal_invoice'];
-    // Disable VBO action Delete item.
-    $view->display['default']->handler->display
-    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::views_bulk_operations_delete_item']['selected'] = 0;
-    // Enable custom invoice deletion VBO.
-    $view->display['default']->handler->display
-    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::erpal_commerce_delete_invoice'] = array(
-      'selected' => 1,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 1,
-      'override_label' => 0,
-      'label' => '',
-    );
-
-    // Disable set to invoiced.
-    $view->display['default']->handler->display
-    ->display_options['fields']['views_bulk_operations']['vbo_operations']['rules_component::rules_commerce_billy_set_to_invoiced']['selected'] = 0;
-    $view->display['page_1']->handler->display
-    ->display_options['fields']['views_bulk_operations']['vbo_operations']['rules_component::rules_commerce_billy_set_to_invoiced']['selected'] = 0;
-
-    /* Display: Invoices by Contact */
-
-    $handler = $view->new_display('panel_pane', 'Invoices by Contact', 'panel_pane_1');
-    $handler->display->display_options['defaults']['title'] = FALSE;
-    $handler->display->display_options['title'] = 'Invoices';
-    $handler->display->display_options['defaults']['empty'] = FALSE;
-    /* No results behavior: Global: Text area */
-    $handler->display->display_options['empty']['area']['id'] = 'area';
-    $handler->display->display_options['empty']['area']['table'] = 'views';
-    $handler->display->display_options['empty']['area']['field'] = 'area';
-    $handler->display->display_options['empty']['area']['empty'] = TRUE;
-    $handler->display->display_options['empty']['area']['content'] = 'Invoices not found. Please, create new invoice. ';
-    $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
-    $handler->display->display_options['defaults']['relationships'] = FALSE;
-    /* Relationship: Entity Reference: Referenced Entity */
-    $handler->display->display_options['relationships']['field_customer_target_id']['id'] = 'field_customer_target_id';
-    $handler->display->display_options['relationships']['field_customer_target_id']['table'] = 'field_data_field_customer';
-    $handler->display->display_options['relationships']['field_customer_target_id']['field'] = 'field_customer_target_id';
-    $handler->display->display_options['defaults']['fields'] = FALSE;
-    /* Field: Commerce Order: Order ID */
-    $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
-    $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
-    $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
-    $handler->display->display_options['fields']['order_id']['label'] = '';
-    $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
-    $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
-    /* Field: Commerce Order: Order number */
-    $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
-    $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
-    $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-    $handler->display->display_options['fields']['order_number']['label'] = 'Invoice number';
-    $handler->display->display_options['fields']['order_number']['alter']['make_link'] = TRUE;
-    $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
-    /* Field: Commerce Order: Invoice PDF */
-    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['id'] = 'commerce_billy_pdf_invoice_link';
-    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['table'] = 'views_entity_commerce_order';
-    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['field'] = 'commerce_billy_pdf_invoice_link';
-    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['label'] = 'Download PDF';
-    /* Field: Commerce Order: Customer */
-    $handler->display->display_options['fields']['field_customer']['id'] = 'field_customer';
-    $handler->display->display_options['fields']['field_customer']['table'] = 'field_data_field_customer';
-    $handler->display->display_options['fields']['field_customer']['field'] = 'field_customer';
-    $handler->display->display_options['fields']['field_customer']['settings'] = array(
-      'link' => 1,
-    );
-    /* Field: Commerce Order: Order status */
-    $handler->display->display_options['fields']['status']['id'] = 'status';
-    $handler->display->display_options['fields']['status']['table'] = 'commerce_order';
-    $handler->display->display_options['fields']['status']['field'] = 'status';
-    $handler->display->display_options['fields']['status']['label'] = 'Invoice status';
-    /* Field: Commerce Order: Order total */
-    $handler->display->display_options['fields']['commerce_order_total']['id'] = 'commerce_order_total';
-    $handler->display->display_options['fields']['commerce_order_total']['table'] = 'field_data_commerce_order_total';
-    $handler->display->display_options['fields']['commerce_order_total']['field'] = 'commerce_order_total';
-    $handler->display->display_options['fields']['commerce_order_total']['label'] = 'Invoice total';
-    $handler->display->display_options['fields']['commerce_order_total']['click_sort_column'] = 'amount';
-    $handler->display->display_options['fields']['commerce_order_total']['settings'] = array(
-      'calculation' => FALSE,
-    );
-    /* Field: Commerce Order: Invoice date */
-    $handler->display->display_options['fields']['field_commerce_billy_i_date']['id'] = 'field_commerce_billy_i_date';
-    $handler->display->display_options['fields']['field_commerce_billy_i_date']['table'] = 'field_data_field_commerce_billy_i_date';
-    $handler->display->display_options['fields']['field_commerce_billy_i_date']['field'] = 'field_commerce_billy_i_date';
-    $handler->display->display_options['fields']['field_commerce_billy_i_date']['settings'] = array(
-      'format_type' => 'short',
-      'fromto' => 'both',
-      'multiple_number' => '',
-      'multiple_from' => '',
-      'multiple_to' => '',
-    );
-    /* Field: Commerce Order: Edit link */
-    $handler->display->display_options['fields']['edit_order']['id'] = 'edit_order';
-    $handler->display->display_options['fields']['edit_order']['table'] = 'commerce_order';
-    $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
-    $handler->display->display_options['fields']['edit_order']['alter']['alter_text'] = TRUE;
-    $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
-    $handler->display->display_options['fields']['edit_order']['alter']['make_link'] = TRUE;
-    $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
-    $handler->display->display_options['defaults']['arguments'] = FALSE;
-    /* Contextual filter: CRM Contact: Contact ID */
-    $handler->display->display_options['arguments']['contact_id']['id'] = 'contact_id';
-    $handler->display->display_options['arguments']['contact_id']['table'] = 'crm_core_contact';
-    $handler->display->display_options['arguments']['contact_id']['field'] = 'contact_id';
-    $handler->display->display_options['arguments']['contact_id']['relationship'] = 'field_customer_target_id';
-    $handler->display->display_options['arguments']['contact_id']['default_action'] = 'empty';
-    $handler->display->display_options['arguments']['contact_id']['default_argument_type'] = 'fixed';
-    $handler->display->display_options['arguments']['contact_id']['summary']['number_of_records'] = '0';
-    $handler->display->display_options['arguments']['contact_id']['summary']['format'] = 'default_summary';
-    $handler->display->display_options['arguments']['contact_id']['summary_options']['items_per_page'] = '25';
-    $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-    $handler->display->display_options['defaults']['filters'] = FALSE;
-    /* Filter criterion: Commerce Order: Order type */
-    $handler->display->display_options['filters']['type']['id'] = 'type';
-    $handler->display->display_options['filters']['type']['table'] = 'commerce_order';
-    $handler->display->display_options['filters']['type']['field'] = 'type';
-    $handler->display->display_options['filters']['type']['value'] = array(
-      'invoice' => 'invoice',
-    );
-    $handler->display->display_options['filters']['type']['group'] = 1;
-    $handler->display->display_options['argument_input'] = array(
-      'contact_id' => array(
-        'type' => 'context',
-        'context' => 'entity:crm_core_contact.contact-id',
-        'context_optional' => 0,
-        'panel' => '0',
-        'fixed' => '',
-        'label' => 'CRM Contact: Contact ID',
-      ),
-    );
-
-  }
 }
 
 /**
@@ -634,6 +514,12 @@ function erpal_commerce_inline_entity_form_entity_form_alter(&$entity_form, &$fo
     $entity_form['quantity']['#description'] = t('The quantity of products.');
     $entity_form['actions']['ief_add_save']['#value'] = t('Create product');
     $entity_form['actions']['ief_edit_save']['#value'] = t('Update product');
+    if ($entity_form['#op'] == 'edit') {
+      $language = $entity_form['commerce_product']['#language'];
+      $entity_form['commerce_product'][$language]['form']['sku']['#disabled'] = TRUE;
+      $entity_form['commerce_product'][$language]['form']['title']['#disabled'] = TRUE;
+      $entity_form['commerce_product'][$language]['form']['commerce_price']['#disabled'] = TRUE;
+    }
   }
 
   if ($entity_form['#bundle'] == 'billing' && $entity_form['#entity_type'] == 'commerce_customer_profile') {
@@ -720,7 +606,13 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
   module_load_include('inc', 'commerce_order_ui', 'includes/commerce_order.forms');
 
   // Replicate order to invoice and unset unused fields.
-  $order = replicate_clone_entity('commerce_order', commerce_order_load(arg(1)));
+  if (is_numeric(arg(3))) {
+    $order = replicate_clone_entity('commerce_order', commerce_order_load(arg(3)));
+  }
+  else {
+    $order = commerce_order_new($user->uid, NULL, 'invoice');
+  }
+
   $order->type = 'invoice';
   $order->order_id = NULL;
   unset($order->order_number,
@@ -791,7 +683,7 @@ function erpal_commerce_create_invoice(&$line_items, $context) {
     }
   }
   commerce_order_save($order);
-  drupal_set_message(t('Invoice <a href="@href">@invoice</a> was created.', array('@href' => url('order/' . $order->order_id), '@invoice' => $order->order_number)), 'status', FALSE);
+  drupal_set_message(t('Invoice <a href="@href">@invoice</a> was created.', array('@href' => url('admin/commerce/orders/' . $order->order_id), '@invoice' => $order->order_number)), 'status', FALSE);
 }
 
 /**
@@ -842,6 +734,7 @@ function erpal_commerce_delete_invoice(&$invoice, $context) {
  * Implements hook_flush_caches().
  */
 function erpal_commerce_flush_caches() {
+
   // Include the fields file.
   module_load_include('inc', 'erpal_commerce', 'erpal_commerce.fields');
 
@@ -894,7 +787,7 @@ function erpal_commerce_order_delete_form($form, &$form_state, $order) {
 
   return confirm_form($form,
     t('Are you sure you want to delete %order_number?', array('%order_number' => $order->order_number)),
-    'order/' . $order->order_id,
+    'admin/commerce/orders/' . $order->order_id,
     t('This action cannot be undone.'),
     t('Delete'),
     t('Cancel')
@@ -932,5 +825,21 @@ function erpal_commerce_order_delete_form_submit($form, &$form_state) {
  * @see erpal_commerce_order_delete_form()
  */
 function erpal_commerce_order_delete_redirect($form, &$form_state) {
-  drupal_goto('order/' .$form_state['commerce_order']->order_id . '/delete');
+  $des = drupal_get_destination();
+  if (!empty($des['destination'])) {
+    unset($_GET['destination']);
+  }
+  drupal_goto('admin/commerce/orders/' . $form_state['commerce_order']->order_id . '/delete', array('query' => $des));
+}
+
+/**
+ * Implements hook_references_dialog_entity_admin_paths().
+ */
+function erpal_commerce_references_dialog_entity_admin_paths() {
+  return array(
+    'commerce_order' => array(
+      'add' => 'admin/commerce/orders/add/[bundle]',
+      'edit' => 'admin/commerce/orders/[entity_id]/edit',
+    ),
+  );
 }

@@ -16,7 +16,7 @@ function erpal_commerce_ui_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Order view template';
   $page->admin_description = '';
-  $page->path = 'order/%commerce_order';
+  $page->path = 'admin/commerce/orders/%commerce_order';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -91,7 +91,7 @@ function erpal_commerce_ui_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '%commerce_order:order-number';
+  $display->title = 'Quote %commerce_order:order-number';
   $display->uuid = '991f0569-aa46-470e-a8d5-3e18b03cd620';
   $display->content = array();
   $display->panels = array();
@@ -260,7 +260,7 @@ function erpal_commerce_ui_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '%commerce_order:order-number';
+  $display->title = 'Order %commerce_order:order-number';
   $display->uuid = '582569a3-8dcc-4f8a-814f-48a0997efea4';
   $display->content = array();
   $display->panels = array();
@@ -389,6 +389,29 @@ function erpal_commerce_ui_default_page_manager_pages() {
   $pane->uuid = '43357c17-2da1-41c5-9ae7-44011ee3ea1f';
   $display->content['new-43357c17-2da1-41c5-9ae7-44011ee3ea1f'] = $pane;
   $display->panels['middle'][4] = 'new-43357c17-2da1-41c5-9ae7-44011ee3ea1f';
+  $pane = new stdClass();
+  $pane->pid = 'new-f1c5541f-27f7-48bc-8478-f11140602cc5';
+  $pane->panel = 'middle';
+  $pane->type = 'views_panes';
+  $pane->subtype = 'erpal_invoice_line_items-panel_pane_1';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'argument_entity_id:commerce_order_1',
+    ),
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 5;
+  $pane->locks = array();
+  $pane->uuid = 'f1c5541f-27f7-48bc-8478-f11140602cc5';
+  $display->content['new-f1c5541f-27f7-48bc-8478-f11140602cc5'] = $pane;
+  $display->panels['middle'][5] = 'new-f1c5541f-27f7-48bc-8478-f11140602cc5';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
@@ -442,7 +465,7 @@ function erpal_commerce_ui_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '%commerce_order:order-number';
+  $display->title = 'Invoice %commerce_order:order-number';
   $display->uuid = '98229ac5-b855-4aa6-b21e-151e2292e341';
   $display->content = array();
   $display->panels = array();
@@ -530,7 +553,149 @@ function erpal_commerce_ui_default_page_manager_pages() {
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
 
+
   $pages['order_view_template'] = $page;
 
   return $pages;
+}
+
+/**
+ * Implements hook_default_page_manager_pages_alter().
+ */
+function erpal_commerce_ui_default_page_manager_pages_alter(&$pages) {
+  if (isset($pages['activity_template'])) {
+    $pane = new stdClass();
+    $pane->pid = 'new-40773955-7efe-4a99-a045-57c3bd5f005f';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_quote-panel_pane_2';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_activity_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 4;
+    $pane->locks = array();
+    $pane->uuid = '40773955-7efe-4a99-a045-57c3bd5f005f';
+
+    $pages['activity_template']->default_handlers['page_activity_template_panel_context']
+    ->conf['display']->content['new-40773955-7efe-4a99-a045-57c3bd5f005f'] = $pane;
+    $pages['activity_template']->default_handlers['page_activity_template_panel_context']
+    ->conf['display']->panels['middle'][4] = 'new-40773955-7efe-4a99-a045-57c3bd5f005f';
+
+    $pane = new stdClass();
+    $pane->pid = 'new-1d3bf16c-b641-4f9e-bd5f-221a280f5063';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_order-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_activity_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 5;
+    $pane->locks = array();
+    $pane->uuid = '1d3bf16c-b641-4f9e-bd5f-221a280f5063';
+
+    $pages['activity_template']->default_handlers['page_activity_template_panel_context']
+    ->conf['display']->content['new-1d3bf16c-b641-4f9e-bd5f-221a280f5063'] = $pane;
+    $pages['activity_template']->default_handlers['page_activity_template_panel_context']
+    ->conf['display']->panels['middle'][5] = 'new-1d3bf16c-b641-4f9e-bd5f-221a280f5063';
+  }
+
+  if (isset($pages['contact_view_template'])) {
+    $pane = new stdClass();
+    $pane->pid = 'new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_quote-panel_pane_3';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_contact_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 3;
+    $pane->locks = array();
+    $pane->uuid = '0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->content['new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9'] = $pane;
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->panels['middle'][3] = 'new-0be335f5-f8f6-42ec-a5c9-74834cebf7c9';
+
+    $pane = new stdClass();
+    $pane->pid = 'new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_order-panel_pane_3';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_contact_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 4;
+    $pane->locks = array();
+    $pane->uuid = '3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->content['new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb'] = $pane;
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->panels['middle'][4] = 'new-3a93cf5a-0a24-4169-9b2b-69c74e1609cb';
+
+    $pane = new stdClass();
+    $pane->pid = 'new-27eb24b2-05bc-4c00-9a53-a2ca721ceb29';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'erpal_invoice-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:crm_core_contact_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 5;
+    $pane->locks = array();
+    $pane->uuid = '27eb24b2-05bc-4c00-9a53-a2ca721ceb29';
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->content['new-27eb24b2-05bc-4c00-9a53-a2ca721ceb29'] = $pane;
+    $pages['contact_view_template']->default_handlers['page_contact_view_template_panel_context']
+    ->conf['display']->panels['middle'][5] = 'new-27eb24b2-05bc-4c00-9a53-a2ca721ceb29';
+  }
 }

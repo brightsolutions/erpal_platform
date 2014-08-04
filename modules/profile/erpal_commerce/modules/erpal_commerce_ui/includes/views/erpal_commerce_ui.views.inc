@@ -16,4 +16,6 @@ function erpal_commerce_ui_views_data_alter(&$data) {
       'help' => t('Link to order PDF file.'),
     ),
   );
+  $data['commerce_product']['operations']['field']['handler'] = 'erpal_commerce_product_handler_field_product_operations';
+
 }
