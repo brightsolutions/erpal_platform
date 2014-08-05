@@ -55,8 +55,8 @@ function erpal_menu_flush_caches() {
   foreach ($items as $item) {
     $result = db_select('menu_links', 'ml')
       ->fields('ml')
-      ->condition('link_path', $item['link_path'], '=')
-      ->condition('menu_name', $item['menu_name'], '=')
+      ->condition('link_path', $item['link_path'])
+      ->condition('menu_name', $item['menu_name'])
       ->execute()
       ->fetchAllAssoc('mlid');
     if (!count($result)) {
