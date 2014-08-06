@@ -209,10 +209,10 @@ projects[erpal_quote][download][type] = "git"
 projects[erpal_quote][download][url] = "http://git.drupal.org/project/erpal_quote.git"
 projects[erpal_quote][download][branch] = "7.x-3.x"
 
-projects[erpal_quote][subdir] = "erpal"
-projects[erpal_quote][download][type] = "git"
-projects[erpal_quote][download][url] = "http://git.drupal.org/project/erpal_reports.git"
-projects[erpal_quote][download][branch] = "7.x-3.x"
+projects[erpal_reports][subdir] = "erpal"
+projects[erpal_reports][download][type] = "git"
+projects[erpal_reports][download][url] = "http://git.drupal.org/project/erpal_reports.git"
+projects[erpal_reports][download][branch] = "7.x-3.x"
 
 ; ### Erpal themes ###
 projects[erpal_theme][type] = "theme"
