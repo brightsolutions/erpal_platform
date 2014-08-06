@@ -79,7 +79,7 @@ dependencies[] = erpal_payment_modality_ui
 dependencies[] = erpal_layout
 dependencies[] = erpal_menu
 dependencies[] = erpal_platform_core
-dependencies[] = erpal_report
+dependencies[] = erpal_reports
 
 ; System Requirements.
 php_memory_limit = 128M
