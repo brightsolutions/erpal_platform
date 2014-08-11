@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the erpal platform install profile.
+ */
+
+
+/**
+ * Implements hook_install().
+ *
+ * @see system_install()
+ */
+function erpal_platform_core_install() {
+  //set to always load the extra jquery version, so its available for the theme
+  variable_set('jqmulti_load_always', 1);
+}
