@@ -134,6 +134,8 @@ projects[pathauto][version] = "1.2"
 projects[subpathauto][subdir] = "contrib"
 projects[subpathauto][version] = "1.3"
 
+projects[jqmulti][subdir] = "contrib"
+projects[jqmulti][version] = "1.0"
 
 
 ; ### DEV VERSIONS of contrib modules ###
@@ -223,6 +225,9 @@ projects[erpal_theme][download][branch] = "7.x-3.x"
 ; ### Libraries ###
 libraries[dompdf][download][type] = "file"
 libraries[dompdf][download][url] = "https://github.com/dompdf/dompdf/releases/download/v0.6.1/dompdf-0.6.1.zip"
+
+libraries[jq1111][download][type] = "file"
+libraries[jq1111][download][url] = "http://code.jquery.com/jquery-1.11.1.min.js"
 
 ; ### Themes ###
 projects[omega][version] = "4.2"
