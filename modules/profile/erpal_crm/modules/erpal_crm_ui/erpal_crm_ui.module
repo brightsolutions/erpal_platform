@@ -12,6 +12,10 @@
  * CRM Core module.
  */
 function erpal_crm_ui_menu_alter(&$items) {
+  // Change autocomplite function for relation add field.
+  if (isset($items['relation_add/autocomplete/%'])) {
+    $items['relation_add/autocomplete/%']['page callback'] = 'erpal_crm_ui_relation_add_autocomplete';
+  }
 
   // Replace page with adding new activities.
   if (isset($items['crm-core/contact/activity-add'])) {
@@ -168,4 +172,112 @@ function erpal_crm_ui_crm_core_activity_edit_sales_process_form_validate($form, 
   // Set forecast title the same as Activity title.
   $language = $form['field_activity_sales_forecast']['#language'];
   form_set_value($form['field_activity_sales_forecast'][$language]['form']['title'], $form_state['values']['title'], $form_state);
+}
+
+/**
+ * Autocomplete page for listing entities appropriate for a giver relation type.
+ *
+ * @param $type
+ *   The relation type to search for endpoints for.
+ * @param $direction
+ *   The direction for which to allow endpoint bundles.
+ * @param $string
+ *   The string for which the search through entity labels will be run.
+ */
+function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target', $field = 'none', $string = '') {
+  if (empty($type) || empty($direction) || empty($string)) {
+    exit();
+  }
+
+  module_load_include('inc', 'crm_core_relationship_ui');
+
+  // Removing the :reverse suffix if exists.
+  $type_array = explode(':', $type);
+  $type = $type_array[0];
+
+  $entity_infos = entity_get_info();
+  $relation_type = relation_type_load($type);
+  $entity_bundles = array();
+
+  $instance = array();
+  if ($field !== 'none') {
+    list($entity_type, $field_name, $bundle) = explode('-', $field);
+    $instance = field_info_instance($entity_type, $field_name, $bundle);
+  }
+
+  // Use source bundles unless relation type is directional and we're looking in the forward direction
+  $direction = ($relation_type->directional && $direction == 'target') ? 'target_bundles' : 'source_bundles';
+  foreach ($relation_type->$direction as $entity_bundle) {
+    list($entity_type, $bundle) = explode(':', $entity_bundle, 2);
+    $entity_bundles[$entity_type][] = $bundle;
+  }
+  // Get about 12, rounded up.
+  $limit = ceil(12 / count(array_keys($entity_bundles)));
+  $suggestions = array();
+  foreach ($entity_bundles as $entity_type => $bundles) {
+    if ($entity_type == 'crm_core_contact') {
+      $contact_types = array_keys(crm_core_relationship_load_contact_types($relation_type));
+
+      $query = new EntityFieldQuery;
+      $query->entityCondition('entity_type', $entity_type)
+        ->propertyCondition('type', $contact_types, 'IN')
+        ->range(0, 20);
+      $query->addMetaData('match', $string)
+        ->addTag(variable_get('crm_core_contact_search_query_tag', 'crm_core_contact_search'));
+      $result = $query->execute();
+      $contacts = entity_load($entity_type, array_keys($result[$entity_type]));
+      foreach ($contacts as $contact) {
+        $crm_core_contact_title = crm_core_contact_title($contact);
+        $suggestions[$crm_core_contact_title . ' [' . $entity_type . ':' . $contact->contact_id . ']'] = $crm_core_contact_title . ' [' . $entity_type . ':' . $contact->contact_id . ']';
+      }
+      continue;
+    }
+
+    $base_table = $entity_infos[$entity_type]['base table'];
+    // Get the name of the column in the base table for the entity type.
+    if ($entity_type == 'user') { // Special case for users.
+      $label_key = 'name';
+    }
+    elseif (isset($entity_infos[$entity_type]['entity keys']['label'])) {
+      $label_key = $entity_infos[$entity_type]['entity keys']['label'];
+    }
+    elseif (isset($entity_infos[$entity_type]['entity keys']['id'])) {
+      $label_key = $entity_infos[$entity_type]['entity keys']['id'];
+    }
+    else {
+      break; // Can't find a label to search over, give up.
+    }
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', $entity_type);
+    if(!empty($instance)
+      && isset($instance['widget']['settings']['relation_endpoint_search_by_id'])
+      && $instance['widget']['settings']['relation_endpoint_search_by_id']
+      && preg_match("/^[0-9]+$/", $string)) {
+
+      // We are most likely searching for an entity ID.
+      $query->entityCondition('entity_id', (int) $string);
+    }
+    else {
+      $query->propertyCondition($label_key, $string, 'CONTAINS');
+    }
+    $query->range(0, $limit);
+    if (!in_array('*', $bundles) && $entity_type != 'taxonomy_term') {
+      $query->entityCondition('bundle', $bundles, 'IN');
+    }
+    elseif (!in_array('*', $bundles) && $entity_type == 'taxonomy_term') {
+      $vocabularies = taxonomy_vocabulary_load_multiple(NULL, array('machine_name' => $bundles));
+      $bundles = array_keys($vocabularies);
+      $query->propertyCondition('vid', $bundles, 'IN');
+    }
+    if ($results = $query->execute()) {
+      foreach (array_keys($results[$entity_type]) as $id) {
+        $entities = entity_load($entity_type, array($id));
+        $entity = reset($entities);
+        $label = entity_label($entity_type, $entity);
+        $suggestions[$label . ' [' . $entity_type . ':' . $id . ']'] = $label . ' [' . $entity_type . ':' . $id . ']';
+      }
+    }
+  }
+  print drupal_json_encode($suggestions);
+  exit();
 }

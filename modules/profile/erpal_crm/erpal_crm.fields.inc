@@ -942,6 +942,9 @@ function _erpal_crm_contact_type_default_instances($type) {
   switch ($type) {
     case 'individual':
       $relation_type['crm_employee'] = 'crm_employee';
+      $relation_type['crm_business'] = 'crm_business';
+      $relation_type['crm_friend'] = 'crm_friend';
+      $relation_type['crm_member'] = 'crm_member';
       break;
 
     case 'organization':
