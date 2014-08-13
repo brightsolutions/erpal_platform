@@ -20,6 +20,9 @@ projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_bil
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-skip-validation-on-confirm-form.patch"
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy_unique-number-by-type.patch"
 
+projects[commerce_eu_vat][version] = "2.2"
+projects[commerce_eu_vat][subdir] = "contrib"
+
 projects[crm_core][version] = "0.963"
 projects[crm_core][subdir] = "contrib"
 
