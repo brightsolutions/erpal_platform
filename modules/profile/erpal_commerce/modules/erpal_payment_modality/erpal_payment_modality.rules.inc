@@ -72,9 +72,11 @@ function erpal_payment_modality_create_invoice_line_item_delivery($payment_modal
         if ($invoice->order_id != $order['order_id']) {
           return;
         }
+        drupal_set_message(t('Invoice line item has already created.'));
       }
       else {
         $invoice = commerce_line_item_new('invoice');
+        drupal_set_message(t('Invoice line item was created.'));
       }
 
       // Provide logic for calculation.
@@ -99,7 +101,6 @@ function erpal_payment_modality_create_invoice_line_item_delivery($payment_modal
         $invoice->field_line_item_order[$langcode][0]['target_id'] = $order['order_id'];
         commerce_line_item_rebase_unit_price($invoice);
         commerce_line_item_save($invoice);
-        drupal_set_message(t('Invoice line item was created.'));
       }
     }
   }
