@@ -329,6 +329,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
     $form['order_status']['status']['#options'] = array(
       'Invoiced' => $form['order_status']['status']['#options']['Invoiced'],
       'Canceled' => $form['order_status']['status']['#options']['Canceled'],
+      'Paid' => $form['order_status']['status']['#options']['Paid'],
     );
     $form['actions']['submit']['#value'] = t('Save invoice');
   }
@@ -840,6 +841,34 @@ function erpal_commerce_references_dialog_entity_admin_paths() {
     'commerce_order' => array(
       'add' => 'admin/commerce/orders/add/[bundle]',
       'edit' => 'admin/commerce/orders/[entity_id]/edit',
+    ),
+  );
+}
+
+/**
+ * Implements hook_commerce_order_state_info().
+ */
+function erpal_commerce_commerce_order_state_info() {
+  return array(
+    'paid' => array(
+      'name' => 'paid',
+      'title' => t('Paid'),
+      'description' => t('Paid state.'),
+      'weight' => 17,
+      'default_status' => 'paid',
+    ),
+  );
+}
+
+/**
+ * Implements hook_commerce_order_status_info().
+ */
+function erpal_commerce_commerce_order_status_info() {
+  return array(
+    'paid' => array(
+      'name' => 'paid',
+      'title' => t('Paid'),
+      'state' => 'paid',
     ),
   );
 }
