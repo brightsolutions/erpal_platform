@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * erpal_commerce_ui.breadcrumbs.inc
+ * erpal_commerce_ui.path_breadcrumbs.inc
  */
 
 /**
