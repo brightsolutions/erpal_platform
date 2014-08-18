@@ -768,6 +768,7 @@ function erpal_commerce_flush_caches() {
         'parent' => 'field_customer',
         'view' => 'erpal_customer_profile:dfv_1',
       );
+      $info_instance['label'] = t('Customer Address');
       field_update_instance($info_instance);
     }
   }
