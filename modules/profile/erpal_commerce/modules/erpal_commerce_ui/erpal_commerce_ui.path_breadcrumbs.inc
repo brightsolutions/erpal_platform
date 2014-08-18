@@ -354,5 +354,67 @@ function erpal_commerce_ui_path_breadcrumbs_settings_info() {
   $path_breadcrumb->weight = -92;
   $export['invoice_edit'] = $path_breadcrumb;
 
+  $path_breadcrumb = new stdClass();
+  $path_breadcrumb->api_version = 1;
+  $path_breadcrumb->machine_name = 'product';
+  $path_breadcrumb->name = 'Product';
+  $path_breadcrumb->path = 'admin/commerce/products/%commerce_product';
+  $path_breadcrumb->data = array(
+    'titles' => array(
+      0 => 'Products',
+      1 => '!page_title',
+    ),
+    'paths' => array(
+      0 => 'products',
+      1 => '<none>',
+    ),
+    'home' => 1,
+    'translatable' => 0,
+    'arguments' => array(
+      'commerce_product' => array(
+        'position' => 3,
+        'argument' => 'entity_id:commerce_product',
+        'settings' => array(
+          'identifier' => 'Commerce Product: ID',
+        ),
+      ),
+    ),
+    'access' => array(),
+  );
+  $path_breadcrumb->weight = -84;
+  $export['product'] = $path_breadcrumb;
+
+  $path_breadcrumb = new stdClass();
+  $path_breadcrumb->api_version = 1;
+  $path_breadcrumb->machine_name = 'product_revisions';
+  $path_breadcrumb->name = 'Product revisions';
+  $path_breadcrumb->path = 'admin/commerce/products/%commerce_product/revisions';
+  $path_breadcrumb->data = array(
+    'titles' => array(
+      0 => 'Products',
+      1 => '%commerce_product:title',
+      2 => '!page_title',
+    ),
+    'paths' => array(
+      0 => 'products',
+      1 => 'product/%commerce_product:product-id',
+      2 => '<none>',
+    ),
+    'home' => 1,
+    'translatable' => 0,
+    'arguments' => array(
+      'commerce_product' => array(
+        'position' => 3,
+        'argument' => 'entity_id:commerce_product',
+        'settings' => array(
+          'identifier' => 'Commerce Product: ID',
+        ),
+      ),
+    ),
+    'access' => array(),
+  );
+  $path_breadcrumb->weight = -83;
+  $export['product_revisions'] = $path_breadcrumb;
+
   return $export;
 }
