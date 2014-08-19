@@ -44,7 +44,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
           'field_customer' => '[crm_core_activity:field-activity-customer:contact-id]',
         ),
         'path_destination' => FALSE,
-        'title' => 'Create quote',
+        'title' => 'Create a quote',
         'css_id' => '',
         'css_class' => '',
         'active' => TRUE,
@@ -96,7 +96,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
           'field_customer' => '[crm_core_contact:contact-id]',
         ),
         'path_destination' => FALSE,
-        'title' => 'Add quote',
+        'title' => 'Add a quote',
         'css_id' => '',
         'css_class' => '',
         'active' => TRUE,
@@ -148,7 +148,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
           'field_customer' => '[crm_core_contact:contact-id]',
         ),
         'path_destination' => FALSE,
-        'title' => 'Add order',
+        'title' => 'Add an order',
         'css_id' => '',
         'css_class' => '',
         'active' => TRUE,
@@ -200,7 +200,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
           'field_customer' => '[crm_core_contact:contact-id]',
         ),
         'path_destination' => FALSE,
-        'title' => 'Add invoice',
+        'title' => 'Add an invoice',
         'css_id' => '',
         'css_class' => '',
         'active' => TRUE,
@@ -217,7 +217,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
   );
   $cat_item->weight = -97;
   $export['create_invoice_link'] = $cat_item;
-  
+
   $cat_item = new stdClass();
   $cat_item->api_version = 1;
   $cat_item->machine_name = 'add_product';
@@ -240,7 +240,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
         'path_pattern' => 'product/%/%',
         'path_query' => array(),
         'path_destination' => TRUE,
-        'title' => 'Add product',
+        'title' => 'Add a product',
         'css_id' => '',
         'css_class' => '',
         'active' => FALSE,
@@ -257,7 +257,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
   );
   $cat_item->weight = 0;
   $export['add_product'] = $cat_item;
-  
+
   $cat_item = new stdClass();
   $cat_item->api_version = 1;
   $cat_item->machine_name = 'create_order';
@@ -280,7 +280,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
         'path_pattern' => 'order/%',
         'path_query' => array(),
         'path_destination' => TRUE,
-        'title' => 'Create Order',
+        'title' => 'Create an Order',
         'css_id' => '',
         'css_class' => '',
         'active' => TRUE,

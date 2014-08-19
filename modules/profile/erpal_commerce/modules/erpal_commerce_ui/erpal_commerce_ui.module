@@ -95,12 +95,12 @@ function erpal_commerce_ui_admin_paths() {
 function erpal_commerce_ui_menu_alter(&$items) {
   // Rename menu item for quote.
   if (!empty($items['admin/commerce/orders/add/quote'])) {
-    $items['admin/commerce/orders/add/quote']['title'] = t('Add @type');
+    $items['admin/commerce/orders/add/quote']['title'] = t('Add a @type');
   }
 
   // Rename menu item for invoice.
   if (!empty($items['admin/commerce/orders/add/invoice'])) {
-    $items['admin/commerce/orders/add/invoice']['title'] = t('Add @type');
+    $items['admin/commerce/orders/add/invoice']['title'] = t('Add an @type');
   }
 
   // Rules link for quote replication to order.
@@ -217,7 +217,7 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
       $local_tasks[] = array(
         'root_path' => $root_path,
         'menu_item' => $link['#href'],
-        'title'     => 'Create Invoice',
+        'title'     => 'Create an Invoice',
       );
     }
 
@@ -227,7 +227,7 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
       $local_tasks[] = array(
         'root_path' => $root_path,
         'menu_item' => $link['#href'],
-        'title'     => 'Create Order',
+        'title'     => 'Create an Order',
       );
     }
 
@@ -239,7 +239,7 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
       if ($item['access']) {
 
         // If title is empty just add 'Create quote' by default.
-        $item['title'] = 'Create quote';
+        $item['title'] = 'Create a Quote';
         if (!empty($local_task['title'])) {
           $item['title'] = $local_task['title'];
         }

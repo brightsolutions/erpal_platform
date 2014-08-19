@@ -259,6 +259,11 @@ function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
  */
 function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_state, $form_id) {
   global $user;
+  $types = array(
+    'quote' => t('Quote'),
+    'commerce_order' => t('Order'),
+    'invoice' => t('Invoice'),
+  );
   // Set current user info.
   if (empty($form['user']['name']['#default_value'])) {
     $form['user']['name']['#default_value'] = $user->name;
@@ -268,9 +273,9 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
   }
   // Change title for commerce_order bundle.
   if (empty($form_state['commerce_order']->order_id)) {
-    if ($form_state['commerce_order']->type != 'commerce_order') {
-      drupal_set_title(t('Create an @type', array('@type' => $form_state['commerce_order']->type)));
-    }
+    $a = ($form_state['commerce_order']->type == 'quote') ? 'a' : 'an';
+    drupal_set_title(t('Create @a @type', array('@a' => $a, '@type' => $types[$form_state['commerce_order']->type])));
+
     // Set default vendor.
     if (isset($form['field_vendor']) && isset($form['field_vendor_address'])) {
       $settings = variable_get('erpal_vendor_settings', array());
@@ -289,7 +294,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
   }
   else {
     // Change page title for edit order page.
-    drupal_set_title(t('Edit @type @order', array('@order' => $form_state['commerce_order']->order_number, '@type' => $form_state['commerce_order']->type)));
+    drupal_set_title(t('Edit @type @order', array('@order' => $form_state['commerce_order']->order_number, '@type' => $types[$form_state['commerce_order']->type])));
     // Add delete button.
     $form['actions']['delete'] = array(
       '#type' => 'submit',
@@ -329,6 +334,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
     $form['order_status']['status']['#options'] = array(
       'Invoiced' => $form['order_status']['status']['#options']['Invoiced'],
       'Canceled' => $form['order_status']['status']['#options']['Canceled'],
+      'Paid' => $form['order_status']['status']['#options']['Paid'],
     );
     $form['actions']['submit']['#value'] = t('Save invoice');
   }
@@ -762,6 +768,7 @@ function erpal_commerce_flush_caches() {
         'parent' => 'field_customer',
         'view' => 'erpal_customer_profile:dfv_1',
       );
+      $info_instance['label'] = t('Customer Address');
       field_update_instance($info_instance);
     }
   }
@@ -840,6 +847,34 @@ function erpal_commerce_references_dialog_entity_admin_paths() {
     'commerce_order' => array(
       'add' => 'admin/commerce/orders/add/[bundle]',
       'edit' => 'admin/commerce/orders/[entity_id]/edit',
+    ),
+  );
+}
+
+/**
+ * Implements hook_commerce_order_state_info().
+ */
+function erpal_commerce_commerce_order_state_info() {
+  return array(
+    'paid' => array(
+      'name' => 'paid',
+      'title' => t('Paid'),
+      'description' => t('Paid state.'),
+      'weight' => 17,
+      'default_status' => 'paid',
+    ),
+  );
+}
+
+/**
+ * Implements hook_commerce_order_status_info().
+ */
+function erpal_commerce_commerce_order_status_info() {
+  return array(
+    'paid' => array(
+      'name' => 'paid',
+      'title' => t('Paid'),
+      'state' => 'paid',
     ),
   );
 }
