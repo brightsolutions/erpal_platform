@@ -437,6 +437,48 @@ function erpal_commerce_invoice_line_item_default_fields() {
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_line_item_delivery_date'
+  $fields[] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_line_item_delivery_date',
+    'foreign keys' => array(
+      'date_item' => array(
+        'columns' => array(
+          'target_id' => 'diid',
+        ),
+        'table' => 'date_item',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          0 => 'single',
+        ),
+      ),
+      'target_type' => 'date_item',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
   // Exported field_instance: 'commerce_line_item-invoice-field_line_item_order'
   $instances[] = array(
     'bundle' => 'invoice',
@@ -474,9 +516,63 @@ function erpal_commerce_invoice_line_item_default_fields() {
       'weight' => 3,
     ),
   );
+
+  // Exported field_instance: 'commerce_line_item-invoice-field_line_item_delivery_date'
+  $instances[] = array(
+    'bundle' => 'invoice',
+    'default_value_function' => '',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'commerce_line_item',
+    'field_name' => 'field_line_item_delivery_date',
+    'label' => 'Delivery date',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'prepopulate' => array(
+          'status' => 0,
+        ),
+      ),
+      'dfv' => array(
+        'parent' => '',
+        'status' => 0,
+        'view' => '',
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'inline_entity_form',
+      'settings' => array(
+        'fields' => array(),
+        'type_settings' => array(
+          'allow_existing' => FALSE,
+          'delete_references' => 0,
+          'label_plural' => 'entities',
+          'label_singular' => 'entity',
+          'match_operator' => 'CONTAINS',
+          'override_labels' => 0,
+        ),
+      ),
+      'type' => 'inline_entity_form_single',
+      'weight' => 4,
+    ),
+  );
   // Translatables
   // Included for use with string extractors like potx.
   t('Order');
+  t('Delivery date');
 
   return array(
     'fields' => $fields,
