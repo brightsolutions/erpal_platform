@@ -25,7 +25,16 @@ function erpal_commerce_ui_menu() {
     'type' => MENU_LOCAL_TASK,
     'file' => 'erpal_commerce_ui.admin.inc',
   );
-
+  $items['admin/commerce/orders/%commerce_order/pdf'] = array(
+    'title' => 'Pdf',
+    'page callback' => 'commerce_order_ui_order_view',
+    'page arguments' => array(3, 4),
+    'access callback' => 'erpal_commerce_ui_order_view_access',
+    'access arguments' => array(3),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -5,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
   return $items;
 }
 
@@ -306,7 +315,7 @@ function erpal_commerce_ui_preprocess_entity(&$variables) {
  *   Boolean indicating the user's access to view the page.
  */
 function erpal_commerce_ui_order_view_access($order) {
-  $types = array('commerce_order');
+  $types = array('commerce_order', 'invoice');
   if (in_array($order->type, $types)) {
     return commerce_order_admin_order_view_access($order);
   }
