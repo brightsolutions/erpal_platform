@@ -444,40 +444,28 @@ function erpal_commerce_invoice_line_item_default_fields() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_line_item_delivery_date',
-    'foreign keys' => array(
-      'date_item' => array(
-        'columns' => array(
-          'target_id' => 'diid',
-        ),
-        'table' => 'date_item',
-      ),
-    ),
-    'indexes' => array(
-      'target_id' => array(
-        0 => 'target_id',
-      ),
-    ),
+    'foreign keys' => array(),
+    'indexes' => array(),
     'locked' => 0,
-    'module' => 'entityreference',
+    'module' => 'date',
     'settings' => array(
-      'handler' => 'base',
-      'handler_settings' => array(
-        'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 0,
-          ),
-        ),
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(
-          0 => 'single',
-        ),
+      'cache_count' => 4,
+      'cache_enabled' => 0,
+      'granularity' => array(
+        'day' => 'day',
+        'hour' => 'hour',
+        'minute' => 'minute',
+        'month' => 'month',
+        'second' => 0,
+        'year' => 'year',
       ),
-      'target_type' => 'date_item',
+      'repeat' => 0,
+      'timezone_db' => 'UTC',
+      'todate' => '',
+      'tz_handling' => 'site',
     ),
     'translatable' => 0,
-    'type' => 'entityreference',
+    'type' => 'datetime',
   );
   // Exported field_instance: 'commerce_line_item-invoice-field_line_item_order'
   $instances[] = array(
@@ -520,17 +508,21 @@ function erpal_commerce_invoice_line_item_default_fields() {
   // Exported field_instance: 'commerce_line_item-invoice-field_line_item_delivery_date'
   $instances[] = array(
     'bundle' => 'invoice',
-    'default_value_function' => '',
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'entityreference',
+        'module' => 'date',
         'settings' => array(
-          'link' => FALSE,
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+          'show_repeat_rule' => 'show',
         ),
-        'type' => 'entityreference_label',
+        'type' => 'date_default',
         'weight' => 3,
       ),
     ),
@@ -539,11 +531,10 @@ function erpal_commerce_invoice_line_item_default_fields() {
     'label' => 'Delivery date',
     'required' => 0,
     'settings' => array(
-      'behaviors' => array(
-        'prepopulate' => array(
-          'status' => 0,
-        ),
-      ),
+      'default_value' => 'now',
+      'default_value2' => 'same',
+      'default_value_code' => '',
+      'default_value_code2' => '',
       'dfv' => array(
         'parent' => '',
         'status' => 0,
@@ -553,19 +544,17 @@ function erpal_commerce_invoice_line_item_default_fields() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'inline_entity_form',
+      'module' => 'date',
       'settings' => array(
-        'fields' => array(),
-        'type_settings' => array(
-          'allow_existing' => FALSE,
-          'delete_references' => 0,
-          'label_plural' => 'entities',
-          'label_singular' => 'entity',
-          'match_operator' => 'CONTAINS',
-          'override_labels' => 0,
-        ),
+        'increment' => 15,
+        'input_format' => 'm/d/Y - H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'repeat_collapsed' => 0,
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
       ),
-      'type' => 'inline_entity_form_single',
+      'type' => 'date_popup',
       'weight' => 4,
     ),
   );
