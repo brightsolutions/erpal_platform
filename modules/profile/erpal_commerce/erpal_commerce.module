@@ -397,6 +397,10 @@ function erpal_commerce_field_widget_form_alter(&$element, &$form_state, $contex
 
   // Change button label for line items field.
   if ($context['field']['field_name'] == 'commerce_line_items') {
+    // Hide line item type selection.
+    $element['actions']['line_item_type']['#access'] = FALSE;
+    $element['actions']['bundle']['#access'] = FALSE;
+
     if ($context['instance']['widget']['type'] == 'inline_entity_form') {
       $element['actions']['ief_add_existing']['#value'] = t('Add existing product');
       $element['actions']['ief_add']['#value'] = t('Add new product');
