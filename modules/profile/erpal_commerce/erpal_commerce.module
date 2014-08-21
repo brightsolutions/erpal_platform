@@ -366,12 +366,14 @@ function erpal_commerce_invoice_form_validate(&$form, &$form_state) {
 function erpal_commerce_line_item_autocomplete($string = '') {
   $result = array();
   if ($string) {
-    $result = db_select('commerce_line_item')
-      ->fields('commerce_line_item', array('line_item_id', 'line_item_label'))
-      ->condition('line_item_label', '%' . db_like($string) . '%', 'LIKE')
-      ->condition('type', 'invoice')
-      ->execute()
-      ->fetchAllKeyed();
+    $query = db_select('commerce_line_item', 'cli')
+      ->fields('cli', array('line_item_id', 'line_item_label'))
+      ->condition('cli.line_item_label', '%' . db_like($string) . '%', 'LIKE')
+      ->condition('cli.type', 'invoice');
+    $query->join('commerce_order','co','co.order_id != cli.order_id');
+    $query->condition('co.type', 'invoice');
+
+    $result = $query->execute()->fetchAllKeyed();
   }
   drupal_json_output($result);
 }
