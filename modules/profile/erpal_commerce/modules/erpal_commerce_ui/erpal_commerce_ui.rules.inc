@@ -48,7 +48,9 @@ function erpal_commerce_ui_replicate_order($commerce_order) {
       }
 
       if ($line_item_wrapper->type->value() == 'invoice') {
+        $line_item_wrapper->order_id = $order->order_id;
         $line_item_wrapper->field_line_item_order->set($commerce_order->order_id);
+        $line_item_wrapper->field_line_item_delivery_date->set(REQUEST_TIME);
         $line_item_wrapper->save();
       }
     }
@@ -131,6 +133,8 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
     unset($replica->field_order_date,
           $replica->field_order_text,
           $replica->field_order);
+    $wrapper = entity_metadata_wrapper('commerce_order', $replica);
+    $wrapper->field_invoice_order->set($id);
   }
 
   if ($replica->type == 'quote') {

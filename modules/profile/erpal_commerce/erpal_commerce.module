@@ -208,14 +208,10 @@ function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_
         ),
       ),
     );
-
-  }
-  if (!empty($form['#entity']->order_id)) {
-    $line_item->order_id = $form['#entity']->order_id;
   }
 
-  $field_language = field_language('commerce_line_item', $line_item, 'field_line_item_delivery_date');
-  $line_item->field_line_item_delivery_date[$field_language][0]['value'] = date('Y-m-d\TH:i:s', REQUEST_TIME);
+  //$field_language = field_language('commerce_line_item', $line_item, 'field_line_item_delivery_date');
+  //$line_item->field_line_item_delivery_date[$field_language][0]['value'] = date('Y-m-d\TH:i:s', REQUEST_TIME);
 }
 
 /**
@@ -334,6 +330,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
       'Paid' => $form['order_status']['status']['#options']['Paid'],
     );
     $form['actions']['submit']['#value'] = t('Save invoice');
+    $form['actions']['submit']['#submit'][] = 'erpal_commerce_invoice_form_submit';
   }
 
   // Change list of selectable line item bundles.
@@ -350,6 +347,18 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
     else {
       unset($options['invoice']);
     }
+  }
+}
+
+/**
+ * Change status AGAIN for properly work of rules in commerce billy module.
+ */
+function erpal_commerce_invoice_form_submit(&$form, &$form_state) {
+  $invoice = $form_state['commerce_order'];
+  foreach (entity_metadata_wrapper('commerce_order', $invoice)->commerce_line_items as $line_item_wrapper) {
+    $line_item_wrapper->order_id->set($invoice->order_id);
+    $line_item_wrapper->field_line_item_delivery_date->set(REQUEST_TIME);
+    $line_item_wrapper->save();
   }
 }
 
@@ -397,10 +406,6 @@ function erpal_commerce_field_widget_form_alter(&$element, &$form_state, $contex
 
   // Change button label for line items field.
   if ($context['field']['field_name'] == 'commerce_line_items') {
-    // Hide line item type selection.
-    $element['actions']['line_item_type']['#access'] = FALSE;
-    $element['actions']['bundle']['#access'] = FALSE;
-
     if ($context['instance']['widget']['type'] == 'inline_entity_form') {
       $element['actions']['ief_add_existing']['#value'] = t('Add existing product');
       $element['actions']['ief_add']['#value'] = t('Add new product');
@@ -688,7 +693,8 @@ function erpal_commerce_create_invoice(&$line_items, $context) {
   // have an order_id set yet.
   foreach (entity_metadata_wrapper('commerce_order', $order)->commerce_line_items as $delta => $line_item_wrapper) {
     if ($line_item_wrapper->order_id->value() != $order->order_id) {
-      $line_item_wrapper->order_id = $order->order_id;
+      $line_item_wrapper->order_id->set($order->order_id);
+      $line_item_wrapper->field_line_item_delivery_date->set(REQUEST_TIME);
       $line_item_wrapper->save();
     }
   }

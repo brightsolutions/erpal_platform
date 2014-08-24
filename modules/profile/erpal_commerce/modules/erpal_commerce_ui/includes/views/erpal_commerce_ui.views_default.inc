@@ -1672,7 +1672,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['relationship'] = 'order_id';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['label'] = 'Invoice';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['text'] = '[order_number]';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['text'] = '[order_number_1]';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['path'] = 'admin/commerce/orders/[order_id]';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['settings'] = array(
@@ -1785,6 +1785,7 @@ function erpal_commerce_ui_views_default_views() {
     t('Commerce Order entity referenced from field_line_item_order'),
     t('CRM Core Contact entity referenced from field_customer'),
     t('Customer'),
+    t('[order_number_1]'),
     t('Billed'),
   );
 
