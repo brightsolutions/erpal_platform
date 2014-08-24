@@ -13,6 +13,7 @@ function erpal_payment_modality_default_rules_configuration() {
       "LABEL" : "Rules link: Create invoice line item condition",
       "PLUGIN" : "and",
       "OWNER" : "rules",
+      "TAGS" : [ "Erpal Payment Modality" ],
       "REQUIRES" : [ "rules" ],
       "USES VARIABLES" : { "erpal_payment_modality" : { "label" : "erpal_payment_modality", "type" : "erpal_payment_modality" } },
       "AND" : [
@@ -29,6 +30,7 @@ function erpal_payment_modality_default_rules_configuration() {
       "LABEL" : "Rules link: Create invoice line item rules set",
       "PLUGIN" : "rule set",
       "OWNER" : "rules",
+      "TAGS" : [ "Erpal Payment Modality" ],
       "REQUIRES" : [ "erpal_commerce" ],
       "USES VARIABLES" : { "erpal_payment_modality" : { "type" : "erpal_payment_modality", "label" : "erpal_payment_modality" } },
       "RULES" : [
