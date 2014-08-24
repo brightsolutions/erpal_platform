@@ -1433,22 +1433,39 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['commerce_total']['settings'] = array(
     'calculation' => FALSE,
   );
-  /* Field: Commerce Line Item: Created date */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'commerce_line_item';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short';
-  $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
+  /* Field: Commerce Line item: Delivery date */
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['id'] = 'field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['table'] = 'field_data_field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['field'] = 'field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_repeat_rule' => 'show',
+  );
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['group_column'] = 'target_id';
+  /* Field: Commerce Order: Order number */
+  $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['relationship'] = 'order_id';
+  $handler->display->display_options['fields']['order_number']['label'] = '';
+  $handler->display->display_options['fields']['order_number']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['order_number']['element_label_colon'] = FALSE;
   /* Field: Commerce Order: Invoice date */
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['id'] = 'field_commerce_billy_i_date';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['table'] = 'field_data_field_commerce_billy_i_date';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['field'] = 'field_commerce_billy_i_date';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['relationship'] = 'order_id';
-  $handler->display->display_options['fields']['field_commerce_billy_i_date']['label'] = 'Delivery date';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['label'] = 'Invoice';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['text'] = '[order_number]';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['path'] = 'admin/commerce/orders/[order_id]';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['settings'] = array(
-    'format_type' => 'short',
+    'format_type' => 'long',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',
@@ -1627,16 +1644,39 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['field_customer']['settings'] = array(
     'link' => 1,
   );
+  /* Field: Commerce Line item: Delivery date */
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['id'] = 'field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['table'] = 'field_data_field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['field'] = 'field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_repeat_rule' => 'show',
+  );
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['group_column'] = 'target_id';
+  /* Field: Commerce Order: Order number */
+  $handler->display->display_options['fields']['order_number_1']['id'] = 'order_number_1';
+  $handler->display->display_options['fields']['order_number_1']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['order_number_1']['field'] = 'order_number';
+  $handler->display->display_options['fields']['order_number_1']['relationship'] = 'order_id';
+  $handler->display->display_options['fields']['order_number_1']['label'] = '';
+  $handler->display->display_options['fields']['order_number_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['order_number_1']['element_label_colon'] = FALSE;
   /* Field: Commerce Order: Invoice date */
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['id'] = 'field_commerce_billy_i_date';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['table'] = 'field_data_field_commerce_billy_i_date';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['field'] = 'field_commerce_billy_i_date';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['relationship'] = 'order_id';
-  $handler->display->display_options['fields']['field_commerce_billy_i_date']['label'] = 'Delivery date';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['label'] = 'Invoice';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['text'] = '[order_number]';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['path'] = 'admin/commerce/orders/[order_id]';
   $handler->display->display_options['fields']['field_commerce_billy_i_date']['settings'] = array(
-    'format_type' => 'short',
+    'format_type' => 'long',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',
@@ -1704,22 +1744,6 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['type_1']['expose']['reduce'] = TRUE;
-  /* Filter criterion: Commerce Order: Invoice date (field_commerce_billy_i_date) */
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['id'] = 'field_commerce_billy_i_date_value';
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['table'] = 'field_data_field_commerce_billy_i_date';
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['field'] = 'field_commerce_billy_i_date_value';
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['relationship'] = 'order_id';
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['expose']['operator_id'] = 'field_commerce_billy_i_date_value_op';
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['expose']['label'] = 'Delivery date';
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['expose']['operator'] = 'field_commerce_billy_i_date_value_op';
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['expose']['identifier'] = 'field_commerce_billy_i_date_value';
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-  );
-  $handler->display->display_options['filters']['field_commerce_billy_i_date_value']['form_type'] = 'date_popup';
   $handler->display->display_options['path'] = 'invoices/line_items';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Invoice';
@@ -1752,8 +1776,9 @@ function erpal_commerce_ui_views_default_views() {
     t('All'),
     t('Revenue'),
     t('@total rows'),
-    t('Created date'),
     t('Delivery date'),
+    t('Invoice'),
+    t('[order_number]'),
     t('Delivered'),
     t('View panes'),
     t('Revenue page'),

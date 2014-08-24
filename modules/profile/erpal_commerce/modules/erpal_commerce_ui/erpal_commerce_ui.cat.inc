@@ -322,6 +322,72 @@ function erpal_commerce_ui_cat_items_settings_info() {
   $cat_item->weight = 0;
   $export['create_order'] = $cat_item;
 
+  $cat_item = new stdClass();
+  $cat_item->api_version = 1;
+  $cat_item->machine_name = 'create_order_sales';
+  $cat_item->name = 'Create order';
+  $cat_item->catch_subpaths = 0;
+  $cat_item->category = '';
+  $cat_item->path = 'crm-core/activity/%';
+  $cat_item->data = array(
+    'api_version' => 1,
+    'access' => array(
+      'plugins' => array(
+        0 => array(
+          'name' => 'entity_bundle:crm_core_activity',
+          'settings' => array(
+            'type' => array(
+              'sales_process' => 'sales_process',
+            ),
+          ),
+          'context' => 'crm_core_activity',
+          'not' => FALSE,
+        ),
+      ),
+      'logic' => 'and',
+    ),
+    'active_trail_path' => '',
+    'arguments' => array(
+      2 => array(
+        'argument_name' => 'crm_core_activity',
+        'argument_type' => 'path',
+        'position' => 2,
+        'argument' => 'entity_id:crm_core_activity',
+        'settings' => array(
+          'identifier' => 'CRM Activity: ID',
+        ),
+      ),
+    ),
+    'name' => 'Create order',
+    'path' => 'crm-core/activity/%',
+    'category' => '',
+    'cat_actions' => array(
+      0 => array(
+        'path' => 'order/add',
+        'path_router' => 'order/add',
+        'path_original' => 'order/add',
+        'path_pattern' => 'order/%',
+        'path_query' => array(
+          'field_customer' => '[crm_core_activity:field-activity-customer:contact-id]',
+        ),
+        'path_destination' => FALSE,
+        'title' => 'Create an order',
+        'css_id' => '',
+        'css_class' => '',
+        'active' => TRUE,
+      ),
+    ),
+    'cat_tabs' => array(),
+    'machine_name' => 'create_order_sales',
+    'path_original' => 'crm-core/activity/%crm_core_activity',
+    'path_pattern' => 'crm-core/%/%',
+    'path_query' => array(),
+    'path_router' => 'crm-core/activity/%',
+    'reusable' => 0,
+    'cat_remove' => array(),
+  );
+  $cat_item->weight = 0;
+  $export['create_order_sales'] = $cat_item;
 
   return $export;
 }

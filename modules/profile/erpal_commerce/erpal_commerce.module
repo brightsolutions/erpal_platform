@@ -175,13 +175,6 @@ function erpal_commerce_line_item_add_form($element, &$form_state) {
     '#maxlength' => 255,
   );
 
-  $form['order'] = array(
-    '#type' => 'select',
-    '#title' => t('Order'),
-    '#description' => t('Choose order to which will be attached line item.'),
-    '#options' => erpal_commerce_orders(),
-  );
-
   return $form;
 }
 
@@ -216,9 +209,13 @@ function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_
       ),
     );
 
-    $field_language = field_language('commerce_line_item', $line_item, 'field_line_item_order');
-    $line_item->field_line_item_order[$field_language][0]['target_id'] = $element['actions']['order']['#value'];
   }
+  if (!empty($form['#entity']->order_id)) {
+    $line_item->order_id = $form['#entity']->order_id;
+  }
+
+  $field_language = field_language('commerce_line_item', $line_item, 'field_line_item_delivery_date');
+  $line_item->field_line_item_delivery_date[$field_language][0]['value'] = date('Y-m-d\TH:i:s', REQUEST_TIME);
 }
 
 /**
@@ -369,11 +366,14 @@ function erpal_commerce_invoice_form_validate(&$form, &$form_state) {
 function erpal_commerce_line_item_autocomplete($string = '') {
   $result = array();
   if ($string) {
-    $result = db_select('commerce_line_item')
-      ->fields('commerce_line_item', array('line_item_id', 'line_item_label'))
-      ->condition('line_item_label', '%' . db_like($string) . '%', 'LIKE')
-      ->execute()
-      ->fetchAllKeyed();
+    $query = db_select('commerce_line_item', 'cli')
+      ->fields('cli', array('line_item_id', 'line_item_label'))
+      ->condition('cli.line_item_label', '%' . db_like($string) . '%', 'LIKE')
+      ->condition('cli.type', 'invoice');
+    $query->join('commerce_order','co','co.order_id != cli.order_id');
+    $query->condition('co.type', 'invoice');
+
+    $result = $query->execute()->fetchAllKeyed();
   }
   drupal_json_output($result);
 }
@@ -397,6 +397,10 @@ function erpal_commerce_field_widget_form_alter(&$element, &$form_state, $contex
 
   // Change button label for line items field.
   if ($context['field']['field_name'] == 'commerce_line_items') {
+    // Hide line item type selection.
+    $element['actions']['line_item_type']['#access'] = FALSE;
+    $element['actions']['bundle']['#access'] = FALSE;
+
     if ($context['instance']['widget']['type'] == 'inline_entity_form') {
       $element['actions']['ief_add_existing']['#value'] = t('Add existing product');
       $element['actions']['ief_add']['#value'] = t('Add new product');
