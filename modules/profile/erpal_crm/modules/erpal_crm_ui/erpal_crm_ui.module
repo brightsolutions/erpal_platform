@@ -173,6 +173,7 @@ function erpal_crm_ui_form_crm_core_relationship_form_submit($form, &$form_state
  */
 function erpal_crm_ui_crm_core_activity_edit_sales_process_form_validate($form, &$form_state) {
   // Set forecast title the same as Activity title.
+
   $language = $form['field_activity_sales_forecast']['#language'];
   form_set_value($form['field_activity_sales_forecast'][$language]['form']['title'], $form_state['values']['title'], $form_state);
 }

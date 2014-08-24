@@ -14,6 +14,7 @@ function erpal_crm_default_rules_configuration() {
       "LABEL" : "Change sales process status to prospect",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
+      "TAGS" : [ "Erpal CRM" ],
       "REQUIRES" : [ "rules", "rules_conditional", "entity" ],
       "ON" : { "commerce_order_insert" : [], "commerce_order_update" : [] },
       "IF" : [
@@ -52,6 +53,7 @@ function erpal_crm_default_rules_configuration() {
       "LABEL" : "Change sales process status to win",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
+      "TAGS" : [ "Erpal CRM" ],
       "REQUIRES" : [ "rules", "rules_conditional", "entity" ],
       "ON" : { "commerce_order_insert" : [], "commerce_order_update" : [] },
       "IF" : [

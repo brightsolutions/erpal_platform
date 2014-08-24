@@ -233,30 +233,7 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
 
   }
 
-  foreach ($local_tasks as $local_task) {
-    if ($root_path == $local_task['root_path']) {
-      $item = menu_get_item($local_task['menu_item']);
-      if ($item['access']) {
-
-        // If title is empty just add 'Create quote' by default.
-        $item['title'] = 'Create a Quote';
-        if (!empty($local_task['title'])) {
-          $item['title'] = $local_task['title'];
-        }
-
-        // If query is empty just add destination by default.
-        $item['localized_options']['query'] = drupal_get_destination();
-        if (isset($local_task['query'])) {
-          $item['localized_options']['query'] = $local_task['query'];
-        }
-
-        $data['actions']['output'][] = array(
-          '#theme' => 'menu_local_action',
-          '#link' => $item,
-        );
-      }
-    }
-  }
+  erpal_core_add_local_tasks($data, $local_tasks, $root_path);
 }
 
 /**

@@ -13,6 +13,7 @@ function erpal_commerce_default_rules_configuration() {
       "LABEL" : "Auto creating invoice line item an advance",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
+      "TAGS" : [ "Erpal Commerce" ],
       "REQUIRES" : [ "rules", "erpal_commerce", "entity" ],
       "ON" : { "commerce_line_item_insert" : [], "commerce_line_item_update" : [] },
       "IF" : [
