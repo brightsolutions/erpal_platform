@@ -22,11 +22,13 @@ function erpal_commerce_ui_pdf_admin_form($form, &$form_state) {
     '#type' => 'textarea',
     '#title' => t('Order header'),
     '#default_value' => isset($settings['order_header']) ? $settings['order_header'] : '',
+    '#description' => t('This field will be ignored if vendor field filled.'),
   );
   $form['erpal_order_pdf_settings']['order_location'] = array(
     '#type' => 'textfield',
     '#title' => t('Location'),
     '#default_value' => isset($settings['order_location']) ? $settings['order_location'] : '',
+    '#description' => t('This field will be ignored if vendor field filled.'),
   );
   $form['erpal_order_pdf_settings']['order_date_format'] = array(
     '#type' => 'textfield',
@@ -42,6 +44,7 @@ function erpal_commerce_ui_pdf_admin_form($form, &$form_state) {
     '#type' => 'textarea',
     '#title' => t('Order footer'),
     '#default_value' => isset($settings['order_footer']) ? $settings['order_footer'] : '',
+    '#description' => t('This field will be ignored if vendor field filled.'),
   );
 
   $form['erpal_order_pdf_logo'] = array(
@@ -64,7 +67,14 @@ function erpal_commerce_ui_pdf_admin_form($form, &$form_state) {
     '#required' => TRUE,
     '#description' => t('One CSS file per line.'),
   );
-
+  $form['tokens'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Replacement patterns'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => theme('token_tree', array('token_types' => array('commerce-order'))),
+    '#weight' => 10,
+  );
   $form = system_settings_form($form);
   // Use custom submit handler.
   $form['#submit'] = array('erpal_commerce_ui_pdf_admin_form_submit');

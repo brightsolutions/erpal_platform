@@ -348,6 +348,9 @@ function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
   drupal_add_js(drupal_get_path('module', 'erpal_commerce_ui') .'/js/erpal_commerce_ui.js', 'file');
   // Add content variables for the PDF generation.
   $settings = variable_get('erpal_order_pdf_text_settings', array());
+  foreach ($settings as &$value) {
+    $value = token_replace($value, array('commerce-order' => $order));
+  }
   $custom_date_format = !empty($settings['order_date_format']) ? $settings['order_date_format'] : 'Y-m-d';
   // Just load commerce_customer_profile for current Vendor.
   $vendor = field_get_items('commerce_order', $order, 'field_vendor_address');
