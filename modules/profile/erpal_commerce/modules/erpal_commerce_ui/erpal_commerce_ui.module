@@ -371,6 +371,18 @@ function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
     $date = $order->created;
   }
   $date = format_date($date, 'custom', $custom_date_format);
+  // Set quote for order page.
+  $quote = field_get_items('commerce_order', $order, 'field_quote');
+  if (!empty($quote[0]['entity'])) {
+    $order->content['order_quote_number'] =  array(
+      '#markup' => t('Quote No.: @id', array('@id' => $quote[0]['entity']->order_number)),
+    );
+  }
+  // Set order for invoice page.
+  $invoice_order = field_get_items('commerce_order', $order, 'field_invoice_order');
+  if (!empty($invoice_order[0]['entity'])) {
+    $order->content['order_number']['#markup'] .= '<br/>' . t('Order No.: @id', array('@id' => $invoice_order[0]['entity']->order_number));
+  }
   // Add Vendor address to order header if exists.
   if (in_array($view_mode, array('quote_pdf', 'order_pdf', 'pdf'))) {
 
