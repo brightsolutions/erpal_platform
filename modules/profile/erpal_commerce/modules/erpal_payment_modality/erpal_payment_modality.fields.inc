@@ -61,32 +61,6 @@ function erpal_payment_modality_add_default_fields() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_delivery_unit'
-  $fields[] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_delivery_unit',
-    'foreign keys' => array(),
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        'time' => 'time(hour)',
-        'item' => 'item(task, milestone, sprint)',
-      ),
-      'allowed_values_function' => '',
-    ),
-    'translatable' => 0,
-    'type' => 'list_text',
-  );
-
   // Exported field_base: 'field_due_with'
   $fields[] = array(
     'active' => 1,
@@ -240,43 +214,6 @@ function erpal_payment_modality_add_default_fields() {
   );
 
   // Exported field_instance:
-  // 'erpal_payment_modality-payment_modality-field_delivery_unit'
-  $instances[] = array(
-    'bundle' => 'payment_modality',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 3,
-      ),
-    ),
-    'entity_type' => 'erpal_payment_modality',
-    'field_name' => 'field_delivery_unit',
-    'label' => 'Delivery unit',
-    'required' => 0,
-    'settings' => array(
-      'dfv' => array(
-        'parent' => '',
-        'status' => 0,
-        'view' => '',
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => -1,
-    ),
-  );
-
-  // Exported field_instance:
   // 'erpal_payment_modality-payment_modality-field_due_with'
   $instances[] = array(
     'bundle' => 'payment_modality',
@@ -365,7 +302,6 @@ function erpal_payment_modality_add_default_fields() {
   // Included for use with string extractors like potx.
   t('Amount');
   t('Amount type');
-  t('Delivery unit');
   t('Due with');
 
   return array(
