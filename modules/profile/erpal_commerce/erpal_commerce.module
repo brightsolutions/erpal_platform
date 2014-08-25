@@ -789,6 +789,13 @@ function erpal_commerce_flush_caches() {
       field_update_instance($info_instance);
     }
   }
+  // Enable reference dialog for invoice order field.
+  $info_instance = field_info_instance('commerce_order', 'field_invoice_order', 'invoice');
+  $info_instance['widget']['settings']['references_dialog_add'] = 1;
+  $info_instance['widget']['settings']['references_dialog_edit'] = 1;
+  $info_instance['widget']['settings']['references_dialog_search'] = 1;
+  $info_instance['widget']['settings']['references_dialog_search_view'] = '';
+  field_update_instance($info_instance);
 
   // Add default fields for working with commerce customer profile.
   $fields = erpal_commerce_customer_profile_default_fields();
