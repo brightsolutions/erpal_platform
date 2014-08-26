@@ -209,9 +209,6 @@ function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_
       ),
     );
   }
-
-  //$field_language = field_language('commerce_line_item', $line_item, 'field_line_item_delivery_date');
-  //$line_item->field_line_item_delivery_date[$field_language][0]['value'] = date('Y-m-d\TH:i:s', REQUEST_TIME);
 }
 
 /**
@@ -243,7 +240,6 @@ function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
         $form['type']['#options']['invoice'] = t('Yes');
       }
     }
-
   }
 }
 
@@ -351,7 +347,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
 }
 
 /**
- * Change status AGAIN for properly work of rules in commerce billy module.
+ * Change order id and delivery date fir every line item in invoice.
  */
 function erpal_commerce_invoice_form_submit(&$form, &$form_state) {
   $invoice = $form_state['commerce_order'];
