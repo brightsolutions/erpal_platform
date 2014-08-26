@@ -1185,7 +1185,7 @@ function _erpal_crm_erpal_budget_type_sales_forecast_default_instances() {
     'entity_type' => 'erpal_budget',
     'field_name' => 'field_sales_forecast_chance',
     'label' => 'Chance',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
