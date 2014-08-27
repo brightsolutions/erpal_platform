@@ -948,10 +948,12 @@ function _erpal_crm_contact_type_default_instances($type) {
       break;
 
     case 'organization':
+      $relation_type['crm_business'] = 'crm_business';
       $relation_type['crm_employee:reverse'] = 'crm_employee:reverse';
       break;
 
     case 'household':
+      $relation_type['crm_business'] = 'crm_business';
       $relation_type['crm_member:reverse'] = 'crm_member:reverse';
       break;
   }
