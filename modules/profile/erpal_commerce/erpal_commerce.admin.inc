@@ -29,21 +29,7 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
 
     // Get profiles list.
     $param = isset($form_state['values']) ? $form_state['values']['erpal_vendor_settings']['vendor_id'] : $settings['vendor_id'];
-    $view = views_get_view('erpal_customer_profile');
-    $view->set_display('dfv_1');
-    $view->set_arguments(array($param));
-    $view->pre_execute();
-    $view->execute();
-
-    if (isset($view->result)) {
-      foreach ($view->result as $profile) {
-        $str = array();
-        foreach ($profile as $field) {
-          $str[] = $field;
-        }
-        $profiles[$profile->profile_id] = implode(' - ', $str);
-      }
-    }
+    $profiles = erpal_commerce_get_profiles($param);
   }
 
   // Get all currencies.

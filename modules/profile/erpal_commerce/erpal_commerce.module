@@ -275,6 +275,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
       $form['field_vendor'][$language][0]['target_id']['#default_value'] = $vendor_name;
 
       $language = $form['field_vendor_address']['#language'];
+      $form['field_vendor_address'][$language]['#options'] = erpal_commerce_get_profiles($settings['vendor_id']);
       $form['field_vendor_address'][$language]['#default_value'] = $settings['customer_profile_id'];
     }
     if ($form_state['commerce_order']->type == 'invoice') {
@@ -304,6 +305,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
       $customer_profiles = field_get_items('crm_core_contact', $customer, 'field_customer_profiles');
 
       if (isset($customer_profiles[0]['target_id'])) {
+        $form['commerce_customer_billing'][$language]['#options'] = erpal_commerce_get_profiles($params['field_customer']);
         $form['commerce_customer_billing'][$language]['#default_value'] = array($customer_profiles[0]['target_id']);
       }
     }
@@ -897,4 +899,28 @@ function erpal_commerce_commerce_order_status_info() {
       'state' => 'paid',
     ),
   );
+}
+
+/**
+ * Hepler function to get profiles list.
+ */
+function erpal_commerce_get_profiles($param) {
+  $profiles = array('' => t('- None -'));
+  $view = views_get_view('erpal_customer_profile');
+  $view->set_display('dfv_1');
+  $view->set_arguments(array($param));
+  $view->pre_execute();
+  $view->execute();
+
+  if (isset($view->result)) {
+    foreach ($view->result as $profile) {
+      $str = array();
+      foreach ($profile as $field) {
+        $str[] = $field;
+      }
+      $profiles[$profile->profile_id] = implode(' - ', $str);
+    }
+  }
+
+  return $profiles;
 }
