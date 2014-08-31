@@ -233,7 +233,7 @@ function erpal_commerce_ui_menu_local_tasks_alter(&$data, $router_item, $root_pa
 
   }
 
-  erpal_core_add_local_tasks($data, $local_tasks, $root_path);
+  erpal_core_add_local_actions($data, $local_tasks, $root_path);
 }
 
 /**
