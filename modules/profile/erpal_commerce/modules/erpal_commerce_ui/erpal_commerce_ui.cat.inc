@@ -55,7 +55,9 @@ function erpal_commerce_ui_cat_items_settings_info() {
         'path_router' => 'quote/add',
         'path_original' => 'quote/add',
         'path_pattern' => 'quote/%',
-        'path_query' => array(),
+        'path_query' => array(
+          'activity_id' => '[crm_core_activity:activity-id]',
+        ),
         'path_destination' => FALSE,
         'title' => 'Create a quote',
         'css_id' => '',
