@@ -939,3 +939,27 @@ function erpal_commerce_get_profiles($param) {
 
   return $profiles;
 }
+
+/**
+ * Implements hook_entity_insert().
+ */
+function erpal_commerce_entity_insert($entity, $type) {
+  $not_allowed = array(
+    'field_collection',
+    'date_item',
+    'commerce_line_item',
+    'erpal_payment_modality'
+  );
+
+  if (!in_array($type, $not_allowed)) {
+    $info = entity_get_info($type);
+    $url = entity_uri($type, $entity);
+    $label = entity_label($type, $entity);
+    if (!empty($url) && !empty($label)) {
+      $bundle = $entity->{$info['bundle keys']['bundle']};
+      $bundle_label = $info['bundles'][$bundle]['label'];
+
+      drupal_set_message(t('View new @type <a href="@url">@title</a>', array('@url' => url($url['path'], array('absolute' => TRUE)), '@type' => $bundle_label, '@title' => $label)));
+    }
+  }
+}
