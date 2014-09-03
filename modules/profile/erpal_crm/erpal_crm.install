@@ -59,6 +59,26 @@ function erpal_crm_install() {
       ),
       'r_unique' => TRUE,
     ),
+    array(
+      'relation_type' => 'crm_main_contact',
+      'label' => $t('Main contact'),
+      'source_bundles' => array(
+        'crm_core_contact:individual',
+        'crm_core_contact:organization',
+        'crm_core_contact:household',
+      ),
+      'r_unique' => TRUE,
+    ),
+    array(
+      'relation_type' => 'crm_stakeholder',
+      'label' => $t('Stakeholder'),
+      'source_bundles' => array(
+        'crm_core_contact:individual',
+        'crm_core_contact:organization',
+        'crm_core_contact:household',
+      ),
+      'r_unique' => TRUE,
+    ),
   );
   foreach ($relation_types_info as $relation_type_info) {
     $relation_type = relation_type_create($relation_type_info);

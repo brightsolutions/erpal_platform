@@ -945,10 +945,10 @@ function erpal_commerce_get_profiles($param) {
  */
 function erpal_commerce_entity_insert($entity, $type) {
   $not_allowed = array(
-    'field_collection',
+    'field_collection_item',
     'date_item',
     'commerce_line_item',
-    'erpal_payment_modality'
+    'erpal_payment_modality',
   );
 
   if (!in_array($type, $not_allowed)) {
