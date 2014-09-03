@@ -307,7 +307,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
   }
 
   // Fill default customer billing information.
-  if (in_array($form_state['commerce_order']->type, array('quote', 'commerce_order', 'invoice'))) {
+  if (in_array($form_state['commerce_order']->type, $types)) {
     $params = drupal_get_query_parameters();
     if (isset($params['field_customer'])) {
       $customer = crm_core_contact_load($params['field_customer']);
@@ -317,6 +317,21 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
       if (isset($customer_profiles[0]['target_id'])) {
         $form['commerce_customer_billing'][$language]['#options'] = erpal_commerce_get_profiles($params['field_customer']);
         $form['commerce_customer_billing'][$language]['#default_value'] = array($customer_profiles[0]['target_id']);
+      }
+    }
+  }
+
+  // Set default sales process if we use another type of activities.
+  if ($form_state['commerce_order']->type == 'quote') {
+    $params = drupal_get_query_parameters();
+    if (isset($params['activity_id'])) {
+      $activity = crm_core_activity_load($params['activity_id']);
+      $language = $form['field_sales_process']['#language'];
+      $sales_process = field_get_items('crm_core_activity', $activity, 'field_activity_sales_process');
+      $sales_process = crm_core_activity_load($sales_process[0]['target_id']);
+
+      if (!empty($sales_process->activity_id)) {
+       $form['field_sales_process'][$language][0]['target_id']['#default_value'] = $sales_process->title . ' (' . $sales_process->activity_id . ')';
       }
     }
   }
@@ -933,4 +948,28 @@ function erpal_commerce_get_profiles($param) {
   }
 
   return $profiles;
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function erpal_commerce_entity_insert($entity, $type) {
+  $not_allowed = array(
+    'field_collection',
+    'date_item',
+    'commerce_line_item',
+    'erpal_payment_modality'
+  );
+
+  if (!in_array($type, $not_allowed)) {
+    $info = entity_get_info($type);
+    $url = entity_uri($type, $entity);
+    $label = entity_label($type, $entity);
+    if (!empty($url) && !empty($label)) {
+      $bundle = $entity->{$info['bundle keys']['bundle']};
+      $bundle_label = $info['bundles'][$bundle]['label'];
+
+      drupal_set_message(t('View new @type <a href="@url">@title</a>', array('@url' => url($url['path'], array('absolute' => TRUE)), '@type' => $bundle_label, '@title' => $label)));
+    }
+  }
 }
