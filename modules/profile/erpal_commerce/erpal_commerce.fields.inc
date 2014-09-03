@@ -252,6 +252,31 @@ function erpal_commerce_order_default_fields() {
     'translatable' => 0,
     'type' => 'text_long',
   );
+  // Exported field_base: 'field_line_item_unit'
+  $fields[] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_line_item_unit',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'item' => 'Item',
+        'time' => 'Time',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
 
   // Exported field_instance: 'commerce_order-commerce_order-field_quote'
   $instances[] = array(
@@ -369,6 +394,42 @@ function erpal_commerce_order_default_fields() {
       'weight' => -3,
     ),
   );
+  // Exported field_instance: 'commerce_line_item-product-field_line_item_unit'
+  $instances[] = array(
+    'bundle' => 'product',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'commerce_line_item',
+    'field_name' => 'field_line_item_unit',
+    'label' => 'Unit',
+    'required' => 0,
+    'settings' => array(
+      'dfv' => array(
+        'parent' => '',
+        'status' => 0,
+        'view' => '',
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 6,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Quote');
