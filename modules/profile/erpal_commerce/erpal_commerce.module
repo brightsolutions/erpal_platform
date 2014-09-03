@@ -653,11 +653,14 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
   // Replicate order to invoice and unset unused fields.
   if (is_numeric(arg(3))) {
     $order = replicate_clone_entity('commerce_order', commerce_order_load(arg(3)));
+   // $language = field_language('commerce_order', $order, 'field_invoice_order');
+   // $order->field_invoice_order['und'][0]['target_id'] = arg(3);
   }
   else {
     $order = commerce_order_new($user->uid, NULL, 'invoice');
   }
 
+  $order_number = $order->order_number;
   $order->type = 'invoice';
   $order->order_id = NULL;
   unset($order->order_number,
@@ -672,7 +675,10 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
         $order->commerce_line_items);
   $order->uid = $user->uid;
   $form = commerce_order_order_form(array(), $form_state, $order);
-
+  if (is_numeric(arg(3))) {
+    $language = $form['field_invoice_order']['#language'];
+    $form['field_invoice_order'][$language][0]['target_id']['#default_value'] = 'Order '.$order_number.' (' . arg(3) . ')';
+  }
   // Hide not needed fields.
   $hide_fields = array(
     'commerce_line_items',
@@ -965,7 +971,7 @@ function erpal_commerce_entity_insert($entity, $type) {
     $info = entity_get_info($type);
     $url = entity_uri($type, $entity);
     $label = entity_label($type, $entity);
-    if (!empty($url) && !empty($label)) {
+    if (!empty($url) && !empty($label) && !empty($info['bundle keys']['bundle'])) {
       $bundle = $entity->{$info['bundle keys']['bundle']};
       $bundle_label = $info['bundles'][$bundle]['label'];
 
