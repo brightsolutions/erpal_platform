@@ -969,7 +969,7 @@ function erpal_commerce_entity_insert($entity, $type) {
       $bundle = $entity->{$info['bundle keys']['bundle']};
       $bundle_label = $info['bundles'][$bundle]['label'];
 
-      drupal_set_message(t('View new @type <a href="@url">@title</a>', array('@url' => url($url['path'], array('absolute' => TRUE)), '@type' => $bundle_label, '@title' => $label)));
+      drupal_set_message(t('New @type was created(<a href="@url">@title</a>)', array('@url' => url($url['path'], array('absolute' => TRUE)), '@type' => $bundle_label, '@title' => $label)));
     }
   }
 }
