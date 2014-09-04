@@ -184,7 +184,7 @@ projects[commerce][version] = "1.x-dev"
 projects[commerce][download][type] = "git"
 projects[commerce][download][url] = "http://git.drupal.org/project/commerce.git"
 projects[commerce][download][revision] = "40751b9e89d18be0df5245c863d0090744325441"
-projects[commerce][patch][] = "http://drupal.org/files/issues/commerce-made-order_number-to-be-unique-only-for-commerce_order-type_2236731_4.patch"
+projects[commerce][patch][] = "https://drupal.org/files/issues/commerce-made-order_number-to-be-unique-only-for-commerce_order-type_2236731_5.patch"
 
 projects[relation_dialog][subdir] = "contrib"
 projects[relation_dialog][version] = "1.x-dev"
