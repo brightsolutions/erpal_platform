@@ -240,6 +240,7 @@ function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
     $ids = array(
       'views-exposed-form-erpal-invoice-line-items-page-2',
       'views-exposed-form-erpal-invoice-line-items-panel-pane-1',
+      'views-exposed-form-erpal-invoice-line-items-panel-pane-2',
     );
 
     // So if line item referenced to commerce_order - not delivered, if to
@@ -248,6 +249,10 @@ function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
       if (!empty($form['type']['#options'])) {
         $form['type']['#options']['commerce_order'] = t('No');
         $form['type']['#options']['invoice'] = t('Yes');
+      }
+      // Preselect "Billed" exposed filter to "No".
+      if (!isset($form_state['view']->exposed_input['type'])) {
+        $form_state['input']['type'] = 'commerce_order';
       }
     }
   }
