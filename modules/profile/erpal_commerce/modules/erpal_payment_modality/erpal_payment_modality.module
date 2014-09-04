@@ -559,7 +559,7 @@ function erpal_payment_modality_views_pre_render(&$view) {
  */
 function erpal_payment_modality_create_line_item($payment_modality, $line_item, $order, $status = FALSE) {
   // Generate label for invoice line item.
-  $invoice_label = implode(' - ', array($order['order_number'], $line_item->line_item_label, $payment_modality->title));
+  $invoice_label = erpal_payment_modality_generate_label($payment_modality, $line_item, $order);
 
   // Check if already exists invoice line item for this payment modality.
   $conditions = array(
@@ -587,18 +587,7 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
     }
   }
 
-  // Provide logic for calculation.
-  $total = commerce_line_items_total(array($line_item));
-  $field_amount_type = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount_type');
-  $field_amount = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount');
-
-  if (!empty($field_amount_type) && !empty($field_amount)) {
-    if ($field_amount_type[0]['value'] == 'percent') {
-      $total['amount'] = ($field_amount[0]['value'] / 100) * $total['amount'];
-    }
-    else {
-      $total['amount'] = commerce_currency_decimal_to_amount($field_amount[0]['value'], $total['currency_code']);
-    }
+  if ($total = erpal_payment_modality_total($payment_modality, $line_item)) {
 
     // Add all data to new invoice line item.
     $invoice->line_item_label = $invoice_label;
@@ -616,4 +605,31 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
     commerce_line_item_rebase_unit_price($invoice);
     commerce_line_item_save($invoice);
   }
+}
+
+/**
+ * Generate label for invoice line item.
+ */
+function erpal_payment_modality_generate_label($payment_modality, $line_item, $order) {
+  return implode(' - ', array($order['order_number'], $line_item->line_item_label, $payment_modality->title));
+}
+
+/**
+ * Calculate total price of payment modality.
+ */
+function erpal_payment_modality_total($payment_modality, $line_item) {
+  // Provide logic for calculation.
+  $total = commerce_line_items_total(array($line_item));
+  $field_amount_type = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount_type');
+  $field_amount = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount');
+
+  if (!empty($field_amount_type) && !empty($field_amount)) {
+    if ($field_amount_type[0]['value'] == 'percent') {
+      $total['amount'] = ($field_amount[0]['value'] / 100) * $total['amount'];
+    }
+    else {
+      $total['amount'] = commerce_currency_decimal_to_amount($field_amount[0]['value'], $total['currency_code']);
+    }
+  }
+  return $total;
 }

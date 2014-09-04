@@ -397,7 +397,11 @@ function erpal_commerce_order_default_fields() {
   // Exported field_instance: 'commerce_line_item-product-field_line_item_unit'
   $instances[] = array(
     'bundle' => 'product',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 'item',
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
