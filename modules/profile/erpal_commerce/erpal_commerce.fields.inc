@@ -412,7 +412,7 @@ function erpal_commerce_order_default_fields() {
     'entity_type' => 'commerce_line_item',
     'field_name' => 'field_line_item_unit',
     'label' => 'Unit',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'dfv' => array(
         'parent' => '',

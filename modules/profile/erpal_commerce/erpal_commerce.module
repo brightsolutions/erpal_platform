@@ -653,8 +653,6 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
   // Replicate order to invoice and unset unused fields.
   if (is_numeric(arg(3))) {
     $order = replicate_clone_entity('commerce_order', commerce_order_load(arg(3)));
-   // $language = field_language('commerce_order', $order, 'field_invoice_order');
-   // $order->field_invoice_order['und'][0]['target_id'] = arg(3);
   }
   else {
     $order = commerce_order_new($user->uid, NULL, 'invoice');
@@ -675,15 +673,17 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
         $order->commerce_line_items);
   $order->uid = $user->uid;
   $form = commerce_order_order_form(array(), $form_state, $order);
-  if (is_numeric(arg(3))) {
-    $language = $form['field_invoice_order']['#language'];
-    $form['field_invoice_order'][$language][0]['target_id']['#default_value'] = 'Order '.$order_number.' (' . arg(3) . ')';
-  }
+
   // Hide not needed fields.
   $hide_fields = array(
     'commerce_line_items',
     'field_commerce_billy_cancel_date',
   );
+  if (is_numeric(arg(3))) {
+    $language = $form['field_invoice_order']['#language'];
+    $form['field_invoice_order'][$language][0]['target_id']['#default_value'] = 'Order '.$order_number.' (' . arg(3) . ')';
+  }
+
   foreach ($hide_fields as $hide_field) {
     if (!empty($form[$hide_field])) {
       $form[$hide_field]['#access'] = FALSE;
@@ -960,22 +960,15 @@ function erpal_commerce_get_profiles($param) {
  * Implements hook_entity_insert().
  */
 function erpal_commerce_entity_insert($entity, $type) {
-  $not_allowed = array(
-    'field_collection_item',
-    'date_item',
-    'commerce_line_item',
-    'erpal_payment_modality',
-  );
-
-  if (!in_array($type, $not_allowed)) {
+  if (!drupal_installation_attempted()) {
     $info = entity_get_info($type);
     $url = entity_uri($type, $entity);
     $label = entity_label($type, $entity);
-    if (!empty($url) && !empty($label) && !empty($info['bundle keys']['bundle'])) {
+    if (!empty($url['path']) && !empty($label) && !empty($info['bundle keys']) && !empty($entity->{$info['bundle keys']['bundle']})) {
       $bundle = $entity->{$info['bundle keys']['bundle']};
       $bundle_label = $info['bundles'][$bundle]['label'];
 
-      drupal_set_message(t('New @type was created(<a href="@url">@title</a>)', array('@url' => url($url['path'], array('absolute' => TRUE)), '@type' => $bundle_label, '@title' => $label)));
+      drupal_set_message(t('New @type was created (<a href="@url">@title</a>)', array('@url' => url($url['path'], array('absolute' => TRUE)), '@type' => $bundle_label, '@title' => $label)));
     }
   }
 }
