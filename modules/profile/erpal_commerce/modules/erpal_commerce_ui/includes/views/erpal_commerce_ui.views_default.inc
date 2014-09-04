@@ -2396,44 +2396,70 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
   /* Footer: Global: Result summary */
   $handler->display->display_options['footer']['result']['id'] = 'result';
   $handler->display->display_options['footer']['result']['table'] = 'views';
   $handler->display->display_options['footer']['result']['field'] = 'result';
   $handler->display->display_options['footer']['result']['content'] = '@total rows';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Contact';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Contact: Contact Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
+  $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
+  $handler->display->display_options['filters']['type']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
   $handler->display->display_options['attach'] = array(
     0 => 'crm_core_activity:field_activity_participants:meeting',
     1 => 'crm_core_activity:field_activity_participants:phone_call',
     2 => 'crm_core_activity:field_activity_participants:email',
     3 => 'crm_core_activity:field_activity_participants:sales_process',
-    4 => 'crm_core_activity:field_activity_customer:meeting',
-    5 => 'crm_core_activity:field_activity_customer:phone_call',
-    6 => 'crm_core_activity:field_activity_customer:email',
-    7 => 'crm_core_activity:field_activity_customer:sales_process',
-    8 => 'crm_core_activity:field_activity_main_contact:sales_process',
-    9 => 'commerce_order:field_customer:commerce_order',
-    10 => 'commerce_order:field_customer:invoice',
-    11 => 'commerce_order:field_customer:quote',
-    12 => 'commerce_order:field_vendor:commerce_order',
-    13 => 'commerce_order:field_vendor:invoice',
-    14 => 'commerce_order:field_vendor:quote',
+    4 => 'crm_core_activity:field_activity_customer:sales_process',
+    5 => 'crm_core_activity:field_activity_main_contact:sales_process',
+    6 => 'commerce_order:field_customer:commerce_order',
+    7 => 'commerce_order:field_customer:invoice',
+    8 => 'commerce_order:field_customer:quote',
+    9 => 'commerce_order:field_vendor:commerce_order',
+    10 => 'commerce_order:field_vendor:invoice',
+    11 => 'commerce_order:field_vendor:quote',
   );
 
   /* Display: Reference dialog Search 2 */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search 2', 'references_dialog_2');
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
   /* Footer: Global: Result summary */
   $handler->display->display_options['footer']['result']['id'] = 'result';
   $handler->display->display_options['footer']['result']['table'] = 'views';
   $handler->display->display_options['footer']['result']['field'] = 'result';
   $handler->display->display_options['footer']['result']['content'] = '@total rows';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: CRM Core Contact: Household */
@@ -2460,6 +2486,82 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['attach'] = array(
     0 => 'crm_core_contact::individual',
   );
+
+  /* Display: Reference dialog Search 3 */
+  $handler = $view->new_display('references_dialog', 'Reference dialog Search 3', 'references_dialog_3');
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Contact';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Contact: Contact Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'organization' => 'organization',
+  );
+  $handler->display->display_options['attach'] = array(
+    0 => 'crm_core_contact::organization',
+  );
+
+  /* Display: Reference dialog Search 4 */
+  $handler = $view->new_display('references_dialog', 'Reference dialog Search 4', 'references_dialog_4');
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Contact';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Contact: Contact Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'household' => 'household',
+  );
+  $handler->display->display_options['attach'] = array(
+    0 => 'crm_core_contact::household',
+  );
   $translatables['erpal_contact_search'] = array(
     t('Master'),
     t('more'),
@@ -2481,7 +2583,11 @@ function erpal_commerce_ui_views_default_views() {
     t('Email'),
     t('Phone'),
     t('Reference dialog Search'),
+    t('@total rows'),
+    t('Type'),
     t('Reference dialog Search 2'),
+    t('Reference dialog Search 3'),
+    t('Reference dialog Search 4'),
   );
 
   $export['erpal_contact_search'] = $view;
