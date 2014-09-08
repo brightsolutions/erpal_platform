@@ -1492,7 +1492,7 @@ function erpal_commerce_ui_views_default_views() {
   );
   $handler->display->display_options['filters']['type_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['type_1']['expose']['operator_id'] = 'type_1_op';
-  $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Delivered';
+  $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Billed';
   $handler->display->display_options['filters']['type_1']['expose']['operator'] = 'type_1_op';
   $handler->display->display_options['filters']['type_1']['expose']['identifier'] = 'type';
   $handler->display->display_options['filters']['type_1']['expose']['remember_roles'] = array(
@@ -1750,6 +1750,218 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 1;
+
+  /* Display: Project Revenue */
+  $handler = $view->new_display('panel_pane', 'Project Revenue', 'panel_pane_2');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Revenue';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Commerce Line Item: Order ID */
+  $handler->display->display_options['relationships']['order_id']['id'] = 'order_id';
+  $handler->display->display_options['relationships']['order_id']['table'] = 'commerce_line_item';
+  $handler->display->display_options['relationships']['order_id']['field'] = 'order_id';
+  /* Relationship: Entity Reference: Referencing entity */
+  $handler->display->display_options['relationships']['reverse_field_project_order_node']['id'] = 'reverse_field_project_order_node';
+  $handler->display->display_options['relationships']['reverse_field_project_order_node']['table'] = 'commerce_order';
+  $handler->display->display_options['relationships']['reverse_field_project_order_node']['field'] = 'reverse_field_project_order_node';
+  $handler->display->display_options['relationships']['reverse_field_project_order_node']['relationship'] = 'order_id';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Commerce Line Item: Order ID */
+  $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
+  $handler->display->display_options['fields']['order_id']['table'] = 'commerce_line_item';
+  $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
+  $handler->display->display_options['fields']['order_id']['label'] = '';
+  $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
+  /* Field: Bulk operations: Commerce Line Item */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'commerce_line_item';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::erpal_invoice_create_invoice' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::erpal_commerce_create_invoice' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_item' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_revision' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_script_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_modify_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'show_all_tokens' => 1,
+        'display_values' => array(
+          '_all_' => '_all_',
+        ),
+      ),
+    ),
+    'action::views_bulk_operations_argument_selector_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'url' => '',
+      ),
+    ),
+    'action::system_send_email_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
+  /* Field: Commerce Line Item: Title */
+  $handler->display->display_options['fields']['line_item_title']['id'] = 'line_item_title';
+  $handler->display->display_options['fields']['line_item_title']['table'] = 'commerce_line_item';
+  $handler->display->display_options['fields']['line_item_title']['field'] = 'line_item_title';
+  /* Field: Commerce Line item: Total */
+  $handler->display->display_options['fields']['commerce_total']['id'] = 'commerce_total';
+  $handler->display->display_options['fields']['commerce_total']['table'] = 'field_data_commerce_total';
+  $handler->display->display_options['fields']['commerce_total']['field'] = 'commerce_total';
+  $handler->display->display_options['fields']['commerce_total']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_total']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  /* Field: Commerce Line item: Delivery date */
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['id'] = 'field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['table'] = 'field_data_field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['field'] = 'field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_repeat_rule' => 'show',
+  );
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['group_column'] = 'target_id';
+  /* Field: Commerce Order: Order number */
+  $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['relationship'] = 'order_id';
+  $handler->display->display_options['fields']['order_number']['label'] = '';
+  $handler->display->display_options['fields']['order_number']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['order_number']['element_label_colon'] = FALSE;
+  /* Field: Commerce Order: Invoice date */
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['id'] = 'field_commerce_billy_i_date';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['table'] = 'field_data_field_commerce_billy_i_date';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['field'] = 'field_commerce_billy_i_date';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['relationship'] = 'order_id';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['label'] = 'Invoice';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['text'] = '[order_number]';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['alter']['path'] = 'admin/commerce/orders/[order_id]';
+  $handler->display->display_options['fields']['field_commerce_billy_i_date']['settings'] = array(
+    'format_type' => 'long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_repeat_rule' => 'show',
+  );
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['relationship'] = 'reverse_field_project_order_node';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Commerce Line Item: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_line_item';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'invoice' => 'invoice',
+  );
+  /* Filter criterion: Commerce Order: Order type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['relationship'] = 'order_id';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'commerce_order' => 'commerce_order',
+    'invoice' => 'invoice',
+  );
+  $handler->display->display_options['filters']['type_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type_1']['expose']['operator_id'] = 'type_1_op';
+  $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Billed';
+  $handler->display->display_options['filters']['type_1']['expose']['operator'] = 'type_1_op';
+  $handler->display->display_options['filters']['type_1']['expose']['identifier'] = 'type';
+  $handler->display->display_options['filters']['type_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  $handler->display->display_options['filters']['type_1']['expose']['reduce'] = TRUE;
+  $handler->display->display_options['argument_input'] = array(
+    'nid' => array(
+      'type' => 'context',
+      'context' => 'entity:node.nid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Nid',
+    ),
+  );
+  $handler->display->display_options['inherit_panels_path'] = '1';
   $translatables['erpal_invoice_line_items'] = array(
     t('Master'),
     t('Create invoice'),
@@ -1779,14 +1991,15 @@ function erpal_commerce_ui_views_default_views() {
     t('Delivery date'),
     t('Invoice'),
     t('[order_number]'),
-    t('Delivered'),
+    t('Billed'),
     t('View panes'),
     t('Revenue page'),
     t('Commerce Order entity referenced from field_line_item_order'),
     t('CRM Core Contact entity referenced from field_customer'),
     t('Customer'),
     t('[order_number_1]'),
-    t('Billed'),
+    t('Project Revenue'),
+    t('Content referencing Commerce Order from field_project_order'),
   );
 
   $export['erpal_invoice_line_items'] = $view;
@@ -2183,44 +2396,70 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
   /* Footer: Global: Result summary */
   $handler->display->display_options['footer']['result']['id'] = 'result';
   $handler->display->display_options['footer']['result']['table'] = 'views';
   $handler->display->display_options['footer']['result']['field'] = 'result';
   $handler->display->display_options['footer']['result']['content'] = '@total rows';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Contact';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Contact: Contact Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
+  $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
+  $handler->display->display_options['filters']['type']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
   $handler->display->display_options['attach'] = array(
     0 => 'crm_core_activity:field_activity_participants:meeting',
     1 => 'crm_core_activity:field_activity_participants:phone_call',
     2 => 'crm_core_activity:field_activity_participants:email',
     3 => 'crm_core_activity:field_activity_participants:sales_process',
-    4 => 'crm_core_activity:field_activity_customer:meeting',
-    5 => 'crm_core_activity:field_activity_customer:phone_call',
-    6 => 'crm_core_activity:field_activity_customer:email',
-    7 => 'crm_core_activity:field_activity_customer:sales_process',
-    8 => 'crm_core_activity:field_activity_main_contact:sales_process',
-    9 => 'commerce_order:field_customer:commerce_order',
-    10 => 'commerce_order:field_customer:invoice',
-    11 => 'commerce_order:field_customer:quote',
-    12 => 'commerce_order:field_vendor:commerce_order',
-    13 => 'commerce_order:field_vendor:invoice',
-    14 => 'commerce_order:field_vendor:quote',
+    4 => 'crm_core_activity:field_activity_customer:sales_process',
+    5 => 'crm_core_activity:field_activity_main_contact:sales_process',
+    6 => 'commerce_order:field_customer:commerce_order',
+    7 => 'commerce_order:field_customer:invoice',
+    8 => 'commerce_order:field_customer:quote',
+    9 => 'commerce_order:field_vendor:commerce_order',
+    10 => 'commerce_order:field_vendor:invoice',
+    11 => 'commerce_order:field_vendor:quote',
   );
 
   /* Display: Reference dialog Search 2 */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search 2', 'references_dialog_2');
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
   /* Footer: Global: Result summary */
   $handler->display->display_options['footer']['result']['id'] = 'result';
   $handler->display->display_options['footer']['result']['table'] = 'views';
   $handler->display->display_options['footer']['result']['field'] = 'result';
   $handler->display->display_options['footer']['result']['content'] = '@total rows';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: CRM Core Contact: Household */
@@ -2247,6 +2486,82 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['attach'] = array(
     0 => 'crm_core_contact::individual',
   );
+
+  /* Display: Reference dialog Search 3 */
+  $handler = $view->new_display('references_dialog', 'Reference dialog Search 3', 'references_dialog_3');
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Contact';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Contact: Contact Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'organization' => 'organization',
+  );
+  $handler->display->display_options['attach'] = array(
+    0 => 'crm_core_contact::organization',
+  );
+
+  /* Display: Reference dialog Search 4 */
+  $handler = $view->new_display('references_dialog', 'Reference dialog Search 4', 'references_dialog_4');
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Contact';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Contact: Contact Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'household' => 'household',
+  );
+  $handler->display->display_options['attach'] = array(
+    0 => 'crm_core_contact::household',
+  );
   $translatables['erpal_contact_search'] = array(
     t('Master'),
     t('more'),
@@ -2268,7 +2583,11 @@ function erpal_commerce_ui_views_default_views() {
     t('Email'),
     t('Phone'),
     t('Reference dialog Search'),
+    t('@total rows'),
+    t('Type'),
     t('Reference dialog Search 2'),
+    t('Reference dialog Search 3'),
+    t('Reference dialog Search 4'),
   );
 
   $export['erpal_contact_search'] = $view;

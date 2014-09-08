@@ -220,20 +220,21 @@ function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target
   $suggestions = array();
   foreach ($entity_bundles as $entity_type => $bundles) {
     if ($entity_type == 'crm_core_contact') {
-      $contact_types = array_keys(crm_core_relationship_load_contact_types($relation_type));
-
       $query = new EntityFieldQuery;
       $query->entityCondition('entity_type', $entity_type)
-        ->propertyCondition('type', $contact_types, 'IN')
+        ->propertyCondition('type', $bundles, 'IN')
         ->range(0, 20);
       $query->addMetaData('match', $string)
         ->addTag(variable_get('crm_core_contact_search_query_tag', 'crm_core_contact_search'));
       $result = $query->execute();
-      $contacts = entity_load($entity_type, array_keys($result[$entity_type]));
-      foreach ($contacts as $contact) {
-        $crm_core_contact_title = crm_core_contact_title($contact);
-        $suggestions[$crm_core_contact_title . ' [' . $entity_type . ':' . $contact->contact_id . ']'] = $crm_core_contact_title . ' [' . $entity_type . ':' . $contact->contact_id . ']';
+      if (!empty($result[$entity_type])) {
+        $contacts = entity_load($entity_type, array_keys($result[$entity_type]));
+        foreach ($contacts as $contact) {
+          $crm_core_contact_title = crm_core_contact_title($contact);
+          $suggestions[$crm_core_contact_title . ' [' . $entity_type . ':' . $contact->contact_id . ']'] = $crm_core_contact_title . ' [' . $entity_type . ':' . $contact->contact_id . ']';
+        }
       }
+
       continue;
     }
 
