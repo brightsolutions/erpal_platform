@@ -44,5 +44,25 @@ function erpal_payment_modality_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_auto_creating_payment_modality_on_line_item_creation'] = entity_import('rules_config', '{ "rules_auto_creating_payment_modality_on_line_item_creation" : {
+      "LABEL" : "Auto creating payment modality on line item creation",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "ERPAL Payment Modality" ],
+      "REQUIRES" : [ "rules", "erpal_payment_modality", "entity" ],
+      "ON" : { "commerce_line_item_presave" : [] },
+      "IF" : [
+        { "entity_is_of_bundle" : {
+            "entity" : [ "commerce-line-item" ],
+            "type" : "commerce_line_item",
+            "bundle" : { "value" : { "product" : "product" } }
+          }
+        }
+      ],
+      "DO" : [
+        { "erpal_payment_modality_auto_create" : { "commerce_line_item" : [ "commerce_line_item" ] } }
+      ]
+    }
+  }');
   return $items;
 }

@@ -38,7 +38,7 @@ class ERPALPaymentModalityController extends EntityAPIController {
    */
   public function create(array $values = array()) {
     $values += array(
-      'title' => '',
+      'title' => variable_get('erpal_payment_modality_title', '!due_with !amount!amount_type'),
       'created' => REQUEST_TIME,
       'changed' => REQUEST_TIME,
       'uid' => $GLOBALS['user']->uid,
@@ -54,6 +54,15 @@ class ERPALPaymentModalityController extends EntityAPIController {
     $entity->is_new_revision = TRUE;
 
     return parent::saveRevision($entity);
+  }
+
+  /**
+   * Update payment modality object before saving revision.
+   */
+  public function save($entity) {
+    erpal_payment_modality_title($entity);
+
+    return parent::save($entity);
   }
 }
 

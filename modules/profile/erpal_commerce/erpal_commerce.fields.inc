@@ -268,10 +268,7 @@ function erpal_commerce_order_default_fields() {
     'locked' => 0,
     'module' => 'list',
     'settings' => array(
-      'allowed_values' => array(
-        'item' => 'Item',
-        'time' => 'Time',
-      ),
+      'allowed_values' => array_merge(array('item' => 'Item'), erpal_core_units_time()),
       'allowed_values_function' => '',
     ),
     'translatable' => 0,

@@ -633,3 +633,17 @@ function erpal_payment_modality_total($payment_modality, $line_item) {
   }
   return $total;
 }
+
+/**
+ * Replace tokens in title.
+ */
+function erpal_payment_modality_title($payment_modality) {
+  $field_amount = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount');
+  $field_amount_type = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount_type');
+  $field_due_with = field_get_items('erpal_payment_modality', $payment_modality, 'field_due_with');
+  $payment_modality->title = t($payment_modality->title, array(
+    '!amount' => $field_amount[0]['value'],
+    '!amount_type' => $field_amount_type[0]['value'] == 'percent' ? '%' : '',
+    '!due_with' => $field_due_with[0]['value'] == 'delivery' ? t('An delivery'): t('An order'),
+  ));
+}

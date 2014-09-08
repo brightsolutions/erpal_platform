@@ -47,6 +47,7 @@ class ErpalPaymentModalityInlineEntityFormController extends EntityInlineEntityF
 
     $entity->title = $entity_values['title'];
     $entity->uid = $entity_values['uid'];
+    erpal_payment_modality_title($entity);
 
     if (!empty($payment_modality->created)) {
       $payment_modality->created = REQUEST_TIME;
