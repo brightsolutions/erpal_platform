@@ -36,9 +36,9 @@ function erpal_platform_install() {
   // Enable themes.
   theme_enable($themes);
   // Enable js aggregation.
-  variable_set('preprocess_js', 1);
+//  variable_set('preprocess_js', 1);
   // Enable css aggregation.
-  variable_set('preprocess_css', 1);
+//  variable_set('preprocess_css', 1);
   // Add text formats.
   $filtered_html_format = array(
     'format' => 'filtered_html',
