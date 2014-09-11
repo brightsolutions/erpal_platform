@@ -74,6 +74,7 @@ function erpal_payment_modality_create_invoice_line_item_delivery($payment_modal
  * @see erpal_payment_modality_rules_action_info()
  */
 function erpal_payment_modality_auto_create($line_item) {
+
   $commerce_product = field_get_items('commerce_line_item', $line_item, 'commerce_product');
   if (!empty($commerce_product[0]['product_id'])) {
 
@@ -109,7 +110,7 @@ function erpal_payment_modality_auto_create($line_item) {
     }
 
     // Check for unit time.
-    $time = erpal_core_units_time();
+    $time = array_keys(erpal_core_units_time());
     if (!empty($field_line_item_unit[0]['value']) && in_array($field_line_item_unit[0]['value'], $time)) {
       $new = TRUE;
       if (!empty($field_payment_modality)) {
