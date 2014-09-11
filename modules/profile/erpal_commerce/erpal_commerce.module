@@ -285,12 +285,11 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
       $settings = variable_get('erpal_vendor_settings', array());
       $language = $form['field_vendor']['#language'];
       $vendor = crm_core_contact_load($settings['vendor_id']);
-      $vendor_name = implode(' ', $vendor->contact_name[$language][0]['safe']);
-      $vendor_name = trim($vendor_name) . ' (' . $settings['vendor_id'] . ')';
-      $form['field_vendor'][$language][0]['target_id']['#default_value'] = $vendor_name;
+      $default_value = crm_core_contact_label($vendor) . ' (' . $vendor->contact_id . ')';
+      $form['field_vendor'][$language][0]['target_id']['#default_value'] = $default_value;
 
       $language = $form['field_vendor_address']['#language'];
-      $form['field_vendor_address'][$language]['#options'] = erpal_commerce_get_profiles($settings['vendor_id']);
+      $form['field_vendor_address'][$language]['#options'] = erpal_commerce_get_profiles($vendor->contact_id);
       $form['field_vendor_address'][$language]['#default_value'] = $settings['customer_profile_id'];
     }
     if ($form_state['commerce_order']->type == 'invoice') {
@@ -337,6 +336,19 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
 
       if (!empty($sales_process->activity_id)) {
        $form['field_sales_process'][$language][0]['target_id']['#default_value'] = $sales_process->title . ' (' . $sales_process->activity_id . ')';
+      }
+
+      // Set default Customer for sales Process.
+      $customer_profiles = field_get_items('crm_core_activity', $sales_process, 'field_activity_customer');
+      if (isset($customer_profiles[0]['target_id'])) {
+        $customer = crm_core_contact_load($customer_profiles[0]['target_id']);
+        $default_value = crm_core_contact_label($customer) . ' (' . $customer->contact_id . ')';
+        $form['field_customer'][$language][0]['target_id']['#default_value'] = $default_value;
+
+        $language = $form['commerce_customer_billing']['#language'];
+        $options = erpal_commerce_get_profiles($customer->contact_id);
+        $form['commerce_customer_billing'][$language]['#options'] = $options;
+        $form['commerce_customer_billing'][$language]['#default_value'] = erpal_commerce_set_default_profile($options);
       }
     }
   }
@@ -959,6 +971,16 @@ function erpal_commerce_get_profiles($param) {
   }
 
   return $profiles;
+}
+
+/**
+ * Hepler function to set default profile if it's only one available.
+ */
+function erpal_commerce_set_default_profile($options) {
+  $default = array_keys($options);
+  $default = count($options) == 2 ? array($default[1]) : array($default[0]);
+
+  return $default;
 }
 
 /**
