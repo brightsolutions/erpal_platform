@@ -205,7 +205,7 @@ function erpal_payment_modality_add_payment_modality() {
     if (entity_access('create', 'erpal_payment_modality', $info->type, $user)) {
       $items[] = array(
         'title' => $info->label,
-        'href' => 'admin/erpal/add-content/payment_modality/add/' . $info->type,
+        'href' => 'erpal/payment_modality/add/' . $info->type,
         'localized_options' => array(),
         'description' => $info->description,
       );

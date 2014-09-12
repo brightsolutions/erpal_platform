@@ -380,34 +380,16 @@ function erpal_payment_modality_flush_caches() {
       $info_instance['display']['default']['settings']['view'] = $view;
 
       $info_instance['widget'] = array(
-        'module' => 'inline_entity_form',
+        'module' => 'erpal_commerce',
         'settings' => array(
           'fields' => array(),
           'type_settings' => array(),
         ),
-        'type' => 'inline_entity_form',
+        'type' => 'erpal_commerce_line_item',
         'weight' => -10,
       );
       field_update_instance($info_instance);
     }
-  }
-
-  // Change field 'commerce_product' widget to 'inline_entity_form'.
-  $info_instance = field_info_instance('commerce_line_item', 'commerce_product', 'product');
-  if (!empty($info_instance) && $info_instance['widget']['module'] != 'inline_entity_form') {
-    $info_instance['widget'] = array(
-      'module' => 'inline_entity_form',
-      'settings' => array(
-        'autocomplete_match' => 'contains',
-        'autocomplete_path' => 'commerce_product/autocomplete',
-        'fields' => array(),
-        'size' => 60,
-        'type_settings' => array(),
-      ),
-      'type' => 'inline_entity_form_single',
-      'weight' => -10,
-    );
-    field_update_instance($info_instance);
   }
 }
 

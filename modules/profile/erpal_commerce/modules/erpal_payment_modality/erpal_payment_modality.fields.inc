@@ -254,6 +254,8 @@ function erpal_payment_modality_add_default_fields() {
   // 'commerce_line_item-product-field_payment_modality'
   $instances[] = array(
     'bundle' => 'product',
+    'default_value' => NULL,
+    'default_value_function' => '',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -272,6 +274,11 @@ function erpal_payment_modality_add_default_fields() {
     'label' => 'Payment modality',
     'required' => 0,
     'settings' => array(
+      'behaviors' => array(
+        'prepopulate' => array(
+          'status' => 0,
+        ),
+      ),
       'dfv' => array(
         'parent' => '',
         'status' => 0,
@@ -281,20 +288,18 @@ function erpal_payment_modality_add_default_fields() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'inline_entity_form',
+      'module' => 'entityreference',
       'settings' => array(
-        'fields' => array(),
-        'type_settings' => array(
-          'allow_existing' => 0,
-          'delete_references' => 1,
-          'label_plural' => 'payment modalities',
-          'label_singular' => 'payment modality',
-          'match_operator' => 'CONTAINS',
-          'override_labels' => 0,
-        ),
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'references_dialog_add' => 1,
+        'references_dialog_edit' => 1,
+        'references_dialog_search' => 0,
+        'references_dialog_search_view' => '',
+        'size' => 60,
       ),
-      'type' => 'inline_entity_form',
-      'weight' => 2,
+      'type' => 'entityreference_autocomplete',
+      'weight' => 6,
     ),
   );
 

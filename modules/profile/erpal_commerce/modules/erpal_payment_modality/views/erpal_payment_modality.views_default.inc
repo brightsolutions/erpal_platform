@@ -126,7 +126,7 @@ function erpal_payment_modality_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -270,7 +270,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
-
+  
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -311,10 +311,10 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['fields']['type']['table'] = 'commerce_line_item';
   $handler->display->display_options['fields']['type']['field'] = 'type';
   $handler->display->display_options['fields']['type']['exclude'] = TRUE;
-  /* Field: Commerce Line Item: Title */
-  $handler->display->display_options['fields']['line_item_title']['id'] = 'line_item_title';
-  $handler->display->display_options['fields']['line_item_title']['table'] = 'commerce_line_item';
-  $handler->display->display_options['fields']['line_item_title']['field'] = 'line_item_title';
+  /* Field: Commerce Line Item: Label */
+  $handler->display->display_options['fields']['line_item_label']['id'] = 'line_item_label';
+  $handler->display->display_options['fields']['line_item_label']['table'] = 'commerce_line_item';
+  $handler->display->display_options['fields']['line_item_label']['field'] = 'line_item_label';
   /* Field: Commerce Line item: Unit price */
   $handler->display->display_options['fields']['commerce_unit_price']['id'] = 'commerce_unit_price';
   $handler->display->display_options['fields']['commerce_unit_price']['table'] = 'field_data_commerce_unit_price';
@@ -357,6 +357,40 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['arguments']['line_item_id']['break_phrase'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
+  $translatables['erpal_line_items'] = array(
+    t('Master'),
+    t('Create invoice'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Not have line items which not added to invoice...'),
+    t('Order'),
+    t('Commerce Line Item'),
+    t('- Choose an operation -'),
+    t('Title'),
+    t('Total'),
+    t('All'),
+    t('Block'),
+    t('No line items found.'),
+    t('ID'),
+    t('.'),
+    t(','),
+    t('Type'),
+    t('Label'),
+    t('Unit price'),
+    t('Quantity'),
+    t('Payment modality'),
+  );
   $export['erpal_line_items'] = $view;
 
   return $export;

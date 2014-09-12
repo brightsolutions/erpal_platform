@@ -427,7 +427,7 @@ function erpal_commerce_order_default_fields() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 

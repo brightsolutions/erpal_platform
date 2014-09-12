@@ -10,7 +10,7 @@
  */
 function erpal_payment_modality_ui_menu() {
   $payment_modality_paths = array(
-    'payment_modality_add' => 'admin/erpal/add-content/payment_modality/add',
+    'payment_modality_add' => 'erpal/payment_modality/add',
   );
   foreach ($payment_modality_paths as $key => $path) {
     $items[$path] = array(
@@ -30,7 +30,7 @@ function erpal_payment_modality_ui_menu() {
         'title arguments' => array('@type' => $info->label),
         'description' => $info->description,
         'page callback' => 'erpal_payment_modality_entity_ui_get_form_wrapper',
-        'page arguments' => array(5),
+        'page arguments' => array(3),
         'access callback' => 'entity_access',
         'access arguments' => array('create', 'erpal_payment_modality'),
         'type' => MENU_NORMAL_ITEM,

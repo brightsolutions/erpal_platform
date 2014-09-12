@@ -222,6 +222,268 @@ function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_
 }
 
 /**
+ * Implements hook_references_dialog_widgets_alter()
+ */
+function erpal_commerce_references_dialog_widgets_alter(&$widgets) {
+  $widgets['entityreference_autocomplete']['operations']['edit']['function'] = 'erpal_commerce_dialog_entityreference_edit_link';
+}
+
+/**
+ * Edit link callback for entity references.
+ */
+function erpal_commerce_dialog_entityreference_edit_link($element, $widget_settings, $field, $instance) {
+  $raw_value = $element['#default_value'] ? $element['#default_value'] : $element['#value'];
+  $entity_type = $field['settings']['target_type'];
+  // Take "label (entity id)', match the id from parenthesis.
+  if (preg_match("/.+\((\d+)\)/", $raw_value, $matches)) {
+      $value = $matches[1];
+    }
+  if (isset($value)) {
+    $entity = current(entity_load($entity_type, array($value)));
+    $title = t('Edit');
+    if ($entity_type == 'erpal_payment_modality') {
+      $title = $entity->title;
+    }
+    if (entity_access('update', $entity_type, $entity)) {
+      return array(
+        array(
+          'title' => $title,
+          'href' => references_dialog_get_admin_path($entity_type, 'edit', NULL, $entity),
+        ),
+      );
+    }
+  }
+  return array();
+}
+
+/**
+ * Implements hook_field_widget_info()
+ */
+function erpal_commerce_field_widget_info() {
+  $widgets = array();
+
+  $widgets['erpal_commerce_line_item'] = array(
+    'label' => t('ERPAL Dynamic line item widget'),
+    'field types' => array('commerce_line_item_reference'),
+    'settings' => array(),
+  );
+
+  return $widgets;
+}
+
+
+/**
+ * Implements hook_field_widget_form()
+ */
+function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+
+  if (!empty($form_state['triggering_element']) && $form_state['triggering_element']['#field_name'] == 'commerce_product') {
+    $array_parents = $form_state['triggering_element']['#array_parents'];
+    $product = drupal_array_get_nested_value($form_state['values'], $array_parents);
+
+    array_pop($array_parents);
+    array_pop($array_parents);
+    if (end($array_parents) == $delta) {
+      $values = drupal_array_get_nested_value($form_state['values'], $array_parents);
+      if (!empty($values['line_item']->line_item_id)) {
+        $items[$delta]['line_item_id'] = $values['line_item']->line_item_id;
+      }
+    }
+  }
+  
+  $element['#delta'] = $delta;
+  if (!empty($items[$delta]['line_item_id'])) {
+    $line_item = commerce_line_item_load($items[$delta]['line_item_id']);
+  }
+  else {
+    $line_item = commerce_line_item_new('product', $element['#entity']->order_id);
+  }
+
+  $element += array(
+    '#type' => 'fieldset',
+    '#tree' => TRUE,
+    '#language' => $langcode,
+    '#prefix' => '<div id="erpal-commerce-wrapper">',
+    '#suffix' => '</div>',
+  );
+  $element['line_item'] = array(
+    '#type' => 'value',
+    '#value' => $line_item,
+  );
+
+  $element['line_item_label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#description' => t('Supply the line item label to be used for this line item.'),
+    '#default_value' => $line_item->line_item_label,
+    '#maxlength' => 128,
+    '#size' => 15,
+    '#required' => !empty($line_item->line_item_id),
+    '#fieldset' => 'line_item_details',
+    '#weight' => -3,
+  );
+  $element['quantity'] = array(
+    '#type' => 'textfield',
+    '#datatype' => 'integer',
+    '#title' => t('Quantity'),
+    '#description' => t('The quantity of line items.'),
+    '#default_value' => (int) $line_item->quantity,
+    '#size' => 4,
+    '#maxlength' => max(4, strlen($line_item->quantity)),
+    '#required' => !empty($line_item->line_item_id),
+    '#fieldset' => 'line_item_details',
+    '#weight' => 5,
+  );
+
+  $element += _field_invoke_default('form', 'commerce_line_item', $line_item, $form, $form_state);
+  $element['commerce_product']['#weight'] = -4;
+  $element['commerce_product'][$langcode]['#required'] = !empty($line_item->line_item_id);
+  $element['commerce_product'][$langcode]['#size'] = 15;
+  $element['commerce_product'][$langcode]['#ajax'] = array(
+    'callback' => 'erpal_commerce_field_widget_callback',
+    'wrapper' => 'erpal-commerce-wrapper',
+    'event' => 'change blur'
+  );
+  $element['commerce_unit_price'][$langcode][0]['amount']['#required'] = !empty($line_item->line_item_id);
+
+  if (!empty($product[0]['product_id'])) {
+    $product = commerce_product_load($product[0]['product_id']);
+    $element['line_item_label']['#value'] = t('!title (!sku)', array('!title' => $product->title, '!sku' => $product->sku));
+    $commerce_price = field_get_items('commerce_product', $product, 'commerce_price');
+    $element['commerce_unit_price'][$langcode][0]['amount']['#value'] = commerce_currency_amount_to_decimal($commerce_price[0]['amount'], $commerce_price[0]['currency_code']);
+    $element['commerce_unit_price'][$langcode][0]['currency_code']['#value'] = $commerce_price[0]['currency_code'];
+
+  }
+
+  $element['delete'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Delete'),
+    '#weight' => 100,
+  );
+
+  $element['commerce_display_path']['#access'] = FALSE;
+  $element['#element_validate'] = array('erpal_commerce_line_item_validate');
+
+  return $element;
+}
+
+/**
+ * Ajax callback function.
+ */
+function erpal_commerce_field_widget_callback($form, &$form_state) {
+  $array_parents = $form_state['triggering_element']['#array_parents'];
+  array_pop($array_parents);
+  array_pop($array_parents);
+
+  return drupal_array_get_nested_value($form, $array_parents);
+}
+
+/**
+ * Validation callback for a commerce_line_item element.
+ */
+function erpal_commerce_line_item_validate($element, &$form_state, $form) {
+  $value = array();
+  $error = FALSE;
+  $delta = $element['#delta'];
+
+  if (!empty($form_state['values']['commerce_line_items'][LANGUAGE_NONE][$delta])) {
+    $values = $form_state['values']['commerce_line_items'][LANGUAGE_NONE][$delta];
+    $line_item = $values['line_item'];
+
+    unset($values['line_item']);
+    $line_item = array_merge((array) $line_item, $values);
+    $line_item = (object) $line_item;
+
+    if (!empty($form_state['triggering_element']) && $form_state['triggering_element']['#id'] == 'edit-submit') {
+      if (!empty($values['delete'])) {
+        return;
+      }
+      
+      // Validate the quantity of each line item.
+      $element_name = implode('][', $element['quantity']['#parents']);
+      $quantity = $element['quantity']['#value'];
+
+      if (!is_numeric($quantity) || $quantity <= 0) {
+        $error = TRUE;
+        form_set_error($element_name, t('You must specify a positive number for the quantity'));
+      }
+      elseif ($element['quantity']['#datatype'] == 'integer' &&
+        (int) $quantity != $quantity) {
+        $error = TRUE;
+        form_set_error($element_name, t('You must specify a whole number for the quantity.'));
+      }
+      else {
+        $line_item->quantity = $quantity;
+      }
+
+      // Manually validate the unit price of each line item.
+      $unit_price = $values['commerce_unit_price'];
+      $amount = $unit_price[$element['#language']][0]['amount'];
+      $currency_code = $unit_price[$element['#language']][0]['currency_code'];
+      $name = implode('][', array_merge($element['commerce_unit_price']['#parents'], array($element['#language'], 0, 'amount')));
+
+      if (!empty($line_item->line_item_label) && empty($amount)) {
+        $error = TRUE;
+        form_set_error($name, "Amount can't be empty.");
+      }
+
+      if (!empty($amount) && empty($line_item->line_item_label)) {
+        $element_name = implode('][', $element['line_item_label']['#parents']);
+        $error = TRUE;
+        form_set_error($element_name, "Title can't be empty.");
+      }
+
+      // Display an error message for a non-numeric unit price.
+      if (!empty($amount) && !empty($line_item->line_item_label)) {
+        if (!is_numeric($amount)) {
+          $error = TRUE;
+          form_set_error($name, 'You must enter a numeric value for the unit price.');
+        }
+        elseif ($amount <> $line_item->commerce_unit_price[$element['#language']][0]['amount'] ||
+          $currency_code <> $line_item->commerce_unit_price[$element['#language']][0]['currency_code']) {
+          // Otherwise update the unit price amount if it has changed.
+          $line_item->commerce_unit_price = $unit_price;
+        }
+        $field_payment_modality = field_get_items('commerce_line_item', $line_item, 'field_payment_modality');
+        $payment_modality_language = field_language('commerce_line_item', $line_item, 'field_payment_modality');
+        $line_item->field_payment_modality[$payment_modality_language] = array();
+        foreach ($field_payment_modality as $payment_modality_id) {
+          if (!empty($payment_modality_id['target_id'])) {
+            $line_item->field_payment_modality[$payment_modality_language][] = array('target_id' => $payment_modality_id['target_id']);
+          }
+        }
+  
+        // If this type specifies a valid add form callback function...
+        if ($callback = commerce_line_item_type_callback('product', 'add_form_submit')) {
+          // Allow the callback to alter data onto the line item to be saved and
+          // to return an error message if something goes wrong.
+          $error = $callback($line_item, $element, $form_state, $form);
+        }
+  
+        // If we didn't end up with any errors...
+        if (empty($error)) {
+          // Save it and add it to the line item reference field's values array.
+          // Only save if values were actually changed.
+          if ($line_item != $element['line_item']['#value']) {
+            commerce_line_item_rebase_unit_price($line_item);
+            commerce_line_item_save($line_item);
+          }
+  
+          // If the item is saved, we set a variable to notify the user the
+          // need of saving the order.
+          $form_state['line_item_save_warning'] = TRUE;
+  
+          $value = array('line_item_id' => $line_item->line_item_id);
+          form_set_value($element, $value, $form_state);
+        }
+      }
+
+    }
+  }
+
+}
+
+/**
  * Implements hook_form_alter().
  */
 function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
@@ -905,6 +1167,10 @@ function erpal_commerce_references_dialog_entity_admin_paths() {
     'commerce_order' => array(
       'add' => 'admin/commerce/orders/add/[bundle]',
       'edit' => 'admin/commerce/orders/[entity_id]/edit',
+    ),
+    'erpal_payment_modality' => array(
+      'add' => 'erpal/payment_modality/add/[bundle]',
+      'edit' => 'erpal/payment_modality/[entity_id]/edit',
     ),
   );
 }
