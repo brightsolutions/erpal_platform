@@ -5,3 +5,4 @@ package = ERPAL Platform
 
 dependencies[] = date_item
 dependencies[] = jqmulti
+dependencies[] = jquery_ui_multiselect_widget

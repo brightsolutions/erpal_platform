@@ -140,6 +140,9 @@ projects[subpathauto][version] = "1.3"
 projects[jqmulti][subdir] = "contrib"
 projects[jqmulti][version] = "1.0"
 
+projects[jquery_ui_multiselect_widget][subdir] = "contrib"
+projects[jquery_ui_multiselect_widget][version] = "1.11"
+
 
 ; ### DEV VERSIONS of contrib modules ###
 projects[pathauto_entity][subdir] = "contrib"
@@ -231,6 +234,9 @@ libraries[dompdf][download][url] = "https://github.com/dompdf/dompdf/releases/do
 
 libraries[jquery][download][type] = "file"
 libraries[jquery][download][url] = "http://code.jquery.com/jquery-1.11.1.min.js"
+
+libraries[jquery-ui-multiselect-widget][download][type] = "file"
+libraries[jquery-ui-multiselect-widget][download][url] = "https://github.com/ehynds/jquery-ui-multiselect-widget/archive/master.zip"
 
 ; ### Themes ###
 projects[omega][version] = "4.2"

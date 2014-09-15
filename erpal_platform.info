@@ -65,6 +65,8 @@ dependencies[] = views_content
 dependencies[] = pathauto_entity
 dependencies[] = subpathauto
 dependencies[] = pathauto
+dependencies[] = jqmulti
+dependencies[] = jquery_ui_multiselect_widget
 
 ;ERPAL modules
 dependencies[] = erpal_core_ui
