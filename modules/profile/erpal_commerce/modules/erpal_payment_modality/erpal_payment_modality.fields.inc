@@ -293,6 +293,7 @@ function erpal_payment_modality_add_default_fields() {
         'match_operator' => 'CONTAINS',
         'path' => '',
         'references_dialog_add' => 1,
+        'references_dialog_delete' => 1,
         'references_dialog_edit' => 1,
         'references_dialog_search' => 0,
         'references_dialog_search_view' => '',

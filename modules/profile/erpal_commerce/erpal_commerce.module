@@ -226,6 +226,10 @@ function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_
  */
 function erpal_commerce_references_dialog_widgets_alter(&$widgets) {
   $widgets['entityreference_autocomplete']['operations']['edit']['function'] = 'erpal_commerce_dialog_entityreference_edit_link';
+  $widgets['entityreference_autocomplete']['operations']['delete'] = array(
+    'function' => 'erpal_commerce_dialog_entityreference_delete_link',
+    'title' => t('Delete dialog'),
+  );
 }
 
 /**
@@ -257,6 +261,31 @@ function erpal_commerce_dialog_entityreference_edit_link($element, $widget_setti
 }
 
 /**
+ * Delete link callback for entity references.
+ */
+function erpal_commerce_dialog_entityreference_delete_link($element, $widget_settings, $field, $instance) {
+  $raw_value = $element['#default_value'] ? $element['#default_value'] : $element['#value'];
+  $entity_type = $field['settings']['target_type'];
+  // Take "label (entity id)', match the id from parenthesis.
+  if (preg_match("/.+\((\d+)\)/", $raw_value, $matches)) {
+      $value = $matches[1];
+    }
+  if (isset($value)) {
+    $entity = current(entity_load($entity_type, array($value)));
+
+    if (entity_access('delete', $entity_type, $entity)) {
+      return array(
+        array(
+          'title' => t('Delete'),
+        ),
+      );
+    }
+  }
+  return array();
+}
+
+
+/**
  * Implements hook_field_widget_info()
  */
 function erpal_commerce_field_widget_info() {
@@ -277,13 +306,16 @@ function erpal_commerce_field_widget_info() {
  */
 function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
 
+  drupal_add_css(drupal_get_path('module', 'erpal_commerce') .'/css/widget.css', 'file');
+  drupal_add_js(drupal_get_path('module', 'erpal_commerce') .'/js/widget.js', 'file');
   if (!empty($form_state['triggering_element']) && $form_state['triggering_element']['#field_name'] == 'commerce_product') {
     $array_parents = $form_state['triggering_element']['#array_parents'];
-    $product = drupal_array_get_nested_value($form_state['values'], $array_parents);
+    $value_product = drupal_array_get_nested_value($form_state['values'], $array_parents);
 
     array_pop($array_parents);
     array_pop($array_parents);
     if (end($array_parents) == $delta) {
+      $product = $value_product;
       $values = drupal_array_get_nested_value($form_state['values'], $array_parents);
       if (!empty($values['line_item']->line_item_id)) {
         $items[$delta]['line_item_id'] = $values['line_item']->line_item_id;
@@ -303,7 +335,7 @@ function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instanc
     '#type' => 'fieldset',
     '#tree' => TRUE,
     '#language' => $langcode,
-    '#prefix' => '<div id="erpal-commerce-wrapper">',
+    '#prefix' => '<div id="erpal-commerce-wrapper--' . $delta . '">',
     '#suffix' => '</div>',
   );
   $element['line_item'] = array(
@@ -337,11 +369,11 @@ function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instanc
 
   $element += _field_invoke_default('form', 'commerce_line_item', $line_item, $form, $form_state);
   $element['commerce_product']['#weight'] = -4;
-  $element['commerce_product'][$langcode]['#required'] = !empty($line_item->line_item_id);
+  $element['commerce_product'][$langcode]['#required'] = FALSE;
   $element['commerce_product'][$langcode]['#size'] = 15;
   $element['commerce_product'][$langcode]['#ajax'] = array(
     'callback' => 'erpal_commerce_field_widget_callback',
-    'wrapper' => 'erpal-commerce-wrapper',
+    'wrapper' => 'erpal-commerce-wrapper--' . $delta,
     'event' => 'change blur'
   );
   $element['commerce_unit_price'][$langcode][0]['amount']['#required'] = !empty($line_item->line_item_id);
