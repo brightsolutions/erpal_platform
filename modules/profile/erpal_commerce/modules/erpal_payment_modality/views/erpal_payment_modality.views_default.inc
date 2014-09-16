@@ -20,7 +20,7 @@ function erpal_payment_modality_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'ERPAL payment modality';
@@ -53,27 +53,11 @@ function erpal_payment_modality_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  /* Field: ERPAL payment modality: Amount */
-  $handler->display->display_options['fields']['field_amount']['id'] = 'field_amount';
-  $handler->display->display_options['fields']['field_amount']['table'] = 'field_data_field_amount';
-  $handler->display->display_options['fields']['field_amount']['field'] = 'field_amount';
-  $handler->display->display_options['fields']['field_amount']['settings'] = array(
-    'thousand_separator' => ' ',
-    'prefix_suffix' => 1,
-  );
-  /* Field: ERPAL payment modality: Amount type */
-  $handler->display->display_options['fields']['field_amount_type']['id'] = 'field_amount_type';
-  $handler->display->display_options['fields']['field_amount_type']['table'] = 'field_data_field_amount_type';
-  $handler->display->display_options['fields']['field_amount_type']['field'] = 'field_amount_type';
-  /* Field: ERPAL payment modality: Due with */
-  $handler->display->display_options['fields']['field_due_with']['id'] = 'field_due_with';
-  $handler->display->display_options['fields']['field_due_with']['table'] = 'field_data_field_due_with';
-  $handler->display->display_options['fields']['field_due_with']['field'] = 'field_due_with';
   /* Field: ERPAL payment modality: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'erpal_payment_modality';
   $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = 'Label';
+  $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   /* Field: ERPAL payment modality: Create invoice line item */
   $handler->display->display_options['fields']['create_invoice_line_item']['id'] = 'create_invoice_line_item';
@@ -94,7 +78,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['arguments']['payment_modality_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['payment_modality_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['payment_modality_id']['break_phrase'] = TRUE;
-
+  
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
   $translatables['erpal_payment_modality'] = array(
@@ -106,10 +90,6 @@ function erpal_payment_modality_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('Amount'),
-    t('Amount type'),
-    t('Due with'),
-    t('Label'),
     t('Set billable'),
     t('All'),
     t('Block'),
@@ -323,6 +303,10 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['fields']['commerce_unit_price']['settings'] = array(
     'calculation' => FALSE,
   );
+  /* Field: Commerce Line item: Unit */
+  $handler->display->display_options['fields']['field_line_item_unit']['id'] = 'field_line_item_unit';
+  $handler->display->display_options['fields']['field_line_item_unit']['table'] = 'field_data_field_line_item_unit';
+  $handler->display->display_options['fields']['field_line_item_unit']['field'] = 'field_line_item_unit';
   /* Field: Commerce Line Item: Quantity */
   $handler->display->display_options['fields']['quantity']['id'] = 'quantity';
   $handler->display->display_options['fields']['quantity']['table'] = 'commerce_line_item';
@@ -388,9 +372,11 @@ function erpal_payment_modality_views_default_views() {
     t('Type'),
     t('Label'),
     t('Unit price'),
+    t('Unit'),
     t('Quantity'),
     t('Payment modality'),
   );
+
   $export['erpal_line_items'] = $view;
 
   return $export;

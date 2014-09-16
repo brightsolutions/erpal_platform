@@ -39,6 +39,9 @@ function erpal_commerce_ui_install() {
     "rdf_mapping" : []
   }');
   entity_save('rules_link', $entity);
+  variable_set('erpal_order_pdf_logo', drupal_get_path('module', 'erpal_commerce_ui') .'/images/erpal_logo.jpg');
+  variable_set('commerce_quote_pdf_logo', drupal_get_path('module', 'erpal_commerce_ui') .'/images/erpal_logo.jpg');
+  variable_set('commerce_billy_pdf_logo', drupal_get_path('module', 'erpal_commerce_ui') .'/images/erpal_logo.jpg');
 }
 
 /**

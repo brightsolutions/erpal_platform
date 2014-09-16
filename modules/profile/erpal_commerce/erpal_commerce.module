@@ -305,9 +305,8 @@ function erpal_commerce_field_widget_info() {
  * Implements hook_field_widget_form()
  */
 function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-
-  drupal_add_css(drupal_get_path('module', 'erpal_commerce') .'/css/widget.css', 'file');
-  drupal_add_js(drupal_get_path('module', 'erpal_commerce') .'/js/widget.js', 'file');
+  drupal_add_css(drupal_get_path('module', 'erpal_commerce') .'/css/line_item_widget.css', 'file');
+  drupal_add_js(drupal_get_path('module', 'erpal_commerce') .'/js/line_item_widget.js', 'file');
   if (!empty($form_state['triggering_element']) && $form_state['triggering_element']['#field_name'] == 'commerce_product') {
     $array_parents = $form_state['triggering_element']['#array_parents'];
     $value_product = drupal_array_get_nested_value($form_state['values'], $array_parents);
@@ -380,10 +379,18 @@ function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instanc
 
   if (!empty($product[0]['product_id'])) {
     $product = commerce_product_load($product[0]['product_id']);
+
+    // Set title from product.
     $element['line_item_label']['#value'] = t('!title (!sku)', array('!title' => $product->title, '!sku' => $product->sku));
+
+    // Set price from product.
     $commerce_price = field_get_items('commerce_product', $product, 'commerce_price');
     $element['commerce_unit_price'][$langcode][0]['amount']['#value'] = commerce_currency_amount_to_decimal($commerce_price[0]['amount'], $commerce_price[0]['currency_code']);
     $element['commerce_unit_price'][$langcode][0]['currency_code']['#value'] = $commerce_price[0]['currency_code'];
+
+    // Set unit from product.
+    $field_product_unit = field_get_items('commerce_product', $product, 'field_product_unit');
+    $element['field_line_item_unit'][$langcode]['#value'] = $field_product_unit[0]['value'];
 
   }
 
@@ -395,6 +402,7 @@ function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instanc
 
   $element['commerce_display_path']['#access'] = FALSE;
   $element['#element_validate'] = array('erpal_commerce_line_item_validate');
+
 
   return $element;
 }
@@ -1146,6 +1154,15 @@ function erpal_commerce_flush_caches() {
   $fields = erpal_commerce_quote_default_fields();
   erpal_core_add_fields($fields['fields'], 'field');
   erpal_core_add_fields($fields['instances'], 'instance');
+  
+  $info_instance = field_info_instance('commerce_order', 'commerce_line_items', 'invoice');
+  if (!empty($info_instance)) {
+    $view = 'erpal_invoice_line_items|block_1';
+    $info_instance['display']['administrator']['settings']['view'] = $view;
+    $info_instance['display']['customer']['settings']['view'] = $view;
+    $info_instance['display']['default']['settings']['view'] = $view;
+    field_update_instance($info_instance);
+  }
 }
 
 /**

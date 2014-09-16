@@ -639,6 +639,6 @@ function erpal_payment_modality_title($payment_modality) {
   $payment_modality->title = t($payment_modality->title, array(
     '!amount' => $field_amount[0]['value'],
     '!amount_type' => $field_amount_type[0]['value'] == 'percent' ? '%' : '',
-    '!due_with' => $field_due_with[0]['value'] == 'delivery' ? t('An delivery'): t('An order'),
+    '!due_with' => $field_due_with[0]['value'] == 'delivery' ? t('On delivery'): t('On order'),
   ));
 }

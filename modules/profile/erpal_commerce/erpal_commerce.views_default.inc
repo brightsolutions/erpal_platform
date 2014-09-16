@@ -25,25 +25,6 @@
  */
 function erpal_commerce_views_default_views_alter(&$views) {
 
-  if (isset($views['commerce_line_item_table'])) {
-    unset($views['commerce_line_item_table']->display['default']->display_options['filters']);
-  }
-
-  // Add new VBO to invoice view.
-  if (isset($views['erpal_invoice_line_items'])) {
-    $views['erpal_invoice_line_items']->display['default']->handler->display
-    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::erpal_invoice_create_invoice']['selected'] = 0;
-
-    $views['erpal_invoice_line_items']->display['default']->handler->display
-    ->display_options['fields']['views_bulk_operations']['vbo_operations']['action::erpal_commerce_create_invoice'] = array(
-      'selected' => 1,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 1,
-      'override_label' => 0,
-      'label' => '',
-    );
-  }
-
   if (isset($views['erpal_invoice'])) {
     $view = $views['erpal_invoice'];
     // Disable VBO action Delete item.

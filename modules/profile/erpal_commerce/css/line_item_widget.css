@@ -1,0 +1,9 @@
+.hidden {
+  display: none;
+}
+.field-name-field-payment-modality input {
+  display: none;
+}
+.field-name-commerce-line-items td:not(.delta-order) div.fieldset-wrapper > .form-type-select {
+  display: none;
+}
