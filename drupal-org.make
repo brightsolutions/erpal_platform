@@ -8,6 +8,7 @@ projects[addressfield][version] = "1.0-beta5"
 
 projects[admin_menu][version] = "3.0-rc4"
 projects[admin_menu][subdir] = "contrib"
+projects[admin_menu][patch][] = "https://www.drupal.org/files/admin_menu-ie6detect-1961178-1.patch"
 
 projects[cat][version] = "1.0-beta1"
 projects[cat][subdir] = "contrib"
