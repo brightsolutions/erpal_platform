@@ -135,7 +135,7 @@ function erpal_platform_vendor_form($form, &$form_state){
   $form['vendor']['vat_rate'] = array(
     '#title' => st('Default VAT rate'),
     '#type' => 'textfield',
-    '#description' => st('Enter the default VAT rate in percent for your country.'),
+    '#description' => st('Enter the default VAT rate for your country. Format should be like: ".19"'),
     '#maxlength' => 255,
     '#required' => TRUE,
   );

@@ -57,6 +57,51 @@ function erpal_commerce_menu_alter(&$items) {
 }
 
 /**
+ * Defines tax rates that may be applied to line items.
+ *
+ * @return
+ *   An array of information about available tax rates. The returned array
+ *   should be an associative array of tax rate arrays keyed by the tax rate
+ *   name. Each tax rate array can include the following keys:
+ *   - title: the title of the tax rate
+ *   - display_title: a display title for the tax type suitable for presenting
+ *     to customers if necessary; defaults to the title
+ *   - description: a short description of the tax rate
+ *   - rate: the percentage used to calculate this tax expressed as a decimal
+ *   - type: the name of the tax type this rate belongs to
+ *   - rules_component: name of the Rules component (if any) defined for
+ *     determining the applicability of the tax to a line item; defaults to
+ *     'commerce_tax_rate_[name]'. If the tax rate name is longer than 46
+ *     characters, it must have a Rules component name set here that is 64
+ *     characters or less.
+ *   - default_rules_component: boolean indicating whether or not the Tax module
+ *     should define a default default Rules component using the specified name;
+ *     defaults to TRUE.
+ *   - price_component: name of the price component defined for this tax rate
+ *     used when the tax is added to a line item; if set to FALSE, no price
+ *     component will be defined for this tax rate
+ *   - admin_list: boolean defined by the Tax UI module determining whether or
+ *     not the tax rate should appear in the admin list
+ *   - calculation_callback: name of the function used to calculate the tax
+ *     amount for a given line item, returning either a tax price array to be
+ *     added as a component to the line item's unit price or FALSE to not
+ *     include anything; defaults to 'commerce_tax_rate_calculate'.
+ */
+function erpal_commerce_commerce_tax_rate_info() {
+  $tax_rates = array();
+  $settings = variable_get('erpal_vendor_settings', array());
+  if (!empty($settings['vat_rate'])) {
+    $tax_rates['vat'] = array(
+      'title' => t('VAT'),
+      'rate' => $settings['vat_rate'],
+      'type' => 'vat',
+    );
+  }
+
+  return $tax_rates;
+}
+
+/**
  * Implements hook_entity_info_alter().
  */
 function erpal_commerce_entity_info_alter(&$entity_info) {
@@ -524,9 +569,26 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
 }
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function erpal_commerce_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    $group = $implementations['erpal_commerce'];
+    unset($implementations['erpal_commerce']);
+    $implementations['erpal_commerce'] = $group;
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
+
+  // @todo: provide better functionaloty for tab switching.
+  if ($form_id == 'views_form_erpal_invoice_line_items_panel_pane_1') {
+    $query = drupal_get_query_parameters($_GET, array('q'));
+    $form['#action'] = url($_GET['q'], array('query' => $query, 'fragment' => 'tabs-0-middle-6'));
+  }
 
   // Fix path query maxlength.
   if (in_array($form_id, array('cat_ui_add_form', 'cat_ui_edit_form')) && isset($form['cat_actions'])) {
@@ -1313,4 +1375,115 @@ function erpal_commerce_entity_insert($entity, $type) {
       drupal_set_message(t('New @type was created (<a href="@url">@title</a>)', array('@url' => url($url['path'], array('absolute' => TRUE)), '@type' => $bundle_label, '@title' => $label)));
     }
   }
+}
+
+/**
+ * Calculate line item amount.
+ *
+ * @param $line_item
+ *   The line item object which should be refreshed.
+ *
+ * @return
+ *   The updated line item.
+ */
+function erpal_commerce_line_item_refresh($line_item) {
+  $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+
+  // Knowing it exists, clone the line item now.
+  $cloned_line_item = clone($line_item_wrapper->value());
+
+  // If the line item is a product line item...
+  if (in_array($cloned_line_item->type, commerce_product_line_item_types())) {
+    $product = $line_item_wrapper->commerce_product->value();
+    
+    if (!empty($product)) {
+
+      // If this price has already been calculated, reset it to its original
+      // value so it can be recalculated afresh in the current context.
+      if (isset($product->commerce_price[LANGUAGE_NONE][0]['original'])) {
+        $original = $product->commerce_price[LANGUAGE_NONE][0]['original'];
+        foreach ($product->commerce_price as $langcode => $value) {
+          $product->commerce_price[$langcode] = array(0 => $original);
+        }
+      }
+  
+      // Repopulate the line item array with the default values for the product
+      // as though it had not been added to the cart yet, but preserve the
+      // current quantity and display URI information.
+      commerce_product_line_item_populate($cloned_line_item, $product);
+    }
+
+    // Process the unit price through Rules so it reflects the user's actual
+    // current purchase price.
+    rules_invoke_event('commerce_product_calculate_sell_price', $cloned_line_item);
+  }
+
+  // Delete this line item if it no longer has a valid price.
+  $current_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $cloned_line_item);
+
+  // Compare the refreshed unit price to the original unit price looking for
+  // differences in the amount, currency code, or price components.
+  $data = $line_item_wrapper->commerce_unit_price->data->value() + array('components' => array());
+  $current_data = (array) $current_line_item_wrapper->commerce_unit_price->data->value() + array('components' => array());
+
+  if ($line_item_wrapper->commerce_unit_price->amount->value() != $current_line_item_wrapper->commerce_unit_price->amount->value() ||
+    $line_item_wrapper->commerce_unit_price->currency_code->value() != $current_line_item_wrapper->commerce_unit_price->currency_code->value() ||
+    $data['components'] != $current_data['components']) {
+    // Adjust the unit price accordingly if necessary.
+    $line_item_wrapper->commerce_unit_price->amount = $current_line_item_wrapper->commerce_unit_price->amount->value();
+    $line_item_wrapper->commerce_unit_price->currency_code = $current_line_item_wrapper->commerce_unit_price->currency_code->value();
+
+    // Only migrate the price components in the data to preserve other data.
+    $data['components'] = $current_data['components'];
+    $line_item_wrapper->commerce_unit_price->data = $data;
+  }
+  erpal_commerce_line_item_culculate_total($line_item);
+}
+
+
+/**
+ * Calculate line item amount.
+ *
+ * @param $line_item
+ *   The line item object which should be refreshed.
+ *
+ * @return
+ *   The updated line item.
+ */
+function erpal_commerce_line_item_culculate_total($line_item) {
+  $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+
+  // Set the timestamp fields.
+  if (empty($line_item->line_item_id) && empty($line_item->created)) {
+    $line_item->created = REQUEST_TIME;
+  }
+  else {
+    // Otherwise if the line item is not new but comes from an entity_create()
+    // or similar function call that initializes the created timestamp to an
+    // empty string, unset it to prevent destroying existing data in that
+    // property on update.
+    if ($line_item->created === '') {
+      unset($line_item->created);
+    }
+  }
+
+  $line_item->changed = REQUEST_TIME;
+
+  // Update the total of the line item based on the quantity and unit price.
+  $unit_price = commerce_price_wrapper_value($wrapper, 'commerce_unit_price', TRUE);
+
+  $wrapper->commerce_total->amount = $line_item->quantity * $unit_price['amount'];
+  $wrapper->commerce_total->currency_code = $unit_price['currency_code'];
+
+  // Add the components multiplied by the quantity to the data array.
+  if (empty($unit_price['data']['components'])) {
+    $unit_price['data']['components'] = array();
+  }
+  else {
+    foreach ($unit_price['data']['components'] as $key => &$component) {
+      $component['price']['amount'] *= $line_item->quantity;
+    }
+  }
+  // Set the updated data array to the total price.
+  $wrapper->commerce_total->data = $unit_price['data'];
 }

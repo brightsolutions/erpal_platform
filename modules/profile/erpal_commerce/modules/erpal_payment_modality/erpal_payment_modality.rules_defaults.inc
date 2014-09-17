@@ -49,7 +49,7 @@ function erpal_payment_modality_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "ERPAL Payment Modality" ],
-      "REQUIRES" : [ "rules", "erpal_payment_modality", "entity" ],
+      "REQUIRES" : [ "rules", "erpal_commerce", "erpal_payment_modality", "entity" ],
       "ON" : { "commerce_line_item_presave" : [] },
       "IF" : [
         { "entity_is_of_bundle" : {
@@ -60,6 +60,7 @@ function erpal_payment_modality_default_rules_configuration() {
         }
       ],
       "DO" : [
+        { "erpal_commerce_line_item_culculation" : { "commerce_line_item" : [ "commerce_line_item" ] } },
         { "erpal_payment_modality_auto_create" : { "commerce_line_item" : [ "commerce_line_item" ] } }
       ]
     }
