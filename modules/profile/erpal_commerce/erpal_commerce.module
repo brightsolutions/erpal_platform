@@ -620,9 +620,6 @@ function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
 
   // @todo: provide better functionaloty for tab switching.
   if ($form_id == 'views_form_erpal_invoice_line_items_panel_pane_1') {
-    if ($order = menu_get_object('commorce_order', 4)) {
-      debug(menu_get_object('commorce_order', 4),'SIZ', TRUE);
-    }
     $query = drupal_get_query_parameters($_GET, array('q'));
     $form['#action'] = url($_GET['q'], array('query' => $query, 'fragment' => 'tabs-0-middle-6'));
   }
