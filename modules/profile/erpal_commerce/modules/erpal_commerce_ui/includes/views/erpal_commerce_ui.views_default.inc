@@ -2168,7 +2168,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['empty']['empty_text']['id'] = 'empty_text';
   $handler->display->display_options['empty']['empty_text']['table'] = 'commerce_product';
   $handler->display->display_options['empty']['empty_text']['field'] = 'empty_text';
-  $handler->display->display_options['empty']['empty_text']['add_path'] = 'admin/commerce/products/add';
+  $handler->display->display_options['empty']['empty_text']['add_path'] = 'product/add/product?destination=products';
   /* Field: Commerce Product revision: Product ID */
   $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
   $handler->display->display_options['fields']['product_id']['table'] = 'commerce_product_revision';

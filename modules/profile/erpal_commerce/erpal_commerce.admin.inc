@@ -94,7 +94,7 @@ function erpal_commerce_vendor_settings_form_submit($form, $form_state) {
     $settings[$key] = $value;
   }
   variable_set('erpal_vendor_settings', $settings);
-
+  variable_set('commerce_default_currency', $settings['currency']);
   drupal_set_message(t('The configuration options have been saved.'));
 }
 

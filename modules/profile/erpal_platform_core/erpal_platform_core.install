@@ -11,7 +11,9 @@
  * @see system_install()
  */
 function erpal_platform_core_install() {
-  //set to always load the extra jquery version, so its available for the theme
+
+  // Set to always load the extra jquery version, so its available for the
+  // theme.
   variable_set('jqmulti_load_always', 1);
 
   variable_set('jquery_ui_multiselect_widget_multiple', 0);

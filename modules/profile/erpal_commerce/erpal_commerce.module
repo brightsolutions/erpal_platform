@@ -35,13 +35,6 @@ function erpal_commerce_menu() {
     'weight' => 20,
     'context' => MENU_CONTEXT_INLINE,
   );
-  // Autocomplete url for commerce lite items field.
-  $items['erpal_inline_entity_form/autocomplete'] = array(
-    'title' => 'Inline Entity Form Autocomplete',
-    'page callback' => 'erpal_commerce_inline_entity_form_autocomplete',
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-  );
   return $items;
 }
 
@@ -59,7 +52,7 @@ function erpal_commerce_menu_alter(&$items) {
 /**
  * Defines tax rates that may be applied to line items.
  *
- * @return
+ * @return array
  *   An array of information about available tax rates. The returned array
  *   should be an associative array of tax rate arrays keyed by the tax rate
  *   name. Each tax rate array can include the following keys:
@@ -90,13 +83,11 @@ function erpal_commerce_menu_alter(&$items) {
 function erpal_commerce_commerce_tax_rate_info() {
   $tax_rates = array();
   $settings = variable_get('erpal_vendor_settings', array());
-  if (!empty($settings['vat_rate'])) {
-    $tax_rates['vat'] = array(
-      'title' => t('VAT'),
-      'rate' => $settings['vat_rate'],
-      'type' => 'vat',
-    );
-  }
+  $tax_rates['vat'] = array(
+    'title' => t('VAT'),
+    'rate' => !empty($settings['vat_rate']) ? $settings['vat_rate'] : '.19',
+    'type' => 'vat',
+  );
 
   return $tax_rates;
 }
@@ -166,6 +157,50 @@ function erpal_commerce_views_api() {
 }
 
 /**
+ * Implements hook_references_dialog_entity_admin_paths().
+ */
+function erpal_commerce_references_dialog_entity_admin_paths() {
+  return array(
+    'commerce_order' => array(
+      'add' => 'admin/commerce/orders/add/[bundle]',
+      'edit' => 'admin/commerce/orders/[entity_id]/edit',
+    ),
+    'erpal_payment_modality' => array(
+      'add' => 'erpal/payment_modality/add/[bundle]',
+      'edit' => 'erpal/payment_modality/[entity_id]/edit',
+    ),
+  );
+}
+
+/**
+ * Implements hook_commerce_order_state_info().
+ */
+function erpal_commerce_commerce_order_state_info() {
+  return array(
+    'paid' => array(
+      'name' => 'paid',
+      'title' => t('Paid'),
+      'description' => t('Paid state.'),
+      'weight' => 17,
+      'default_status' => 'paid',
+    ),
+  );
+}
+
+/**
+ * Implements hook_commerce_order_status_info().
+ */
+function erpal_commerce_commerce_order_status_info() {
+  return array(
+    'paid' => array(
+      'name' => 'paid',
+      'title' => t('Paid'),
+      'state' => 'paid',
+    ),
+  );
+}
+
+/**
  * Defines line item types that serve as bundles of the line item entity type.
  *
  * @see hook_commerce_line_item_type_info_alter()
@@ -183,6 +218,17 @@ function erpal_commerce_commerce_line_item_type_info() {
   );
 
   return $line_item_types;
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function erpal_commerce_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    $group = $implementations['erpal_commerce'];
+    unset($implementations['erpal_commerce']);
+    $implementations['erpal_commerce'] = $group;
+  }
 }
 
 /**
@@ -267,7 +313,7 @@ function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_
 }
 
 /**
- * Implements hook_references_dialog_widgets_alter()
+ * Implements hook_references_dialog_widgets_alter().
  */
 function erpal_commerce_references_dialog_widgets_alter(&$widgets) {
   $widgets['entityreference_autocomplete']['operations']['edit']['function'] = 'erpal_commerce_dialog_entityreference_edit_link';
@@ -285,8 +331,8 @@ function erpal_commerce_dialog_entityreference_edit_link($element, $widget_setti
   $entity_type = $field['settings']['target_type'];
   // Take "label (entity id)', match the id from parenthesis.
   if (preg_match("/.+\((\d+)\)/", $raw_value, $matches)) {
-      $value = $matches[1];
-    }
+    $value = $matches[1];
+  }
   if (isset($value)) {
     $entity = current(entity_load($entity_type, array($value)));
     $title = t('Edit');
@@ -313,8 +359,8 @@ function erpal_commerce_dialog_entityreference_delete_link($element, $widget_set
   $entity_type = $field['settings']['target_type'];
   // Take "label (entity id)', match the id from parenthesis.
   if (preg_match("/.+\((\d+)\)/", $raw_value, $matches)) {
-      $value = $matches[1];
-    }
+    $value = $matches[1];
+  }
   if (isset($value)) {
     $entity = current(entity_load($entity_type, array($value)));
 
@@ -331,7 +377,7 @@ function erpal_commerce_dialog_entityreference_delete_link($element, $widget_set
 
 
 /**
- * Implements hook_field_widget_info()
+ * Implements hook_field_widget_info().
  */
 function erpal_commerce_field_widget_info() {
   $widgets = array();
@@ -347,11 +393,11 @@ function erpal_commerce_field_widget_info() {
 
 
 /**
- * Implements hook_field_widget_form()
+ * Implements hook_field_widget_form().
  */
 function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-  drupal_add_css(drupal_get_path('module', 'erpal_commerce') .'/css/line_item_widget.css', 'file');
-  drupal_add_js(drupal_get_path('module', 'erpal_commerce') .'/js/line_item_widget.js', 'file');
+  drupal_add_css(drupal_get_path('module', 'erpal_commerce') . '/css/line_item_widget.css', 'file');
+  drupal_add_js(drupal_get_path('module', 'erpal_commerce') . '/js/line_item_widget.js', 'file');
   if (!empty($form_state['triggering_element']) && $form_state['triggering_element']['#field_name'] == 'commerce_product') {
     $array_parents = $form_state['triggering_element']['#array_parents'];
     $value_product = drupal_array_get_nested_value($form_state['values'], $array_parents);
@@ -366,7 +412,7 @@ function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instanc
       }
     }
   }
-  
+
   $element['#delta'] = $delta;
   if (!empty($items[$delta]['line_item_id'])) {
     $line_item = commerce_line_item_load($items[$delta]['line_item_id']);
@@ -448,7 +494,6 @@ function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instanc
   $element['commerce_display_path']['#access'] = FALSE;
   $element['#element_validate'] = array('erpal_commerce_line_item_validate');
 
-
   return $element;
 }
 
@@ -483,7 +528,7 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
       if (!empty($values['delete'])) {
         return;
       }
-      
+
       // Validate the quantity of each line item.
       $element_name = implode('][', $element['quantity']['#parents']);
       $quantity = $element['quantity']['#value'];
@@ -537,14 +582,14 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
             $line_item->field_payment_modality[$payment_modality_language][] = array('target_id' => $payment_modality_id['target_id']);
           }
         }
-  
+
         // If this type specifies a valid add form callback function...
         if ($callback = commerce_line_item_type_callback('product', 'add_form_submit')) {
           // Allow the callback to alter data onto the line item to be saved and
           // to return an error message if something goes wrong.
           $error = $callback($line_item, $element, $form_state, $form);
         }
-  
+
         // If we didn't end up with any errors...
         if (empty($error)) {
           // Save it and add it to the line item reference field's values array.
@@ -553,11 +598,11 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
             commerce_line_item_rebase_unit_price($line_item);
             commerce_line_item_save($line_item);
           }
-  
+
           // If the item is saved, we set a variable to notify the user the
           // need of saving the order.
           $form_state['line_item_save_warning'] = TRUE;
-  
+
           $value = array('line_item_id' => $line_item->line_item_id);
           form_set_value($element, $value, $form_state);
         }
@@ -569,23 +614,15 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
 }
 
 /**
- * Implements hook_module_implements_alter().
- */
-function erpal_commerce_module_implements_alter(&$implementations, $hook) {
-  if ($hook == 'form_alter') {
-    $group = $implementations['erpal_commerce'];
-    unset($implementations['erpal_commerce']);
-    $implementations['erpal_commerce'] = $group;
-  }
-}
-
-/**
  * Implements hook_form_alter().
  */
 function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
 
   // @todo: provide better functionaloty for tab switching.
   if ($form_id == 'views_form_erpal_invoice_line_items_panel_pane_1') {
+    if ($order = menu_get_object('commorce_order', 4)) {
+      debug(menu_get_object('commorce_order', 4),'SIZ', TRUE);
+    }
     $query = drupal_get_query_parameters($_GET, array('q'));
     $form['#action'] = url($_GET['q'], array('query' => $query, 'fragment' => 'tabs-0-middle-6'));
   }
@@ -699,7 +736,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
       $sales_process = crm_core_activity_load($sales_process[0]['target_id']);
 
       if (!empty($sales_process->activity_id)) {
-       $form['field_sales_process'][$language][0]['target_id']['#default_value'] = $sales_process->title . ' (' . $sales_process->activity_id . ')';
+        $form['field_sales_process'][$language][0]['target_id']['#default_value'] = $sales_process->title . ' (' . $sales_process->activity_id . ')';
       }
 
       // Set default Customer for sales Process.
@@ -783,7 +820,7 @@ function erpal_commerce_line_item_autocomplete($string = '') {
       ->fields('cli', array('line_item_id', 'line_item_label'))
       ->condition('cli.line_item_label', '%' . db_like($string) . '%', 'LIKE')
       ->condition('cli.type', 'invoice');
-    $query->join('commerce_order','co','co.order_id != cli.order_id');
+    $query->join('commerce_order', 'co', 'co.order_id != cli.order_id');
     $query->condition('co.type', 'invoice');
 
     $result = $query->execute()->fetchAllKeyed();
@@ -808,121 +845,12 @@ function erpal_commerce_field_widget_form_alter(&$element, &$form_state, $contex
     }
   }
 
-  // Change button label for line items field.
-  if ($context['field']['field_name'] == 'commerce_line_items') {
-    // Hide SKU column in commerce_line_item_manager field.
-    if ($context['instance']['widget']['type'] == 'commerce_line_item_manager') {
-      $element['#header'][2] = '';
-      foreach ($element['line_items'] as &$line_item) {
-        $line_item['line_item_label']['#access'] = FALSE;
-      }
-    }
-    if ($context['instance']['widget']['type'] == 'inline_entity_form') {
-      $element['actions']['ief_add_existing']['#value'] = t('Add existing product');
-      $element['actions']['ief_add']['#value'] = t('Add new product');
-    }
-  }
   // Change button label for customer profile field.
   if ($context['field']['field_name'] == 'field_customer_profiles') {
     if ($context['instance']['widget']['type'] == 'inline_entity_form') {
       $element['actions']['ief_add']['#value'] = t('Add new address');
     }
   }
-}
-
-/**
- * Perform alterations before the reference form is included in the IEF widget.
- *
- * The reference form is used to add existing entities through an autocomplete
- * field
- *
- * @param $reference_form
- *   Nested array of form elements that comprise the reference form.
- * @param $form_state
- *   The form state of the parent form.
- */
-function erpal_commerce_inline_entity_form_reference_form_alter(&$reference_form, &$form_state) {
-  $ief_id = $reference_form['#ief_id'];
-
-  if ($form_state['inline_entity_form'][$ief_id]['settings']['entity_type'] == 'commerce_line_item') {
-    $instance = $form_state['inline_entity_form'][$ief_id]['instance'];
-    $autocomplete_path = 'erpal_inline_entity_form/autocomplete/' . $instance['entity_type'];
-    $autocomplete_path .= '/' . $instance['field_name'] . '/' . $instance['bundle'];
-    $reference_form['entity_id']['#autocomplete_path'] = $autocomplete_path;
-    $reference_form['#title'] = t('Add existing product');
-    $reference_form['entity_id']['#title'] = t('Product');
-    $reference_form['actions']['ief_reference_save']['#value'] = t('Add product');
-    $reference_form['#ief_element_submit'][0] = 'erpal_commerce_inline_entity_form_reference_form_submit';
-    unset($reference_form['#element_validate'][0]);
-  }
-}
-
-/**
- * Returns output for inline entity form autocompletes for commerce line items field.
- */
-function erpal_commerce_inline_entity_form_autocomplete($entity_type, $field_name, $bundle, $string = '') {
-  $field = field_info_field($field_name);
-  $instance = field_info_instance($entity_type, $field_name, $bundle);
-  $settings = inline_entity_form_settings($field, $instance);
-  $controller = inline_entity_form_get_controller($instance);
-  // The current entity type is not supported, or the string is empty.
-  // strlen() is used instead of empty() since '0' is a valid value.
-  if (!$field || !$instance || !$controller || !strlen($string)) {
-    return MENU_ACCESS_DENIED;
-  }
-
-  $results = array();
-  if ($field['type'] == 'commerce_line_item_reference') {
-    $match_operator = strtolower($controller->getSetting('match_operator'));
-    $products = commerce_product_match_products($field, $instance, $string, $match_operator, array(), 10, TRUE);
-
-    // Loop through the products and convert them into autocomplete output.
-    foreach ($products as $product_id => $data) {
-      $results[] = t('@label (!entity_id)', array('@label' => $data['title'], '!entity_id' => $product_id));
-    }
-  }
-
-  $matches = array();
-  foreach ($results as $result) {
-    // Strip things like starting/trailing white spaces, line breaks and tags.
-    $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(decode_entities(strip_tags($result)))));
-    $matches[$key] = '<div class="reference-autocomplete">' . $result . '</div>';
-  }
-
-  drupal_json_output($matches);
-}
-
-/**
- * Submits the form for adding existing entities.
- *
- * Adds the specified entity to the IEF form state.
- *
- * @param $reference_form
- *  The reference entity form.
- * @param $form_state
- *   The form state of the parent form.
- */
-function erpal_commerce_inline_entity_form_reference_form_submit($reference_form, &$form_state) {
-  $ief_id = $reference_form['#ief_id'];
-  $entity_type = $reference_form['#entity_type'];
-  $form_values = drupal_array_get_nested_value($form_state['values'], $reference_form['#parents']);
-  $product = entity_load_single('commerce_product', $form_values['entity_id']);
-  $type = $form_state['inline_entity_form'][$ief_id]['form settings']['bundle'];
-  $order_id = $form_state['build_info']['args'][0]->order_id;
-  $attach_entity = commerce_product_line_item_new($product, 1, $order_id, array(), $type);
-
-  // Determine the correct weight of the new element.
-  $weight = 0;
-  if (!empty($form_state['inline_entity_form'][$ief_id]['entities'])) {
-    $weight = max(array_keys($form_state['inline_entity_form'][$ief_id]['entities'])) + 1;
-  }
-
-  $form_state['inline_entity_form'][$ief_id]['entities'][] = array(
-    'entity' => $attach_entity,
-    'weight' => $weight,
-    'form' => NULL,
-    'needs_save' => TRUE,
-  );
 }
 
 /**
@@ -934,20 +862,6 @@ function erpal_commerce_inline_entity_form_reference_form_submit($reference_form
  *   The form state of the parent form.
  */
 function erpal_commerce_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
-  if ($entity_form['#entity_type'] == 'commerce_line_item') {
-    $entity_form['#title'] = t('Add new product');
-    $entity_form['line_item_details']['#title'] = t('Product details');
-    $entity_form['quantity']['#description'] = t('The quantity of products.');
-    $entity_form['actions']['ief_add_save']['#value'] = t('Create product');
-    $entity_form['actions']['ief_edit_save']['#value'] = t('Update product');
-    if ($entity_form['#op'] == 'edit') {
-      $language = $entity_form['commerce_product']['#language'];
-      $entity_form['commerce_product'][$language]['form']['sku']['#disabled'] = TRUE;
-      $entity_form['commerce_product'][$language]['form']['title']['#disabled'] = TRUE;
-      $entity_form['commerce_product'][$language]['form']['commerce_price']['#disabled'] = TRUE;
-    }
-  }
-
   if ($entity_form['#bundle'] == 'billing' && $entity_form['#entity_type'] == 'commerce_customer_profile') {
     $entity_form['#title'] = t('Add new address');
     $entity_form['actions']['ief_add_save']['#value'] = t('Create address');
@@ -1062,7 +976,7 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
   );
   if (is_numeric(arg(3))) {
     $language = $form['field_invoice_order']['#language'];
-    $form['field_invoice_order'][$language][0]['target_id']['#default_value'] = 'Order '.$order_number.' (' . arg(3) . ')';
+    $form['field_invoice_order'][$language][0]['target_id']['#default_value'] = 'Order ' . $order_number . ' (' . arg(3) . ')';
   }
 
   foreach ($hide_fields as $hide_field) {
@@ -1216,7 +1130,7 @@ function erpal_commerce_flush_caches() {
   $fields = erpal_commerce_quote_default_fields();
   erpal_core_add_fields($fields['fields'], 'field');
   erpal_core_add_fields($fields['instances'], 'instance');
-  
+
   $info_instance = field_info_instance('commerce_order', 'commerce_line_items', 'invoice');
   if (!empty($info_instance)) {
     $view = 'erpal_invoice_line_items|block_1';
@@ -1283,50 +1197,6 @@ function erpal_commerce_order_delete_redirect($form, &$form_state) {
 }
 
 /**
- * Implements hook_references_dialog_entity_admin_paths().
- */
-function erpal_commerce_references_dialog_entity_admin_paths() {
-  return array(
-    'commerce_order' => array(
-      'add' => 'admin/commerce/orders/add/[bundle]',
-      'edit' => 'admin/commerce/orders/[entity_id]/edit',
-    ),
-    'erpal_payment_modality' => array(
-      'add' => 'erpal/payment_modality/add/[bundle]',
-      'edit' => 'erpal/payment_modality/[entity_id]/edit',
-    ),
-  );
-}
-
-/**
- * Implements hook_commerce_order_state_info().
- */
-function erpal_commerce_commerce_order_state_info() {
-  return array(
-    'paid' => array(
-      'name' => 'paid',
-      'title' => t('Paid'),
-      'description' => t('Paid state.'),
-      'weight' => 17,
-      'default_status' => 'paid',
-    ),
-  );
-}
-
-/**
- * Implements hook_commerce_order_status_info().
- */
-function erpal_commerce_commerce_order_status_info() {
-  return array(
-    'paid' => array(
-      'name' => 'paid',
-      'title' => t('Paid'),
-      'state' => 'paid',
-    ),
-  );
-}
-
-/**
  * Hepler function to get profiles list.
  */
 function erpal_commerce_get_profiles($param) {
@@ -1380,11 +1250,8 @@ function erpal_commerce_entity_insert($entity, $type) {
 /**
  * Calculate line item amount.
  *
- * @param $line_item
+ * @param object $line_item
  *   The line item object which should be refreshed.
- *
- * @return
- *   The updated line item.
  */
 function erpal_commerce_line_item_refresh($line_item) {
   $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
@@ -1395,7 +1262,7 @@ function erpal_commerce_line_item_refresh($line_item) {
   // If the line item is a product line item...
   if (in_array($cloned_line_item->type, commerce_product_line_item_types())) {
     $product = $line_item_wrapper->commerce_product->value();
-    
+
     if (!empty($product)) {
 
       // If this price has already been calculated, reset it to its original
@@ -1406,7 +1273,7 @@ function erpal_commerce_line_item_refresh($line_item) {
           $product->commerce_price[$langcode] = array(0 => $original);
         }
       }
-  
+
       // Repopulate the line item array with the default values for the product
       // as though it had not been added to the cart yet, but preserve the
       // current quantity and display URI information.
@@ -1444,11 +1311,8 @@ function erpal_commerce_line_item_refresh($line_item) {
 /**
  * Calculate line item amount.
  *
- * @param $line_item
+ * @param object $line_item
  *   The line item object which should be refreshed.
- *
- * @return
- *   The updated line item.
  */
 function erpal_commerce_line_item_culculate_total($line_item) {
   $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);

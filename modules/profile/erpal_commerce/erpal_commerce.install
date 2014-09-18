@@ -24,4 +24,5 @@ function erpal_commerce_install() {
   // Disable custom order number for invoice bundle, because it generate by
   // commerce billy module.
   variable_set('custom_order_number_invoice_nr_enable', FALSE);
+
 }

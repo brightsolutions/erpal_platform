@@ -28,9 +28,9 @@ class CommerceCustomerProfileInlineEntityFormController extends EntityInlineEnti
    * leading to possible key collisions if the keys are not prefixed with
    * $entity_form['#parents'].
    *
-   * @param $entity_form
+   * @param array $entity_form
    *   The entity form.
-   * @param $form_state
+   * @param array $form_state
    *   The form state of the parent form.
    */
   public function entityForm($entity_form, &$form_state) {

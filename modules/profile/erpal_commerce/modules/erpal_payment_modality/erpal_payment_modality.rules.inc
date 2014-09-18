@@ -36,7 +36,7 @@ function erpal_payment_modality_rules_action_info() {
  */
 function erpal_payment_modality_create_invoice_line_item_delivery($payment_modality) {
   $line_item_id = db_select('field_data_field_payment_modality', 'pm')
-    ->fields('pm' , array('entity_id'))
+    ->fields('pm', array('entity_id'))
     ->condition('pm.field_payment_modality_target_id', $payment_modality->payment_modality_id)
     ->execute()
     ->fetchAssoc();
@@ -85,7 +85,7 @@ function erpal_payment_modality_auto_create($line_item) {
 
     // Check for unit item.
     if (!empty($field_line_item_unit[0]['value']) && $field_line_item_unit[0]['value'] == 'item') {
-      
+
       if (!empty($field_payment_modality)) {
         foreach ($field_payment_modality as $payment_modality_id) {
           $payment_modality = erpal_payment_modality_load($payment_modality_id['target_id']);
@@ -97,7 +97,7 @@ function erpal_payment_modality_auto_create($line_item) {
           }
           else {
             $amount = commerce_currency_decimal_to_amount($field_amount[0]['value'], $commerce_total[0]['currency_code']);
-            $percentage = $percentage  + ($amount / $commerce_total[0]['amount']) * 100;
+            $percentage = $percentage + ($amount / $commerce_total[0]['amount']) * 100;
           }
         }
       }

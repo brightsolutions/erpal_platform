@@ -15,7 +15,7 @@ function erpal_platform_install_tasks_alter(&$tasks, $install_state) {
 
 
 /**
- * Forces to set the erpal_maintenance theme during the installation
+ * Forces to set the erpal_maintenance theme during the installation.
  */
 function _erpal_platform_set_theme($target_theme) {
   if ($GLOBALS['theme'] != $target_theme) {
@@ -27,9 +27,9 @@ function _erpal_platform_set_theme($target_theme) {
 }
 
 /**
- * Add additional install tasks
+ * Add additional install tasks.
  */
-function erpal_platform_install_tasks(){
+function erpal_platform_install_tasks() {
   $tasks = array();
 
   // Remove all messages we don't need them.
@@ -45,9 +45,9 @@ function erpal_platform_install_tasks(){
 }
 
 /**
- * Installation task "Vendor information"
+ * Installation task "Vendor information".
  */
-function erpal_platform_vendor_form($form, &$form_state){
+function erpal_platform_vendor_form($form, &$form_state) {
   drupal_set_title(st('Vendor information'));
   module_load_include('inc', 'locale', 'locale');
   $countries = country_get_list();
@@ -135,7 +135,7 @@ function erpal_platform_vendor_form($form, &$form_state){
   $form['vendor']['vat_rate'] = array(
     '#title' => st('Default VAT rate'),
     '#type' => 'textfield',
-    '#description' => st('Enter the default VAT rate for your country. Format should be like: ".19"'),
+    '#description' => st('Enter the default VAT rate for your country. Format should be like: ".19" for a rate of 19%'),
     '#maxlength' => 255,
     '#required' => TRUE,
   );
@@ -149,7 +149,7 @@ function erpal_platform_vendor_form($form, &$form_state){
 /**
  * Validate handler for "Vendor information" form.
  */
-function erpal_platform_vendor_form_validate($form, $form_state){
+function erpal_platform_vendor_form_validate($form, $form_state) {
   $values = $form_state['values'];
 
   if (!valid_email_address($values['vendor']['vendor_email']['email'])) {
@@ -160,7 +160,7 @@ function erpal_platform_vendor_form_validate($form, $form_state){
 /**
  * Submit handler for "Vendor information" form.
  */
-function erpal_platform_vendor_form_submit($form, $form_state){
+function erpal_platform_vendor_form_submit($form, $form_state) {
   module_load_include('inc', 'entity', 'includes/entity.controller');
   global $user;
   $vendor = $form_state['values']['vendor'];
@@ -219,5 +219,8 @@ function erpal_platform_vendor_form_submit($form, $form_state){
     'currency' => $vendor['currency'],
     'vat_rate' => $vendor['vat_rate'],
   );
+
+  variable_set('commerce_default_currency', $vendor['currency']);
+  variable_set('commerce_enabled_currencies', array($vendor['currency'] => $vendor['currency']));
   variable_set('erpal_vendor_settings', $settings);
 }

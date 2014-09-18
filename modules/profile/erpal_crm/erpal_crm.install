@@ -47,7 +47,7 @@ function erpal_crm_install() {
   ));
   crm_core_activity_type_save($sales_process);
 
-  // Add default relationships
+  // Add default relationships.
   $relation_types_info = array(
     array(
       'relation_type' => 'crm_business',

@@ -181,11 +181,11 @@ function erpal_crm_ui_crm_core_activity_edit_sales_process_form_validate($form, 
 /**
  * Autocomplete page for listing entities appropriate for a giver relation type.
  *
- * @param $type
+ * @param string $type
  *   The relation type to search for endpoints for.
- * @param $direction
+ * @param string $direction
  *   The direction for which to allow endpoint bundles.
- * @param $string
+ * @param string $string
  *   The string for which the search through entity labels will be run.
  */
 function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target', $field = 'none', $string = '') {
@@ -209,7 +209,8 @@ function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target
     $instance = field_info_instance($entity_type, $field_name, $bundle);
   }
 
-  // Use source bundles unless relation type is directional and we're looking in the forward direction
+  // Use source bundles unless relation type is directional and we're looking in
+  // the forward direction.
   $direction = ($relation_type->directional && $direction == 'target') ? 'target_bundles' : 'source_bundles';
   foreach ($relation_type->$direction as $entity_bundle) {
     list($entity_type, $bundle) = explode(':', $entity_bundle, 2);
@@ -220,7 +221,7 @@ function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target
   $suggestions = array();
   foreach ($entity_bundles as $entity_type => $bundles) {
     if ($entity_type == 'crm_core_contact') {
-      $query = new EntityFieldQuery;
+      $query = new EntityFieldQuery();
       $query->entityCondition('entity_type', $entity_type)
         ->propertyCondition('type', $bundles, 'IN')
         ->range(0, 20);
@@ -240,7 +241,8 @@ function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target
 
     $base_table = $entity_infos[$entity_type]['base table'];
     // Get the name of the column in the base table for the entity type.
-    if ($entity_type == 'user') { // Special case for users.
+    if ($entity_type == 'user') {
+      // Special case for users.
       $label_key = 'name';
     }
     elseif (isset($entity_infos[$entity_type]['entity keys']['label'])) {
@@ -250,7 +252,8 @@ function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target
       $label_key = $entity_infos[$entity_type]['entity keys']['id'];
     }
     else {
-      break; // Can't find a label to search over, give up.
+      // Can't find a label to search over, give up.
+      break;
     }
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', $entity_type);

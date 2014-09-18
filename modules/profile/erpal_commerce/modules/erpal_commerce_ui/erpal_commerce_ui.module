@@ -156,7 +156,6 @@ function erpal_commerce_ui_form_commerce_product_ui_product_form_alter(&$form, &
   // Add a submit handler to the save button to add a redirect.
   $form['actions']['submit']['#submit'][] = 'erpal_commerce_ui_product_form_submit';
 
-
   // Add the save and continue button for new products.
   if (empty($product->product_id)) {
     $form['actions']['save_continue'] = array(
@@ -345,7 +344,7 @@ function erpal_commerce_ui_pdf_html($orders) {
  * Implements hook_commerce_order_view().
  */
 function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
-  drupal_add_js(drupal_get_path('module', 'erpal_commerce_ui') .'/js/erpal_commerce_ui.js', 'file');
+  drupal_add_js(drupal_get_path('module', 'erpal_commerce_ui') . '/js/erpal_commerce_ui.js', 'file');
   // Add content variables for the PDF generation.
   $settings = variable_get('erpal_order_pdf_text_settings', array());
   foreach ($settings as &$value) {
@@ -377,7 +376,7 @@ function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
   // Set quote for order page.
   $quote = field_get_items('commerce_order', $order, 'field_quote');
   if (!empty($quote[0]['entity'])) {
-    $order->content['order_quote_number'] =  array(
+    $order->content['order_quote_number'] = array(
       '#markup' => t('Quote No.: @id', array('@id' => $quote[0]['entity']->order_number)),
     );
   }
@@ -400,7 +399,7 @@ function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
       );
       $address = array(
         $commerce_customer_address[0]['name_line'],
-        $commerce_customer_address[0]['postal_code'] . ' '. $commerce_customer_address[0]['locality'],
+        $commerce_customer_address[0]['postal_code'] . ' ' . $commerce_customer_address[0]['locality'],
         $countries[$commerce_customer_address[0]['country']],
       );
       // Set quote/order footer.
@@ -413,8 +412,8 @@ function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
 
       $header_date_text = t('@location, @date', array('@location' => $commerce_customer_address[0]['locality'], '@date' => $date));
       $order->content['invoice_header_date'] = array(
-      '#markup' => $header_date_text,
-    );
+        '#markup' => $header_date_text,
+      );
     }
 
     // If Vendor is empty just take default settings.
@@ -512,7 +511,7 @@ function erpal_commerce_ui_views_pre_render(&$view) {
       $oid = arg(3);
     }
     $order = commerce_order_load($oid);
-    if($order) {
+    if ($order) {
       $view->build_info['title'] = t('Create invoice for order') . ' ' . l($order->order_number, 'admin/commerce/orders/' . $order->order_id);
     }
   }
