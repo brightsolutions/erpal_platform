@@ -387,7 +387,7 @@ function erpal_commerce_field_widget_info() {
 function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
   drupal_add_css(drupal_get_path('module', 'erpal_commerce') . '/css/line_item_widget.css', 'file');
   drupal_add_js(drupal_get_path('module', 'erpal_commerce') . '/js/line_item_widget.js', 'file');
-  if (!empty($form_state['triggering_element']) && $form_state['triggering_element']['#field_name'] == 'commerce_product') {
+  if (!empty($form_state['triggering_element']['#field_name']) && $form_state['triggering_element']['#field_name'] == 'commerce_product') {
     $array_parents = $form_state['triggering_element']['#array_parents'];
     $value_product = drupal_array_get_nested_value($form_state['values'], $array_parents);
 
