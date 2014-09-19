@@ -221,17 +221,6 @@ function erpal_commerce_commerce_line_item_type_info() {
 }
 
 /**
- * Implements hook_module_implements_alter().
- */
-function erpal_commerce_module_implements_alter(&$implementations, $hook) {
-  if ($hook == 'form_alter') {
-    $group = $implementations['erpal_commerce'];
-    unset($implementations['erpal_commerce']);
-    $implementations['erpal_commerce'] = $group;
-  }
-}
-
-/**
  * Add default settings for custom line item types.
  *
  * @param array $line_item_type
@@ -617,12 +606,6 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
  * Implements hook_form_alter().
  */
 function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
-
-  // @todo: provide better functionaloty for tab switching.
-  if ($form_id == 'views_form_erpal_invoice_line_items_panel_pane_1') {
-    $query = drupal_get_query_parameters($_GET, array('q'));
-    $form['#action'] = url($_GET['q'], array('query' => $query, 'fragment' => 'tabs-0-middle-6'));
-  }
 
   // Fix path query maxlength.
   if (in_array($form_id, array('cat_ui_add_form', 'cat_ui_edit_form')) && isset($form['cat_actions'])) {

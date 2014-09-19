@@ -2,15 +2,15 @@
 
   Drupal.behaviors.erpalChangeTab = {
     attach: function (context, settings) {
-      var tabsID = Drupal.settings.panelsTabs.tabsID;
-
-      for (var key in tabsID) {
-        $('#' + tabsID[key] + '>ul li a', context).click(function (e) {
-          var href = $(this).attr("href");
-
-          $.cookie("panel_tab", href.substr(1));
-        });
-      }
+      $('.vbo-views-form').each(function() {
+        var action = $('form', $(this)).attr('action');
+        if(action.indexOf("#") == -1) {
+          var hash = $(this).closest("div[id^='tabs']").attr('id');
+          if (hash) {
+            $('form', $(this)).attr('action', action + '#' + hash);
+          }
+        }
+      });
     }
   };
 
