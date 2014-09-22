@@ -266,6 +266,10 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['empty']['area']['content'] = 'No line items found.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Commerce Line item: Referenced products */
+  $handler->display->display_options['relationships']['commerce_product_product_id']['id'] = 'commerce_product_product_id';
+  $handler->display->display_options['relationships']['commerce_product_product_id']['table'] = 'field_data_commerce_product';
+  $handler->display->display_options['relationships']['commerce_product_product_id']['field'] = 'commerce_product_product_id';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Commerce Line item: Payment modality */
   $handler->display->display_options['fields']['field_payment_modality']['id'] = 'field_payment_modality';
@@ -295,10 +299,21 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['fields']['line_item_label']['id'] = 'line_item_label';
   $handler->display->display_options['fields']['line_item_label']['table'] = 'commerce_line_item';
   $handler->display->display_options['fields']['line_item_label']['field'] = 'line_item_label';
+  /* Field: Commerce Product: Price */
+  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_unit_price']['label'] = 'Price excl. tax';
+  $handler->display->display_options['fields']['commerce_price']['relationship'] = 'commerce_product_product_id';
+  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
+    'calculation' => '0',
+  );
   /* Field: Commerce Line item: Unit price */
   $handler->display->display_options['fields']['commerce_unit_price']['id'] = 'commerce_unit_price';
   $handler->display->display_options['fields']['commerce_unit_price']['table'] = 'field_data_commerce_unit_price';
   $handler->display->display_options['fields']['commerce_unit_price']['field'] = 'commerce_unit_price';
+  $handler->display->display_options['fields']['commerce_unit_price']['label'] = 'Price incl. tax';
   $handler->display->display_options['fields']['commerce_unit_price']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['commerce_unit_price']['settings'] = array(
     'calculation' => FALSE,
@@ -366,12 +381,14 @@ function erpal_payment_modality_views_default_views() {
     t('All'),
     t('Block'),
     t('No line items found.'),
+    t('Products referenced by commerce_product'),
     t('ID'),
     t('.'),
     t(','),
     t('Type'),
     t('Label'),
-    t('Unit price'),
+    t('Price'),
+    t('Price with TAX'),
     t('Unit'),
     t('Quantity'),
     t('Payment modality'),

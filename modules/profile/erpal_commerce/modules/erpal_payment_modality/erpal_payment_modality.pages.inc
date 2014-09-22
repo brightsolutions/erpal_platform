@@ -23,11 +23,22 @@ function erpal_payment_modality_entity_ui_get_form_wrapper($type) {
 function erpal_payment_modality_form($form, &$form_state, $payment_modality) {
   // Ensure this include file is loaded when the form is rebuilt from the cache.
   $form_state['build_info']['files'][] = drupal_get_path('module', 'erpal_payment_modality') . '/erpal_payment_modality.pages.inc';
+
+  $form['title_default'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Auto generate title'),
+    '#default_value' => TRUE,
+  );
   $form['title'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => t('Title'),
     '#default_value' => $payment_modality->title,
+    '#states' => array(
+      'visible' => array(
+        'input[name="title_default"]' => array('checked' => FALSE)
+      )
+    ),
   );
 
   $form['uid'] = array(
@@ -57,8 +68,9 @@ function erpal_payment_modality_form($form, &$form_state, $payment_modality) {
     '#submit' => $submit + array('erpal_payment_modality_form_submit'),
   );
 
+  $query = drupal_get_query_parameters();
   // Show delete button if entity exists and user has appropriate permission.
-  if (isset($form_state['op']) && $form_state['op'] == 'edit' && entity_access('delete', 'erpal_payment_modality', $payment_modality)) {
+  if (empty($query['render']) && isset($form_state['op']) && $form_state['op'] == 'edit' && entity_access('delete', 'erpal_payment_modality', $payment_modality)) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete'),

@@ -591,12 +591,12 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
           // If the item is saved, we set a variable to notify the user the
           // need of saving the order.
           $form_state['line_item_save_warning'] = TRUE;
-
-          $value = array('line_item_id' => $line_item->line_item_id);
-          form_set_value($element, $value, $form_state);
         }
       }
-
+    }
+    if (!empty($line_item->line_item_id)) {
+      $value = array('line_item_id' => $line_item->line_item_id);
+      form_set_value($element, $value, $form_state);
     }
   }
 

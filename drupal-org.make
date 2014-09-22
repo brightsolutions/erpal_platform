@@ -114,9 +114,6 @@ projects[rules_conditional][subdir] = "contrib"
 projects[token][version] = "1.5"
 projects[token][subdir] = "contrib"
 
-projects[units][version] = "1.0-alpha2"
-projects[units][subdir] = "contrib"
-
 projects[url][version] = "1.0"
 projects[url][subdir] = "contrib"
 
@@ -163,6 +160,12 @@ projects[dfv][download][type] = "git"
 projects[dfv][download][url] = "http://git.drupal.org/project/dfv.git"
 projects[dfv][download][branch] = "7.x-1.x"
 projects[dfv][download][revision] = "f731625c256d42adf1c496d523ce74798aee407c"
+
+projects[units][subdir] = "contrib"
+projects[units][download][type] = "git"
+projects[units][download][url] = "http://git.drupal.org/project/units.git"
+projects[units][download][branch] = "7.x-1.x"
+projects[units][download][revision] = "36d838b85a71c4afb3419690482f4abe1d39764c"
 
 projects[name][subdir] = "contrib"
 projects[name][version] = "1.x-dev"

@@ -326,9 +326,10 @@ function erpal_crm_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -469,7 +470,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-
+  
   /* Display: Activity list */
   $handler = $view->new_display('panel_pane', 'Activity list', 'panel_pane_1');
   $handler->display->display_options['defaults']['footer'] = FALSE;
@@ -548,16 +549,6 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_crm_activity']['field'] = 'edit_crm_activity';
   $handler->display->display_options['fields']['edit_crm_activity']['text'] = 'Edit';
   $handler->display->display_options['fields']['edit_crm_activity']['redirect'] = 0;
-  $handler->display->display_options['allow']['use_pager'] = 0;
-  $handler->display->display_options['allow']['items_per_page'] = 0;
-  $handler->display->display_options['allow']['offset'] = 0;
-  $handler->display->display_options['allow']['link_to_view'] = 0;
-  $handler->display->display_options['allow']['more_link'] = 0;
-  $handler->display->display_options['allow']['path_override'] = 0;
-  $handler->display->display_options['allow']['title_override'] = 0;
-  $handler->display->display_options['allow']['exposed_form'] = 0;
-  $handler->display->display_options['allow']['fields_override'] = 0;
-  $handler->display->display_options['inherit_panels_path'] = '1';
   /* Field: Bulk operations: CRM Core Activity */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'crm_core_activity';
@@ -618,7 +609,17 @@ function erpal_crm_ui_views_default_views() {
       'label' => '',
     ),
   );
-
+  $handler->display->display_options['allow']['use_pager'] = 0;
+  $handler->display->display_options['allow']['items_per_page'] = 0;
+  $handler->display->display_options['allow']['offset'] = 0;
+  $handler->display->display_options['allow']['link_to_view'] = 0;
+  $handler->display->display_options['allow']['more_link'] = 0;
+  $handler->display->display_options['allow']['path_override'] = 0;
+  $handler->display->display_options['allow']['title_override'] = 0;
+  $handler->display->display_options['allow']['exposed_form'] = 0;
+  $handler->display->display_options['allow']['fields_override'] = 0;
+  $handler->display->display_options['inherit_panels_path'] = '1';
+  
   /* Display: Activities by Contact */
   $handler = $view->new_display('panel_pane', 'Activities by Contact', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -631,10 +632,9 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_activity_customer_target_id']['id'] = 'field_activity_customer_target_id';
-  $handler->display->display_options['relationships']['field_activity_customer_target_id']['table'] = 'field_data_field_activity_customer';
-  $handler->display->display_options['relationships']['field_activity_customer_target_id']['field'] = 'field_activity_customer_target_id';
-  $handler->display->display_options['relationships']['field_activity_customer_target_id']['required'] = TRUE;
+  $handler->display->display_options['relationships']['field_activity_participants_target_id']['id'] = 'field_activity_participants_target_id';
+  $handler->display->display_options['relationships']['field_activity_participants_target_id']['table'] = 'field_data_field_activity_participants';
+  $handler->display->display_options['relationships']['field_activity_participants_target_id']['field'] = 'field_activity_participants_target_id';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: CRM Core Activity: Activity ID */
   $handler->display->display_options['fields']['activity_id']['id'] = 'activity_id';
@@ -710,7 +710,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['arguments']['contact_id']['id'] = 'contact_id';
   $handler->display->display_options['arguments']['contact_id']['table'] = 'crm_core_contact';
   $handler->display->display_options['arguments']['contact_id']['field'] = 'contact_id';
-  $handler->display->display_options['arguments']['contact_id']['relationship'] = 'field_activity_customer_target_id';
+  $handler->display->display_options['arguments']['contact_id']['relationship'] = 'field_activity_participants_target_id';
   $handler->display->display_options['arguments']['contact_id']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['contact_id']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['contact_id']['summary']['number_of_records'] = '0';
@@ -756,7 +756,8 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'CRM Contact: Contact ID',
     ),
   );
-
+  $handler->display->display_options['inherit_panels_path'] = '1';
+  
   /* Display: Activities by Sales Process */
   $handler = $view->new_display('panel_pane', 'Activities by Sales Process', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -929,6 +930,7 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
+  $handler->display->display_options['inherit_panels_path'] = '1';
   $translatables['erpal_crm_activities'] = array(
     t('Master'),
     t('more'),
@@ -957,14 +959,14 @@ function erpal_crm_ui_views_default_views() {
     t('Title'),
     t('Activity list'),
     t('@total rows'),
-    t('CRM Core Activity'),
-    t('- Choose an operation -'),
     t('Edit link'),
     t('Edit'),
+    t('CRM Core Activity'),
+    t('- Choose an operation -'),
     t('View panes'),
     t('Activities by Contact'),
     t('Activities'),
-    t('CRM Core Contact entity referenced from field_activity_customer'),
+    t('CRM Core Contact entity referenced from field_activity_participants'),
     t('All'),
     t('Activities by Sales Process'),
     t('Communication'),

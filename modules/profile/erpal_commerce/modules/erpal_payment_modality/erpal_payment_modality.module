@@ -278,6 +278,11 @@ function erpal_payment_modality_field_extra_fields() {
   foreach (erpal_payment_modality_types() as $type) {
     $extra['erpal_payment_modality'][$type->type] = array(
       'form' => array(
+        'title_default' => array(
+          'label' => 'Auto generate title',
+          'description' => t('If you uncheck, you can change pattern of title'),
+          'weight' => -5,
+        ),
         'title' => array(
           'label' => 'Title',
           'description' => t('ERPAL payment modality module element'),

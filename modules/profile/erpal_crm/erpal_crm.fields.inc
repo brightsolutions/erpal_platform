@@ -895,6 +895,17 @@ function _erpal_crm_contact_type_default_instances($type) {
     ),
   );
 
+  // Save the default image first to get the file id.
+  $uri = 'public://erpal_contact_default_image.png';
+  if ($file = file_load_multiple(array(), array('uri' => $uri))) {
+    $file = reset($file);
+  }
+  else {
+    $handle = fopen(drupal_get_path('module', 'erpal_crm') . '/images/erpal_contact_default_image.png', 'r');
+    $file = file_save_data($handle, $uri);  
+    fclose($handle);
+  } 
+
   $instances['field_contact_picture'] = array(
     'bundle' => $type,
     'deleted' => 0,
@@ -917,12 +928,12 @@ function _erpal_crm_contact_type_default_instances($type) {
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
-      'default_image' => 0,
+      'default_image' => $file->fid,
       'file_directory' => 'images/contact',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '5 MB',
-      'max_resolution' => '2000x2000',
-      'min_resolution' => '100x100',
+      'max_resolution' => '',
+      'min_resolution' => '',
       'title_field' => 0,
       'user_register_form' => FALSE,
     ),
@@ -969,14 +980,9 @@ function _erpal_crm_contact_type_default_instances($type) {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'relation_view_formatter',
-        'settings' => array(
-          'hide_current_entity' => FALSE,
-          'relation_type_label' => 0,
-          'view_mode' => 'default',
-        ),
-        'type' => 'rendered_relation_entity',
-        'weight' => 5,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'crm_core_contact',
