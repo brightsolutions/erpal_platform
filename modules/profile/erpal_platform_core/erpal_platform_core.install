@@ -19,6 +19,6 @@ function erpal_platform_core_install() {
   variable_set('jquery_ui_multiselect_widget_multiple', 0);
   variable_set('jquery_ui_multiselect_widget_filter', 1);
   variable_set('jquery_ui_multiselect_widget_filter_auto_reset', 1);
-  variable_set('jquery_ui_multiselect_widget_selectedlist', 0);
+  variable_set('jquery_ui_multiselect_widget_selectedlist', 1);
 
 }
