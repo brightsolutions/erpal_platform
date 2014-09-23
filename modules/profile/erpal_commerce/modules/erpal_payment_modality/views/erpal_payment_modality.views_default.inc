@@ -303,7 +303,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
   $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
   $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
-  $handler->display->display_options['fields']['commerce_unit_price']['label'] = 'Price excl. tax';
+  $handler->display->display_options['fields']['commerce_price']['label'] = 'Price excl. tax';
   $handler->display->display_options['fields']['commerce_price']['relationship'] = 'commerce_product_product_id';
   $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['commerce_price']['settings'] = array(

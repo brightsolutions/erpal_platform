@@ -374,17 +374,42 @@ function erpal_commerce_field_widget_info() {
   $widgets['erpal_commerce_line_item'] = array(
     'label' => t('ERPAL Dynamic line item widget'),
     'field types' => array('commerce_line_item_reference'),
-    'settings' => array(),
+    'settings' => array(
+      'line_item_type' => 'product',
+    ),
   );
 
   return $widgets;
 }
 
+/**
+ * Implements hook_field_widget_settings_form()
+ */
+function erpal_commerce_field_widget_settings_form($field, $instance) {
+  $widget = $instance['widget'];
+  $defaults = field_info_widget_settings($widget['type']);
+  $settings = array_merge($defaults, $widget['settings']);
+  $form = array();
+
+  if ($widget['type'] == 'erpal_commerce_line_item') {
+    $form['line_item_type'] = array(
+      '#type' => 'select',
+      '#multiple' => TRUE,
+      '#title' => t('Available countries'),
+      '#options' => array_keys(commerce_line_item_types()),
+      '#default_value' => $settings['line_item_type'],
+    );
+  }
+
+  return $form;
+}
 
 /**
  * Implements hook_field_widget_form().
  */
 function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $settings = $instance['widget']['settings'];
+
   drupal_add_css(drupal_get_path('module', 'erpal_commerce') . '/css/line_item_widget.css', 'file');
   drupal_add_js(drupal_get_path('module', 'erpal_commerce') . '/js/line_item_widget.js', 'file');
   if (!empty($form_state['triggering_element']['#field_name']) && $form_state['triggering_element']['#field_name'] == 'commerce_product') {
@@ -403,11 +428,12 @@ function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instanc
   }
 
   $element['#delta'] = $delta;
+  $element['#line_item_type'] = $settings['line_item_type'];
   if (!empty($items[$delta]['line_item_id'])) {
     $line_item = commerce_line_item_load($items[$delta]['line_item_id']);
   }
   else {
-    $line_item = commerce_line_item_new('product', $element['#entity']->order_id);
+    $line_item = commerce_line_item_new($settings['line_item_type'], $element['#entity']->order_id);
   }
 
   $element += array(
@@ -447,14 +473,19 @@ function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instanc
   );
 
   $element += _field_invoke_default('form', 'commerce_line_item', $line_item, $form, $form_state);
-  $element['commerce_product']['#weight'] = -4;
-  $element['commerce_product'][$langcode]['#required'] = FALSE;
-  $element['commerce_product'][$langcode]['#size'] = 15;
-  $element['commerce_product'][$langcode]['#ajax'] = array(
-    'callback' => 'erpal_commerce_field_widget_callback',
-    'wrapper' => 'erpal-commerce-wrapper--' . $delta,
-    'event' => 'change blur'
-  );
+
+  // Added ajax for product field.
+  if (!empty($element['commerce_product'])) {
+    $element['commerce_product']['#weight'] = -4;
+    $element['commerce_product'][$langcode]['#required'] = FALSE;
+    $element['commerce_product'][$langcode]['#size'] = 15;
+    $element['commerce_product'][$langcode]['#ajax'] = array(
+      'callback' => 'erpal_commerce_field_widget_callback',
+      'wrapper' => 'erpal-commerce-wrapper--' . $delta,
+      'event' => 'change blur'
+    );
+  }
+
   $element['commerce_unit_price'][$langcode][0]['amount']['#required'] = !empty($line_item->line_item_id);
 
   if (!empty($product[0]['product_id'])) {
@@ -504,6 +535,7 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
   $value = array();
   $error = FALSE;
   $delta = $element['#delta'];
+  $line_item_type = $element['#line_item_type'];
 
   if (!empty($form_state['values']['commerce_line_items'][LANGUAGE_NONE][$delta])) {
     $values = $form_state['values']['commerce_line_items'][LANGUAGE_NONE][$delta];
@@ -563,17 +595,28 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
           // Otherwise update the unit price amount if it has changed.
           $line_item->commerce_unit_price = $unit_price;
         }
-        $field_payment_modality = field_get_items('commerce_line_item', $line_item, 'field_payment_modality');
-        $payment_modality_language = field_language('commerce_line_item', $line_item, 'field_payment_modality');
-        $line_item->field_payment_modality[$payment_modality_language] = array();
-        foreach ($field_payment_modality as $payment_modality_id) {
-          if (!empty($payment_modality_id['target_id'])) {
-            $line_item->field_payment_modality[$payment_modality_language][] = array('target_id' => $payment_modality_id['target_id']);
+
+        // Helper function for cleare entity referance fields.
+        $check_field = function($line_item, $field_name) {
+          $field = field_get_items('commerce_line_item', $line_item, $field_name);
+          if (!empty($field)) {
+            $language = field_language('commerce_line_item', $line_item, $field_name);
+            $line_item->{$field_name}[$language] = array();
+            foreach ($field as $id) {
+              if (!empty($id['target_id'])) {
+                $line_item->{$field_name}[$language][] = array('target_id' => $id['target_id']);
+              }
+            }
           }
-        }
+        };
+
+        // Cleare entity reference fields.
+        $check_field($line_item, 'field_payment_modality');
+        $check_field($line_item, 'field_line_item_order');
+
 
         // If this type specifies a valid add form callback function...
-        if ($callback = commerce_line_item_type_callback('product', 'add_form_submit')) {
+        if ($callback = commerce_line_item_type_callback($line_item_type, 'add_form_submit')) {
           // Allow the callback to alter data onto the line item to be saved and
           // to return an error message if something goes wrong.
           $error = $callback($line_item, $element, $form_state, $form);

@@ -375,24 +375,32 @@ function erpal_payment_modality_erpal_payment_modality_type_insert($payment_moda
 function erpal_payment_modality_flush_caches() {
   // Change field 'commerce_line_items' widget to 'inline_entity_form' and
   // add new view for display.
-  $commerce_order_types = array('quote', 'commerce_order');
+  $commerce_order_types = array('quote', 'commerce_order', 'invoice');
   foreach ($commerce_order_types as $commerce_order_type) {
     $info_instance = field_info_instance('commerce_order', 'commerce_line_items', $commerce_order_type);
     if (!empty($info_instance)) {
-      $view = 'erpal_line_items|block_1';
-      $info_instance['display']['administrator']['settings']['view'] = $view;
-      $info_instance['display']['customer']['settings']['view'] = $view;
-      $info_instance['display']['default']['settings']['view'] = $view;
+      if ($commerce_order_type != 'invoice') {
+        $view = 'erpal_line_items|block_1';
+        $info_instance['display']['administrator']['settings']['view'] = $view;
+        $info_instance['display']['customer']['settings']['view'] = $view;
+        $info_instance['display']['default']['settings']['view'] = $view;
+      }
 
       $info_instance['widget'] = array(
         'module' => 'erpal_commerce',
         'settings' => array(
           'fields' => array(),
+          'line_item_type' => 'product',
           'type_settings' => array(),
         ),
         'type' => 'erpal_commerce_line_item',
         'weight' => -10,
       );
+
+      if ($commerce_order_type == 'invoice') {
+        $info_instance['widget']['settings']['line_item_type'] = 'invoice';
+      }
+
       field_update_instance($info_instance);
     }
   }

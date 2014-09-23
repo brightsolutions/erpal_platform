@@ -26,26 +26,15 @@ function erpal_payment_modality_add_default_fields() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_amount',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
+    'foreign keys' => array(),
+    'indexes' => array(),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'number',
     'settings' => array(
-      'max_length' => 255,
+      'decimal_separator' => '.',
     ),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'number_float',
   );
 
   // Exported field_base: 'field_amount_type'
@@ -153,10 +142,15 @@ function erpal_payment_modality_add_default_fields() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 3,
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'erpal_payment_modality',
@@ -169,16 +163,17 @@ function erpal_payment_modality_add_default_fields() {
         'status' => 0,
         'view' => '',
       ),
-      'text_processing' => 0,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 7,
-      ),
-      'type' => 'text_textfield',
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
       'weight' => -4,
     ),
   );
