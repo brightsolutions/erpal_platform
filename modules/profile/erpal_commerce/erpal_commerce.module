@@ -649,7 +649,8 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
  * Implements hook_form_alter().
  */
 function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
-
+  $page = homebox_get_page('dashboard');
+  homebox_save_page($page);
   // Fix path query maxlength.
   if (in_array($form_id, array('cat_ui_add_form', 'cat_ui_edit_form')) && isset($form['cat_actions'])) {
     foreach ($form['cat_actions'] as $key => $value) {
@@ -965,12 +966,16 @@ function erpal_commerce_action_info() {
  */
 function erpal_commerce_create_invoice_form($context, &$form_state) {
   global $user;
+
+  // Try to find order for selected line items.
+  $order_id = erpal_commerce_create_invoice_search_order($context, $form_state);
+
   // Include the forms file from the Order module.
   module_load_include('inc', 'commerce_order_ui', 'includes/commerce_order.forms');
 
   // Replicate order to invoice and unset unused fields.
-  if (is_numeric(arg(3))) {
-    $order = replicate_clone_entity('commerce_order', commerce_order_load(arg(3)));
+  if ($order_id) {
+    $order = replicate_clone_entity('commerce_order', commerce_order_load($order_id));
   }
   else {
     $order = commerce_order_new($user->uid, NULL, 'invoice');
@@ -997,9 +1002,9 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
     'commerce_line_items',
     'field_commerce_billy_cancel_date',
   );
-  if (is_numeric(arg(3))) {
+  if ($order_id) {
     $language = $form['field_invoice_order']['#language'];
-    $form['field_invoice_order'][$language][0]['target_id']['#default_value'] = 'Order ' . $order_number . ' (' . arg(3) . ')';
+    $form['field_invoice_order'][$language][0]['target_id']['#default_value'] = 'Order ' . $order_number . ' (' . $order_id . ')';
   }
 
   foreach ($hide_fields as $hide_field) {
@@ -1009,6 +1014,26 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
   }
 
   return $form;
+}
+
+/**
+ * Try to find order for selected line items.
+ */
+function erpal_commerce_create_invoice_search_order($context, $form_state) {
+  $order_id = FALSE;
+  if (!empty($form_state['values']['views_bulk_operations'])) {
+    $values = array_filter($form_state['values']['views_bulk_operations']);
+    $line_item_id = reset($values);
+    $line_item = commerce_line_item_load($line_item_id);
+    $order = field_get_items('commerce_line_item', $line_item, 'field_line_item_order');
+    if (!empty($order)) {
+      $order_id = $order[0]['target_id'];
+    }
+  }
+  if (!$order_id && is_numeric(arg(3))) {
+    $order_id = arg(3);
+  }
+  return $order_id;
 }
 
 /**
@@ -1161,6 +1186,28 @@ function erpal_commerce_flush_caches() {
     $info_instance['display']['customer']['settings']['view'] = $view;
     $info_instance['display']['default']['settings']['view'] = $view;
     field_update_instance($info_instance);
+  }
+
+  // Change all fields from date/time to simple date.
+  $date_fields = array(
+    'field_commerce_billy_cancel_date',
+    'field_commerce_billy_i_date',
+    'field_line_item_delivery_date',
+    'field_date_item_single'
+  );
+  foreach ($date_fields as $date_field) {
+    $field = field_info_field($date_field);
+    if ($field) {
+      $field['settings']['granularity'] = array(
+        'day' => 'day',
+        'hour' => 0,
+        'minute' => 0,
+        'month' => 'month',
+        'second' => 0,
+        'year' => 'year',
+      );
+      field_update_field($field);
+    }
   }
 }
 

@@ -152,6 +152,67 @@ function erpal_commerce_views_default_views_alter(&$views) {
         'label' => 'CRM Contact: Contact ID',
       ),
     );
+    
+    /* Display: dashboard */
+    $handler = $view->new_display('block', 'dashboard', 'block_1');
+    $handler->display->display_options['defaults']['title'] = FALSE;
+    $handler->display->display_options['title'] = 'Invoices';
+    $handler->display->display_options['defaults']['use_more'] = FALSE;
+    $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+    $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+    $handler->display->display_options['use_more_always'] = TRUE;
+    $handler->display->display_options['defaults']['use_more_text'] = FALSE;
+    $handler->display->display_options['defaults']['pager'] = FALSE;
+    $handler->display->display_options['pager']['type'] = 'some';
+    $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+    $handler->display->display_options['pager']['options']['offset'] = '0';
+    $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+    $handler->display->display_options['style_plugin'] = 'table';
+    $handler->display->display_options['defaults']['style_options'] = FALSE;
+    $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+    $handler->display->display_options['defaults']['row_options'] = FALSE;
+    $handler->display->display_options['defaults']['footer'] = FALSE;
+    /* Footer: Global: Text area */
+    $handler->display->display_options['footer']['area']['id'] = 'area';
+    $handler->display->display_options['footer']['area']['table'] = 'views';
+    $handler->display->display_options['footer']['area']['field'] = 'area';
+    $handler->display->display_options['footer']['area']['content'] = '<a href="/invoices" class="link-global-view">Full view</a>';
+    $handler->display->display_options['footer']['area']['format'] = 'filtered_html';
+    $handler->display->display_options['defaults']['fields'] = FALSE;
+    /* Field: Commerce Order: Order number */
+    $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
+    $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
+    $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
+    $handler->display->display_options['fields']['order_number']['label'] = 'Invoice number';
+    $handler->display->display_options['fields']['order_number']['alter']['path'] = 'admin/commerce/orders/[order_id]/pdf';
+    $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
+    /* Field: Commerce Order: Invoice PDF */
+    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['id'] = 'commerce_billy_pdf_invoice_link';
+    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['table'] = 'views_entity_commerce_order';
+    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['field'] = 'commerce_billy_pdf_invoice_link';
+    $handler->display->display_options['fields']['commerce_billy_pdf_invoice_link']['label'] = 'Download PDF';
+    /* Field: Commerce Order: Order total */
+    $handler->display->display_options['fields']['commerce_order_total']['id'] = 'commerce_order_total';
+    $handler->display->display_options['fields']['commerce_order_total']['table'] = 'field_data_commerce_order_total';
+    $handler->display->display_options['fields']['commerce_order_total']['field'] = 'commerce_order_total';
+    $handler->display->display_options['fields']['commerce_order_total']['label'] = 'Invoice total';
+    $handler->display->display_options['fields']['commerce_order_total']['click_sort_column'] = 'amount';
+    $handler->display->display_options['fields']['commerce_order_total']['settings'] = array(
+      'calculation' => FALSE,
+    );
+    /* Field: Commerce Order: Edit link */
+    $handler->display->display_options['fields']['edit_order']['id'] = 'edit_order';
+    $handler->display->display_options['fields']['edit_order']['table'] = 'commerce_order';
+    $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
+    $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+    $handler->display->display_options['defaults']['filters'] = FALSE;
+    /* Filter criterion: Commerce Order: Order type */
+    $handler->display->display_options['filters']['type']['id'] = 'type';
+    $handler->display->display_options['filters']['type']['table'] = 'commerce_order';
+    $handler->display->display_options['filters']['type']['field'] = 'type';
+    $handler->display->display_options['filters']['type']['value'] = array(
+      'invoice' => 'invoice',
+    );
 
   }
 }

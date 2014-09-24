@@ -21,4 +21,8 @@ function erpal_platform_core_install() {
   variable_set('jquery_ui_multiselect_widget_filter_auto_reset', 1);
   variable_set('jquery_ui_multiselect_widget_selectedlist', 1);
 
+  // Set new front page.
+  variable_set('site_frontpage', 'home');
+  $page = homebox_get_page('dashboard');
+  homebox_save_page($page);
 }

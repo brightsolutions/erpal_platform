@@ -167,6 +167,13 @@ projects[units][download][url] = "http://git.drupal.org/project/units.git"
 projects[units][download][branch] = "7.x-1.x"
 projects[units][download][revision] = "36d838b85a71c4afb3419690482f4abe1d39764c"
 
+projects[homebox][subdir] = "contrib"
+projects[homebox][download][type] = "git"
+projects[homebox][download][url] = "http://git.drupal.org/project/homebox.git"
+projects[homebox][download][branch] = "7.x-2.x"
+projects[homebox][download][revision] = "27ccfd7b36095a35f00c2573f046926e2d20a03d"
+projects[homebox][patch][] = "https://www.drupal.org/files/issues/homebox-percentage_width-2015203-3.patch"
+
 projects[name][subdir] = "contrib"
 projects[name][version] = "1.x-dev"
 projects[name][download][type] = "git"
