@@ -143,6 +143,11 @@ projects[jquery_ui_multiselect_widget][version] = "1.11"
 
 
 ; ### DEV VERSIONS of contrib modules ###
+projects[timed_messages][subdir] = "contrib"
+projects[timed_messages][download][type] = "git"
+projects[timed_messages][download][url] = "http://git.drupal.org/project/timed_messages.git"
+projects[timed_messages][download][tag] = "1.x-1.1"
+
 projects[pathauto_entity][subdir] = "contrib"
 projects[pathauto_entity][download][type] = "git"
 projects[pathauto_entity][download][url] = "http://git.drupal.org/project/pathauto_entity.git"
