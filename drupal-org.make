@@ -254,5 +254,8 @@ libraries[jquery][download][url] = "http://code.jquery.com/jquery-1.11.1.min.js"
 libraries[jquery-ui-multiselect-widget][download][type] = "file"
 libraries[jquery-ui-multiselect-widget][download][url] = "https://github.com/ehynds/jquery-ui-multiselect-widget/archive/master.zip"
 
+libraries[pause][download][type] = "file"
+libraries[pause][download][url] = "https://github.com/tobia/Pause/archive/master.zip"
+
 ; ### Themes ###
 projects[omega][version] = "4.2"
