@@ -649,8 +649,6 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
  * Implements hook_form_alter().
  */
 function erpal_commerce_form_alter(&$form, &$form_state, $form_id) {
-  $page = homebox_get_page('dashboard');
-  homebox_save_page($page);
   // Fix path query maxlength.
   if (in_array($form_id, array('cat_ui_add_form', 'cat_ui_edit_form')) && isset($form['cat_actions'])) {
     foreach ($form['cat_actions'] as $key => $value) {
@@ -753,27 +751,29 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
   // Set default sales process if we use another type of activities.
   if ($form_state['commerce_order']->type == 'quote') {
     $params = drupal_get_query_parameters();
-    if (isset($params['activity_id'])) {
+    if (!empty($params['activity_id'])) {
       $activity = crm_core_activity_load($params['activity_id']);
       $language = $form['field_sales_process']['#language'];
       $sales_process = field_get_items('crm_core_activity', $activity, 'field_activity_sales_process');
-      $sales_process = crm_core_activity_load($sales_process[0]['target_id']);
-
-      if (!empty($sales_process->activity_id)) {
-        $form['field_sales_process'][$language][0]['target_id']['#default_value'] = $sales_process->title . ' (' . $sales_process->activity_id . ')';
-      }
-
-      // Set default Customer for sales Process.
-      $customer_profiles = field_get_items('crm_core_activity', $sales_process, 'field_activity_customer');
-      if (isset($customer_profiles[0]['target_id'])) {
-        $customer = crm_core_contact_load($customer_profiles[0]['target_id']);
-        $default_value = crm_core_contact_label($customer) . ' (' . $customer->contact_id . ')';
-        $form['field_customer'][$language][0]['target_id']['#default_value'] = $default_value;
-
-        $language = $form['commerce_customer_billing']['#language'];
-        $options = erpal_commerce_get_profiles($customer->contact_id);
-        $form['commerce_customer_billing'][$language]['#options'] = $options;
-        $form['commerce_customer_billing'][$language]['#default_value'] = erpal_commerce_set_default_profile($options);
+      if (!empty($sales_process[0]['target_id'])) {
+        $sales_process = crm_core_activity_load($sales_process[0]['target_id']);
+  
+        if (!empty($sales_process->activity_id)) {
+          $form['field_sales_process'][$language][0]['target_id']['#default_value'] = $sales_process->title . ' (' . $sales_process->activity_id . ')';
+        }
+  
+        // Set default Customer for sales Process.
+        $customer_profiles = field_get_items('crm_core_activity', $sales_process, 'field_activity_customer');
+        if (isset($customer_profiles[0]['target_id'])) {
+          $customer = crm_core_contact_load($customer_profiles[0]['target_id']);
+          $default_value = crm_core_contact_label($customer) . ' (' . $customer->contact_id . ')';
+          $form['field_customer'][$language][0]['target_id']['#default_value'] = $default_value;
+  
+          $language = $form['commerce_customer_billing']['#language'];
+          $options = erpal_commerce_get_profiles($customer->contact_id);
+          $form['commerce_customer_billing'][$language]['#options'] = $options;
+          $form['commerce_customer_billing'][$language]['#default_value'] = erpal_commerce_set_default_profile($options);
+        }
       }
     }
   }
