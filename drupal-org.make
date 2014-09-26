@@ -134,6 +134,7 @@ projects[subpathauto][version] = "1.3"
 
 projects[jqmulti][subdir] = "contrib"
 projects[jqmulti][version] = "1.0"
+projects[jqmulti][patch][] = "http://www.drupal.org/files/issues/jqmulti-fixed-bug-with-path-to-libraries-.patch"
 
 projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "2.4"
