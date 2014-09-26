@@ -450,6 +450,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -461,6 +462,10 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'Currently there are no activities in a system.';
   $handler->display->display_options['empty']['area']['format'] = 'plain_text';
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_activity_customer_target_id']['id'] = 'field_activity_customer_target_id';
+  $handler->display->display_options['relationships']['field_activity_customer_target_id']['table'] = 'field_data_field_activity_customer';
+  $handler->display->display_options['relationships']['field_activity_customer_target_id']['field'] = 'field_activity_customer_target_id';
   /* Field: CRM Core Activity: Activity ID */
   $handler->display->display_options['fields']['activity_id']['id'] = 'activity_id';
   $handler->display->display_options['fields']['activity_id']['table'] = 'crm_core_activity';
@@ -596,6 +601,11 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['footer']['result']['table'] = 'views';
   $handler->display->display_options['footer']['result']['field'] = 'result';
   $handler->display->display_options['footer']['result']['content'] = '@total rows';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_activity_customer_target_id']['id'] = 'field_activity_customer_target_id';
+  $handler->display->display_options['relationships']['field_activity_customer_target_id']['table'] = 'field_data_field_activity_customer';
+  $handler->display->display_options['relationships']['field_activity_customer_target_id']['field'] = 'field_activity_customer_target_id';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: CRM Core Activity: Activity ID */
   $handler->display->display_options['fields']['activity_id']['id'] = 'activity_id';
@@ -726,6 +736,67 @@ function erpal_crm_ui_views_default_views() {
       'label' => '',
     ),
   );
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: CRM Core Activity: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'crm_core_activity';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = 'contains';
+  $handler->display->display_options['filters']['title']['group'] = 1;
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Title';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Core Activity: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'crm_core_activity';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
+  $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
+  $handler->display->display_options['filters']['type']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['relationship'] = 'field_activity_customer_target_id';
+  $handler->display->display_options['filters']['contact_name']['operator'] = 'word';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Customer';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Activity: Status (field_activity_status) */
+  $handler->display->display_options['filters']['field_activity_status_value']['id'] = 'field_activity_status_value';
+  $handler->display->display_options['filters']['field_activity_status_value']['table'] = 'field_data_field_activity_status';
+  $handler->display->display_options['filters']['field_activity_status_value']['field'] = 'field_activity_status_value';
+  $handler->display->display_options['filters']['field_activity_status_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_activity_status_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_activity_status_value']['expose']['operator_id'] = 'field_activity_status_value_op';
+  $handler->display->display_options['filters']['field_activity_status_value']['expose']['label'] = 'Status';
+  $handler->display->display_options['filters']['field_activity_status_value']['expose']['operator'] = 'field_activity_status_value_op';
+  $handler->display->display_options['filters']['field_activity_status_value']['expose']['identifier'] = 'field_activity_status_value';
+  $handler->display->display_options['filters']['field_activity_status_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
   $handler->display->display_options['allow']['use_pager'] = 0;
   $handler->display->display_options['allow']['items_per_page'] = 0;
   $handler->display->display_options['allow']['offset'] = 0;
@@ -823,17 +894,11 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_crm_activity']['text'] = 'Edit';
   $handler->display->display_options['fields']['edit_crm_activity']['redirect'] = 0;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: CRM Contact: Contact ID */
-  $handler->display->display_options['arguments']['contact_id']['id'] = 'contact_id';
-  $handler->display->display_options['arguments']['contact_id']['table'] = 'crm_core_contact';
-  $handler->display->display_options['arguments']['contact_id']['field'] = 'contact_id';
-  $handler->display->display_options['arguments']['contact_id']['relationship'] = 'field_activity_participants_target_id';
-  $handler->display->display_options['arguments']['contact_id']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['contact_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['contact_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['contact_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['contact_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: CRM Core Activity: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -860,6 +925,49 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['filters']['field_activity_status_value']['expose']['operator'] = 'field_activity_status_value_op';
   $handler->display->display_options['filters']['field_activity_status_value']['expose']['identifier'] = 'field_activity_status_value';
   $handler->display->display_options['filters']['field_activity_status_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Contact: Contact ID */
+  $handler->display->display_options['filters']['contact_id']['id'] = 'contact_id';
+  $handler->display->display_options['filters']['contact_id']['table'] = 'crm_core_contact';
+  $handler->display->display_options['filters']['contact_id']['field'] = 'contact_id';
+  $handler->display->display_options['filters']['contact_id']['relationship'] = 'field_activity_participants_target_id';
+  $handler->display->display_options['filters']['contact_id']['group'] = 2;
+  $handler->display->display_options['filters']['contact_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_id']['expose']['operator_id'] = 'contact_id_op';
+  $handler->display->display_options['filters']['contact_id']['expose']['label'] = 'Contact ID';
+  $handler->display->display_options['filters']['contact_id']['expose']['operator'] = 'contact_id_op';
+  $handler->display->display_options['filters']['contact_id']['expose']['identifier'] = 'contact_id';
+  $handler->display->display_options['filters']['contact_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Activity: Customer (field_activity_customer) */
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['id'] = 'field_activity_customer_target_id';
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['table'] = 'field_data_field_activity_customer';
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['field'] = 'field_activity_customer_target_id';
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['group'] = 2;
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['operator_id'] = 'field_activity_customer_target_id_op';
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['label'] = 'Customer (field_activity_customer)';
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['operator'] = 'field_activity_customer_target_id_op';
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['identifier'] = 'customer';
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Activity: Main contact (field_activity_main_contact) */
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['id'] = 'field_activity_main_contact_target_id';
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['table'] = 'field_data_field_activity_main_contact';
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['field'] = 'field_activity_main_contact_target_id';
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['group'] = 2;
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['expose']['operator_id'] = 'field_activity_main_contact_target_id_op';
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['expose']['label'] = 'Main contact (field_activity_main_contact)';
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['expose']['operator'] = 'field_activity_main_contact_target_id_op';
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['expose']['identifier'] = 'main_contact';
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
   );
@@ -893,6 +1001,10 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['relationships']['field_activity_sales_process_target_id']['id'] = 'field_activity_sales_process_target_id';
   $handler->display->display_options['relationships']['field_activity_sales_process_target_id']['table'] = 'field_data_field_activity_sales_process';
   $handler->display->display_options['relationships']['field_activity_sales_process_target_id']['field'] = 'field_activity_sales_process_target_id';
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_activity_customer_target_id']['id'] = 'field_activity_customer_target_id';
+  $handler->display->display_options['relationships']['field_activity_customer_target_id']['table'] = 'field_data_field_activity_customer';
+  $handler->display->display_options['relationships']['field_activity_customer_target_id']['field'] = 'field_activity_customer_target_id';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: CRM Core Activity: Activity ID */
   $handler->display->display_options['fields']['activity_id']['id'] = 'activity_id';
@@ -1009,17 +1121,19 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity: Customer (field_activity_customer) */
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['id'] = 'field_activity_customer_target_id';
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['table'] = 'field_data_field_activity_customer';
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['field'] = 'field_activity_customer_target_id';
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['group'] = 1;
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['operator_id'] = 'field_activity_customer_target_id_op';
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['label'] = 'Customer';
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['operator'] = 'field_activity_customer_target_id_op';
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['identifier'] = 'field_activity_customer_target_id';
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['remember_roles'] = array(
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['relationship'] = 'field_activity_customer_target_id';
+  $handler->display->display_options['filters']['contact_name']['operator'] = 'word';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Customer';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
   );
@@ -1118,6 +1232,7 @@ function erpal_crm_ui_views_default_views() {
     t('next ›'),
     t('last »'),
     t('Currently there are no activities in a system.'),
+    t('CRM Core Contact entity referenced from field_activity_customer'),
     t('.'),
     t('Activity title'),
     t('Type'),
@@ -1137,11 +1252,14 @@ function erpal_crm_ui_views_default_views() {
     t('View panes'),
     t('Activities by Contact'),
     t('CRM Core Contact entity referenced from field_activity_participants'),
-    t('All'),
+    t('Contact ID'),
+    t('Customer (field_activity_customer)'),
+    t('Main contact (field_activity_main_contact)'),
     t('Activities by Sales Process'),
     t('Communication'),
     t('CRM Activity entity referenced from field_activity_sales_process'),
     t('Notes'),
+    t('All'),
     t('dashboard'),
     t('<a href="/activities" class="link-global-view">Full view</a>'),
     t('Currently there are no activities.'),

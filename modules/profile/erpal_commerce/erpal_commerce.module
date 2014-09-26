@@ -25,16 +25,7 @@ function erpal_commerce_menu() {
     'type' => MENU_NORMAL_ITEM,
     'file' => 'erpal_commerce.admin.inc',
   );
-  $items['order/%commerce_order/delete'] = array(
-    'title' => 'Delete',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('erpal_commerce_order_delete_form', 1),
-    'access callback' => 'commerce_order_access',
-    'access arguments' => array('delete', 1),
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 20,
-    'context' => MENU_CONTEXT_INLINE,
-  );
+
   return $items;
 }
 
@@ -1192,7 +1183,6 @@ function erpal_commerce_flush_caches() {
   $date_fields = array(
     'field_commerce_billy_cancel_date',
     'field_commerce_billy_i_date',
-    'field_line_item_delivery_date',
     'field_date_item_single'
   );
   foreach ($date_fields as $date_field) {
@@ -1208,6 +1198,33 @@ function erpal_commerce_flush_caches() {
       );
       field_update_field($field);
     }
+  }
+
+  // Change format  of date from long to medium.
+  $date_fields = array(
+    'single',
+    'repeatable',
+    'with_end',
+  );
+  foreach ($date_fields as $date_field) {
+    $info_instance = field_info_instance('date_item', 'field_date_item_' . $date_field, $date_field);
+    if ($info_instance) {
+      $info_instance['display']['default']['settings']['format_type'] = 'medium';
+      field_update_instance($info_instance);
+    }
+  }
+
+  // Hide budget for time trackings
+  $info_instance = field_info_instance('erpal_output', 'field_output_budget', 'time');
+  if ($info_instance) {
+    $info_instance['widget'] = array(
+      'active' => 1,
+      'module' => 'field_extrawidgets',
+      'settings' => array(),
+      'type' => 'field_extrawidgets_hidden',
+      'weight' => 3,
+    );
+    field_update_instance($info_instance);
   }
 }
 

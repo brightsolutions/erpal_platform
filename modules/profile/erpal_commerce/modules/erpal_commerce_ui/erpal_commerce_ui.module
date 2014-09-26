@@ -39,6 +39,14 @@ function erpal_commerce_ui_menu() {
 }
 
 /**
+ * Implements hook_page_build().
+ */
+function erpal_commerce_ui_page_build(&$page) {
+  global $user;
+  $page['content']['#attached']['js'][] = drupal_get_path('module', 'erpal_commerce_ui') . '/js/erpal_commerce_ui.js';
+}
+
+/**
  * Implements hook_commerce_billy_order_types_alter().
  *
  * Alter the order types to which need add invoice fields.
@@ -344,7 +352,6 @@ function erpal_commerce_ui_pdf_html($orders) {
  * Implements hook_commerce_order_view().
  */
 function erpal_commerce_ui_commerce_order_view($order, $view_mode) {
-  drupal_add_js(drupal_get_path('module', 'erpal_commerce_ui') . '/js/erpal_commerce_ui.js', 'file');
   // Add content variables for the PDF generation.
   $settings = variable_get('erpal_order_pdf_text_settings', array());
   foreach ($settings as &$value) {

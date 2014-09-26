@@ -28,6 +28,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['access']['perm'] = 'edit any commerce_order entity of bundle commerce_order';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '50';
@@ -205,6 +206,11 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['footer']['result']['table'] = 'views';
   $handler->display->display_options['footer']['result']['field'] = 'result';
   $handler->display->display_options['footer']['result']['content'] = '@total rows';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_customer_target_id']['id'] = 'field_customer_target_id';
+  $handler->display->display_options['relationships']['field_customer_target_id']['table'] = 'field_data_field_customer';
+  $handler->display->display_options['relationships']['field_customer_target_id']['field'] = 'field_customer_target_id';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Commerce Order: Order type */
@@ -238,25 +244,28 @@ function erpal_commerce_ui_views_default_views() {
     3 => 0,
   );
   $handler->display->display_options['filters']['status']['expose']['reduce'] = TRUE;
-  /* Filter criterion: Commerce Order: Customer (field_customer) */
-  $handler->display->display_options['filters']['field_customer_target_id']['id'] = 'field_customer_target_id';
-  $handler->display->display_options['filters']['field_customer_target_id']['table'] = 'field_data_field_customer';
-  $handler->display->display_options['filters']['field_customer_target_id']['field'] = 'field_customer_target_id';
-  $handler->display->display_options['filters']['field_customer_target_id']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_customer_target_id']['expose']['operator_id'] = 'field_customer_target_id_op';
-  $handler->display->display_options['filters']['field_customer_target_id']['expose']['label'] = 'Customer';
-  $handler->display->display_options['filters']['field_customer_target_id']['expose']['operator'] = 'field_customer_target_id_op';
-  $handler->display->display_options['filters']['field_customer_target_id']['expose']['identifier'] = 'field_customer_target_id';
-  $handler->display->display_options['filters']['field_customer_target_id']['expose']['remember_roles'] = array(
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['relationship'] = 'field_customer_target_id';
+  $handler->display->display_options['filters']['contact_name']['operator'] = 'word';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Customer';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
-    3 => 0,
   );
   /* Filter criterion: Commerce Order: Order number */
   $handler->display->display_options['filters']['order_number']['id'] = 'order_number';
   $handler->display->display_options['filters']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['filters']['order_number']['field'] = 'order_number';
   $handler->display->display_options['filters']['order_number']['operator'] = 'contains';
+  $handler->display->display_options['filters']['order_number']['group'] = 1;
   $handler->display->display_options['filters']['order_number']['exposed'] = TRUE;
   $handler->display->display_options['filters']['order_number']['expose']['operator_id'] = 'order_number_op';
   $handler->display->display_options['filters']['order_number']['expose']['label'] = 'Order number';
@@ -284,6 +293,11 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['footer']['result']['table'] = 'views';
   $handler->display->display_options['footer']['result']['field'] = 'result';
   $handler->display->display_options['footer']['result']['content'] = '@total rows';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_customer_target_id']['id'] = 'field_customer_target_id';
+  $handler->display->display_options['relationships']['field_customer_target_id']['table'] = 'field_data_field_customer';
+  $handler->display->display_options['relationships']['field_customer_target_id']['field'] = 'field_customer_target_id';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: Commerce Order */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -427,25 +441,28 @@ function erpal_commerce_ui_views_default_views() {
     3 => 0,
   );
   $handler->display->display_options['filters']['status']['expose']['reduce'] = TRUE;
-  /* Filter criterion: Commerce Order: Customer (field_customer) */
-  $handler->display->display_options['filters']['field_customer_target_id']['id'] = 'field_customer_target_id';
-  $handler->display->display_options['filters']['field_customer_target_id']['table'] = 'field_data_field_customer';
-  $handler->display->display_options['filters']['field_customer_target_id']['field'] = 'field_customer_target_id';
-  $handler->display->display_options['filters']['field_customer_target_id']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_customer_target_id']['expose']['operator_id'] = 'field_customer_target_id_op';
-  $handler->display->display_options['filters']['field_customer_target_id']['expose']['label'] = 'Customer';
-  $handler->display->display_options['filters']['field_customer_target_id']['expose']['operator'] = 'field_customer_target_id_op';
-  $handler->display->display_options['filters']['field_customer_target_id']['expose']['identifier'] = 'field_customer_target_id';
-  $handler->display->display_options['filters']['field_customer_target_id']['expose']['remember_roles'] = array(
+  /* Filter criterion: CRM Core Contact: Household */
+  $handler->display->display_options['filters']['contact_name']['id'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['table'] = 'field_data_contact_name';
+  $handler->display->display_options['filters']['contact_name']['field'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['relationship'] = 'field_customer_target_id';
+  $handler->display->display_options['filters']['contact_name']['operator'] = 'word';
+  $handler->display->display_options['filters']['contact_name']['group'] = 1;
+  $handler->display->display_options['filters']['contact_name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['contact_name']['expose']['operator_id'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['label'] = 'Customer';
+  $handler->display->display_options['filters']['contact_name']['expose']['operator'] = 'contact_name_op';
+  $handler->display->display_options['filters']['contact_name']['expose']['identifier'] = 'contact_name';
+  $handler->display->display_options['filters']['contact_name']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
-    3 => 0,
   );
   /* Filter criterion: Commerce Order: Order number */
   $handler->display->display_options['filters']['order_number']['id'] = 'order_number';
   $handler->display->display_options['filters']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['filters']['order_number']['field'] = 'order_number';
   $handler->display->display_options['filters']['order_number']['operator'] = 'contains';
+  $handler->display->display_options['filters']['order_number']['group'] = 1;
   $handler->display->display_options['filters']['order_number']['exposed'] = TRUE;
   $handler->display->display_options['filters']['order_number']['expose']['operator_id'] = 'order_number_op';
   $handler->display->display_options['filters']['order_number']['expose']['label'] = 'Order number';
@@ -1075,6 +1092,7 @@ function erpal_commerce_ui_views_default_views() {
     t('Edit link'),
     t('Admin page'),
     t('@total rows'),
+    t('CRM Core Contact entity referenced from field_customer'),
     t('User page'),
     t('Edit'),
     t('Activity by Order'),
@@ -1087,7 +1105,6 @@ function erpal_commerce_ui_views_default_views() {
     t('Orders'),
     t('CRM Activity entity referenced from field_sales_process'),
     t('Orders by Contact'),
-    t('CRM Core Contact entity referenced from field_customer'),
     t('Quote by Order'),
     t('Quote'),
     t('Quotes not found. Please, create new quote.'),
@@ -2088,6 +2105,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['arguments']['line_item_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['line_item_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['line_item_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['line_item_id']['break_phrase'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   
