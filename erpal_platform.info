@@ -1,4 +1,4 @@
-name = ERPAL
+name = ERPAL Platform
 description = Install ERPAL Platform
 core = 7.x
 php = 5.3
