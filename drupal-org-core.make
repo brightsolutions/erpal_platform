@@ -1,6 +1,6 @@
 api = 2
 core = 7.x
-projects[drupal][version] = 7.31
+projects[drupal][version] = 7.32
 
 ; Patches for Core
 projects[drupal][patch][] = "http://drupal.org/files/drupal7-allow_change_system-requirements-1772316-18.patch"
