@@ -215,36 +215,24 @@ projects[relation_dialog][download][revision] = "fa981fe904a306bc65ec309fd7eef9d
 projects[relation_dialog][patch][] = "https://www.drupal.org/files/issues/relation_dialog-add-entities-support_2309579_1.patch"
 
 ; ### ERPAL contributed modules ###
-projects[erpal_core][subdir] = "erpal"
-projects[erpal_core][download][type] = "git"
-projects[erpal_core][download][url] = "http://git.drupal.org/project/erpal_core.git"
-projects[erpal_core][download][branch] = "7.x-3.x"
+projects[erpal_core][version] = "3.0-alpha1"
+projects[erpal_core][subdir] = "contrib"
 
-projects[erpal_project][subdir] = "erpal"
-projects[erpal_project][download][type] = "git"
-projects[erpal_project][download][url] = "http://git.drupal.org/project/erpal_project.git"
-projects[erpal_project][download][branch] = "7.x-3.x"
+projects[erpal_project][version] = "3.0-alpha1"
+projects[erpal_project][subdir] = "contrib"
 
-projects[erpal_invoice][subdir] = "erpal"
-projects[erpal_invoice][download][type] = "git"
-projects[erpal_invoice][download][url] = "http://git.drupal.org/project/erpal_invoice.git"
-projects[erpal_invoice][download][branch] = "7.x-3.x"
+projects[erpal_invoice][version] = "3.0-alpha1"
+projects[erpal_invoice][subdir] = "contrib"
 
-projects[erpal_quote][subdir] = "erpal"
-projects[erpal_quote][download][type] = "git"
-projects[erpal_quote][download][url] = "http://git.drupal.org/project/erpal_quote.git"
-projects[erpal_quote][download][branch] = "7.x-3.x"
+projects[erpal_quote][version] = "3.0-alpha1"
+projects[erpal_quote][subdir] = "contrib"
 
-projects[erpal_reports][subdir] = "erpal"
-projects[erpal_reports][download][type] = "git"
-projects[erpal_reports][download][url] = "http://git.drupal.org/project/erpal_reports.git"
-projects[erpal_reports][download][branch] = "7.x-3.x"
+projects[erpal_reports][version] = "3.0-alpha1"
+projects[erpal_reports][subdir] = "contrib"
 
-; ### Erpal themes ###
-projects[erpal_theme][type] = "theme"
-projects[erpal_theme][download][type] = "git"
-projects[erpal_theme][download][url] = "http://git.drupal.org/project/erpal_theme.git"
-projects[erpal_theme][download][branch] = "7.x-3.x"
+; ### ERPAL themes ###
+projects[erpal_theme][version] = "3.0-alpha1"
+projects[erpal_theme][subdir] = "contrib"
 
 ; ### Libraries ###
 libraries[dompdf][download][type] = "file"
