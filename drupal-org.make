@@ -260,4 +260,4 @@ libraries[pause][download][type] = "file"
 libraries[pause][download][url] = "https://github.com/tobia/Pause/archive/master.zip"
 
 ; ### Themes ###
-projects[omega][version] = "4.3"
+projects[omega][version] = "4.2"
