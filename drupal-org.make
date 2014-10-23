@@ -30,10 +30,10 @@ projects[ctools][subdir] = "contrib"
 projects[custom_order_number][version] = "1.0-alpha1"
 projects[custom_order_number][subdir] = "contrib"
 
-projects[date][version] = "2.7"
+projects[date][version] = "2.8"
 projects[date][subdir] = "contrib"
 
-projects[email][version] = "1.2"
+projects[email][version] = "1.3"
 projects[email][subdir] = "contrib"
 
 projects[entity][version] = "1.5"
@@ -55,7 +55,7 @@ projects[field_collection][subdir] = "contrib"
 projects[field_extrawidgets][version] = "1.1"
 projects[field_extrawidgets][subdir] = "contrib"
 
-projects[field_group][version] = "1.3"
+projects[field_group][version] = "1.4"
 projects[field_group][subdir] = "contrib"
 
 projects[inline_entity_form][version] = "1.5"
@@ -102,10 +102,10 @@ projects[relation_view_formatter][subdir] = "contrib"
 projects[replicate][version] = "1.1"
 projects[replicate][subdir] = "contrib"
 
-projects[rules][version] = "2.6"
+projects[rules][version] = "2.7"
 projects[rules][subdir] = "contrib"
 
-projects[rules_link][version] = "1.0"
+projects[rules_link][version] = "1.1"
 projects[rules_link][subdir] = "contrib"
 
 projects[rules_conditional][version] = "1.0-beta2"
@@ -260,4 +260,4 @@ libraries[pause][download][type] = "file"
 libraries[pause][download][url] = "https://github.com/tobia/Pause/archive/master.zip"
 
 ; ### Themes ###
-projects[omega][version] = "4.2"
+projects[omega][version] = "4.3"
