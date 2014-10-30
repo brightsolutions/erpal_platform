@@ -114,6 +114,31 @@ function erpal_layout_default_page_manager_handlers() {
   $display->content['new-bf44ebdd-7f82-4db8-8b33-eecd5e00c089'] = $pane;
   $display->panels['left'][0] = 'new-bf44ebdd-7f82-4db8-8b33-eecd5e00c089';
   $pane = new stdClass();
+  $pane->pid = 'new-eb400803-4724-4a8f-8d64-cca2eb9a3ccf';
+  $pane->panel = 'right';
+  $pane->type = 'page_title';
+  $pane->subtype = 'page_title';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'markup' => 'h1',
+    'class' => '',
+    'id' => '',
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'eb400803-4724-4a8f-8d64-cca2eb9a3ccf';
+  $display->content['new-eb400803-4724-4a8f-8d64-cca2eb9a3ccf'] = $pane;
+  $display->panels['right'][0] = 'new-eb400803-4724-4a8f-8d64-cca2eb9a3ccf';
+  $pane = new stdClass();
   $pane->pid = 'new-8bb5efef-a892-4216-9c47-8d8290b4a63d';
   $pane->panel = 'right';
   $pane->type = 'page_breadcrumb';
@@ -127,11 +152,11 @@ function erpal_layout_default_page_manager_handlers() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 0;
+  $pane->position = 1;
   $pane->locks = array();
   $pane->uuid = '8bb5efef-a892-4216-9c47-8d8290b4a63d';
   $display->content['new-8bb5efef-a892-4216-9c47-8d8290b4a63d'] = $pane;
-  $display->panels['right'][0] = 'new-8bb5efef-a892-4216-9c47-8d8290b4a63d';
+  $display->panels['right'][1] = 'new-8bb5efef-a892-4216-9c47-8d8290b4a63d';
   $pane = new stdClass();
   $pane->pid = 'new-fc749562-787b-4fc7-9de0-52e4cd994c99';
   $pane->panel = 'right';
@@ -146,11 +171,11 @@ function erpal_layout_default_page_manager_handlers() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 1;
+  $pane->position = 2;
   $pane->locks = array();
   $pane->uuid = 'fc749562-787b-4fc7-9de0-52e4cd994c99';
   $display->content['new-fc749562-787b-4fc7-9de0-52e4cd994c99'] = $pane;
-  $display->panels['right'][1] = 'new-fc749562-787b-4fc7-9de0-52e4cd994c99';
+  $display->panels['right'][2] = 'new-fc749562-787b-4fc7-9de0-52e4cd994c99';
   $pane = new stdClass();
   $pane->pid = 'new-70ce4aba-f141-4439-b17f-101f99fd6eda';
   $pane->panel = 'right';
@@ -168,11 +193,11 @@ function erpal_layout_default_page_manager_handlers() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 2;
+  $pane->position = 3;
   $pane->locks = array();
   $pane->uuid = '70ce4aba-f141-4439-b17f-101f99fd6eda';
   $display->content['new-70ce4aba-f141-4439-b17f-101f99fd6eda'] = $pane;
-  $display->panels['right'][2] = 'new-70ce4aba-f141-4439-b17f-101f99fd6eda';
+  $display->panels['right'][3] = 'new-70ce4aba-f141-4439-b17f-101f99fd6eda';
   $pane = new stdClass();
   $pane->pid = 'new-2afe3fab-96f2-401b-be3b-f06439833880';
   $pane->panel = 'right';
@@ -187,11 +212,11 @@ function erpal_layout_default_page_manager_handlers() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 3;
+  $pane->position = 4;
   $pane->locks = array();
   $pane->uuid = '2afe3fab-96f2-401b-be3b-f06439833880';
   $display->content['new-2afe3fab-96f2-401b-be3b-f06439833880'] = $pane;
-  $display->panels['right'][3] = 'new-2afe3fab-96f2-401b-be3b-f06439833880';
+  $display->panels['right'][4] = 'new-2afe3fab-96f2-401b-be3b-f06439833880';
   $pane = new stdClass();
   $pane->pid = 'new-2e487454-10c6-4d97-b0fc-6b783caeb1b4';
   $pane->panel = 'right';
@@ -201,7 +226,7 @@ function erpal_layout_default_page_manager_handlers() {
   $pane->access = array();
   $pane->configuration = array(
     'context' => 'argument_page_content_1',
-    'override_title' => 0,
+    'override_title' => 1,
     'override_title_text' => '',
   );
   $pane->cache = array();
@@ -210,11 +235,11 @@ function erpal_layout_default_page_manager_handlers() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 4;
+  $pane->position = 5;
   $pane->locks = array();
   $pane->uuid = '2e487454-10c6-4d97-b0fc-6b783caeb1b4';
   $display->content['new-2e487454-10c6-4d97-b0fc-6b783caeb1b4'] = $pane;
-  $display->panels['right'][4] = 'new-2e487454-10c6-4d97-b0fc-6b783caeb1b4';
+  $display->panels['right'][5] = 'new-2e487454-10c6-4d97-b0fc-6b783caeb1b4';
   $pane = new stdClass();
   $pane->pid = 'new-6c70aeca-92eb-4936-aeef-66eaae2774ac';
   $pane->panel = 'righttabs';
@@ -302,7 +327,6 @@ function erpal_layout_default_page_manager_handlers() {
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
-
   $export['site_template_panel_context'] = $handler;
 
   return $export;
