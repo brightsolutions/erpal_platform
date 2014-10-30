@@ -193,6 +193,12 @@ projects[panels_tabs][download][url] = "http://git.drupal.org/project/panels_tab
 projects[panels_tabs][download][branch] = "7.x-2.x"
 projects[panels_tabs][download][revision] = "2caec501daab91001712d153398df585ff6c238c"
 
+projects[views_filter_args][subdir] = "contrib"
+projects[views_filter_args][download][type] = "git"
+projects[views_filter_args][download][url] = "http://git.drupal.org/project/views_filter_args.git"
+projects[views_filter_args][download][branch] = "7.x-1.x"
+projects[views_filter_args][download][revision] = "e4af394c8977adbea60b08c3fdad8fce299ab538"
+
 projects[commerce_order_types][subdir] = "contrib"
 projects[commerce_order_types][version] = "1.x-dev"
 projects[commerce_order_types][download][type] = "git"
