@@ -74,11 +74,13 @@ function erpal_commerce_menu_alter(&$items) {
 function erpal_commerce_commerce_tax_rate_info() {
   $tax_rates = array();
   $settings = variable_get('erpal_vendor_settings', array());
-  $tax_rates['vat'] = array(
-    'title' => t('VAT'),
-    'rate' => !empty($settings['vat_rate']) ? $settings['vat_rate'] : '.19',
-    'type' => 'vat',
-  );
+  if ((isset($settings['vat_rate_enable']) && !empty($settings['vat_rate_enable'])) || !isset($settings['vat_rate_enable'])) {
+    $tax_rates['vat'] = array(
+      'title' => t('VAT'),
+      'rate' => !empty($settings['vat_rate']) ? $settings['vat_rate'] : '.19',
+      'type' => 'vat',
+    );
+  }
 
   return $tax_rates;
 }
@@ -355,6 +357,42 @@ function erpal_commerce_dialog_entityreference_delete_link($element, $widget_set
   return array();
 }
 
+/**
+ * Implements hook_field_formatter_info().
+ */
+function erpal_commerce_field_formatter_info() {
+  return array(
+    'erpal_commerce_commerce_price_base_price' => array(
+      'label' => t('Base price component'),
+      'field types' => array('commerce_price'),
+      'settings' => array(
+        'calculation' => FALSE,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function erpal_commerce_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  // Loop through each price value in this field.
+  foreach ($items as $delta => $item) {
+    // Do not render a price if the amount is NULL (i.e. non-zero empty value).
+    if (is_null($item['amount'])) {
+      // TODO: Consider if we should render as N/A or something indicating a
+      // price was not available as opposed to just leaving a blank.
+      continue;
+    }
+    $base_component = commerce_price_component_total($item, 'base_price');
+    $element[$delta] = array(
+      '#markup' => commerce_currency_format($base_component['amount'], $base_component['currency_code'], $entity),
+    );
+  }
+
+  return $element;
+}
 
 /**
  * Implements hook_field_widget_info().

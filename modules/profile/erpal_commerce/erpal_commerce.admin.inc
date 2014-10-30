@@ -71,6 +71,12 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
     '#options' => $currencies,
     '#required' => TRUE,
   );
+  $form['erpal_vendor_settings']['vat_rate_enable'] = array(
+    '#title' => st('Enable Default VAT rate'),
+    '#type' => 'checkbox',
+    '#default_value' => isset($settings['vat_rate_enable']) ? $settings['vat_rate_enable'] : TRUE,
+    '#description' => st('Enable or disable default VAT rate on site.'),
+  );
   $form['erpal_vendor_settings']['vat_rate'] = array(
     '#title' => st('Default VAT rate'),
     '#type' => 'textfield',
@@ -78,6 +84,11 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
     '#description' => st('Enter the default VAT rate in percent for your country.'),
     '#maxlength' => 255,
     '#required' => TRUE,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="erpal_vendor_settings[vat_rate_enable]"]' => array('checked' => TRUE),
+      ),
+    ),
   );
   $form = system_settings_form($form);
   // Use custom submit handler.
