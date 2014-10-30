@@ -19,7 +19,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'ERPAL Orders';
@@ -197,7 +197,7 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
     3 => 0,
   );
-  
+
   /* Display: Admin page */
   $handler = $view->new_display('page', 'Admin page', 'page');
   $handler->display->display_options['defaults']['footer'] = FALSE;
@@ -284,7 +284,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['weight'] = '0';
-  
+
   /* Display: User page */
   $handler = $view->new_display('page', 'User page', 'page_1');
   $handler->display->display_options['defaults']['footer'] = FALSE;
@@ -473,7 +473,7 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['path'] = 'orders';
-  
+
   /* Display: Activity by Order */
   $handler = $view->new_display('panel_pane', 'Activity by Order', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -538,7 +538,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-  
+
   /* Display: Orders by Activity */
   $handler = $view->new_display('panel_pane', 'Orders by Activity', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -636,7 +636,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-  
+
   /* Display: Orders by Contact */
   $handler = $view->new_display('panel_pane', 'Orders by Contact', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -722,7 +722,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'CRM Contact: Contact ID',
     ),
   );
-  
+
   /* Display: Quote by Order */
   $handler = $view->new_display('panel_pane', 'Quote by Order', 'panel_pane_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -813,7 +813,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-  
+
   /* Display: Invoices by Order */
   $handler = $view->new_display('panel_pane', 'Invoices by Order', 'panel_pane_5');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -909,7 +909,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-  
+
   /* Display: Orders by Invoice */
   $handler = $view->new_display('panel_pane', 'Orders by Invoice', 'panel_pane_6');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1008,7 +1008,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-  
+
   /* Display: dashboard */
   $handler = $view->new_display('block', 'dashboard', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1235,7 +1235,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -1397,7 +1397,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
-  
+
   /* Display: Revenue */
   $handler = $view->new_display('panel_pane', 'Revenue', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1588,7 +1588,7 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: Revenue page */
   $handler = $view->new_display('page', 'Revenue page', 'page_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1827,7 +1827,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 1;
-  
+
   /* Display: Project Revenue */
   $handler = $view->new_display('panel_pane', 'Project Revenue', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2039,7 +2039,7 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: View page */
   $handler = $view->new_display('block', 'View page', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2109,7 +2109,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['arguments']['line_item_id']['break_phrase'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  
+
   /* Display: dashboard */
   $handler = $view->new_display('block', 'dashboard', 'block_2');
   $handler->display->display_options['defaults']['title'] = FALSE;

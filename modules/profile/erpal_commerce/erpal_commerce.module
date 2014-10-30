@@ -106,16 +106,14 @@ function erpal_commerce_entity_info_alter(&$entity_info) {
 }
 
 /**
- * Callback for entity uri of order, it need for correct working of order
- *  deletion.
+ * Callback for entity uri of order.
  */
 function erpal_commerce_commerce_order_uri($order) {
   return array('path' => 'admin/commerce/orders/' . $order->order_id);
 }
 
 /**
- * Callback for entity uri of line item, it need for correct working of order
- *  deletion.
+ * Callback for entity uri of line item.
  */
 function erpal_commerce_line_item_uri($order) {
   return array('path' => NULL);
@@ -412,7 +410,7 @@ function erpal_commerce_field_widget_info() {
 }
 
 /**
- * Implements hook_field_widget_settings_form()
+ * Implements hook_field_widget_settings_form().
  */
 function erpal_commerce_field_widget_settings_form($field, $instance) {
   $widget = $instance['widget'];
@@ -600,7 +598,12 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
       $unit_price = $values['commerce_unit_price'];
       $amount = $unit_price[$element['#language']][0]['amount'];
       $currency_code = $unit_price[$element['#language']][0]['currency_code'];
-      $name = implode('][', array_merge($element['commerce_unit_price']['#parents'], array($element['#language'], 0, 'amount')));
+      $name = implode('][',
+        array_merge(
+          $element['commerce_unit_price']['#parents'],
+          array($element['#language'], 0, 'amount')
+        )
+      );
 
       if (!empty($line_item->line_item_label) && empty($amount)) {
         $error = TRUE;
@@ -642,7 +645,6 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
         // Cleare entity reference fields.
         $check_field($line_item, 'field_payment_modality');
         $check_field($line_item, 'field_line_item_order');
-
 
         // If this type specifies a valid add form callback function...
         if ($callback = commerce_line_item_type_callback($line_item_type, 'add_form_submit')) {
@@ -786,18 +788,18 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
       $sales_process = field_get_items('crm_core_activity', $activity, 'field_activity_sales_process');
       if (!empty($sales_process[0]['target_id'])) {
         $sales_process = crm_core_activity_load($sales_process[0]['target_id']);
-  
+
         if (!empty($sales_process->activity_id)) {
           $form['field_sales_process'][$language][0]['target_id']['#default_value'] = $sales_process->title . ' (' . $sales_process->activity_id . ')';
         }
-  
+
         // Set default Customer for sales Process.
         $customer_profiles = field_get_items('crm_core_activity', $sales_process, 'field_activity_customer');
         if (isset($customer_profiles[0]['target_id'])) {
           $customer = crm_core_contact_load($customer_profiles[0]['target_id']);
           $default_value = crm_core_contact_label($customer) . ' (' . $customer->contact_id . ')';
           $form['field_customer'][$language][0]['target_id']['#default_value'] = $default_value;
-  
+
           $language = $form['commerce_customer_billing']['#language'];
           $options = erpal_commerce_get_profiles($customer->contact_id);
           $form['commerce_customer_billing'][$language]['#options'] = $options;
@@ -1252,7 +1254,7 @@ function erpal_commerce_flush_caches() {
     }
   }
 
-  // Hide budget for time trackings
+  // Hide budget for time trackings.
   $info_instance = field_info_instance('erpal_output', 'field_output_budget', 'time');
   if ($info_instance) {
     $info_instance['widget'] = array(
@@ -1367,7 +1369,14 @@ function erpal_commerce_entity_insert($entity, $type) {
       $bundle = $entity->{$info['bundle keys']['bundle']};
       $bundle_label = $info['bundles'][$bundle]['label'];
 
-      drupal_set_message(t('New @type was created (<a href="@url">@title</a>)', array('@url' => url($url['path'], array('absolute' => TRUE)), '@type' => $bundle_label, '@title' => $label)));
+      drupal_set_message(
+        t('New @type was created (<a href="@url">@title</a>)',
+        array(
+          '@url' => url($url['path'], array('absolute' => TRUE)),
+          '@type' => $bundle_label,
+          '@title' => $label)
+        )
+      );
     }
   }
 }

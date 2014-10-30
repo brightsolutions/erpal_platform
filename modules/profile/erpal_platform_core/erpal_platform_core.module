@@ -11,12 +11,12 @@
 function erpal_platform_core_homebox() {
   $homeboxes = array();
 
-  $homeboxes['dashboard'] = array (
+  $homeboxes['dashboard'] = array(
     'regions' => 2,
     'cache' => 0,
     'color' => 0,
-    'colors' => 
-    array (
+    'colors' =>
+    array(
       0 => '#E4F0F8',
       1 => '#E4F0F8',
       2 => '#E4F0F8',
@@ -24,10 +24,10 @@ function erpal_platform_core_homebox() {
       4 => '#E4F0F8',
       5 => '#E4F0F8',
     ),
-    'blocks' => 
-    array (
-      'views_erpal_crm_contacts-block_1' => 
-      array (
+    'blocks' =>
+    array(
+      'views_erpal_crm_contacts-block_1' =>
+      array(
         'module' => 'views',
         'delta' => 'erpal_crm_contacts-block_1',
         'region' => 1,
@@ -38,8 +38,8 @@ function erpal_platform_core_homebox() {
         'title' => '',
         'weight' => -14,
       ),
-      'views_erpal_order-block_1' => 
-      array (
+      'views_erpal_order-block_1' =>
+      array(
         'module' => 'views',
         'delta' => 'erpal_order-block_1',
         'region' => 2,
@@ -50,8 +50,8 @@ function erpal_platform_core_homebox() {
         'title' => '',
         'weight' => -13,
       ),
-      'views_erpal_crm_activities-block_1' => 
-      array (
+      'views_erpal_crm_activities-block_1' =>
+      array(
         'module' => 'views',
         'delta' => 'erpal_crm_activities-block_1',
         'region' => 1,
@@ -62,8 +62,8 @@ function erpal_platform_core_homebox() {
         'title' => '',
         'weight' => -13,
       ),
-      'views_erpal_quote-block_1' => 
-      array (
+      'views_erpal_quote-block_1' =>
+      array(
         'module' => 'views',
         'delta' => 'erpal_quote-block_1',
         'region' => 2,
@@ -74,8 +74,8 @@ function erpal_platform_core_homebox() {
         'title' => '',
         'weight' => -14,
       ),
-      'views_d0afc51f00108852c945d9f0fbc2962b' => 
-      array (
+      'views_d0afc51f00108852c945d9f0fbc2962b' =>
+      array(
         'module' => 'views',
         'delta' => 'd0afc51f00108852c945d9f0fbc2962b',
         'region' => 2,
@@ -86,8 +86,8 @@ function erpal_platform_core_homebox() {
         'title' => '',
         'weight' => -12,
       ),
-      'views_erpal_invoice-block_1' => 
-      array (
+      'views_erpal_invoice-block_1' =>
+      array(
         'module' => 'views',
         'delta' => 'erpal_invoice-block_1',
         'region' => 2,
@@ -99,17 +99,15 @@ function erpal_platform_core_homebox() {
         'weight' => -11,
       ),
     ),
-    'widths' => 
-    array (
-    ),
+    'widths' => array(),
     'title' => 'Dashboard',
     'path' => 'home',
     'menu' => 0,
     'enabled' => 1,
     'auto_save' => 1,
     'full' => 1,
-    'roles' => 
-    array (
+    'roles' =>
+    array(
       0 => 'authenticated user',
     ),
   );

@@ -152,7 +152,7 @@ function erpal_commerce_views_default_views_alter(&$views) {
         'label' => 'CRM Contact: Contact ID',
       ),
     );
-    
+
     /* Display: dashboard */
     $handler = $view->new_display('block', 'dashboard', 'block_1');
     $handler->display->display_options['defaults']['title'] = FALSE;

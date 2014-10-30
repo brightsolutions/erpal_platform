@@ -74,16 +74,16 @@ function erpal_crm_ui_views_api() {
 }
 
 /**
- * Allows altering a view at the very beginning of views processing, before
- * anything is done.
+ * Allows altering a view at the very beginning of views processing.
  *
  * Adding output to the view can be accomplished by placing text on
  * $view->attachment_before and $view->attachment_after.
- * @param $view
+ * 
+ * @param object $view
  *   The view object about to be processed.
- * @param $display_id
+ * @param int $display_id
  *   The machine name of the active display.
- * @param $args
+ * @param array $args
  *   An array of arguments passed into the view.
  */
 function erpal_crm_ui_views_pre_view(&$view, &$display_id, &$args) {
@@ -284,7 +284,7 @@ function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target
     }
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', $entity_type);
-    if(!empty($instance)
+    if (!empty($instance)
       && isset($instance['widget']['settings']['relation_endpoint_search_by_id'])
       && $instance['widget']['settings']['relation_endpoint_search_by_id']
       && preg_match("/^[0-9]+$/", $string)) {
