@@ -606,7 +606,6 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
     $items = date_default_value($field, $instance, $langcode);
     $invoice->field_line_item_delivery_date[$langcode] = $items;
 
-    commerce_line_item_rebase_unit_price($invoice);
     commerce_line_item_save($invoice);
   }
   return $invoice;
