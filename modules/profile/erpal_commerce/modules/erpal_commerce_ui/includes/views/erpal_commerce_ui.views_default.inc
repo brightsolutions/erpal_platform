@@ -2210,12 +2210,6 @@ function erpal_commerce_ui_views_default_views() {
 
   /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
-  $handler->display->display_options['defaults']['footer'] = FALSE;
-  /* Footer: Global: Result summary */
-  $handler->display->display_options['footer']['result']['id'] = 'result';
-  $handler->display->display_options['footer']['result']['table'] = 'views';
-  $handler->display->display_options['footer']['result']['field'] = 'result';
-  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['title'] = 'Products';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -2280,10 +2274,16 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['style_options']['empty_table'] = TRUE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   /* No results behavior: Commerce Product: Empty text */
   $handler->display->display_options['empty']['empty_text']['id'] = 'empty_text';
   $handler->display->display_options['empty']['empty_text']['table'] = 'commerce_product';
   $handler->display->display_options['empty']['empty_text']['field'] = 'empty_text';
+  $handler->display->display_options['empty']['empty_text']['empty'] = TRUE;
   $handler->display->display_options['empty']['empty_text']['add_path'] = 'product/add/product?destination=products';
   /* Field: Commerce Product revision: Product ID */
   $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
@@ -2303,7 +2303,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['title']['table'] = 'commerce_product';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['title']['alter']['path'] = 'product/[product_id]';
+  $handler->display->display_options['fields']['title']['alter']['path'] = 'product/[product_id]/edit';
   $handler->display->display_options['fields']['title']['link_to_product'] = 0;
   /* Field: Commerce Product: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
@@ -2335,7 +2335,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['sku']['expose']['label'] = 'Filter by SKUs containing';
   $handler->display->display_options['filters']['sku']['expose']['operator'] = 'sku_op';
   $handler->display->display_options['filters']['sku']['expose']['identifier'] = 'sku';
-
+  
   /* Display: Products */
   $handler = $view->new_display('page', 'Products', 'products_page');
   $handler->display->display_options['defaults']['footer'] = FALSE;
@@ -2370,6 +2370,7 @@ function erpal_commerce_ui_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('@total rows'),
     t('SKU'),
     t('Title'),
     t('Type'),
