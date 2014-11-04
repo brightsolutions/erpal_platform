@@ -24,6 +24,9 @@ function erpal_layout_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "panels" && $api == "layouts") {
     return array("version" => "1");
   }
+  if ($module == 'panels_mini' && $api == 'panels_default') {
+    return array('version' => 1);
+  }
 }
 
 /**
@@ -154,10 +157,10 @@ function erpal_layout_default_page_manager_handlers() {
   $display->content['new-b893103e-a6cb-483e-9235-f7f324edf680'] = $pane;
   $display->panels['page-header-left'][1] = 'new-b893103e-a6cb-483e-9235-f7f324edf680';
   $pane = new stdClass();
-  $pane->pid = 'new-0e8c91d8-60fd-4c40-86f2-12f1298f75bf';
+  $pane->pid = 'new-e6de1b56-d3b6-4ce5-9ff3-307e6110cb1b';
   $pane->panel = 'page-header-right';
-  $pane->type = 'block';
-  $pane->subtype = 'system-user-menu';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_dropdown_user_menu';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
@@ -172,9 +175,9 @@ function erpal_layout_default_page_manager_handlers() {
   $pane->extras = array();
   $pane->position = 0;
   $pane->locks = array();
-  $pane->uuid = '0e8c91d8-60fd-4c40-86f2-12f1298f75bf';
-  $display->content['new-0e8c91d8-60fd-4c40-86f2-12f1298f75bf'] = $pane;
-  $display->panels['page-header-right'][0] = 'new-0e8c91d8-60fd-4c40-86f2-12f1298f75bf';
+  $pane->uuid = 'e6de1b56-d3b6-4ce5-9ff3-307e6110cb1b';
+  $display->content['new-e6de1b56-d3b6-4ce5-9ff3-307e6110cb1b'] = $pane;
+  $display->panels['page-header-right'][0] = 'new-e6de1b56-d3b6-4ce5-9ff3-307e6110cb1b';
   $pane = new stdClass();
   $pane->pid = 'new-eb400803-4724-4a8f-8d64-cca2eb9a3ccf';
   $pane->panel = 'right';
@@ -330,6 +333,93 @@ function erpal_layout_default_page_manager_handlers() {
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $export['site_template_panel_context'] = $handler;
+
+  return $export;
+}
+
+/**
+ * Implements hook_default_panels_mini().
+ */
+function erpal_layout_default_panels_mini(){
+  $export = array();
+
+  $mini = new stdClass();
+  $mini->disabled = FALSE; /* Edit this to true to make a default mini disabled initially */
+  $mini->api_version = 1;
+  $mini->name = 'erpal_dropdown_user_menu';
+  $mini->category = '';
+  $mini->admin_title = 'ERPAL dropdown user menu';
+  $mini->admin_description = '';
+  $mini->requiredcontexts = array();
+  $mini->contexts = array();
+  $mini->relationships = array();
+  $display = new panels_display();
+  $display->layout = 'erpaldropdownregion';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'center' => NULL,
+      'trigger' => NULL,
+      'dropdown' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '';
+  $display->uuid = 'cd279c8f-4241-4ca1-b002-f94d7504d188';
+  $display->content = array();
+  $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
+  $pane->panel = 'dropdown';
+  $pane->type = 'block';
+  $pane->subtype = 'system-user-menu';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_title' => 1,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '77fc4a8f-aab6-4801-9fa6-389446ead170';
+  $display->content['new-77fc4a8f-aab6-4801-9fa6-389446ead170'] = $pane;
+  $display->panels['dropdown'][0] = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
+  $pane = new stdClass();
+  $pane->pid = 'new-ef6f9880-106c-4977-8e3b-25d858d75c15';
+  $pane->panel = 'trigger';
+  $pane->type = 'custom';
+  $pane->subtype = 'custom';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'admin_title' => 'User',
+    'title' => '',
+    'body' => '<a href="#"> User</a>',
+    'format' => 'full_html',
+    'substitute' => TRUE,
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'ef6f9880-106c-4977-8e3b-25d858d75c15';
+  $display->content['new-ef6f9880-106c-4977-8e3b-25d858d75c15'] = $pane;
+  $display->panels['trigger'][0] = 'new-ef6f9880-106c-4977-8e3b-25d858d75c15';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
+  $mini->display = $display;
+  $export['profile_details'] = $mini;
 
   return $export;
 }
