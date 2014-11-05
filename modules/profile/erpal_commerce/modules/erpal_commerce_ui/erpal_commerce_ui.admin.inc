@@ -55,7 +55,7 @@ function erpal_commerce_ui_pdf_admin_form($form, &$form_state) {
     '#description' => t('Path to invoice logo.'),
   );
 
-  $css_files = variable_get('erpal_order_pdf_css_files', array(drupal_get_path('module', 'erpal_commerce_ui') . '/css/pdf.css'));
+  $css_files = variable_get('erpal_order_pdf_css_files');
   $default_value = "";
   foreach ($css_files as $file) {
     $default_value .= $file . "\n";
