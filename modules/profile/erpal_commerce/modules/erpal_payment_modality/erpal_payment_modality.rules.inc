@@ -18,7 +18,7 @@ function erpal_payment_modality_rules_action_info() {
       'group' => t('ERPAL Payment Modality'),
     ),
     'erpal_payment_modality_auto_create' => array(
-      'label' => t('Auto creating payment modality on line item creation.'),
+      'label' => t('Create missing payment modality for the line item'),
       'parameter' => array(
         'commerce_line_item' => array('type' => 'commerce_line_item', 'label' => t('Line Item')),
       ),
@@ -75,46 +75,60 @@ function erpal_payment_modality_create_invoice_line_item_delivery($payment_modal
  */
 function erpal_payment_modality_auto_create($line_item) {
 
+  // Get line item's unit. It can be "item" or any measure of time ("day", "hour", etc).
   $field_line_item_unit = field_get_items('commerce_line_item', $line_item, 'field_line_item_unit');
+  if (!empty($field_line_item_unit[0]['value'])) {
+    $line_item_unit = $field_line_item_unit[0]['value'];
+  }
+  else {
+    $field_instance = field_info_instance('commerce_line_item', 'field_line_item_unit', 'product');
+    $line_item_unit = !empty($field_instance['default_value'][0]['value']) ? $field_instance['default_value'][0]['value'] : FALSE;
+  }
+
+  // If we can't define line item type, then we can't create a proper
+  // payment modality for it.
+  if (empty($line_item_unit)) {
+    return;
+  }
+
   $field_payment_modality = field_get_items('commerce_line_item', $line_item, 'field_payment_modality');
   $commerce_total = field_get_items('commerce_line_item', $line_item, 'commerce_total');
   $commerce_unit_price = field_get_items('commerce_line_item', $line_item, 'commerce_unit_price');
-  $percentage = 0;
 
-  // Check for unit item.
-  if (!empty($field_line_item_unit[0]['value']) && $field_line_item_unit[0]['value'] == 'item') {
+  // Get list of time measures (day, hour, minute, etc).
+  $time_measures = array_keys(erpal_core_units_time());
 
-    if (!empty($field_payment_modality)) {
+  // If current line item contains items, then we need to add missing payment
+  // modality with "percent" type (if needed).
+  if ($line_item_unit == 'item') {
+    $percentage = 0;
+    if (!empty($field_payment_modality) && is_array($field_payment_modality)) {
       foreach ($field_payment_modality as $payment_modality_id) {
         $payment_modality = erpal_payment_modality_load($payment_modality_id['target_id']);
         $field_amount = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount');
         $field_amount_type = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount_type');
-        $field_due_with = field_get_items('erpal_payment_modality', $payment_modality, 'field_due_with');
         if (!empty($field_amount_type[0]['value']) && $field_amount_type[0]['value'] == 'percent') {
-          $percentage = $percentage + $field_amount[0]['value'];
+          $percentage += $field_amount[0]['value'];
         }
         else {
           $amount = commerce_currency_decimal_to_amount($field_amount[0]['value'], $commerce_total[0]['currency_code']);
-          $percentage = $percentage + ($amount / $commerce_total[0]['amount']) * 100;
+          $percentage += $amount / $commerce_total[0]['amount'] * 100;
         }
       }
     }
-    $new = 100 - $percentage;
-    if ($new > 0) {
-      $new_amount = $new;
+    if ($percentage < 100) {
+      $new_amount = 100 - $percentage;
       $new_amount_type = 'percent';
     }
   }
 
-  // Check for unit time.
-  $time = array_keys(erpal_core_units_time());
-  if (!empty($field_line_item_unit[0]['value']) && in_array($field_line_item_unit[0]['value'], $time)) {
+  // If current line item measures time, then we need to add payment modality
+  // with "total" type (that measures time).
+  elseif (in_array($line_item_unit, $time_measures)) {
     $new = TRUE;
-    if (!empty($field_payment_modality)) {
+    if (!empty($field_payment_modality) && is_array($field_payment_modality)) {
       foreach ($field_payment_modality as $payment_modality_id) {
         $payment_modality = erpal_payment_modality_load($payment_modality_id['target_id']);
-        $field_amount = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount');
-        $field_amount_type = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount_type');
         $field_due_with = field_get_items('erpal_payment_modality', $payment_modality, 'field_due_with');
         if (!empty($field_due_with[0]['value']) && $field_due_with[0]['value'] == 'delivery') {
           $new = FALSE;
@@ -127,31 +141,26 @@ function erpal_payment_modality_auto_create($line_item) {
     }
   }
 
-  // Create Payment Modality if needed.
+  // Create payment modality for the uncovered parts of line item.
   if (!empty($new_amount) && !empty($new_amount_type)) {
 
     $payment_modality = entity_get_controller('erpal_payment_modality')->create(array('type' => 'payment_modality'));
 
-    $lang = field_language('erpal_payment_modality', $payment_modality, 'field_amount');
-    $payment_modality->field_amount[$lang][0] = array(
-      'value' => $new_amount,
+    $fields = array(
+      'field_amount' => $new_amount,
+      'field_amount_type' => $new_amount_type,
+      'field_due_with' => 'delivery',
     );
 
-    $lang = field_language('erpal_payment_modality', $payment_modality, 'field_amount_type');
-    $payment_modality->field_amount_type[$lang][0] = array(
-      'value' => $new_amount_type,
-    );
-
-    $lang = field_language('erpal_payment_modality', $payment_modality, 'field_due_with');
-    $payment_modality->field_due_with[$lang][0] = array(
-      'value' => 'delivery',
-    );
+    foreach ($fields as $field_name => $field_value) {
+      $field_language = field_language('erpal_payment_modality', $payment_modality, $field_name);
+      $payment_modality->{$field_name}[$field_language][0]['value'] = $field_value;
+    }
 
     erpal_payment_modality_save($payment_modality);
 
-    // Add new Payment modality to line item.
-    $lang = field_language('commerce_line_item', $line_item, 'field_payment_modality');
-    $line_item->field_payment_modality[$lang][] = array('target_id' => $payment_modality->payment_modality_id);
+    // Add new payment modality to the line item.
+    $field_language = field_language('commerce_line_item', $line_item, 'field_payment_modality');
+    $line_item->field_payment_modality[$field_language][] = array('target_id' => $payment_modality->payment_modality_id);
   }
-
 }
