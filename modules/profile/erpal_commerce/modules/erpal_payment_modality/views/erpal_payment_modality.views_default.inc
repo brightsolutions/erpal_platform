@@ -20,7 +20,7 @@ function erpal_payment_modality_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'ERPAL payment modality';
@@ -78,7 +78,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['arguments']['payment_modality_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['payment_modality_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['payment_modality_id']['break_phrase'] = TRUE;
-  
+
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
   $translatables['erpal_payment_modality'] = array(
@@ -106,7 +106,7 @@ function erpal_payment_modality_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -250,7 +250,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
-  
+
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -299,15 +299,15 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['fields']['line_item_label']['id'] = 'line_item_label';
   $handler->display->display_options['fields']['line_item_label']['table'] = 'commerce_line_item';
   $handler->display->display_options['fields']['line_item_label']['field'] = 'line_item_label';
-  /* Field: Commerce Product: Price */
-  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
-  $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
-  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
-  $handler->display->display_options['fields']['commerce_price']['label'] = 'Price excl. tax';
-  $handler->display->display_options['fields']['commerce_price']['relationship'] = 'commerce_product_product_id';
-  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
-  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
-    'calculation' => '0',
+  /* Field: Commerce Line item: Unit price */
+  $handler->display->display_options['fields']['commerce_unit_price_1']['id'] = 'commerce_unit_price_1';
+  $handler->display->display_options['fields']['commerce_unit_price_1']['table'] = 'field_data_commerce_unit_price';
+  $handler->display->display_options['fields']['commerce_unit_price_1']['field'] = 'commerce_unit_price';
+  $handler->display->display_options['fields']['commerce_unit_price_1']['label'] = 'Price excl. tax';
+  $handler->display->display_options['fields']['commerce_unit_price_1']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_unit_price_1']['type'] = 'erpal_commerce_commerce_price_base_price';
+  $handler->display->display_options['fields']['commerce_unit_price_1']['settings'] = array(
+    'calculation' => FALSE,
   );
   /* Field: Commerce Line item: Unit price */
   $handler->display->display_options['fields']['commerce_unit_price']['id'] = 'commerce_unit_price';
@@ -387,8 +387,8 @@ function erpal_payment_modality_views_default_views() {
     t(','),
     t('Type'),
     t('Label'),
-    t('Price'),
-    t('Price with TAX'),
+    t('Price excl. tax'),
+    t('Price incl. tax'),
     t('Unit'),
     t('Quantity'),
     t('Payment modality'),

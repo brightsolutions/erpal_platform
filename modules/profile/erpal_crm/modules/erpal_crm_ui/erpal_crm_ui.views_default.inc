@@ -20,7 +20,7 @@ function erpal_crm_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Customer';
@@ -152,7 +152,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  
+
   /* Display: Contact list */
   $handler = $view->new_display('panel_pane', 'Contact list', 'panel_pane_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -178,7 +178,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['empty']['area']['format'] = 'plain_text';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: Main contact of activity */
   $handler = $view->new_display('panel_pane', 'Main contact of activity', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -220,7 +220,7 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-  
+
   /* Display: Customer of activity */
   $handler = $view->new_display('panel_pane', 'Customer of activity', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -269,7 +269,7 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-  
+
   /* Display: Participiants of activity */
   $handler = $view->new_display('panel_pane', 'Participiants of activity', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -319,7 +319,7 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-  
+
   /* Display: dashboard */
   $handler = $view->new_display('block', 'dashboard', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -441,7 +441,7 @@ function erpal_crm_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Activities';
@@ -591,7 +591,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  
+
   /* Display: Activity list */
   $handler = $view->new_display('panel_pane', 'Activity list', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -933,8 +933,8 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['filters']['contact_id']['table'] = 'crm_core_contact';
   $handler->display->display_options['filters']['contact_id']['field'] = 'contact_id';
   $handler->display->display_options['filters']['contact_id']['relationship'] = 'field_activity_participants_target_id';
+  $handler->display->display_options['filters']['contact_id']['value']['value'] = '!2';
   $handler->display->display_options['filters']['contact_id']['group'] = 2;
-  $handler->display->display_options['filters']['contact_id']['exposed'] = TRUE;
   $handler->display->display_options['filters']['contact_id']['expose']['operator_id'] = 'contact_id_op';
   $handler->display->display_options['filters']['contact_id']['expose']['label'] = 'Contact ID';
   $handler->display->display_options['filters']['contact_id']['expose']['operator'] = 'contact_id_op';
@@ -947,8 +947,8 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['filters']['field_activity_customer_target_id']['id'] = 'field_activity_customer_target_id';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['field'] = 'field_activity_customer_target_id';
+  $handler->display->display_options['filters']['field_activity_customer_target_id']['value']['value'] = '!2';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['group'] = 2;
-  $handler->display->display_options['filters']['field_activity_customer_target_id']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['operator_id'] = 'field_activity_customer_target_id_op';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['label'] = 'Customer (field_activity_customer)';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['expose']['operator'] = 'field_activity_customer_target_id_op';
@@ -961,8 +961,8 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['id'] = 'field_activity_main_contact_target_id';
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['table'] = 'field_data_field_activity_main_contact';
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['field'] = 'field_activity_main_contact_target_id';
+  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['value']['value'] = '!2';
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['group'] = 2;
-  $handler->display->display_options['filters']['field_activity_main_contact_target_id']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['expose']['operator_id'] = 'field_activity_main_contact_target_id_op';
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['expose']['label'] = 'Main contact (field_activity_main_contact)';
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['expose']['operator'] = 'field_activity_main_contact_target_id_op';
@@ -982,7 +982,7 @@ function erpal_crm_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: Activities by Sales Process */
   $handler = $view->new_display('panel_pane', 'Activities by Sales Process', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1162,7 +1162,7 @@ function erpal_crm_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: dashboard */
   $handler = $view->new_display('block', 'dashboard', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;

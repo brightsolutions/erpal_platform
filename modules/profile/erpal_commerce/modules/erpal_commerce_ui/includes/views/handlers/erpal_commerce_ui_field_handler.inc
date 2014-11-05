@@ -10,12 +10,18 @@
  */
 class erpal_commerce_ui_field_handler extends views_handler_field_entity {
 
+  /**
+   * Default options.
+   */
   function option_definition() {
     $options = parent::option_definition();
     $options['text'] = array('default' => '', 'translatable' => TRUE);
     return $options;
   }
 
+  /**
+   * Default options form that provides the label widget.
+   */
   function options_form(&$form, &$form_state) {
     $form['text'] = array(
       '#type' => 'textfield',
@@ -30,12 +36,21 @@ class erpal_commerce_ui_field_handler extends views_handler_field_entity {
     $form['alter']['external'] = array('#access' => FALSE);
   }
 
+  /**
+   * Render the field.
+   *
+   * @param $values
+   *   The values retrieved from the database.
+   */
   function render($values) {
     if ($entity = $this->get_value($values)) {
       return $this->render_link($entity, $values);
     }
   }
 
+  /**
+   * Render the link.
+   */
   function render_link($order, $values) {
     if (erpal_commerce_ui_order_view_access($order)) {
       $this->options['alter']['make_link'] = TRUE;

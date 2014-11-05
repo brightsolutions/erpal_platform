@@ -74,28 +74,6 @@ function erpal_crm_ui_views_api() {
 }
 
 /**
- * Allows altering a view at the very beginning of views processing, before
- * anything is done.
- *
- * Adding output to the view can be accomplished by placing text on
- * $view->attachment_before and $view->attachment_after.
- * @param $view
- *   The view object about to be processed.
- * @param $display_id
- *   The machine name of the active display.
- * @param $args
- *   An array of arguments passed into the view.
- */
-function erpal_crm_ui_views_pre_view(&$view, &$display_id, &$args) {
-  // TODO@: rewrite to cusrom views filter with 'OR'.
-  if ($view->name == 'erpal_crm_activities' && $display_id == 'panel_pane_2') {
-    if (arg(0) == 'crm-core' && is_numeric(arg(2))) {
-      $_GET['contact_id'] = $_GET['customer'] = $_GET['main_contact'] = arg(2);
-    }
-  }
-}
-
-/**
  * Implements hook_ctools_plugin_api().
  *
  * We provide our default pages for page_manager.
@@ -172,11 +150,6 @@ function erpal_crm_ui_form_alter(&$form, &$form_state, $form_id) {
       $language = $form['field_activity_participants']['#language'];
       $form['field_activity_participants'][$language]['#default_value'] = $contact_name;
     }
-  }
-
-  if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-erpal-crm-activities-panel-pane-2') {
-    $form['contact_id']['#type'] = $form['customer']['#type'] = $form['main_contact']['#type'] = 'hidden';
-    unset($form['#info']['filter-contact_id'], $form['#info']['filter-field_activity_customer_target_id'], $form['#info']['filter-field_activity_main_contact_target_id']);
   }
 }
 
@@ -284,7 +257,7 @@ function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target
     }
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', $entity_type);
-    if(!empty($instance)
+    if (!empty($instance)
       && isset($instance['widget']['settings']['relation_endpoint_search_by_id'])
       && $instance['widget']['settings']['relation_endpoint_search_by_id']
       && preg_match("/^[0-9]+$/", $string)) {

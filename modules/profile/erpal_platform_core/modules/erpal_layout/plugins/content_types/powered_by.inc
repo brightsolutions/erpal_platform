@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Plugin definition.
  */
 
@@ -19,8 +20,8 @@ $plugin = array(
  * Render callback.
  */
 function powered_by_content_type_render($subtype, $conf, $args, $context) {
-  $powered_by = '<span class="powered_by_text">' . t('powered by') . '</span><span class="drupal_text"> ' . l('Drupal', 'http://drupal.org') . '</span>';
-  $supported_by = '<span class="supported_by_text">' . t('supported and maintained by') . '</span><span class="bs_text"> ' . l('Bright Solutions GmbH', 'http://www.brightsolutions.de') . '</span>';
+  $powered_by = '<span class="powered_by_text">' . t('powered by') . '</span><span class="drupal_text"> ' . l(t('Drupal'), 'http://drupal.org') . '</span>';
+  $supported_by = '<span class="supported_by_text">' . t('supported and maintained by') . '</span><span class="bs_text"> ' . l(t('Bright Solutions GmbH'), 'http://www.brightsolutions.de') . '</span>';
   $support_powered_by = '<div class="support_powered_by">' . $powered_by . ' - ' . $supported_by . '</div>';
 
   $block = new stdClass();

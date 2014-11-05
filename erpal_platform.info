@@ -74,6 +74,7 @@ dependencies[] = pathauto
 dependencies[] = jqmulti
 dependencies[] = jquery_ui_multiselect_widget
 dependencies[] = homebox
+dependencies[] = views_filter_args
 
 ;ERPAL modules
 dependencies[] = erpal_core_ui

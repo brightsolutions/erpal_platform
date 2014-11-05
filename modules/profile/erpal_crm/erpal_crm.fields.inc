@@ -902,9 +902,9 @@ function _erpal_crm_contact_type_default_instances($type) {
   }
   else {
     $handle = fopen(drupal_get_path('module', 'erpal_crm') . '/images/erpal_contact_default_image.png', 'r');
-    $file = file_save_data($handle, $uri);  
+    $file = file_save_data($handle, $uri);
     fclose($handle);
-  } 
+  }
 
   $instances['field_contact_picture'] = array(
     'bundle' => $type,
