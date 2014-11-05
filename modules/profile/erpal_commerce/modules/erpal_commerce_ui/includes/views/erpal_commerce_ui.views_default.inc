@@ -830,23 +830,15 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'Invoices not found. Please, create new invoice.';
+  $handler->display->display_options['empty']['area']['content'] = 'Invoices not found. Please, create a new invoice.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Commerce Order: Referenced line items */
-  $handler->display->display_options['relationships']['commerce_line_items_line_item_id']['id'] = 'commerce_line_items_line_item_id';
-  $handler->display->display_options['relationships']['commerce_line_items_line_item_id']['table'] = 'field_data_commerce_line_items';
-  $handler->display->display_options['relationships']['commerce_line_items_line_item_id']['field'] = 'commerce_line_items_line_item_id';
-  /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_line_item_order_target_id']['id'] = 'field_line_item_order_target_id';
-  $handler->display->display_options['relationships']['field_line_item_order_target_id']['table'] = 'field_data_field_line_item_order';
-  $handler->display->display_options['relationships']['field_line_item_order_target_id']['field'] = 'field_line_item_order_target_id';
-  $handler->display->display_options['relationships']['field_line_item_order_target_id']['relationship'] = 'commerce_line_items_line_item_id';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Commerce Order: Order number */
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['label'] = 'Invoice number';
   $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
   $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Order: Invoice PDF */
@@ -864,10 +856,12 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['status']['id'] = 'status';
   $handler->display->display_options['fields']['status']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['label'] = 'Invoice status';
   /* Field: Commerce Order: Order total */
   $handler->display->display_options['fields']['commerce_order_total']['id'] = 'commerce_order_total';
   $handler->display->display_options['fields']['commerce_order_total']['table'] = 'field_data_commerce_order_total';
   $handler->display->display_options['fields']['commerce_order_total']['field'] = 'commerce_order_total';
+  $handler->display->display_options['fields']['commerce_order_total']['label'] = 'Invoice total';
   $handler->display->display_options['fields']['commerce_order_total']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['commerce_order_total']['settings'] = array(
     'calculation' => FALSE,
@@ -879,16 +873,15 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
   $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Commerce Order: Order ID */
-  $handler->display->display_options['arguments']['order_id']['id'] = 'order_id';
-  $handler->display->display_options['arguments']['order_id']['table'] = 'commerce_order';
-  $handler->display->display_options['arguments']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['arguments']['order_id']['relationship'] = 'field_line_item_order_target_id';
-  $handler->display->display_options['arguments']['order_id']['default_action'] = 'empty';
-  $handler->display->display_options['arguments']['order_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['order_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['order_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['order_id']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Commerce Order: Order (field_invoice_order) */
+  $handler->display->display_options['arguments']['field_invoice_order_target_id']['id'] = 'field_invoice_order_target_id';
+  $handler->display->display_options['arguments']['field_invoice_order_target_id']['table'] = 'field_data_field_invoice_order';
+  $handler->display->display_options['arguments']['field_invoice_order_target_id']['field'] = 'field_invoice_order_target_id';
+  $handler->display->display_options['arguments']['field_invoice_order_target_id']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['field_invoice_order_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_invoice_order_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_invoice_order_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_invoice_order_target_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Commerce Order: Order type */
@@ -900,13 +893,13 @@ function erpal_commerce_ui_views_default_views() {
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   $handler->display->display_options['argument_input'] = array(
-    'order_id' => array(
+    'field_invoice_order_target_id' => array(
       'type' => 'context',
       'context' => 'entity:commerce_order.order-id',
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
-      'label' => 'Commerce Order: Order ID',
+      'label' => 'Commerce Order: Order (field_invoice_order)',
     ),
   );
 
@@ -932,30 +925,30 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['empty']['area']['content'] = 'Orders not found. Please, create new order.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Entity Reference: Referencing entity */
-  $handler->display->display_options['relationships']['reverse_field_line_item_order_commerce_line_item']['id'] = 'reverse_field_line_item_order_commerce_line_item';
-  $handler->display->display_options['relationships']['reverse_field_line_item_order_commerce_line_item']['table'] = 'commerce_order';
-  $handler->display->display_options['relationships']['reverse_field_line_item_order_commerce_line_item']['field'] = 'reverse_field_line_item_order_commerce_line_item';
-  /* Relationship: Commerce Line Item: Order ID */
-  $handler->display->display_options['relationships']['order_id']['id'] = 'order_id';
-  $handler->display->display_options['relationships']['order_id']['table'] = 'commerce_line_item';
-  $handler->display->display_options['relationships']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['relationships']['order_id']['relationship'] = 'reverse_field_line_item_order_commerce_line_item';
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_invoice_order_target_id']['id'] = 'field_invoice_order_target_id';
+  $handler->display->display_options['relationships']['field_invoice_order_target_id']['table'] = 'field_data_field_invoice_order';
+  $handler->display->display_options['relationships']['field_invoice_order_target_id']['field'] = 'field_invoice_order_target_id';
+  $handler->display->display_options['relationships']['field_invoice_order_target_id']['label'] = 'Order';
+  $handler->display->display_options['relationships']['field_invoice_order_target_id']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Commerce Order: Order number */
   $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['relationship'] = 'field_invoice_order_target_id';
   $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
   $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Order: Order PDF */
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['id'] = 'erpal_commerce_ui_order_link';
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['table'] = 'views_entity_commerce_order';
   $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['field'] = 'erpal_commerce_ui_order_link';
+  $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['relationship'] = 'field_invoice_order_target_id';
   /* Field: Commerce Order: Customer */
   $handler->display->display_options['fields']['field_customer']['id'] = 'field_customer';
   $handler->display->display_options['fields']['field_customer']['table'] = 'field_data_field_customer';
   $handler->display->display_options['fields']['field_customer']['field'] = 'field_customer';
+  $handler->display->display_options['fields']['field_customer']['relationship'] = 'field_invoice_order_target_id';
   $handler->display->display_options['fields']['field_customer']['settings'] = array(
     'link' => 1,
   );
@@ -963,10 +956,12 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['status']['id'] = 'status';
   $handler->display->display_options['fields']['status']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['relationship'] = 'field_invoice_order_target_id';
   /* Field: Commerce Order: Order total */
   $handler->display->display_options['fields']['commerce_order_total']['id'] = 'commerce_order_total';
   $handler->display->display_options['fields']['commerce_order_total']['table'] = 'field_data_commerce_order_total';
   $handler->display->display_options['fields']['commerce_order_total']['field'] = 'commerce_order_total';
+  $handler->display->display_options['fields']['commerce_order_total']['relationship'] = 'field_invoice_order_target_id';
   $handler->display->display_options['fields']['commerce_order_total']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['commerce_order_total']['settings'] = array(
     'calculation' => FALSE,
@@ -975,6 +970,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['edit_order']['id'] = 'edit_order';
   $handler->display->display_options['fields']['edit_order']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['edit_order']['field'] = 'edit_order';
+  $handler->display->display_options['fields']['edit_order']['relationship'] = 'field_invoice_order_target_id';
   $handler->display->display_options['fields']['edit_order']['alter']['text'] = 'Edit';
   $handler->display->display_options['fields']['edit_order']['alter']['path'] = 'order/[order_id]/edit';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
@@ -982,7 +978,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['arguments']['order_id']['id'] = 'order_id';
   $handler->display->display_options['arguments']['order_id']['table'] = 'commerce_order';
   $handler->display->display_options['arguments']['order_id']['field'] = 'order_id';
-  $handler->display->display_options['arguments']['order_id']['relationship'] = 'order_id';
   $handler->display->display_options['arguments']['order_id']['default_action'] = 'empty';
   $handler->display->display_options['arguments']['order_id']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['order_id']['summary']['number_of_records'] = '0';
@@ -995,9 +990,17 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'commerce_order';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'commerce_order' => 'commerce_order',
+    'invoice' => 'invoice',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Commerce Order: Order type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['relationship'] = 'field_invoice_order_target_id';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'commerce_order' => 'commerce_order',
+  );
   $handler->display->display_options['argument_input'] = array(
     'order_id' => array(
       'type' => 'context',
@@ -1112,12 +1115,12 @@ function erpal_commerce_ui_views_default_views() {
     t('Quote PDF'),
     t('Invoices by Order'),
     t('Invoices'),
-    t('Invoices not found. Please, create new invoice.'),
-    t('Line items referenced by commerce_line_items'),
-    t('Commerce Order entity referenced from field_line_item_order'),
+    t('Invoices not found. Please, create a new invoice.'),
+    t('Invoice number'),
     t('Invoice PDF'),
+    t('Invoice status'),
+    t('Invoice total'),
     t('Orders by Invoice'),
-    t('Commerce Line item referencing Commerce Order from field_line_item_order'),
     t('Order'),
     t('dashboard'),
     t('<a href="/orders" class="link-global-view">Full view</a>'),
