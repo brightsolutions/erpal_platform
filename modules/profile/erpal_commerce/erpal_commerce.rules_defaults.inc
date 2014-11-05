@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @file
- * erpal_commerce.rules_defaults.inc
+ * Provides default rules for ERPAL Commerce module.
  */
 
 /**
@@ -9,11 +10,11 @@
  */
 function erpal_commerce_default_rules_configuration() {
   $items = array();
-  $items['rules_auto_creating_invoice_line_item_an_advance'] = entity_import('rules_config', '{ "rules_auto_creating_invoice_line_item_an_advance" : {
-      "LABEL" : "Auto creating invoice line item an advance",
+  $items['rules_auto_creating_invoice_line_item_in_advance'] = entity_import('rules_config', '{ "rules_auto_creating_invoice_line_item_in_advance" : {
+      "LABEL" : "Auto creating invoice line item in advance",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
-      "TAGS" : [ "Erpal Commerce" ],
+      "TAGS" : [ "ERPAL Commerce" ],
       "REQUIRES" : [ "rules", "erpal_commerce", "entity" ],
       "ON" : { "commerce_line_item_insert" : [], "commerce_line_item_update" : [] },
       "IF" : [
