@@ -352,7 +352,7 @@ function erpal_layout_default_page_manager_handlers() {
 /**
  * Implements hook_default_panels_mini().
  */
-function erpal_layout_default_panels_mini(){
+function erpal_layout_default_panels_mini() {
   $export = array();
 
   $mini = new stdClass();
@@ -363,7 +363,16 @@ function erpal_layout_default_panels_mini(){
   $mini->admin_title = 'ERPAL dropdown user menu';
   $mini->admin_description = '';
   $mini->requiredcontexts = array();
-  $mini->contexts = array();
+  $mini->contexts = array(
+    0 => array(
+      'identifier' => 'User',
+      'keyword' => 'user',
+      'name' => 'user',
+      'type' => 'current',
+      'uid' => '',
+      'id' => 1,
+    ),
+  );
   $mini->relationships = array();
   $display = new panels_display();
   $display->layout = 'erpaldropdownregion';
@@ -404,18 +413,17 @@ function erpal_layout_default_panels_mini(){
   $display->content['new-77fc4a8f-aab6-4801-9fa6-389446ead170'] = $pane;
   $display->panels['dropdown'][0] = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
   $pane = new stdClass();
-  $pane->pid = 'new-ef6f9880-106c-4977-8e3b-25d858d75c15';
+  $pane->pid = 'new-792ae3c9-cb7b-4204-8061-61af266f24a4';
   $pane->panel = 'trigger';
-  $pane->type = 'custom';
-  $pane->subtype = 'custom';
+  $pane->type = 'user_avatar';
+  $pane->subtype = 'user_avatar';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
-    'admin_title' => 'User',
-    'title' => '',
-    'body' => '<a href="#"> User</a>',
-    'format' => 'full_html',
-    'substitute' => TRUE,
+    'image_style' => 'usermenu_profileimage',
+    'context' => 'context_user_1',
+    'override_title' => 0,
+    'override_title_text' => '',
   );
   $pane->cache = array();
   $pane->style = array(
@@ -425,13 +433,12 @@ function erpal_layout_default_panels_mini(){
   $pane->extras = array();
   $pane->position = 0;
   $pane->locks = array();
-  $pane->uuid = 'ef6f9880-106c-4977-8e3b-25d858d75c15';
-  $display->content['new-ef6f9880-106c-4977-8e3b-25d858d75c15'] = $pane;
-  $display->panels['trigger'][0] = 'new-ef6f9880-106c-4977-8e3b-25d858d75c15';
+  $pane->uuid = '792ae3c9-cb7b-4204-8061-61af266f24a4';
+  $display->content['new-792ae3c9-cb7b-4204-8061-61af266f24a4'] = $pane;
+  $display->panels['trigger'][0] = 'new-792ae3c9-cb7b-4204-8061-61af266f24a4';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
   $mini->display = $display;
-  $export['profile_details'] = $mini;
 
   return $export;
 }
