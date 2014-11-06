@@ -150,13 +150,13 @@ function erpal_platform_vendor_form($form, &$form_state) {
  * Validate handler for "Vendor information" form.
  */
 function erpal_platform_vendor_form_validate($form, $form_state) {
-  $values = $form_state['values'];
+  $vendor = $form_state['values']['vendor'];
 
-  if (!valid_email_address($values['vendor']['vendor_email']['email'])) {
+  if (!empty($vendor['vendor_email']['email']) && !valid_email_address($vendor['vendor_email']['email'])) {
     form_set_error('email', st('The Email-address is not valid!'));
   }
-  $vat_rate = $values['vendor']['vat_rate'];
-  if (!empty($vat_rate) && $vat_rate[0] != '.') {
+
+  if (!empty($vendor['vat_rate']) && $vendor['vat_rate'][0] != '.') {
     form_set_error('vat_rate', st('Incorrect format of VAT rate. Please look description.'));
   }
 }
