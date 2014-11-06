@@ -42,6 +42,12 @@ function erpal_commerce_ui_install() {
   variable_set('erpal_order_pdf_logo', drupal_get_path('module', 'erpal_commerce_ui') . '/images/erpal_logo.jpg');
   variable_set('commerce_quote_pdf_logo', drupal_get_path('module', 'erpal_commerce_ui') . '/images/erpal_logo.jpg');
   variable_set('commerce_billy_pdf_logo', drupal_get_path('module', 'erpal_commerce_ui') . '/images/erpal_logo.jpg');
+
+  // Just make all PDFs same.
+  $csss = array(drupal_get_path('theme', 'erpal_theme') . '/css/erpal-theme.pdf.css');
+  variable_set('commerce_billy_pdf_css_files', $csss);
+  variable_set('erpal_order_pdf_css_files', $csss);
+  variable_set('commerce_quote_pdf_css_files', $csss);
 }
 
 /**

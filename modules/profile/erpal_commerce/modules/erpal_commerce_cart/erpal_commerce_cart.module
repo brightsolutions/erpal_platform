@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Contains hook definitions for ERPAL Commerce Cart module.
+ */
+
+/**
+ * Implements hook_commerce_checkout_pane_info_alter().
+ */
+function erpal_commerce_cart_commerce_checkout_pane_info_alter(&$checkout_panes) {
+
+  // Wrap default commerce customer checkout submit callbacks with our
+  // custom submit callbacks.
+  foreach (commerce_customer_profile_types() as $type => $profile_type) {
+    if (!empty($checkout_panes['customer_profile_' . $type])) {
+      $callback = 'erpal_commerce_cart_customer_profile_checkout_submit';
+      $checkout_panes['customer_profile_' . $type]['callbacks']['checkout_form_submit'] = $callback;
+    }
+  }
+}
+
+/**
+ * Submit callback for the commerce customer profile checkout pane.
+ * Actually, this is a wrapper around the default commerce default submit
+ * callback.
+ *
+ * @see erpal_commerce_cart_commerce_checkout_pane_info_alter().
+ * @see commerce_customer_profile_pane_checkout_form_submit().
+ */
+function erpal_commerce_cart_customer_profile_checkout_submit($form, &$form_state, $checkout_pane, $order) {
+  $pane_id = $checkout_pane['pane_id'];
+
+  // We get profiles from the form state. After commerce form submit
+  // $new_profile object will be changed by reference. And $old_profile
+  // object will still contain profile data before commerce form submit.
+  $new_profile = $form_state['values'][$pane_id]['customer_profile'];
+  $old_profile = clone $new_profile;
+
+  // Submit default commerce customer profile checkout pane.
+  // It should create or update commerce customer's profile.
+  commerce_customer_profile_pane_checkout_form_submit($form, $form_state, $checkout_pane, $order);
+
+  // If old profile didn't have profile_id, and new profile does, then this
+  // profile just has been created and we can invoke our custom rule event.
+  if (empty($old_profile->profile_id) && !empty($new_profile->profile_id)) {
+    rules_invoke_event('erpal_commerce_cart_commerce_customer_insert', $order, $new_profile);
+  }
+}

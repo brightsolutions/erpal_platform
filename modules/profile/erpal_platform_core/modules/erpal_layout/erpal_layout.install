@@ -10,4 +10,5 @@
  */
 function erpal_layout_enable() {
   variable_set('panels_everywhere_site_template_enabled', 1);
+  variable_set('user_pictures', TRUE);
 }

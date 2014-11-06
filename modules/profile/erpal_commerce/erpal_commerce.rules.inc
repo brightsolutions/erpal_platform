@@ -17,8 +17,8 @@ function erpal_commerce_rules_action_info() {
       ),
       'group' => t('ERPAL Commerce'),
     ),
-    'erpal_commerce_line_item_culculation' => array(
-      'label' => t('Re-calculate new line item.'),
+    'erpal_commerce_line_item_recalculate_prices' => array(
+      'label' => t('Recalculate line item unit and total prices'),
       'parameter' => array(
         'commerce_line_item' => array('type' => 'commerce_line_item', 'label' => t('Line Item')),
       ),
@@ -71,7 +71,7 @@ function erpal_commerce_create_invoice_line_item($line_item) {
  *
  * @see erpal_commerce_rules_action_info()
  */
-function erpal_commerce_line_item_culculation($line_item) {
+function erpal_commerce_line_item_recalculate_prices($line_item) {
   if (empty($line_item->line_item_id)) {
     erpal_commerce_line_item_refresh($line_item);
   }
