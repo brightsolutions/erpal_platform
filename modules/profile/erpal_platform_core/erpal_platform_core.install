@@ -27,6 +27,7 @@ function erpal_platform_core_install() {
   variable_set('user_picture_path', 'userpictures');
   variable_set('user_picture_dimensions', '500x500');
   variable_set('user_picture_file_size', '1024');
+  variable_set('user_picture_style', 'medium');
 
   // Set new front page.
   variable_set('site_frontpage', 'home');
