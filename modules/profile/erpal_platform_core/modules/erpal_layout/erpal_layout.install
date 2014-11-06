@@ -10,5 +10,27 @@
  */
 function erpal_layout_enable() {
   variable_set('panels_everywhere_site_template_enabled', 1);
+
+  /*
+    moving default user picture to drupal default folder to be able to apply
+    image styles.
+    Save the default image first to get the file id.
+  */
+  $uri = 'public://erpal_contact_default_image.png';
+  if ($file = file_load_multiple(array(), array('uri' => $uri))) {
+    $file = reset($file);
+  }
+  else {
+    $handle = fopen(drupal_get_path('module', 'erpal_platform_core') . '/images/erpal_user_default_image.png', 'r');
+    $file = file_save_data($handle, $uri);
+    fclose($handle);
+  }
+
+  // enable user picture/avatar plus config
   variable_set('user_pictures', TRUE);
+  variable_set('user_picture_default', 'erpal_user_default_image.png');
+  variable_set('user_picture_path', 'userpictures');
+  variable_set('user_picture_dimensions', '500x500');
+  variable_set('user_picture_file_size', '1024');
+  variable_set('user_picture_style', 'medium');
 }
