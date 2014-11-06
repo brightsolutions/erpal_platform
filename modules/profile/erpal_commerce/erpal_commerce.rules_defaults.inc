@@ -35,5 +35,26 @@ function erpal_commerce_default_rules_configuration() {
       ]
     }
   }');
+
+  $items['rules_change_quote_status_to_accepted'] = entity_import('rules_config', '{ "rules_change_quote_status_to_accepted" : {
+      "LABEL" : "Change Quote status to accepted",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "ERPAL Commerce" ],
+      "REQUIRES" : [ "rules", "erpal_commerce", "entity" ],
+      "ON" : { "commerce_order_insert" : [] },
+      "IF" : [
+        { "entity_is_of_bundle" : {
+            "entity" : [ "commerce-order" ],
+            "type" : "commerce_order",
+            "bundle" : { "value" : { "commerce_order" : "commerce_order" } }
+          }
+        }
+      ],
+      "DO" : [
+        { "erpal_commerce_change_quote_to_accepted" : { "commerce_order" : [ "commerce_order" ] } }
+      ]
+    }
+  }');
   return $items;
 }

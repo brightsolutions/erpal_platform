@@ -2,7 +2,7 @@ name = ERPAL payment modality UI
 description = User Interface for payment modality entities.
 package = ERPAL Commerce
 core = 7.x
-configure = admin/structure/erpal/payment_modality-types
+configure = admin/structure/erpal/payment-modality-types
 
 ; =======================
 ; Dependencies

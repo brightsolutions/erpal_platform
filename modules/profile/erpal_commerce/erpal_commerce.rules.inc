@@ -18,13 +18,39 @@ function erpal_commerce_rules_action_info() {
       'group' => t('ERPAL Commerce'),
     ),
     'erpal_commerce_line_item_recalculate_prices' => array(
-      'label' => t('Recalculate line item unit and total prices'),
+      'label' => t('Recalculate line item unit and total prices.'),
       'parameter' => array(
         'commerce_line_item' => array('type' => 'commerce_line_item', 'label' => t('Line Item')),
       ),
       'group' => t('ERPAL Commerce'),
     ),
+    'erpal_commerce_change_quote_to_accepted' => array(
+      'label' => t('Change Quote status to accepted'),
+      'parameter' => array(
+        'commerce_order' => array('type' => 'commerce_order', 'label' => t('Commerce Order')),
+      ),
+      'group' => t('ERPAL Commerce'),
+    ),
   );
+}
+
+/**
+ * Change Quote status to accepted.
+ *
+ * Used as Rules action callback.
+ *
+ * @see erpal_commerce_rules_action_info()
+ */
+function erpal_commerce_change_quote_to_accepted($commerce_order) {
+  if ($commerce_order->type == 'commerce_order') {
+    $field_quote = field_get_items('commerce_order', $commerce_order, 'field_quote');
+    if (!empty($field_quote[0]['target_id'])) {
+      $quotes = commerce_order_load_multiple(array($field_quote[0]['target_id']), array(), TRUE);
+      $quote = reset($quotes);
+      $quote->status = 'accepted';
+      commerce_order_save($quote);
+    }
+  }
 }
 
 /**

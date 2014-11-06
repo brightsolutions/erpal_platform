@@ -157,8 +157,8 @@ function erpal_commerce_references_dialog_entity_admin_paths() {
       'edit' => 'admin/commerce/orders/[entity_id]/edit',
     ),
     'erpal_payment_modality' => array(
-      'add' => 'erpal/payment_modality/add/[bundle]',
-      'edit' => 'erpal/payment_modality/[entity_id]/edit',
+      'add' => 'erpal/payment-modality/add/[bundle]',
+      'edit' => 'erpal/payment-modality/[entity_id]/edit',
     ),
   );
 }
@@ -1079,9 +1079,9 @@ function erpal_commerce_create_invoice_validate($form, &$form_state) {
  */
 function erpal_commerce_create_invoice_submit($form, &$form_state) {
   commerce_order_order_form_submit($form, $form_state);
-
   // Add to context order id for using in action.
   $values['order_id'] = $form_state['commerce_order']->order_id;
+  $_GET['destination'] = 'invoice/' . $form_state['commerce_order']->order_id;
   return $values;
 }
 
@@ -1091,6 +1091,7 @@ function erpal_commerce_create_invoice_submit($form, &$form_state) {
  * Create an invoice by invoice line items.
  */
 function erpal_commerce_create_invoice(&$line_items, $context) {
+
   $order = commerce_order_load($context['order_id']);
 
   // Add line item to order.
@@ -1109,7 +1110,7 @@ function erpal_commerce_create_invoice(&$line_items, $context) {
     }
   }
   commerce_order_save($order);
-  drupal_set_message(t('Invoice <a href="@href">@invoice</a> was created.', array('@href' => url('admin/commerce/orders/' . $order->order_id), '@invoice' => $order->order_number)), 'status', FALSE);
+  drupal_set_message(t('Invoice @invoice was created.', array('@invoice' => $order->order_number)), 'status', FALSE);
 }
 
 /**
