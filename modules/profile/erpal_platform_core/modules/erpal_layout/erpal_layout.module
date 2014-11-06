@@ -442,3 +442,28 @@ function erpal_layout_default_panels_mini() {
 
   return $export;
 }
+
+
+/**
+ * Implements hook_image_default_styles().
+ */
+function erpal_layout_image_default_styles() {
+  $styles = array();
+
+  $styles['usermenu_profileimage'] = array(
+    'label' => 'Usermenu Profileimage',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 30,
+          'height' => 30,
+          'upscale' => 1,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  return $styles;
+}
