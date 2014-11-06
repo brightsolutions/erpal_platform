@@ -91,7 +91,7 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
   // Replicate commerce lite items.
   if ($commerce_line_items) {
     foreach ($commerce_line_items as $value) {
-      $line_item = commerce_line_item_load($value['line_item_id']);
+      $line_item = clone commerce_line_item_load($value['line_item_id']);
       $type = $replica->type == 'quote' ? 'product' : 'invoice';
       $line_item_new = commerce_line_item_new($type);
       unset($line_item->line_item_id, $line_item->order_id);
