@@ -28,7 +28,7 @@ function erpal_layout_enable() {
 
   // enable user picture/avatar plus config
   variable_set('user_pictures', TRUE);
-  variable_set('user_picture_default', 'erpal_user_default_image.png');
+  variable_set('user_picture_default', 'public://erpal_user_default_image.png');
   variable_set('user_picture_path', 'userpictures');
   variable_set('user_picture_dimensions', '500x500');
   variable_set('user_picture_file_size', '1024');
