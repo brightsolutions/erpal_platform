@@ -110,43 +110,12 @@ function erpal_commerce_cart_default_rules_configuration() {
   }
 }');
 
-  $items['rules_add_customer_to_carts_order_when_cart_has_been_created'] = entity_import('rules_config', '{ "rules_add_customer_to_carts_order_when_cart_has_been_created" : {
-    "LABEL" : "Add customer to cart\u0027s order when cart has been created",
-    "PLUGIN" : "reaction rule",
-    "OWNER" : "rules",
-    "TAGS" : [ "ERPAL Commerce Cart" ],
-    "REQUIRES" : [ "rules", "commerce_cart" ],
-    "ON" : { "commerce_cart_product_add" : [] },
-    "IF" : [
-      { "entity_has_field" : { "entity" : [ "commerce-order" ], "field" : "field_customer" } },
-      { "data_is_empty" : { "data" : [ "commerce-order:field-customer" ] } }
-    ],
-    "DO" : [
-      { "entity_query" : {
-        "USING" : {
-          "type" : "crm_core_contact",
-            "property" : "uid",
-            "value" : [ "site:current-user:uid" ],
-            "limit" : "1"
-          },
-          "PROVIDE" : { "entity_fetched" : { "current_user_contact" : "Current CRM Contact" } }
-        }
-      },
-      { "data_set" : {
-        "data" : [ "commerce-order:field-customer" ],
-          "value" : [ "current-user-contact:0" ]
-        }
-      }
-    ]
-  }
-}');
-
   $items['rules_assign_vendor_to_commerce_order_when_cart_has_been_created'] = entity_import('rules_config', '{ "rules_assign_vendor_to_commerce_order_when_cart_has_been_created" : {
     "LABEL" : "Add vendor to cart\u0027s order when cart has been created",
     "PLUGIN" : "reaction rule",
     "OWNER" : "rules",
     "TAGS" : [ "ERPAL Commerce Cart" ],
-    "REQUIRES" : [ "rules", "rules_conditional", "commerce_cart" ],
+    "REQUIRES" : [ "rules", "commerce_cart" ],
     "ON" : { "commerce_cart_product_add" : [] },
     "IF" : [
       { "entity_is_of_bundle" : {
@@ -158,24 +127,15 @@ function erpal_commerce_cart_default_rules_configuration() {
       { "data_is_empty" : { "data" : [ "commerce-order:field-vendor" ] } }
     ],
     "DO" : [
-      { "entity_fetch" : {
-          "USING" : { "type" : "crm_core_contact", "id" : "1" },
-          "PROVIDE" : { "entity_fetched" : { "vendor" : "Vendor" } }
+      { "data_set" : {
+          "data" : [ "commerce-order:field-vendor" ],
+          "value" : [ "site:vendor" ]
         }
       },
-      { "data_set" : { "data" : [ "commerce-order:field-vendor" ], "value" : [ "vendor" ] } },
-      { "CONDITIONAL" : [
-          {
-            "IF" : { "entity_has_field" : { "entity" : [ "vendor" ], "field" : "field_customer_profiles" } },
-            "DO" : [
-              { "data_set" : {
-                  "data" : [ "commerce-order:field-vendor-address" ],
-                  "value" : [ "vendor:field-customer-profiles:0" ]
-                }
-              }
-            ]
-          }
-        ]
+      { "data_set" : {
+          "data" : [ "commerce-order:field-vendor-address" ],
+          "value" : [ "site:vendor-address" ]
+        }
       }
     ]
   }
@@ -231,6 +191,40 @@ function erpal_commerce_cart_default_rules_configuration() {
                     ]
                   }
                 ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}');
+
+  $items['rules_add_customer_to_carts_order_when_cart_has_been_created'] = entity_import('rules_config', '{ "rules_add_customer_to_carts_order_when_cart_has_been_created" : {
+    "LABEL" : "Add customer to cart\u0027s order when cart has been created",
+    "PLUGIN" : "reaction rule",
+    "OWNER" : "rules",
+    "TAGS" : [ "ERPAL Commerce Cart" ],
+    "REQUIRES" : [ "rules", "rules_conditional", "commerce_cart" ],
+    "ON" : { "commerce_cart_product_add" : [] },
+    "IF" : [
+      { "entity_has_field" : { "entity" : [ "commerce-order" ], "field" : "field_customer" } },
+      { "data_is_empty" : { "data" : [ "commerce-order:field-customer" ] } }
+    ],
+    "DO" : [
+      { "entity_fetch" : {
+          "USING" : { "type" : "user", "id" : [ "site:current-user:uid" ] },
+          "PROVIDE" : { "entity_fetched" : { "current_user" : "Current user" } }
+        }
+      },
+      { "CONDITIONAL" : [
+          {
+            "IF" : { "entity_has_field" : { "entity" : [ "current-user" ], "field" : "field_user_crm_contact" } },
+            "DO" : [
+              { "data_set" : {
+                  "data" : [ "commerce-order:field-customer" ],
+                  "value" : [ "current-user:field-user-crm-contact" ]
+                }
               }
             ]
           }

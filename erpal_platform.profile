@@ -201,7 +201,7 @@ function erpal_platform_vendor_form_submit($form, $form_state) {
   $profile->commerce_customer_address[$lang][0]['name_line'] = $vendor_address['fullname'];
   $profile->commerce_customer_address[$lang][0]['first_name'] = $vendor_address['fullname'];
   $profile->commerce_customer_address[$lang][0]['locality'] = $vendor_address['city'];
-  $wrapper->commerce_customer_address[$lang][0]['thoroughfare'] = $vendor_address['street'];
+  $profile->commerce_customer_address[$lang][0]['thoroughfare'] = $vendor_address['street'];
   $profile->commerce_customer_address[$lang][0]['postal_code'] = $vendor_address['postal_code'];
   commerce_customer_profile_save($profile);
 
@@ -215,6 +215,14 @@ function erpal_platform_vendor_form_submit($form, $form_state) {
   $entity->field_customer_profiles[$lang][0]['target_id'] = $profile->profile_id;
 
   crm_core_contact_save($entity);
+
+  // Add first reference between user 1 and vendor (CRM Contact) that just has
+  // been just created.
+  $account = user_load(1);
+  $field_contact = 'field_user_crm_contact';
+  $field_language = field_language('user', $account, $field_contact);
+  $account->{$field_contact}[$field_language][]['target_id'] = 1;
+  user_save($account);
 
   // Set default vendor.
   $settings = array(

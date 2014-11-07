@@ -95,7 +95,7 @@ function _erpal_crm_activity_type_add_default_fields($activity_type) {
   // Create field bases, if not exists.
   erpal_core_add_fields($fields, 'field');
 
-  // Add field instances for new activity bundlee.
+  // Add field instances for new activity bundle.
   $instances = _erpal_crm_activity_type_common_field_instances($type);
 
   // Sales process has different bunch of fields than other activity bundles.

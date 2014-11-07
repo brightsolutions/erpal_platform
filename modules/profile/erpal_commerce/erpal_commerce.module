@@ -1480,3 +1480,19 @@ function erpal_commerce_line_item_culculate_total($line_item) {
   // Set the updated data array to the total price.
   $wrapper->commerce_total->data = $unit_price['data'];
 }
+
+/**
+ * Entity API property getter callback.
+ */
+function erpal_commerce_entity_get_properties($data, array $options, $name, $type, $info) {
+  $settings = variable_get('erpal_vendor_settings', array());
+
+  if ($name == 'vendor' && !empty($settings['vendor_id'])) {
+    return crm_core_contact_load($settings['vendor_id']);
+  }
+  elseif ($name == 'vendor_address' && !empty($settings['customer_profile_id'])) {
+    return commerce_customer_profile_load($settings['customer_profile_id']);
+  }
+
+  return '';
+}
