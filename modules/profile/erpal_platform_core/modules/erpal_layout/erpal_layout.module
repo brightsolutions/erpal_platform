@@ -413,7 +413,7 @@ function erpal_layout_default_panels_mini() {
   $display->content['new-77fc4a8f-aab6-4801-9fa6-389446ead170'] = $pane;
   $display->panels['dropdown'][0] = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
   $pane = new stdClass();
-  $pane->pid = 'new-792ae3c9-cb7b-4204-8061-61af266f24a4';
+  $pane->pid = 'new-263469a9-64e5-4e0a-87d1-d5f59d8801f1';
   $pane->panel = 'trigger';
   $pane->type = 'user_avatar';
   $pane->subtype = 'user_avatar';
@@ -433,12 +433,14 @@ function erpal_layout_default_panels_mini() {
   $pane->extras = array();
   $pane->position = 0;
   $pane->locks = array();
-  $pane->uuid = '792ae3c9-cb7b-4204-8061-61af266f24a4';
-  $display->content['new-792ae3c9-cb7b-4204-8061-61af266f24a4'] = $pane;
-  $display->panels['trigger'][0] = 'new-792ae3c9-cb7b-4204-8061-61af266f24a4';
+  $pane->uuid = '263469a9-64e5-4e0a-87d1-d5f59d8801f1';
+  $display->content['new-263469a9-64e5-4e0a-87d1-d5f59d8801f1'] = $pane;
+  $display->panels['trigger'][0] = 'new-263469a9-64e5-4e0a-87d1-d5f59d8801f1';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
   $mini->display = $display;
+
+  $export['profile_details'] = $mini;
 
   return $export;
 }
