@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -127,7 +128,7 @@ function erpal_payment_modality_form_submit($form, &$form_state) {
     drupal_set_message(t('payment_modality %title edited.', array('%title' => $payment_modality->title)));
   }
 
-  $form_state['redirect'] = 'erpal/payment_modality/' . $payment_modality->payment_modality_id;
+  $form_state['redirect'] = 'erpal/payment-modality/' . $payment_modality->payment_modality_id;
 }
 
 /**
@@ -143,7 +144,7 @@ function erpal_payment_modality_form_submit_delete($form, &$form_state) {
   }
   $payment_modality = $form_state['erpal_payment_modality'];
   $form_state['redirect'] = array(
-    'erpal/payment_modality/' . $payment_modality->payment_modality_id . '/delete',
+    'erpal/payment-modality/' . $payment_modality->payment_modality_id . '/delete',
     array(
       'query' => $destination,
     ),
@@ -163,7 +164,7 @@ function erpal_payment_modality_form_delete_confirm($form, &$form_state, $paymen
 
   return confirm_form($form,
     t('Are you sure you want to delete payment modality %title?', array('%title' => $payment_modality->title)),
-    'erpal/payment_modality/' . $payment_modality->payment_modality_id,
+    'erpal/payment-modality/' . $payment_modality->payment_modality_id,
     t('This action cannot be undone.'),
     t('Delete'),
     t('Cancel')
@@ -217,7 +218,7 @@ function erpal_payment_modality_add_payment_modality() {
     if (entity_access('create', 'erpal_payment_modality', $info->type, $user)) {
       $items[] = array(
         'title' => $info->label,
-        'href' => 'erpal/payment_modality/add/' . $info->type,
+        'href' => 'erpal/payment-modality/add/' . $info->type,
         'localized_options' => array(),
         'description' => $info->description,
       );

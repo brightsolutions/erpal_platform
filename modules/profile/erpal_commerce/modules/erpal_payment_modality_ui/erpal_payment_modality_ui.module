@@ -10,7 +10,7 @@
  */
 function erpal_payment_modality_ui_menu() {
   $payment_modality_paths = array(
-    'payment_modality_add' => 'erpal/payment_modality/add',
+    'payment_modality_add' => 'erpal/payment-modality/add',
   );
   foreach ($payment_modality_paths as $key => $path) {
     $items[$path] = array(
@@ -40,7 +40,7 @@ function erpal_payment_modality_ui_menu() {
     }
   }
 
-  $items['erpal/payment_modality/%erpal_payment_modality'] = array(
+  $items['erpal/payment-modality/%erpal_payment_modality'] = array(
     'title' => 'payment_modality',
     'page callback' => 'erpal_payment_modality_view',
     'page arguments' => array(2),
@@ -50,14 +50,14 @@ function erpal_payment_modality_ui_menu() {
     'access arguments' => array('view', 'erpal_payment_modality', 2),
     'type' => MENU_NORMAL_ITEM,
   );
-  $items['erpal/payment_modality/%erpal_payment_modality/view'] = array(
+  $items['erpal/payment-modality/%erpal_payment_modality/view'] = array(
     'title' => 'View',
     'weight' => -10,
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
   );
 
-  $items['erpal/payment_modality/%erpal_payment_modality/edit'] = array(
+  $items['erpal/payment-modality/%erpal_payment_modality/edit'] = array(
     'title' => 'Edit',
     'page callback' => 'entity_ui_get_form',
     'page arguments' => array('erpal_payment_modality', 2, 'edit'),
@@ -67,7 +67,7 @@ function erpal_payment_modality_ui_menu() {
     'file' => 'erpal_payment_modality.pages.inc',
     'file path' => drupal_get_path('module', 'erpal_payment_modality'),
   );
-  $items['erpal/payment_modality/%erpal_payment_modality/delete'] = array(
+  $items['erpal/payment-modality/%erpal_payment_modality/delete'] = array(
     'title' => 'Delete',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('erpal_payment_modality_form_delete_confirm', 2),
@@ -78,7 +78,7 @@ function erpal_payment_modality_ui_menu() {
     'file' => 'erpal_payment_modality.pages.inc',
     'file path' => drupal_get_path('module', 'erpal_payment_modality'),
   );
-  $items['admin/erpal/payment_modality-types/list'] = array(
+  $items['admin/erpal/payment-modality-types/list'] = array(
     'title' => 'List',
     'weight' => -10,
     'type' => MENU_DEFAULT_LOCAL_TASK,
@@ -100,12 +100,12 @@ function erpal_payment_modality_ui_admin_menu_map() {
     );
   }
   if ($arguments) {
-    $map['admin/erpal/payment_modality-types/manage/%erpal_payment_modality_type'] = array(
+    $map['admin/erpal/payment-modality-types/manage/%erpal_payment_modality_type'] = array(
       // Link generated items directly to the "payment modality Types" item.
-      'parent' => 'admin/erpal/payment_modality-types',
+      'parent' => 'admin/erpal/payment-modality-types',
       // Hide the "List" item, as this expansion will expose all available
       // options.
-      'hide' => 'admin/erpal/payment_modality-types/list',
+      'hide' => 'admin/erpal/payment-modality-types/list',
       // Create expansion arguments for the '%erpal_payment_modality_type'
       // placeholder.
       'arguments' => $arguments,

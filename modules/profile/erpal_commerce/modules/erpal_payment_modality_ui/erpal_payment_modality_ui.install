@@ -21,7 +21,7 @@ function erpal_payment_modality_ui_install() {
 function erpal_payment_modality_ui_enable() {
   $menu_items = array(
     array(
-      'link_path' => 'admin/structure/erpal/payment_modality-types',
+      'link_path' => 'admin/structure/erpal/payment-modality-types',
       'link_title' => 'Administer ERPAL payment modality types',
       'menu_name' => 'erpal-admin-menu',
     ),
@@ -38,7 +38,7 @@ function erpal_payment_modality_ui_disable() {
   // Remove links from erpal-admin-menu.
   $conditions = array(
     'erpal-admin-menu' => array(
-      'admin/structure/erpal/payment_modality-types',
+      'admin/structure/erpal/payment-modality-types',
     ),
   );
   erpal_core_ui_remove_links($conditions);
