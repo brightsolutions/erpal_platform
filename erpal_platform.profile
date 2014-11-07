@@ -201,7 +201,7 @@ function erpal_platform_vendor_form_submit($form, $form_state) {
   $profile->commerce_customer_address[$lang][0]['name_line'] = $vendor_address['fullname'];
   $profile->commerce_customer_address[$lang][0]['first_name'] = $vendor_address['fullname'];
   $profile->commerce_customer_address[$lang][0]['locality'] = $vendor_address['city'];
-  $wrapper->commerce_customer_address[$lang][0]['thoroughfare'] = $vendor_address['street'];
+  $profile->commerce_customer_address[$lang][0]['thoroughfare'] = $vendor_address['street'];
   $profile->commerce_customer_address[$lang][0]['postal_code'] = $vendor_address['postal_code'];
   commerce_customer_profile_save($profile);
 
