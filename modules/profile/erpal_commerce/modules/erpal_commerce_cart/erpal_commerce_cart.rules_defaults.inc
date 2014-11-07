@@ -110,37 +110,6 @@ function erpal_commerce_cart_default_rules_configuration() {
   }
 }');
 
-  $items['rules_add_customer_to_carts_order_when_cart_has_been_created'] = entity_import('rules_config', '{ "rules_add_customer_to_carts_order_when_cart_has_been_created" : {
-    "LABEL" : "Add customer to cart\u0027s order when cart has been created",
-    "PLUGIN" : "reaction rule",
-    "OWNER" : "rules",
-    "TAGS" : [ "ERPAL Commerce Cart" ],
-    "REQUIRES" : [ "rules", "commerce_cart" ],
-    "ON" : { "commerce_cart_product_add" : [] },
-    "IF" : [
-      { "entity_has_field" : { "entity" : [ "commerce-order" ], "field" : "field_customer" } },
-      { "data_is_empty" : { "data" : [ "commerce-order:field-customer" ] } }
-    ],
-    "DO" : [
-      { "entity_query" : {
-        "USING" : {
-          "type" : "crm_core_contact",
-            "property" : "uid",
-            "value" : [ "site:current-user:uid" ],
-            "limit" : "1"
-          },
-          "PROVIDE" : { "entity_fetched" : { "current_user_contact" : "Current CRM Contact" } }
-        }
-      },
-      { "data_set" : {
-        "data" : [ "commerce-order:field-customer" ],
-          "value" : [ "current-user-contact:0" ]
-        }
-      }
-    ]
-  }
-}');
-
   $items['rules_assign_vendor_to_commerce_order_when_cart_has_been_created'] = entity_import('rules_config', '{ "rules_assign_vendor_to_commerce_order_when_cart_has_been_created" : {
     "LABEL" : "Add vendor to cart\u0027s order when cart has been created",
     "PLUGIN" : "reaction rule",
@@ -172,7 +141,66 @@ function erpal_commerce_cart_default_rules_configuration() {
   }
 }');
 
-  $items['rules_add_customer_address_to_order_and_quote_on_its_creation'] = entity_import('rules_config', '{ "rules_add_customer_to_carts_order_when_cart_has_been_created" : {
+  $items['rules_add_customer_address_to_order_and_quote_on_its_creation'] = entity_import('rules_config', '{ "rules_add_customer_address_to_order_and_quote_on_its_creation" : {
+    "LABEL" : "Add customer address to the order and quote on its creation during checkout",
+    "PLUGIN" : "reaction rule",
+    "OWNER" : "rules",
+    "TAGS" : [ "ERPAL Commerce Cart" ],
+    "REQUIRES" : [ "rules", "rules_conditional", "erpal_commerce_cart" ],
+    "ON" : { "erpal_commerce_cart_commerce_customer_insert" : [] },
+    "IF" : [
+      { "entity_is_of_bundle" : {
+          "entity" : [ "commerce-order" ],
+          "type" : "commerce_order",
+          "bundle" : { "value" : { "commerce_order" : "commerce_order" } }
+        }
+      }
+    ],
+    "DO" : [
+      { "data_set" : {
+          "data" : [ "commerce-order:commerce-customer-billing" ],
+          "value" : [ "commerce-customer-profile" ]
+        }
+      },
+      { "CONDITIONAL" : [
+          {
+            "IF" : { "NOT data_is_empty" : { "data" : [ "commerce-order:field-quote" ] } },
+            "DO" : [
+              { "entity_fetch" : {
+                  "USING" : {
+                    "type" : "commerce_order",
+                    "id" : [ "commerce-order:field-quote:order-id" ]
+                  },
+                  "PROVIDE" : { "entity_fetched" : { "quote" : "Quote" } }
+                }
+              },
+              { "CONDITIONAL" : [
+                  {
+                    "IF" : { "entity_is_of_bundle" : {
+                        "entity" : [ "quote" ],
+                        "type" : "commerce_order",
+                        "bundle" : { "value" : { "quote" : "quote" } }
+                      }
+                    },
+                    "DO" : [
+                      { "data_set" : {
+                          "data" : [ "quote:commerce-customer-billing" ],
+                          "value" : [ "commerce-customer-profile" ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}');
+
+  $items['rules_add_customer_to_carts_order_when_cart_has_been_created'] = entity_import('rules_config', '{ "rules_add_customer_to_carts_order_when_cart_has_been_created" : {
     "LABEL" : "Add customer to cart\u0027s order when cart has been created",
     "PLUGIN" : "reaction rule",
     "OWNER" : "rules",
