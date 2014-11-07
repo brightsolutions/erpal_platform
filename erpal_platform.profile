@@ -216,6 +216,14 @@ function erpal_platform_vendor_form_submit($form, $form_state) {
 
   crm_core_contact_save($entity);
 
+  // Add first reference between user 1 and vendor (CRM Contact) that just has
+  // been just created.
+  $account = user_load(1);
+  $field_contact = 'field_user_crm_contact';
+  $field_language = field_language('user', $account, $field_contact);
+  $account->{$field_contact}[$field_language][]['target_id'] = 1;
+  user_save($account);
+
   // Set default vendor.
   $settings = array(
     'vendor_id' => $entity->contact_id,

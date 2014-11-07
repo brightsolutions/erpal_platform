@@ -65,6 +65,16 @@ function erpal_crm_install() {
     relation_type_save($relation_type);
   }
 
+  // Include file which contains default field and field instances.
+  module_load_include('fields.inc', 'erpal_crm');
+
+  // Add new field to user entity that references CRM Contact.
+  $fields = _erpal_crm_user_default_fields();
+  erpal_core_add_fields($fields, 'field');
+
+  $field_instances = _erpal_crm_user_field_instances();
+  erpal_core_add_fields($field_instances, 'instance');
+
   // Enable pathauto generetion for crm_core_contact, crm_core_activity entities.
   $available = variable_get('pathauto_entity_available_entity_types', array());
   $available['crm_core_contact'] = 'crm_core_contact';
