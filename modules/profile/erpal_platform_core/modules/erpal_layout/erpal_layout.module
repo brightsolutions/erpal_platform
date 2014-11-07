@@ -391,6 +391,30 @@ function erpal_layout_default_panels_mini() {
   $display->content = array();
   $display->panels = array();
   $pane = new stdClass();
+  $pane->pid = 'new-f142dd3b-84ee-4b36-962b-13c60957f31d';
+  $pane->panel = 'dropdown';
+  $pane->type = 'user_menu_welcome';
+  $pane->subtype = 'user_menu_welcome';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'greeting' => 'Hey',
+    'context' => 'context_user_1',
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'f142dd3b-84ee-4b36-962b-13c60957f31d';
+  $display->content['new-f142dd3b-84ee-4b36-962b-13c60957f31d'] = $pane;
+  $display->panels['dropdown'][0] = 'new-f142dd3b-84ee-4b36-962b-13c60957f31d';
+  $pane = new stdClass();
   $pane->pid = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
   $pane->panel = 'dropdown';
   $pane->type = 'block';
@@ -407,11 +431,11 @@ function erpal_layout_default_panels_mini() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 0;
+  $pane->position = 1;
   $pane->locks = array();
   $pane->uuid = '77fc4a8f-aab6-4801-9fa6-389446ead170';
   $display->content['new-77fc4a8f-aab6-4801-9fa6-389446ead170'] = $pane;
-  $display->panels['dropdown'][0] = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
+  $display->panels['dropdown'][1] = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
   $pane = new stdClass();
   $pane->pid = 'new-263469a9-64e5-4e0a-87d1-d5f59d8801f1';
   $pane->panel = 'trigger';
@@ -439,6 +463,7 @@ function erpal_layout_default_panels_mini() {
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
   $mini->display = $display;
+
 
   $export['profile_details'] = $mini;
 
