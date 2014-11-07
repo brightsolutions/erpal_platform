@@ -210,3 +210,10 @@ function erpal_crm_flush_caches() {
     field_update_field($info_field);
   }
 }
+
+/**
+ * Wraps crm_core_contact_type_get_name() for the Entity module.
+ */
+function erpal_crm_core_contact_type_options_list() {
+  return crm_core_contact_type_get_name();
+}
