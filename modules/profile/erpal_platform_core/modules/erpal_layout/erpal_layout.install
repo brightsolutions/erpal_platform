@@ -16,7 +16,7 @@ function erpal_layout_enable() {
     image styles.
     Save the default image first to get the file id.
   */
-  $uri = 'public://erpal_contact_default_image.png';
+  $uri = 'public://erpal_user_default_image.png';
   if ($file = file_load_multiple(array(), array('uri' => $uri))) {
     $file = reset($file);
   }
