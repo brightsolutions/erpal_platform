@@ -20,21 +20,26 @@ $plugin = array(
  * Render callback.
  */
 function powered_by_content_type_render($subtype, $conf, $args, $context) {
+  $erpal = sprintf(
+    '<span class="erpal">%s</span>',
+    l(t('ERPAL Platform'), 'http://www.erpal.info')
+  );
+
   $powered_by = sprintf(
-    '<span class="powered-by-text">%s</span> <span class="drupal-text">%s</span>',
+    '<span class="powered-by"><span class="text">%s</span> <span class="drupal">%s</span></span>',
     t('powered by'),
     l(t('Drupal'), 'http://drupal.org')
   );
 
   $supported_by = sprintf(
-    '<span class="support-by"><span class="supported-by-text">%s</span> <span class="supported-by-company">%s</span></span>',
+    '<span class="supported-by"><span class="text">%s</span> <span class="company">%s</span></span>',
     t('supported and maintained by'),
     l(t('Bright Solutions GmbH'), 'http://www.brightsolutions.de')
   );
 
   $block = new stdClass();
   $block->module = 'erpal_layout';
-  $block->content = '<div class="powered-by-content">' . $powered_by . ' ' . $supported_by . '</div>';
+  $block->content = $erpal . ' ' . $powered_by . ' ' . $supported_by;
 
   return $block;
 }
