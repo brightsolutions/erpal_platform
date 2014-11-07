@@ -103,5 +103,43 @@ function erpal_crm_default_rules_configuration() {
     }
   }');
 
+  $items['rules_automatically_create_new_crm_contact_when_user_registered'] = entity_import('rules_config', '{ "rules_automatically_create_new_crm_contact_when_user_registered" : {
+    "LABEL" : "Automatically create new CRM contact when user has been registered",
+    "PLUGIN" : "reaction rule",
+    "OWNER" : "rules",
+    "TAGS" : [ "Erpal CRM" ],
+    "REQUIRES" : [ "rules", "rules_conditional" ],
+    "ON" : { "user_insert" : [] },
+    "DO" : [
+      { "entity_create" : {
+          "USING" : { "type" : "crm_core_contact" },
+          "PROVIDE" : { "entity_created" : { "crm_contact" : "CRM Contact" } }
+        }
+      },
+      { "data_set" : { "data" : [ "crm-contact:type" ], "value" : "individual" } },
+      { "data_set" : { "data" : [ "crm-contact:uid" ], "value" : [ "account:uid" ] } },
+      { "CONDITIONAL" : [
+          {
+            "IF" : { "entity_has_field" : { "entity" : [ "crm-contact" ], "field" : "contact_name" } },
+            "DO" : [
+              { "data_set" : {
+                  "data" : [ "crm-contact:contact-name:given" ],
+                  "value" : [ "account:name" ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      { "entity_save" : { "data" : [ "crm-contact" ], "immediate" : 1 } },
+      { "data_set" : {
+          "data" : [ "account:field-user-crm-contact" ],
+          "value" : [ "crm-contact" ]
+        }
+      }
+    ]
+  }
+}');
+
   return $items;
 }
