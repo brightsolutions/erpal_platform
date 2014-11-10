@@ -57,7 +57,7 @@ function erpal_user_avatar_render($subtype, $conf, $args, $context) {
     $filepath = variable_get('user_picture_default', '');
   }
 
-  if (!$filepath) {
+  if (empty($filepath)) {
     return FALSE;
   }
 
