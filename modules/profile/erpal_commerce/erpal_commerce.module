@@ -1359,24 +1359,6 @@ function erpal_commerce_set_default_profile($options) {
 }
 
 /**
- * Implements hook_entity_insert().
- */
-function erpal_commerce_entity_insert($entity, $type) {
-  if (!drupal_installation_attempted()) {
-    $info = entity_get_info($type);
-    $url = entity_uri($type, $entity);
-    $label = entity_label($type, $entity);
-    if (!empty($url['path']) && !empty($label) && !empty($info['bundle keys']) && !empty($entity->{$info['bundle keys']['bundle']})) {
-      $bundle = $entity->{$info['bundle keys']['bundle']};
-      $bundle_label = $info['bundles'][$bundle]['label'];
-
-      // TODO: Make this message display configurable by role (or entity).
-      drupal_set_message(t('@type has been created (<a href="@url">@title</a>).', array('@url' => url($url['path']), '@type' => $bundle_label, '@title' => $label)));
-    }
-  }
-}
-
-/**
  * Calculate line item amount.
  *
  * @param object $line_item
