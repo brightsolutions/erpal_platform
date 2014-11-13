@@ -5,3 +5,4 @@ package = ERPAL Platform
 
 dependencies[] = panels_everywhere
 dependencies[] = erpal_menu
+dependencies[] = ds

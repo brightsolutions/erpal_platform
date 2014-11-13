@@ -1068,6 +1068,124 @@ function erpal_commerce_ui_views_default_views() {
     'commerce_order' => 'commerce_order',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
+
+  /* Display: Orders by Contact Teaser */
+  $handler = $view->new_display('panel_pane', 'Orders by Contact Teaser', 'panel_pane_7');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Orders';
+  $handler->display->display_options['defaults']['use_more'] = FALSE;
+  $handler->display->display_options['use_more'] = TRUE;
+  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_text'] = FALSE;
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['style_options']['wrapper_class'] = 'orders-teaser-list';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'contact_teaser';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_customer_target_id']['id'] = 'field_customer_target_id';
+  $handler->display->display_options['relationships']['field_customer_target_id']['table'] = 'field_data_field_customer';
+  $handler->display->display_options['relationships']['field_customer_target_id']['field'] = 'field_customer_target_id';
+  $handler->display->display_options['relationships']['field_customer_target_id']['required'] = TRUE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Commerce Order: Order number */
+  $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['label'] = '';
+  $handler->display->display_options['fields']['order_number']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['order_number']['alter']['path'] = 'order/[order_id]';
+  $handler->display->display_options['fields']['order_number']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
+  /* Field: Commerce Order: Created date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = '';
+  $handler->display->display_options['fields']['created']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['created']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['created']['alter']['text'] = '<time>[created]</time>';
+  $handler->display->display_options['fields']['created']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['created']['alter']['preserve_tags'] = '<time> <span>';
+  $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['created']['date_format'] = 'teaser';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
+  /* Field: Commerce Order: Order status */
+  $handler->display->display_options['fields']['status']['id'] = 'status';
+  $handler->display->display_options['fields']['status']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['label'] = '';
+  $handler->display->display_options['fields']['status']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['status']['element_label_colon'] = FALSE;
+  /* Field: Commerce Order: Order PDF */
+  $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['id'] = 'erpal_commerce_ui_order_link';
+  $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['table'] = 'views_entity_commerce_order';
+  $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['field'] = 'erpal_commerce_ui_order_link';
+  $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['label'] = '';
+  $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['alter']['link_class'] = 'pdf-link';
+  $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['erpal_commerce_ui_order_link']['text'] = 'PDF';
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[order_number]
+<time title="Created" class="created">[created]</time>
+<span class="status">[status]</span>
+[erpal_commerce_ui_order_link]';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: CRM Contact: Contact ID */
+  $handler->display->display_options['arguments']['contact_id']['id'] = 'contact_id';
+  $handler->display->display_options['arguments']['contact_id']['table'] = 'crm_core_contact';
+  $handler->display->display_options['arguments']['contact_id']['field'] = 'contact_id';
+  $handler->display->display_options['arguments']['contact_id']['relationship'] = 'field_customer_target_id';
+  $handler->display->display_options['arguments']['contact_id']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['contact_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['contact_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['contact_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['contact_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Commerce Order: Order type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_order';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'commerce_order' => 'commerce_order',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  $handler->display->display_options['argument_input'] = array(
+    'contact_id' => array(
+      'type' => 'context',
+      'context' => 'entity:crm_core_contact.contact-id',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'CRM Contact: Contact ID',
+    ),
+  );
   $translatables['erpal_order'] = array(
     t('Master'),
     t('ERPAL Orders'),
@@ -1124,6 +1242,13 @@ function erpal_commerce_ui_views_default_views() {
     t('Order'),
     t('dashboard'),
     t('<a href="/orders" class="link-global-view">Full view</a>'),
+    t('Orders by Contact Teaser'),
+    t('<time>[created]</time>'),
+    t('PDF'),
+    t('[order_number]
+<time title="Created" class="created">[created]</time>
+<span class="status">[status]</span>
+[erpal_commerce_ui_order_link]'),
   );
 
   $export['erpal_order'] = $view;

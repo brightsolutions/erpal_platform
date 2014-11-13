@@ -144,6 +144,9 @@ projects[jquery_ui_multiselect_widget][subdir] = "contrib"
 projects[jquery_ui_multiselect_widget][version] = "1.11"
 projects[jquery_ui_multiselect_widget][patch][] = "https://www.drupal.org/files/issues/jquery_ui_multiselect_widget-add-support-subpathauto-1.patch"
 
+projects[ds][subdir] = "contrib"
+projects[ds][version] = "2.7"
+
 
 ; ### DEV VERSIONS of contrib modules ###
 projects[timed_messages][subdir] = "contrib"

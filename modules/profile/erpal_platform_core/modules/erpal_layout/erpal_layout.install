@@ -33,4 +33,10 @@ function erpal_layout_enable() {
   variable_set('user_picture_dimensions', '500x500');
   variable_set('user_picture_file_size', '1024');
   variable_set('user_picture_style', 'medium');
+
+  // enable ds plus config
+  variable_set('ds_extras_field_template', TRUE);
+  variable_set('ds_extras_switch_field', TRUE);
+  variable_set('ds_extras_hide_page_title', TRUE);
+  variable_set('ft-default', 'theme_ds_field_minimal');
 }
