@@ -1521,7 +1521,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type_1']['table'] = 'commerce_order';
   $handler->display->display_options['filters']['type_1']['field'] = 'type';
   $handler->display->display_options['filters']['type_1']['relationship'] = 'order_id';
-  $handler->display->display_options['filters']['type_1']['operator'] = 'not in';
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
@@ -2238,8 +2237,8 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
 
-  /* Display: dashboard */
-  $handler = $view->new_display('block', 'dashboard', 'block_2');
+  /* Display: Dashboard */
+  $handler = $view->new_display('block', 'Dashboard', 'block_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Revenue';
   $handler->display->display_options['defaults']['pager'] = FALSE;
@@ -2271,6 +2270,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
   $handler->display->display_options['fields']['order_number']['relationship'] = 'order_id';
+  $handler->display->display_options['fields']['order_number']['label'] = 'Invoice number';
   $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $translatables['erpal_invoice_line_items'] = array(
@@ -2320,8 +2320,9 @@ function erpal_commerce_ui_views_default_views() {
     t('Label'),
     t('Unit price'),
     t('Quantity'),
-    t('dashboard'),
+    t('Dashboard'),
     t('<a href="/invoices/line_items" class="link-global-view">Full view</a>'),
+    t('Invoice number'),
   );
 
   $export['erpal_invoice_line_items'] = $view;

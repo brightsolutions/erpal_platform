@@ -2,115 +2,43 @@
 
 /**
  * @file
- * ERPAL platform module.
+ * Contains hook definitions and main entry point for ERPAL platform module.
  */
 
 /**
  * Implements hook_homebox().
  */
 function erpal_platform_core_homebox() {
-  $homeboxes = array();
+  module_load_include('inc', 'erpal_platform_core', 'includes/homebox.default');
+  return _erpal_platform_core_homebox_defaults();
+}
 
-  $homeboxes['dashboard'] = array(
-    'regions' => 2,
-    'cache' => 0,
-    'color' => 0,
-    'colors' =>
-    array(
-      0 => '#E4F0F8',
-      1 => '#E4F0F8',
-      2 => '#E4F0F8',
-      3 => '#E4F0F8',
-      4 => '#E4F0F8',
-      5 => '#E4F0F8',
-    ),
-    'blocks' =>
-    array(
-      'views_erpal_crm_contacts-block_1' =>
-      array(
-        'module' => 'views',
-        'delta' => 'erpal_crm_contacts-block_1',
-        'region' => 1,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -14,
-      ),
-      'views_erpal_order-block_1' =>
-      array(
-        'module' => 'views',
-        'delta' => 'erpal_order-block_1',
-        'region' => 2,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -13,
-      ),
-      'views_erpal_crm_activities-block_1' =>
-      array(
-        'module' => 'views',
-        'delta' => 'erpal_crm_activities-block_1',
-        'region' => 1,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -13,
-      ),
-      'views_erpal_quote-block_1' =>
-      array(
-        'module' => 'views',
-        'delta' => 'erpal_quote-block_1',
-        'region' => 2,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -14,
-      ),
-      'views_d0afc51f00108852c945d9f0fbc2962b' =>
-      array(
-        'module' => 'views',
-        'delta' => 'd0afc51f00108852c945d9f0fbc2962b',
-        'region' => 2,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -12,
-      ),
-      'views_erpal_invoice-block_1' =>
-      array(
-        'module' => 'views',
-        'delta' => 'erpal_invoice-block_1',
-        'region' => 2,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -11,
-      ),
-    ),
-    'widths' => array(),
-    'title' => 'Dashboard',
-    'path' => 'home',
-    'menu' => 0,
-    'enabled' => 1,
-    'auto_save' => 1,
-    'full' => 1,
-    'roles' =>
-    array(
-      0 => 'authenticated user',
+/**
+ * Implements hook_permission().
+ */
+function erpal_platform_core_permission() {
+  return array(
+    'view erpal debug output' => array(
+      'title' => t('View ERPAL Platform debug info'),
+      'description' => t('Provides access to debug data from ERPAL Platform modules.'),
     ),
   );
+}
 
-  return $homeboxes;
+/**
+ * Implements hook_entity_insert().
+ */
+function erpal_platform_core_entity_insert($entity, $type) {
+  // Show debug message when entity has been created.
+  if (!drupal_installation_attempted() && user_access('view erpal debug output')) {
+    $info = entity_get_info($type);
+    $url = entity_uri($type, $entity);
+    $label = entity_label($type, $entity);
+    if (!empty($url['path']) && !empty($label) && !empty($info['bundle keys']) && !empty($entity->{$info['bundle keys']['bundle']})) {
+      $bundle = $entity->{$info['bundle keys']['bundle']};
+      $bundle_label = $info['bundles'][$bundle]['label'];
+
+      drupal_set_message(t('@type has been created (<a href="@url">@title</a>).', array('@url' => url($url['path']), '@type' => $bundle_label, '@title' => $label)));
+    }
+  }
 }
