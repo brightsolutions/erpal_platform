@@ -76,7 +76,12 @@ function erpal_user_avatar_render($subtype, $conf, $args, $context) {
   }
 
   if (!empty($image)) {
-    $block->content = l(render($image), 'user/' . $account->uid, array('html' => TRUE));
+    if (user_is_anonymous()) {
+      $block->content = render($image);
+    }
+    else {
+      $block->content = l(render($image), 'user/' . $account->uid, array('html' => TRUE)); 
+    }
   }
 
   return $block;
