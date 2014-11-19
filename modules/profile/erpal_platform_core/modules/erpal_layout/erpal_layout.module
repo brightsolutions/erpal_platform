@@ -174,7 +174,20 @@ function erpal_layout_default_page_manager_handlers() {
   $pane->type = 'panels_mini';
   $pane->subtype = 'erpal_dropdown_user_menu';
   $pane->shown = TRUE;
-  $pane->access = array();
+  $pane->access = array(
+    'plugins' => array(
+      0 => array(
+        'name' => 'role',
+        'settings' => array(
+          'rids' => array(
+            0 => 2,
+          ),
+        ),
+        'context' => 'logged-in-user',
+        'not' => FALSE,
+      ),
+    ),
+  );
   $pane->configuration = array(
     'override_title' => 1,
     'override_title_text' => '',
@@ -190,6 +203,41 @@ function erpal_layout_default_page_manager_handlers() {
   $pane->uuid = 'e6de1b56-d3b6-4ce5-9ff3-307e6110cb1b';
   $display->content['new-e6de1b56-d3b6-4ce5-9ff3-307e6110cb1b'] = $pane;
   $display->panels['page-header-right'][0] = 'new-e6de1b56-d3b6-4ce5-9ff3-307e6110cb1b';
+  $pane = new stdClass();
+  $pane->pid = 'new-c76e38a0-5bbb-4e51-8b4c-bc0f39d4f7fb';
+  $pane->panel = 'page-header-right';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_anonymous_user_panel';
+  $pane->shown = TRUE;
+  $pane->access = array(
+    'plugins' => array(
+      0 => array(
+        'name' => 'role',
+        'settings' => array(
+          'rids' => array(
+            0 => 1,
+          ),
+        ),
+        'context' => 'logged-in-user',
+        'not' => FALSE,
+      ),
+    ),
+  );
+  $pane->configuration = array(
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = 'c76e38a0-5bbb-4e51-8b4c-bc0f39d4f7fb';
+  $display->content['new-c76e38a0-5bbb-4e51-8b4c-bc0f39d4f7fb'] = $pane;
+  $display->panels['page-header-right'][1] = 'new-c76e38a0-5bbb-4e51-8b4c-bc0f39d4f7fb';
   $pane = new stdClass();
   $pane->pid = 'new-eb400803-4724-4a8f-8d64-cca2eb9a3ccf';
   $pane->panel = 'right';
@@ -344,6 +392,7 @@ function erpal_layout_default_page_manager_handlers() {
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
+
   $export['site_template_panel_context'] = $handler;
 
   return $export;
@@ -747,6 +796,87 @@ function erpal_layout_default_panels_mini() {
   $mini->display = $display;
 
   $export['profile_maintab'] = $mini;
+
+
+  /* anonymous user login (mini-) panel */
+  $mini = new stdClass();
+  $mini->disabled = FALSE; /* Edit this to true to make a default mini disabled initially */
+  $mini->api_version = 1;
+  $mini->name = 'erpal_anonymous_user_panel';
+  $mini->category = '';
+  $mini->admin_title = 'ERPAL anonymous user panel';
+  $mini->admin_description = '';
+  $mini->requiredcontexts = array();
+  $mini->contexts = array();
+  $mini->relationships = array();
+  $display = new panels_display();
+  $display->layout = 'erpaldropdownregion';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'content' => NULL,
+      'trigger' => NULL,
+      'dropdown' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '';
+  $display->uuid = 'c7a9cefb-6663-4c1a-b132-f8073c9b59d3';
+  $display->content = array();
+  $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-dbfddf4e-a11e-43fa-8ac4-a4be293b6bc1';
+  $pane->panel = 'dropdown';
+  $pane->type = 'block';
+  $pane->subtype = 'user-login';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'dbfddf4e-a11e-43fa-8ac4-a4be293b6bc1';
+  $display->content['new-dbfddf4e-a11e-43fa-8ac4-a4be293b6bc1'] = $pane;
+  $display->panels['dropdown'][0] = 'new-dbfddf4e-a11e-43fa-8ac4-a4be293b6bc1';
+  $pane = new stdClass();
+  $pane->pid = 'new-76d86e82-c2cf-4b5f-84cf-cf15b0052126';
+  $pane->panel = 'trigger';
+  $pane->type = 'custom';
+  $pane->subtype = 'custom';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'admin_title' => '',
+    'title' => '',
+    'body' => '<a href="user" class="login">Login</a>',
+    'format' => 'full_html',
+    'substitute' => TRUE,
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '76d86e82-c2cf-4b5f-84cf-cf15b0052126';
+  $display->content['new-76d86e82-c2cf-4b5f-84cf-cf15b0052126'] = $pane;
+  $display->panels['trigger'][0] = 'new-76d86e82-c2cf-4b5f-84cf-cf15b0052126';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = '0';
+  $mini->display = $display;
+
+  $export['anonymous_login_panel'] = $mini;
 
 
   return $export;
