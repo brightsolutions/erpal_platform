@@ -525,17 +525,18 @@ function erpal_crm_ui_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
   $pane = new stdClass();
-  $pane->pid = 'new-390b92f0-4ac3-4537-afaa-fde188a35430';
+  $pane->pid = 'new-75dd5ba2-e3fa-4466-b146-03a4094410ce';
   $pane->panel = 'middle';
-  $pane->type = 'entity_view';
-  $pane->subtype = 'crm_core_contact';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'contact_view_main_tab_content';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
-    'view_mode' => 'full',
-    'context' => 'argument_entity_id:crm_core_contact_1',
-    'override_title' => 1,
-    'override_title_text' => 'Contact',
+    'context' => array(
+      0 => 'argument_entity_id:crm_core_contact_1',
+    ),
+    'override_title' => 0,
+    'override_title_text' => '',
   );
   $pane->cache = array();
   $pane->style = array(
@@ -545,9 +546,9 @@ function erpal_crm_ui_default_page_manager_pages() {
   $pane->extras = array();
   $pane->position = 0;
   $pane->locks = array();
-  $pane->uuid = '390b92f0-4ac3-4537-afaa-fde188a35430';
-  $display->content['new-390b92f0-4ac3-4537-afaa-fde188a35430'] = $pane;
-  $display->panels['middle'][0] = 'new-390b92f0-4ac3-4537-afaa-fde188a35430';
+  $pane->uuid = '75dd5ba2-e3fa-4466-b146-03a4094410ce';
+  $display->content['new-75dd5ba2-e3fa-4466-b146-03a4094410ce'] = $pane;
+  $display->panels['middle'][0] = 'new-75dd5ba2-e3fa-4466-b146-03a4094410ce';
   $pane = new stdClass();
   $pane->pid = 'new-d20a4404-5437-4adf-b3ee-274cd4ca7038';
   $pane->panel = 'middle';
@@ -594,8 +595,33 @@ function erpal_crm_ui_default_page_manager_pages() {
   $pane->uuid = 'bc5e6dae-08b4-4c3a-8437-8acd39546a17';
   $display->content['new-bc5e6dae-08b4-4c3a-8437-8acd39546a17'] = $pane;
   $display->panels['middle'][2] = 'new-bc5e6dae-08b4-4c3a-8437-8acd39546a17';
+  $pane = new stdClass();
+  $pane->pid = 'new-88f8a7f6-6a91-4986-815a-4840fccaee01';
+  $pane->panel = 'middle';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_contact_view_merged_tab';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'argument_entity_id:crm_core_contact_1',
+    ),
+    'override_title' => 1,
+    'override_title_text' => 'Quotes, Orders, Invoices',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 3;
+  $pane->locks = array();
+  $pane->uuid = '88f8a7f6-6a91-4986-815a-4840fccaee01';
+  $display->content['new-88f8a7f6-6a91-4986-815a-4840fccaee01'] = $pane;
+  $display->panels['middle'][3] = 'new-88f8a7f6-6a91-4986-815a-4840fccaee01';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-390b92f0-4ac3-4537-afaa-fde188a35430';
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
 
