@@ -65,6 +65,24 @@ function erpal_crm_ui_module_implements_alter(&$implementations, $hook) {
 }
 
 /**
+ * Implements hook_permission().
+ */
+function erpal_crm_ui_permission() {
+  $permissions = array(
+    'delete any crm_core_contact entity' => array(
+      'title' => t('Delete any cotacts of any type'),
+      'restrict access' => TRUE,
+    ),
+    'delete any crm_core_activity entity' => array(
+      'title' => t('Delete any activities of any type'),
+      'restrict access' => TRUE,
+    ),
+  );
+
+  return $permissions;
+}
+
+/**
  * Implements hook_views_api().
  *
  * We provide our default views.

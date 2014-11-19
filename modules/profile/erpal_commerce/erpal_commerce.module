@@ -917,7 +917,7 @@ function erpal_commerce_field_widget_form_alter(&$element, &$form_state, $contex
  *   The form state of the parent form.
  */
 function erpal_commerce_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
-  if ($entity_form['#bundle'] == 'billing' && $entity_form['#entity_type'] == 'commerce_customer_profile') {
+  if (!empty($entity_form['#bundle']) && $entity_form['#bundle'] == 'billing' && $entity_form['#entity_type'] == 'commerce_customer_profile') {
     $entity_form['#title'] = t('Add new address');
     $entity_form['actions']['ief_add_save']['#value'] = t('Create address');
     $entity_form['actions']['ief_edit_save']['#value'] = t('Update address');

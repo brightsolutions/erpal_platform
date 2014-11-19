@@ -18,16 +18,8 @@ function erpal_commerce_ui_default_page_manager_pages() {
   $page->admin_description = '';
   $page->path = 'admin/commerce/orders/%commerce_order';
   $page->access = array(
-    'plugins' => array(
-      0 => array(
-        'name' => 'perm',
-        'settings' => array(
-          'perm' => 'view any commerce_order entity',
-        ),
-        'context' => 'logged-in-user',
-        'not' => FALSE,
-      ),
-    ),
+    'plugins' => array(),
+    'logic' => 'and',
   );
   $page->menu = array();
   $page->arguments = array(

@@ -19,13 +19,13 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'ERPAL Orders';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'edit any commerce_order entity of bundle commerce_order';
+  $handler->display->display_options['access']['perm'] = 'view any commerce_order entity of bundle commerce_order';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
@@ -197,7 +197,7 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
     3 => 0,
   );
-
+  
   /* Display: Admin page */
   $handler = $view->new_display('page', 'Admin page', 'page');
   $handler->display->display_options['defaults']['footer'] = FALSE;
@@ -284,7 +284,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['weight'] = '0';
-
+  
   /* Display: User page */
   $handler = $view->new_display('page', 'User page', 'page_1');
   $handler->display->display_options['defaults']['footer'] = FALSE;
@@ -473,7 +473,7 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['path'] = 'orders';
-
+  
   /* Display: Activity by Order */
   $handler = $view->new_display('panel_pane', 'Activity by Order', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -538,7 +538,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-
+  
   /* Display: Orders by Activity */
   $handler = $view->new_display('panel_pane', 'Orders by Activity', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -636,7 +636,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-
+  
   /* Display: Orders by Contact */
   $handler = $view->new_display('panel_pane', 'Orders by Contact', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -722,7 +722,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'CRM Contact: Contact ID',
     ),
   );
-
+  
   /* Display: Quote by Order */
   $handler = $view->new_display('panel_pane', 'Quote by Order', 'panel_pane_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -813,7 +813,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-
+  
   /* Display: Invoices by Order */
   $handler = $view->new_display('panel_pane', 'Invoices by Order', 'panel_pane_5');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -902,7 +902,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order (field_invoice_order)',
     ),
   );
-
+  
   /* Display: Orders by Invoice */
   $handler = $view->new_display('panel_pane', 'Orders by Invoice', 'panel_pane_6');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1011,7 +1011,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-
+  
   /* Display: dashboard */
   $handler = $view->new_display('block', 'dashboard', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1068,7 +1068,7 @@ function erpal_commerce_ui_views_default_views() {
     'commerce_order' => 'commerce_order',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-
+  
   /* Display: Orders by Contact Teaser */
   $handler = $view->new_display('panel_pane', 'Orders by Contact Teaser', 'panel_pane_7');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1151,9 +1151,9 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[order_number]
-<time title="Created" class="created">[created]</time>
-<span class="status">[status]</span>
-[erpal_commerce_ui_order_link]';
+  <time title="Created" class="created">[created]</time>
+  <span class="status">[status]</span>
+  [erpal_commerce_ui_order_link]';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: CRM Contact: Contact ID */
@@ -1246,10 +1246,10 @@ function erpal_commerce_ui_views_default_views() {
     t('<time>[created]</time>'),
     t('PDF'),
     t('[order_number]
-<time title="Created" class="created">[created]</time>
-<span class="status">[status]</span>
-[erpal_commerce_ui_order_link]'),
-  );
+    <time title="Created" class="created">[created]</time>
+    <span class="status">[status]</span>
+    [erpal_commerce_ui_order_link]'),
+    );
 
   $export['erpal_order'] = $view;
 
@@ -2336,13 +2336,13 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 0;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->display->display_options['title'] = 'Products';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'administer commerce_product entities';
+  $handler->display->display_options['access']['perm'] = 'view any commerce_product entity';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
