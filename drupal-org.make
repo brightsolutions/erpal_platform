@@ -29,6 +29,7 @@ projects[commerce_reports][subdir] = "contrib"
 projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-order_delete_hook-2380203-1.patch"
 projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-configurable_statuses-2380219-1.patch"
 projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-tax_insert_for_statuses-2380227-2.patch"
+projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-any_order_type_support-2380309-1.patch"
 
 projects[crm_core][version] = "0.963"
 projects[crm_core][subdir] = "contrib"
