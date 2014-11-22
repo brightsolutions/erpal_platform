@@ -210,7 +210,7 @@ projects[views_date_format_sql][download][type] = "git"
 projects[views_date_format_sql][download][url] = "http://git.drupal.org/project/views_date_format_sql.git"
 projects[views_date_format_sql][download][branch] = "master"
 projects[views_date_format_sql][download][revision] = "2304ca30a319e59b146be25dbabf2dc9578f15d1"
-projects[views_date_format_sql][patch][] = "https://www.drupal.org/files/1830436-Date-field-support-17.patch"
+projects[views_date_format_sql][patch][] = "https://www.drupal.org/files/issues/views_date_format_sql-date_field_support-1830436-35.patch"
 
 projects[views_filter_args][subdir] = "contrib"
 projects[views_filter_args][download][type] = "git"
