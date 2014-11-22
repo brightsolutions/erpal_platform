@@ -92,6 +92,7 @@ function erpal_commerce_entity_info_alter(&$entity_info) {
 
   // Change callback for order label.
   $entity_info['commerce_order']['label callback'] = 'erpal_commerce_order_label';
+  $entity_info['commerce_order']['entity keys']['label'] = 'order_number';
 
   // Integrate commerce_customer_profile entity with inline entity form.
   $entity_info['commerce_customer_profile']['inline entity form'] = array(
