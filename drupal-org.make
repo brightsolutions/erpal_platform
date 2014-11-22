@@ -10,6 +10,9 @@ projects[admin_menu][version] = "3.0-rc4"
 projects[admin_menu][subdir] = "contrib"
 projects[admin_menu][patch][] = "https://www.drupal.org/files/admin_menu-ie6detect-1961178-1.patch"
 
+projects[charts][version] = "2.0-rc1"
+projects[charts][subdir] = "contrib"
+
 projects[cat][version] = "1.0-beta1"
 projects[cat][subdir] = "contrib"
 
@@ -20,6 +23,12 @@ projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_bil
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-fix-issue-with-watchdog-log.patch"
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-skip-validation-on-confirm-form.patch"
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy_unique-number-by-type.patch"
+
+projects[commerce_reports][version] = "4.0-beta1"
+projects[commerce_reports][subdir] = "contrib"
+projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-order_delete_hook-2380203-1.patch"
+projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-configurable_statuses-2380219-1.patch"
+projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-tax_insert_for_statuses-2380227-2.patch"
 
 projects[crm_core][version] = "0.963"
 projects[crm_core][subdir] = "contrib"
@@ -122,6 +131,10 @@ projects[views][subdir] = "contrib"
 
 projects[views_bulk_operations][version] = "3.2"
 projects[views_bulk_operations][subdir] = "contrib"
+
+projects[views_date_format_sql][version] = "3.1"
+projects[views_date_format_sql][subdir] = "contrib"
+projects[views_date_format_sql][patch][] = "https://www.drupal.org/files/1830436-Date-field-support-17.patch"
 
 projects[views_field_view][version] = "1.1"
 projects[views_field_view][subdir] = "contrib"
