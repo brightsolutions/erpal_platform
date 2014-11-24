@@ -151,6 +151,7 @@ projects[jquery_ui_multiselect_widget][subdir] = "contrib"
 projects[jquery_ui_multiselect_widget][version] = "1.11"
 projects[jquery_ui_multiselect_widget][patch][] = "https://www.drupal.org/files/issues/jquery_ui_multiselect_widget-add-support-subpathauto-1.patch"
 projects[jquery_ui_multiselect_widget][patch][] = "https://www.drupal.org/files/issues/jquery_ui_multiselect_widget-drop_dependency-2377539-4.patch"
+projects[jquery_ui_multiselect_widget][patch][] = "https://www.drupal.org/files/issues/jquery_ui_multiselect_widget-ajax_support-2364055-4.patch"
 
 projects[ds][subdir] = "contrib"
 projects[ds][version] = "2.7"
