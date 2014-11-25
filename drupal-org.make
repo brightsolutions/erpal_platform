@@ -156,6 +156,12 @@ projects[jquery_ui_multiselect_widget][patch][] = "https://www.drupal.org/files/
 projects[ds][subdir] = "contrib"
 projects[ds][version] = "2.7"
 
+projects[module_filter][subdir] = "contrib"
+projects[module_filter][version] = "2.0-alpha2"
+
+projects[fpa][subdir] = "contrib"
+projects[fpa][version] = "2.6"
+
 
 ; ### DEV VERSIONS of contrib modules ###
 projects[timed_messages][subdir] = "contrib"
