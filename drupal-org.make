@@ -193,6 +193,7 @@ projects[homebox][download][url] = "http://git.drupal.org/project/homebox.git"
 projects[homebox][download][branch] = "7.x-2.x"
 projects[homebox][download][revision] = "27ccfd7b36095a35f00c2573f046926e2d20a03d"
 projects[homebox][patch][] = "https://www.drupal.org/files/issues/homebox-percentage_width-2015203-3.patch"
+projects[homebox][patch][] = "https://www.drupal.org/files/issues/homebox_save-button-not-fired-on-some-theme-2201955-5.patch"
 
 projects[name][subdir] = "contrib"
 projects[name][version] = "1.x-dev"
