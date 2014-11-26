@@ -29,7 +29,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
               'email' => 'email',
             ),
           ),
-          'context' => 'crm_core_activity',
+          'context' => 'crm-core-activity',
           'not' => FALSE,
         ),
       ),
@@ -37,7 +37,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     'active_trail_path' => '',
     'arguments' => array(
       2 => array(
-        'argument_name' => 'crm_core_activity',
+        'argument_name' => 'crm-core-activity',
         'argument_type' => 'path',
         'position' => 2,
         'argument' => 'entity_id:crm_core_activity',
@@ -56,7 +56,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
         'path_original' => 'quote/add',
         'path_pattern' => 'quote/%',
         'path_query' => array(
-          'activity_id' => '[crm_core_activity:activity-id]',
+          'activity_id' => '[crm-core-activity:activity-id]',
         ),
         'path_destination' => FALSE,
         'title' => 'Create a quote',
@@ -67,7 +67,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     ),
     'cat_tabs' => array(),
     'machine_name' => 'create_quote',
-    'path_original' => 'crm-core/activity/%crm_core_activity',
+    'path_original' => 'crm-core/activity/%crm-core-activity',
     'path_pattern' => 'crm-core/%/%',
     'path_query' => array(),
     'path_router' => 'crm-core/activity/%',
@@ -95,7 +95,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
               'sales_process' => 'sales_process',
             ),
           ),
-          'context' => 'crm_core_activity',
+          'context' => 'crm-core-activity',
           'not' => FALSE,
         ),
       ),
@@ -104,7 +104,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     'active_trail_path' => '',
     'arguments' => array(
       2 => array(
-        'argument_name' => 'crm_core_activity',
+        'argument_name' => 'crm-core-activity',
         'argument_type' => 'path',
         'position' => 2,
         'argument' => 'entity_id:crm_core_activity',
@@ -123,8 +123,8 @@ function erpal_commerce_ui_cat_items_settings_info() {
         'path_original' => 'quote/add',
         'path_pattern' => 'quote/%',
         'path_query' => array(
-          'field_sales_process' => '[crm_core_activity:activity-id]',
-          'field_customer' => '[crm_core_activity:field-activity-customer:contact-id]',
+          'field_sales_process' => '[crm-core-activity:activity-id]',
+          'field_customer' => '[crm-core-activity:field-activity-customer:contact-id]',
         ),
         'path_destination' => FALSE,
         'title' => 'Create a quote',
@@ -135,7 +135,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     ),
     'cat_tabs' => array(),
     'machine_name' => 'create_quote_sales_process',
-    'path_original' => 'crm-core/activity/%crm_core_activity',
+    'path_original' => 'crm-core/activity/%crm-core-activity',
     'path_pattern' => 'crm-core/%/%',
     'path_query' => array(),
     'path_router' => 'crm-core/activity/%',
@@ -157,7 +157,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     'active_trail_path' => '',
     'arguments' => array(
       2 => array(
-        'argument_name' => 'crm_core_contact',
+        'argument_name' => 'crm-core-contact',
         'argument_type' => 'path',
         'position' => 2,
         'argument' => 'entity_id:crm_core_contact',
@@ -176,7 +176,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
         'path_original' => 'quote/add',
         'path_pattern' => 'quote/%',
         'path_query' => array(
-          'field_customer' => '[crm_core_contact:contact-id]',
+          'field_customer' => '[crm-core-contact:contact-id]',
         ),
         'path_destination' => FALSE,
         'title' => 'Add a quote',
@@ -187,7 +187,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     ),
     'cat_tabs' => array(),
     'machine_name' => 'create_quote_link',
-    'path_original' => 'crm-core/contact/%crm_core_contact',
+    'path_original' => 'crm-core/contact/%crm-core-contact',
     'path_pattern' => 'crm-core/%/%',
     'path_query' => array(),
     'path_router' => 'crm-core/contact/%',
@@ -209,7 +209,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     'active_trail_path' => '',
     'arguments' => array(
       2 => array(
-        'argument_name' => 'crm_core_contact',
+        'argument_name' => 'crm-core-contact',
         'argument_type' => 'path',
         'position' => 2,
         'argument' => 'entity_id:crm_core_contact',
@@ -228,7 +228,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
         'path_original' => 'order/add',
         'path_pattern' => 'admin/commerce/orders/%',
         'path_query' => array(
-          'field_customer' => '[crm_core_contact:contact-id]',
+          'field_customer' => '[crm-core-contact:contact-id]',
         ),
         'path_destination' => FALSE,
         'title' => 'Add an order',
@@ -239,7 +239,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     ),
     'cat_tabs' => array(),
     'machine_name' => 'create_order_link',
-    'path_original' => 'crm-core/contact/%crm_core_contact',
+    'path_original' => 'crm-core/contact/%crm-core-contact',
     'path_pattern' => 'crm-core/%/%',
     'path_query' => array(),
     'path_router' => 'crm-core/contact/%',
@@ -261,7 +261,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     'active_trail_path' => '',
     'arguments' => array(
       2 => array(
-        'argument_name' => 'crm_core_contact',
+        'argument_name' => 'crm-core-contact',
         'argument_type' => 'path',
         'position' => 2,
         'argument' => 'entity_id:crm_core_contact',
@@ -280,7 +280,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
         'path_original' => 'invoice/add',
         'path_pattern' => 'invoice/%',
         'path_query' => array(
-          'field_customer' => '[crm_core_contact:contact-id]',
+          'field_customer' => '[crm-core-contact:contact-id]',
         ),
         'path_destination' => FALSE,
         'title' => 'Add an invoice',
@@ -291,7 +291,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     ),
     'cat_tabs' => array(),
     'machine_name' => 'create_invoice_link',
-    'path_original' => 'crm-core/contact/%crm_core_contact',
+    'path_original' => 'crm-core/contact/%crm-core-contact',
     'path_pattern' => 'crm-core/%/%',
     'path_query' => array(),
     'path_router' => 'crm-core/contact/%',
@@ -423,7 +423,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
               'sales_process' => 'sales_process',
             ),
           ),
-          'context' => 'crm_core_activity',
+          'context' => 'crm-core-activity',
           'not' => FALSE,
         ),
       ),
@@ -432,7 +432,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     'active_trail_path' => '',
     'arguments' => array(
       2 => array(
-        'argument_name' => 'crm_core_activity',
+        'argument_name' => 'crm-core-activity',
         'argument_type' => 'path',
         'position' => 2,
         'argument' => 'entity_id:crm_core_activity',
@@ -451,7 +451,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
         'path_original' => 'order/add',
         'path_pattern' => 'order/%',
         'path_query' => array(
-          'field_customer' => '[crm_core_activity:field-activity-customer:contact-id]',
+          'field_customer' => '[crm-core-activity:field-activity-customer:contact-id]',
         ),
         'path_destination' => FALSE,
         'title' => 'Create an order',
@@ -462,7 +462,7 @@ function erpal_commerce_ui_cat_items_settings_info() {
     ),
     'cat_tabs' => array(),
     'machine_name' => 'create_order_sales',
-    'path_original' => 'crm-core/activity/%crm_core_activity',
+    'path_original' => 'crm-core/activity/%crm-core-activity',
     'path_pattern' => 'crm-core/%/%',
     'path_query' => array(),
     'path_router' => 'crm-core/activity/%',

@@ -13,7 +13,7 @@ projects[admin_menu][patch][] = "https://www.drupal.org/files/admin_menu-ie6dete
 projects[charts][version] = "2.0-rc1"
 projects[charts][subdir] = "contrib"
 
-projects[cat][version] = "1.0-beta1"
+projects[cat][version] = "1.0-beta2"
 projects[cat][subdir] = "contrib"
 
 projects[commerce_billy][version] = "1.0-beta2"
@@ -31,10 +31,10 @@ projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/comme
 projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-tax_insert_for_statuses-2380227-2.patch"
 projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-any_order_type_support-2380309-1.patch"
 
-projects[crm_core][version] = "0.963"
+projects[crm_core][version] = "0.980"
 projects[crm_core][subdir] = "contrib"
 
-projects[ctools][version] = "1.4"
+projects[ctools][version] = "1.5"
 projects[ctools][subdir] = "contrib"
 
 projects[custom_order_number][version] = "1.0-alpha1"
@@ -59,7 +59,7 @@ projects[entityreference][subdir] = "contrib"
 projects[entityreference_prepopulate][version] = "1.5"
 projects[entityreference_prepopulate][subdir] = "contrib"
 
-projects[field_collection][version] = "1.0-beta7"
+projects[field_collection][version] = "1.0-beta8"
 projects[field_collection][subdir] = "contrib"
 
 projects[field_extrawidgets][version] = "1.1"
@@ -98,7 +98,7 @@ projects[references_dialog][version] = "1.0-beta1"
 projects[references_dialog][subdir] = "contrib"
 projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/references_dialog-add-bundle-to-entity-access_2308071_1.patch"
 
-projects[relation][version] = "1.0-rc4"
+projects[relation][version] = "1.0-rc6"
 projects[relation][subdir] = "contrib"
 
 projects[relation_add][version] = "1.2"
