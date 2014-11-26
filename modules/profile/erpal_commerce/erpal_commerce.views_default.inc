@@ -176,7 +176,7 @@ function erpal_commerce_views_default_views_alter(&$views) {
     $handler->display->display_options['footer']['area']['id'] = 'area';
     $handler->display->display_options['footer']['area']['table'] = 'views';
     $handler->display->display_options['footer']['area']['field'] = 'area';
-    $handler->display->display_options['footer']['area']['content'] = '<a href="/invoices" class="link-global-view">Full view</a>';
+    $handler->display->display_options['footer']['area']['content'] = '<a href="invoices" class="link-global-view">Full view</a>';
     $handler->display->display_options['footer']['area']['format'] = 'filtered_html';
     $handler->display->display_options['defaults']['fields'] = FALSE;
     /* Field: Commerce Order: Order number */

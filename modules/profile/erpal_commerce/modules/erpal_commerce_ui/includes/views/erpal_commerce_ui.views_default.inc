@@ -1025,7 +1025,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['footer']['area']['id'] = 'area';
   $handler->display->display_options['footer']['area']['table'] = 'views';
   $handler->display->display_options['footer']['area']['field'] = 'area';
-  $handler->display->display_options['footer']['area']['content'] = '<a href="/orders" class="link-global-view">Full view</a>';
+  $handler->display->display_options['footer']['area']['content'] = '<a href="orders" class="link-global-view">Full view</a>';
   $handler->display->display_options['footer']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
@@ -1241,7 +1241,7 @@ function erpal_commerce_ui_views_default_views() {
     t('Orders by Invoice'),
     t('Order'),
     t('dashboard'),
-    t('<a href="/orders" class="link-global-view">Full view</a>'),
+    t('<a href="orders" class="link-global-view">Full view</a>'),
     t('Orders by Contact Teaser'),
     t('<time>[created]</time>'),
     t('PDF'),
@@ -2250,7 +2250,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['footer']['area']['id'] = 'area';
   $handler->display->display_options['footer']['area']['table'] = 'views';
   $handler->display->display_options['footer']['area']['field'] = 'area';
-  $handler->display->display_options['footer']['area']['content'] = '<a href="/invoices/line_items" class="link-global-view">Full view</a>';
+  $handler->display->display_options['footer']['area']['content'] = '<a href="invoices/line_items" class="link-global-view">Full view</a>';
   $handler->display->display_options['footer']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Commerce Line Item: Title */
@@ -2321,7 +2321,7 @@ function erpal_commerce_ui_views_default_views() {
     t('Unit price'),
     t('Quantity'),
     t('Dashboard'),
-    t('<a href="/invoices/line_items" class="link-global-view">Full view</a>'),
+    t('<a href="invoices/line_items" class="link-global-view">Full view</a>'),
     t('Invoice number'),
   );
 

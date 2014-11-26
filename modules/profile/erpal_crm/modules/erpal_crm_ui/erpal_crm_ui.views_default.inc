@@ -334,7 +334,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['footer']['area']['id'] = 'area';
   $handler->display->display_options['footer']['area']['table'] = 'views';
   $handler->display->display_options['footer']['area']['field'] = 'area';
-  $handler->display->display_options['footer']['area']['content'] = '<a href="/contacts" class="link-global-view">Full view</a>';
+  $handler->display->display_options['footer']['area']['content'] = '<a href="contacts" class="link-global-view">Full view</a>';
   $handler->display->display_options['footer']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
@@ -426,7 +426,7 @@ function erpal_crm_ui_views_default_views() {
     t('CRM Activity Participants'),
     t('dashboard'),
     t('Contacts'),
-    t('<a href="/contacts" class="link-global-view">Full view</a>'),
+    t('<a href="contacts" class="link-global-view">Full view</a>'),
     t('Currently there are no contacts.'),
   );
 
@@ -1326,7 +1326,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['footer']['area']['id'] = 'area';
   $handler->display->display_options['footer']['area']['table'] = 'views';
   $handler->display->display_options['footer']['area']['field'] = 'area';
-  $handler->display->display_options['footer']['area']['content'] = '<a href="/activities" class="link-global-view">Full view</a>';
+  $handler->display->display_options['footer']['area']['content'] = '<a href="activities" class="link-global-view">Full view</a>';
   $handler->display->display_options['footer']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
@@ -1418,7 +1418,7 @@ function erpal_crm_ui_views_default_views() {
     t('Notes'),
     t('All'),
     t('dashboard'),
-    t('<a href="/activities" class="link-global-view">Full view</a>'),
+    t('<a href="activities" class="link-global-view">Full view</a>'),
     t('Currently there are no activities.'),
   );
 
