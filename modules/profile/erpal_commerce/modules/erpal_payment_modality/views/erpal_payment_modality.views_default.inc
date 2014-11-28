@@ -20,7 +20,7 @@ function erpal_payment_modality_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'ERPAL payment modality';
@@ -53,12 +53,12 @@ function erpal_payment_modality_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  /* Field: ERPAL payment modality: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'erpal_payment_modality';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  /* Field: ERPAL payment modality: Full label */
+  $handler->display->display_options['fields']['erpal_payment_modality_full_label']['id'] = 'erpal_payment_modality_full_label';
+  $handler->display->display_options['fields']['erpal_payment_modality_full_label']['table'] = 'views_entity_erpal_payment_modality';
+  $handler->display->display_options['fields']['erpal_payment_modality_full_label']['field'] = 'erpal_payment_modality_full_label';
+  $handler->display->display_options['fields']['erpal_payment_modality_full_label']['label'] = '';
+  $handler->display->display_options['fields']['erpal_payment_modality_full_label']['element_label_colon'] = FALSE;
   /* Field: ERPAL payment modality: Create invoice line item */
   $handler->display->display_options['fields']['create_invoice_line_item']['id'] = 'create_invoice_line_item';
   $handler->display->display_options['fields']['create_invoice_line_item']['table'] = 'views_entity_erpal_payment_modality';
@@ -78,7 +78,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['arguments']['payment_modality_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['payment_modality_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['payment_modality_id']['break_phrase'] = TRUE;
-
+  
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
   $translatables['erpal_payment_modality'] = array(

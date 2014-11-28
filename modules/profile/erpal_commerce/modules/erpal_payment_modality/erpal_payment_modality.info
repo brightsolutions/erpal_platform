@@ -12,3 +12,4 @@ dependencies[] = rules_link
 files[] = includes/erpal_payment_modality.controller.inc
 files[] = includes/erpal_payment_modality.inline_entity_form.inc
 files[] = includes/erpal_commerce_line_item.inline_entity_form.inc
+files[] = views/handlers/erpal_payment_modality_full_label_handler.inc

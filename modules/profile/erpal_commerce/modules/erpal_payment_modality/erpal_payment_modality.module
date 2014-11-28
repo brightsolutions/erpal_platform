@@ -83,6 +83,39 @@ function erpal_payment_modality_entity_info() {
 }
 
 /**
+ * Entity label callback: returns the label for an individual erpal payment
+ * modality.
+ */
+function erpal_payment_modality_label($entity) {
+  $payment_modality_wrapper = entity_metadata_wrapper('erpal_payment_modality', $entity);
+      
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'commerce_line_item')
+    ->entityCondition('bundle', 'product')
+    ->fieldCondition('field_payment_modality', 'target_id', $payment_modality_wrapper->payment_modality_id->value());
+  $line_items = $query->execute();
+  if ($line_items) {
+    $row = reset($line_items['commerce_line_item']);
+    $line_item = commerce_line_item_load($row->line_item_id);
+    $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+    $total = $line_item_wrapper->commerce_total->value();
+    if ($payment_modality_wrapper->field_amount_type->value() == 'percent') {
+      $amount = ($payment_modality_wrapper->field_amount->value() / 100) * $total['amount'];
+    }
+    else {
+      $amount = commerce_currency_decimal_to_amount($payment_modality_wrapper->field_amount->value(), $total['currency_code']);
+    }
+    return t('!label (!amount)', array(
+      '!label' => $payment_modality_wrapper->title->value(),
+      '!amount' => commerce_currency_format($amount, $total['currency_code']),
+    ));
+  }
+  else {
+    return $payment_modality_wrapper->title->value();
+  }
+}
+
+/**
  * Implements hook_entity_info_alter().
  *
  * Use this hook to specify payment modality bundles to avoid a recursion,
