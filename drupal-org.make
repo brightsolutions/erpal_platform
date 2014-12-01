@@ -162,6 +162,9 @@ projects[module_filter][version] = "2.0-alpha2"
 projects[fpa][subdir] = "contrib"
 projects[fpa][version] = "2.6"
 
+projects[viewfield][subdir] = "contrib"
+projects[viewfield][version] = "2.0"
+
 
 ; ### DEV VERSIONS of contrib modules ###
 projects[timed_messages][subdir] = "contrib"

@@ -77,6 +77,8 @@ dependencies[] = homebox
 dependencies[] = views_filter_args
 dependencies[] = module_filter
 dependencies[] = fpa
+dependencies[] = ds
+dependencies[] = viewfield
 
 ;ERPAL modules
 dependencies[] = erpal_core_ui
