@@ -82,8 +82,8 @@ function erpal_crm_install() {
   variable_set('pathauto_entity_available_entity_types', $available);
   variable_set('subpathauto_ignore_admin', 0);
   variable_set('subpathauto_depth', 4);
-  variable_set('pathauto_crm_core_contact_pattern', 'contact/[crm_core_contact:contact-id]');
-  variable_set('pathauto_crm_core_activity_pattern', 'activity/[crm_core_activity:activity-id]');
+  variable_set('pathauto_crm_core_contact_pattern', 'contact/[crm-core-contact:contact-id]');
+  variable_set('pathauto_crm_core_activity_pattern', 'activity/[crm-core-activity:activity-id]');
 
   $urls = array(
     'crm-core/contact' => 'contacts',
