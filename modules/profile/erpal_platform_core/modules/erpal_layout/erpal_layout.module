@@ -514,7 +514,7 @@ function erpal_layout_default_panels_mini() {
   $display->title_pane = 'new-77fc4a8f-aab6-4801-9fa6-389446ead170';
   $mini->display = $display;
 
-  $export['profile_details'] = $mini;
+  $export['erpal_dropdown_user_menu'] = $mini;
 
 
   /* contacts merged tab for invoice, order & quote */
@@ -623,7 +623,7 @@ function erpal_layout_default_panels_mini() {
   $display->title_pane = 'new-0eb1802a-9dce-47dd-b1f2-622c4d23f2ff';
   $mini->display = $display;
 
-  $export['profile_mergedtab'] = $mini;
+  $export['erpal_contact_view_merged_tab'] = $mini;
 
 
   /* enhanced contact main-tab */
@@ -795,7 +795,7 @@ function erpal_layout_default_panels_mini() {
   $display->title_pane = '0';
   $mini->display = $display;
 
-  $export['profile_maintab'] = $mini;
+  $export['contact_view_main_tab_content'] = $mini;
 
 
   /* anonymous user login (mini-) panel */
@@ -876,7 +876,7 @@ function erpal_layout_default_panels_mini() {
   $display->title_pane = '0';
   $mini->display = $display;
 
-  $export['anonymous_login_panel'] = $mini;
+  $export['erpal_anonymous_user_panel'] = $mini;
 
 
   return $export;
