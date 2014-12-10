@@ -88,9 +88,6 @@ projects[panels][subdir] = "contrib"
 projects[panels_everywhere][version] = "1.0-rc1"
 projects[panels_everywhere][subdir] = "contrib"
 
-projects[path_breadcrumbs][version] = "3.0"
-projects[path_breadcrumbs][subdir] = "contrib"
-
 projects[pm_existing_pages][version] = "1.4"
 projects[pm_existing_pages][subdir] = "contrib"
 
@@ -228,6 +225,12 @@ projects[views_filter_args][download][type] = "git"
 projects[views_filter_args][download][url] = "http://git.drupal.org/project/views_filter_args.git"
 projects[views_filter_args][download][branch] = "7.x-1.x"
 projects[views_filter_args][download][revision] = "c5ca64de67406ef10aa4c060460e9875840006af"
+
+projects[path_breadcrumbs][subdir] = "contrib"
+projects[path_breadcrumbs][download][type] = "git"
+projects[path_breadcrumbs][download][url] = "http://git.drupal.org/project/path_breadcrumbs.git"
+projects[path_breadcrumbs][download][branch] = "7.x-3.x"
+projects[path_breadcrumbs][download][revision] = "871aa78a350c92a25a8ee47880191e42d2bb4c6f"
 
 projects[commerce_order_types][subdir] = "contrib"
 projects[commerce_order_types][version] = "1.x-dev"
