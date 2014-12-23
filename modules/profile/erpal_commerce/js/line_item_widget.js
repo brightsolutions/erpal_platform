@@ -46,10 +46,10 @@
               $('a.add-dialog', $(this)).each(function () {
                 if (flag === false) {
                   flag = true;
-                  $(this).parent().closest('tr').removeClass('hidden');
+                  $(this).parent().closest('tr').show();
                 }
                 else {
-                  $(this).parent().closest('tr').addClass('hidden');
+                  $(this).parent().closest('tr').hide();
                 }
               });
             });
