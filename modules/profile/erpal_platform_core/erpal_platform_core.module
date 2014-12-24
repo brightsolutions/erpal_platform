@@ -42,3 +42,40 @@ function erpal_platform_core_entity_insert($entity, $type) {
     }
   }
 }
+
+/**
+ * Implements hook_views_api().
+ *
+ * This one is used as the base to reduce errors when updating.
+ */
+function erpal_platform_core_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function erpal_platform_core_theme($existing, $type, $theme, $path) {
+  return array(
+    'erpal_entity_actions' => array(
+      'variables' => array(
+        'actions' => array(),
+      ),
+      'template' => 'erpal_entity_actions',
+      'path' => $path . '/templates',
+    ),
+  );
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function erpal_platform_core_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'views_data_alter') {
+    $group = $implementations['erpal_platform_core'];
+    unset($implementations['erpal_platform_core']);
+    $implementations['erpal_platform_core'] = $group;
+  }
+}

@@ -7,3 +7,6 @@ dependencies[] = date_item
 dependencies[] = homebox
 dependencies[] = jqmulti
 dependencies[] = jquery_ui_multiselect_widget
+
+; Module includes
+files[] = includes/handlers/erpal_platform_core_handler_erpal_entity_actions.inc
