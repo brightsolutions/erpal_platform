@@ -1109,6 +1109,7 @@ function _erpal_crm_contact_type_default_instances($type) {
       ),
       'relation_type' => $relation_type,
       'user_register_form' => FALSE,
+      'relation_target_bundles' => array(),
     ),
     'widget' => array(
       'active' => 1,

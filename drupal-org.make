@@ -4,11 +4,10 @@ api = 2
 
 ; ### Contrib Modules ###
 projects[addressfield][subdir] = "contrib"
-projects[addressfield][version] = "1.0-beta5"
+projects[addressfield][version] = "1.0-rc1"
 
-projects[admin_menu][version] = "3.0-rc4"
+projects[admin_menu][version] = "3.0-rc5"
 projects[admin_menu][subdir] = "contrib"
-projects[admin_menu][patch][] = "https://www.drupal.org/files/admin_menu-ie6detect-1961178-1.patch"
 
 projects[charts][version] = "2.0-rc1"
 projects[charts][subdir] = "contrib"
@@ -98,10 +97,10 @@ projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/refe
 projects[relation][version] = "1.0-rc6"
 projects[relation][subdir] = "contrib"
 
-projects[relation_add][version] = "1.2"
+projects[relation_add][version] = "1.3"
 projects[relation_add][subdir] = "contrib"
-projects[relation_add][patch][] = "https://www.drupal.org/files/issues/relation_add-duplicate-primary-key-17901-1.patch"
-projects[relation_add][patch][] = "https://www.drupal.org/files/issues/relation_add-fix-notices-undefined-index-2191933_4.patch"
+projects[relation_add][patch][] = "https://www.drupal.org/files/issues/relation_add-crm-core-support-2191933_10.patch"
+projects[relation_add][patch][] = "https://www.drupal.org/files/issues/relation_add-have-error-on-reverse-relation-type-2398287.patch"
 
 projects[relation_view_formatter][version] = "1.0-alpha1"
 projects[relation_view_formatter][subdir] = "contrib"
