@@ -6,6 +6,24 @@
  */
 
 /**
+ * Implements hook_menu().
+ */
+function erpal_platform_core_menu() {
+  $items = array();
+
+  $items['admin/erpal/settings/global'] = array(
+    'title' => 'Global Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('erpal_platform_core_settings_form'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'erpal_platform_core.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
  * Implements hook_homebox().
  */
 function erpal_platform_core_homebox() {
@@ -30,7 +48,8 @@ function erpal_platform_core_permission() {
  */
 function erpal_platform_core_entity_insert($entity, $type) {
   // Show debug message when entity has been created.
-  if (!drupal_installation_attempted() && user_access('view erpal debug output')) {
+  $settings = variable_get('erpal_platform_core_messages', array());
+  if (!drupal_installation_attempted() && user_access('view erpal debug output') && !empty($settings[$type])) {
     $info = entity_get_info($type);
     $url = entity_uri($type, $entity);
     $label = entity_label($type, $entity);

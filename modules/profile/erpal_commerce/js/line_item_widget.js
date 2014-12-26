@@ -28,7 +28,7 @@
             if (parseInt(id)) {
               var addlink = $('.' + fieldClass + ' .' + key + ' a.add-dialog');
               addlink
-                .attr("href", "/erpal/payment-modality/" + id + "/edit")
+                .attr("href", settings.basePath + "erpal/payment-modality/" + id + "/edit")
                 .text(value)
                 .addClass('edit-dialog')
                 .removeClass('add-dialog');

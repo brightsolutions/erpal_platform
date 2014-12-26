@@ -321,6 +321,7 @@ function erpal_commerce_dialog_entityreference_edit_link($element, $widget_setti
       $title = $entity->title;
     }
     if (entity_access('update', $entity_type, $entity)) {
+      debug(references_dialog_get_admin_path($entity_type, 'edit', NULL, $entity),'SIZ', TRUE);
       return array(
         array(
           'title' => $title,

@@ -555,7 +555,7 @@ function _erpal_crm_user_field_instances() {
         'status' => 0,
         'view' => '',
       ),
-      'user_register_form' => 0,
+      'user_register_form' => 1,
     ),
     'widget' => array(
       'active' => 1,
