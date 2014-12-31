@@ -632,6 +632,7 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
 
     // Add all data to new invoice line item.
     $invoice->line_item_label = $invoice_label;
+    $invoice->quantity = $quantity;
     $invoice->order_id = $order['order_id'];
     $langcode = field_language('commerce_line_item', $invoice, 'commerce_unit_price');
     $invoice->commerce_unit_price[$langcode][0] = $total;
@@ -674,7 +675,6 @@ function erpal_payment_modality_total($payment_modality, $line_item, $quantity =
       $total['amount'] = ($field_amount[0]['value'] / 100) * $total['amount'];
     }
     else {
-      $field_amount[0]['value'] = $field_amount[0]['value'] * $quantity;
       $total['amount'] = commerce_currency_decimal_to_amount($field_amount[0]['value'], $total['currency_code']);
     }
   }
