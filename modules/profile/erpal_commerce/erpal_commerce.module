@@ -630,7 +630,7 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
         }
 
         // Helper function for cleare entity referance fields.
-        $check_field = function($line_item, $field_name) {
+        $check_field = function($line_item, $field_name, $element) {
           $field = field_get_items('commerce_line_item', $line_item, $field_name);
           if (!empty($field)) {
             $language = field_language('commerce_line_item', $line_item, $field_name);
@@ -638,14 +638,41 @@ function erpal_commerce_line_item_validate($element, &$form_state, $form) {
             foreach ($field as $id) {
               if (!empty($id['target_id'])) {
                 $line_item->{$field_name}[$language][] = array('target_id' => $id['target_id']);
+
+                // Check if not have more than 2 payment modalities for line
+                // item of unit "time".
+                if ($field_name == 'field_payment_modality') {
+                  $line_item_unit = field_get_items('commerce_line_item', $line_item, 'field_line_item_unit');
+                  // Get list of time measures (day, hour, minute, etc).
+                  $time_measures = array_keys(erpal_core_units_time());
+                  if (!empty($line_item_unit[0]['value']) && in_array($line_item_unit[0]['value'], $time_measures)) {
+                    $payment_modality = erpal_payment_modality_load($id['target_id']);
+                    // Check if current payment modality not due an order.
+                    $field_due_with = field_get_items('erpal_payment_modality', $payment_modality, 'field_due_with');
+                    if (!empty($field_due_with[0]['value']) && $field_due_with[0]['value'] != 'delivery') {
+                      continue;
+                    }
+                    else {
+                      if (!isset($i)) {
+                        $i = 0;
+                      }
+                      $i++;
+                    }
+
+                    if ($i >= 2) {
+                      $element_name = implode('][', $element['field_payment_modality']['#parents']);
+                      form_set_error($element_name, "We can't have 2 payment modalities with 'on delivery' in line item with unit time(hour, week, day etc.)");
+                    }
+                  }
+                }
               }
             }
           }
         };
 
         // Cleare entity reference fields.
-        $check_field($line_item, 'field_payment_modality');
-        $check_field($line_item, 'field_line_item_order');
+        $check_field($line_item, 'field_payment_modality', $element);
+        $check_field($line_item, 'field_line_item_order', $element);
 
         // If this type specifies a valid add form callback function...
         if ($callback = commerce_line_item_type_callback($line_item_type, 'add_form_submit')) {
