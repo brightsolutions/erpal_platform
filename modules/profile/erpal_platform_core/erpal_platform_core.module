@@ -49,7 +49,7 @@ function erpal_platform_core_permission() {
 function erpal_platform_core_entity_insert($entity, $type) {
   // Show debug message when entity has been created.
   $settings = variable_get('erpal_platform_core_messages', array());
-  if (!drupal_installation_attempted() && user_access('view erpal debug output') && !empty($settings[$type])) {
+  if (!drupal_installation_attempted() && user_access('view erpal debug output') && (!isset($settings[$type]) || !empty($settings[$type]))) {
     $info = entity_get_info($type);
     $url = entity_uri($type, $entity);
     $label = entity_label($type, $entity);
