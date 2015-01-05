@@ -22,26 +22,37 @@ class erpal_platform_core_handler_erpal_entity_actions extends views_handler_fie
 
       // Generate view link.
       if (!empty($uri['path']) && entity_access('view', $this->entity_type, $entity)) {
-        $actions[] = l(t('View'), $uri['path'], array('attributes' => array('class' => array('view'))));
+        $actions[] = array(
+          'title' => t('View'),
+          'href' => $uri['path'],
+          'attributes' => array('class' => array('view')),
+        );
       }
 
       // Generate edit link.
       if (!empty($uri['path']) && entity_access('edit', $this->entity_type, $entity)) {
-        $actions[] = l(t('Edit'), $uri['path'] . '/edit', array('attributes' => array('class' => array('edit'))));
+        $actions[] = array(
+          'title' => t('Edit'),
+          'href' => $uri['path'] . '/edit',
+          'attributes' => array('class' => array('edit')),
+        );
       }
 
       // Generate delete link.
       if (!empty($uri['path']) && entity_access('delete', $this->entity_type, $entity)) {
-        $actions[] = l(t('Delete'), $uri['path'] . '/delete', array('attributes' => array('class' => array('delete'))));
+        $actions[] = array(
+          'title' => t('Delete'),
+          'href' => $uri['path'] . '/delete',
+          'attributes' => array('class' => array('delete')),
+        );
       }
 
       // Prepare render array.
       $data = array(
-        '#theme' => 'erpal_entity_actions',
-        '#actions' => array(
-          '#theme' => 'item_list',
-          '#items' => $actions,
-        ),
+        '#theme' => 'ctools_dropdown',
+        '#title' => '',
+        '#links' => $actions,
+        '#class' => 'erpal-ctools-dropdown',
       );
       return $data;
     }
