@@ -20,21 +20,21 @@ class erpal_platform_core_handler_erpal_entity_actions extends views_handler_fie
       $uri = entity_uri($this->entity_type, $entity);
       $actions = array();
 
-      // Generate view link.
-      if (!empty($uri['path']) && entity_access('view', $this->entity_type, $entity)) {
-        $actions[] = array(
-          'title' => t('View'),
-          'href' => $uri['path'],
-          'attributes' => array('class' => array('view')),
-        );
-      }
-
       // Generate edit link.
       if (!empty($uri['path']) && entity_access('edit', $this->entity_type, $entity)) {
         $actions[] = array(
           'title' => t('Edit'),
           'href' => $uri['path'] . '/edit',
           'attributes' => array('class' => array('edit')),
+        );
+      }
+
+      // Generate view link.
+      if (!empty($uri['path']) && entity_access('view', $this->entity_type, $entity)) {
+        $actions[] = array(
+          'title' => t('View'),
+          'href' => $uri['path'],
+          'attributes' => array('class' => array('view')),
         );
       }
 
@@ -49,10 +49,9 @@ class erpal_platform_core_handler_erpal_entity_actions extends views_handler_fie
 
       // Prepare render array.
       $data = array(
-        '#theme' => 'ctools_dropdown',
-        '#title' => '',
+        '#theme' => 'links__ctools_dropbutton',
         '#links' => $actions,
-        '#class' => 'erpal-ctools-dropdown',
+        '#attributes' => array('class' => array('erpal-ctools-dropbutton')),
       );
       return $data;
     }
