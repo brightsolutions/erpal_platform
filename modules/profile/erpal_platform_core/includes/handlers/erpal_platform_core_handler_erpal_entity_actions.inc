@@ -51,9 +51,12 @@ class erpal_platform_core_handler_erpal_entity_actions extends views_handler_fie
       $data = array(
         '#theme' => 'links__ctools_dropbutton',
         '#links' => $actions,
-        '#attributes' => array('class' => array('erpal-ctools-dropbutton')),
       );
-      return $data;
+
+      return array(
+        '#theme' => 'erpal_entity_actions',
+        '#actions' => $data,
+      );
     }
   }
 }

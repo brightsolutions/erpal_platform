@@ -10,7 +10,6 @@
  * @see template_process()
  */
 ?>
-<div class="node-action-links">
-<a class="trigger"><?php t('Show actions'); ?></a>
+<div class="erpal-ctools-dropbutton">
 <?php print drupal_render($actions); ?>
 </div>
