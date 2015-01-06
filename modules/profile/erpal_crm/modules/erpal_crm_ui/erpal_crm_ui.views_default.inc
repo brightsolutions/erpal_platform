@@ -486,7 +486,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'crm_core_activity';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  /* Field: CRM Activity: Date */
+  /* Field: CRM Core Activity: Date */
   $handler->display->display_options['fields']['field_activity_event_date']['id'] = 'field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['table'] = 'field_data_field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['field'] = 'field_activity_event_date';
@@ -495,14 +495,14 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'default',
     'links' => 0,
   );
-  /* Field: CRM Activity: Customer */
+  /* Field: CRM Core Activity: Customer */
   $handler->display->display_options['fields']['field_activity_customer']['id'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['field'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['settings'] = array(
     'link' => 1,
   );
-  /* Field: CRM Activity: Participants */
+  /* Field: CRM Core Activity: Participants */
   $handler->display->display_options['fields']['field_activity_participants']['id'] = 'field_activity_participants';
   $handler->display->display_options['fields']['field_activity_participants']['table'] = 'field_data_field_activity_participants';
   $handler->display->display_options['fields']['field_activity_participants']['field'] = 'field_activity_participants';
@@ -510,14 +510,14 @@ function erpal_crm_ui_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_activity_participants']['delta_offset'] = '0';
-  /* Field: CRM Activity: Sales process */
+  /* Field: CRM Core Activity: Sales process */
   $handler->display->display_options['fields']['field_activity_sales_process']['id'] = 'field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['table'] = 'field_data_field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['field'] = 'field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['settings'] = array(
     'link' => 1,
   );
-  /* Field: CRM Activity: Next contact date */
+  /* Field: CRM Core Activity: Next contact date */
   $handler->display->display_options['fields']['field_activity_next_contact_date']['id'] = 'field_activity_next_contact_date';
   $handler->display->display_options['fields']['field_activity_next_contact_date']['table'] = 'field_data_field_activity_next_contact_date';
   $handler->display->display_options['fields']['field_activity_next_contact_date']['field'] = 'field_activity_next_contact_date';
@@ -526,7 +526,7 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'default',
     'links' => 0,
   );
-  /* Field: CRM Activity: Status */
+  /* Field: CRM Core Activity: Status */
   $handler->display->display_options['fields']['field_activity_status']['id'] = 'field_activity_status';
   $handler->display->display_options['fields']['field_activity_status']['table'] = 'field_data_field_activity_status';
   $handler->display->display_options['fields']['field_activity_status']['field'] = 'field_activity_status';
@@ -564,7 +564,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity: Customer (field_activity_customer) */
+  /* Filter criterion: CRM Core Activity: Customer (field_activity_customer) */
   $handler->display->display_options['filters']['field_activity_customer_target_id']['id'] = 'field_activity_customer_target_id';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['field'] = 'field_activity_customer_target_id';
@@ -578,7 +578,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity: Status (field_activity_status) */
+  /* Filter criterion: CRM Core Activity: Status (field_activity_status) */
   $handler->display->display_options['filters']['field_activity_status_value']['id'] = 'field_activity_status_value';
   $handler->display->display_options['filters']['field_activity_status_value']['table'] = 'field_data_field_activity_status';
   $handler->display->display_options['filters']['field_activity_status_value']['field'] = 'field_activity_status_value';
@@ -627,7 +627,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'crm_core_activity';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  /* Field: CRM Activity: Date */
+  /* Field: CRM Core Activity: Date */
   $handler->display->display_options['fields']['field_activity_event_date']['id'] = 'field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['table'] = 'field_data_field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['field'] = 'field_activity_event_date';
@@ -636,14 +636,14 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'default',
     'links' => 0,
   );
-  /* Field: CRM Activity: Customer */
+  /* Field: CRM Core Activity: Customer */
   $handler->display->display_options['fields']['field_activity_customer']['id'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['field'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['settings'] = array(
     'link' => 1,
   );
-  /* Field: CRM Activity: Participants */
+  /* Field: CRM Core Activity: Participants */
   $handler->display->display_options['fields']['field_activity_participants']['id'] = 'field_activity_participants';
   $handler->display->display_options['fields']['field_activity_participants']['table'] = 'field_data_field_activity_participants';
   $handler->display->display_options['fields']['field_activity_participants']['field'] = 'field_activity_participants';
@@ -651,14 +651,14 @@ function erpal_crm_ui_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_activity_participants']['delta_offset'] = '0';
-  /* Field: CRM Activity: Sales process */
+  /* Field: CRM Core Activity: Sales process */
   $handler->display->display_options['fields']['field_activity_sales_process']['id'] = 'field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['table'] = 'field_data_field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['field'] = 'field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['settings'] = array(
     'link' => 1,
   );
-  /* Field: CRM Activity: Next contact date */
+  /* Field: CRM Core Activity: Next contact date */
   $handler->display->display_options['fields']['field_activity_next_contact_date']['id'] = 'field_activity_next_contact_date';
   $handler->display->display_options['fields']['field_activity_next_contact_date']['table'] = 'field_data_field_activity_next_contact_date';
   $handler->display->display_options['fields']['field_activity_next_contact_date']['field'] = 'field_activity_next_contact_date';
@@ -667,7 +667,7 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'default',
     'links' => 0,
   );
-  /* Field: CRM Activity: Status */
+  /* Field: CRM Core Activity: Status */
   $handler->display->display_options['fields']['field_activity_status']['id'] = 'field_activity_status';
   $handler->display->display_options['fields']['field_activity_status']['table'] = 'field_data_field_activity_status';
   $handler->display->display_options['fields']['field_activity_status']['field'] = 'field_activity_status';
@@ -784,7 +784,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity: Status (field_activity_status) */
+  /* Filter criterion: CRM Core Activity: Status (field_activity_status) */
   $handler->display->display_options['filters']['field_activity_status_value']['id'] = 'field_activity_status_value';
   $handler->display->display_options['filters']['field_activity_status_value']['table'] = 'field_data_field_activity_status';
   $handler->display->display_options['filters']['field_activity_status_value']['field'] = 'field_activity_status_value';
@@ -844,7 +844,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'crm_core_activity';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  /* Field: CRM Activity: Date */
+  /* Field: CRM Core Activity: Date */
   $handler->display->display_options['fields']['field_activity_event_date']['id'] = 'field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['table'] = 'field_data_field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['field'] = 'field_activity_event_date';
@@ -853,14 +853,14 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'default',
     'links' => 0,
   );
-  /* Field: CRM Activity: Customer */
+  /* Field: CRM Core Activity: Customer */
   $handler->display->display_options['fields']['field_activity_customer']['id'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['field'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['settings'] = array(
     'link' => 1,
   );
-  /* Field: CRM Activity: Participants */
+  /* Field: CRM Core Activity: Participants */
   $handler->display->display_options['fields']['field_activity_participants']['id'] = 'field_activity_participants';
   $handler->display->display_options['fields']['field_activity_participants']['table'] = 'field_data_field_activity_participants';
   $handler->display->display_options['fields']['field_activity_participants']['field'] = 'field_activity_participants';
@@ -868,14 +868,14 @@ function erpal_crm_ui_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_activity_participants']['delta_offset'] = '0';
-  /* Field: CRM Activity: Sales process */
+  /* Field: CRM Core Activity: Sales process */
   $handler->display->display_options['fields']['field_activity_sales_process']['id'] = 'field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['table'] = 'field_data_field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['field'] = 'field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['settings'] = array(
     'link' => 1,
   );
-  /* Field: CRM Activity: Next contact date */
+  /* Field: CRM Core Activity: Next contact date */
   $handler->display->display_options['fields']['field_activity_next_contact_date']['id'] = 'field_activity_next_contact_date';
   $handler->display->display_options['fields']['field_activity_next_contact_date']['table'] = 'field_data_field_activity_next_contact_date';
   $handler->display->display_options['fields']['field_activity_next_contact_date']['field'] = 'field_activity_next_contact_date';
@@ -884,7 +884,7 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'default',
     'links' => 0,
   );
-  /* Field: CRM Activity: Status */
+  /* Field: CRM Core Activity: Status */
   $handler->display->display_options['fields']['field_activity_status']['id'] = 'field_activity_status';
   $handler->display->display_options['fields']['field_activity_status']['table'] = 'field_data_field_activity_status';
   $handler->display->display_options['fields']['field_activity_status']['field'] = 'field_activity_status';
@@ -915,7 +915,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity: Status (field_activity_status) */
+  /* Filter criterion: CRM Core Activity: Status (field_activity_status) */
   $handler->display->display_options['filters']['field_activity_status_value']['id'] = 'field_activity_status_value';
   $handler->display->display_options['filters']['field_activity_status_value']['table'] = 'field_data_field_activity_status';
   $handler->display->display_options['filters']['field_activity_status_value']['field'] = 'field_activity_status_value';
@@ -929,7 +929,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Contact: Contact ID */
+  /* Filter criterion: CRM Core Contact: Contact ID */
   $handler->display->display_options['filters']['contact_id']['id'] = 'contact_id';
   $handler->display->display_options['filters']['contact_id']['table'] = 'crm_core_contact';
   $handler->display->display_options['filters']['contact_id']['field'] = 'contact_id';
@@ -944,7 +944,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity: Customer (field_activity_customer) */
+  /* Filter criterion: CRM Core Activity: Customer (field_activity_customer) */
   $handler->display->display_options['filters']['field_activity_customer_target_id']['id'] = 'field_activity_customer_target_id';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['field'] = 'field_activity_customer_target_id';
@@ -958,7 +958,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity: Main contact (field_activity_main_contact) */
+  /* Filter criterion: CRM Core Activity: Main contact (field_activity_main_contact) */
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['id'] = 'field_activity_main_contact_target_id';
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['table'] = 'field_data_field_activity_main_contact';
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['field'] = 'field_activity_main_contact_target_id';
@@ -1000,7 +1000,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['style_options']['wrapper_class'] = 'activity-teaser-list';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
@@ -1016,15 +1016,12 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['activity_id']['label'] = '';
   $handler->display->display_options['fields']['activity_id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['activity_id']['element_label_colon'] = FALSE;
-  /* Field: CRM Activity: Date */
+  /* Field: CRM Core Activity: Date */
   $handler->display->display_options['fields']['field_activity_event_date']['id'] = 'field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['table'] = 'field_data_field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['field'] = 'field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['label'] = '';
-  $handler->display->display_options['fields']['field_activity_event_date']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_activity_event_date']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_activity_event_date']['alter']['text'] = '<time>[field_activity_event_date]</time>';
-  $handler->display->display_options['fields']['field_activity_event_date']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_activity_event_date']['alter']['preserve_tags'] = '<span> <time>';
   $handler->display->display_options['fields']['field_activity_event_date']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_activity_event_date']['element_default_classes'] = FALSE;
@@ -1033,19 +1030,11 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'default',
     'links' => 0,
   );
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<time class="activity">[field_activity_event_date]</time>';
-  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   /* Field: CRM Core Activity: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'crm_core_activity';
   $handler->display->display_options['fields']['type']['field'] = 'type';
   $handler->display->display_options['fields']['type']['label'] = '';
-  $handler->display->display_options['fields']['type']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['type']['alter']['text'] = '<span class="activity-type" data-type="[type]" title="[type]"></span>';
   $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
   /* Field: CRM Core Activity: Title */
@@ -1055,11 +1044,9 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['title']['alter']['path'] = 'crm-core/activity/[activity_id]';
-  $handler->display->display_options['fields']['title']['alter']['alt'] = '[title]';
-  $handler->display->display_options['fields']['title']['alter']['link_class'] = 'activity-title';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: CRM Activity: Date (field_activity_event_date) */
+  /* Sort criterion: CRM Core Activity: Date (field_activity_event_date) */
   $handler->display->display_options['sorts']['field_activity_event_date_target_id']['id'] = 'field_activity_event_date_target_id';
   $handler->display->display_options['sorts']['field_activity_event_date_target_id']['table'] = 'field_data_field_activity_event_date';
   $handler->display->display_options['sorts']['field_activity_event_date_target_id']['field'] = 'field_activity_event_date_target_id';
@@ -1071,7 +1058,7 @@ function erpal_crm_ui_views_default_views() {
     2 => 'OR',
   );
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: CRM Contact: Contact ID */
+  /* Filter criterion: CRM Core Contact: Contact ID */
   $handler->display->display_options['filters']['contact_id']['id'] = 'contact_id';
   $handler->display->display_options['filters']['contact_id']['table'] = 'crm_core_contact';
   $handler->display->display_options['filters']['contact_id']['field'] = 'contact_id';
@@ -1086,7 +1073,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity: Customer (field_activity_customer) */
+  /* Filter criterion: CRM Core Activity: Customer (field_activity_customer) */
   $handler->display->display_options['filters']['field_activity_customer_target_id']['id'] = 'field_activity_customer_target_id';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['filters']['field_activity_customer_target_id']['field'] = 'field_activity_customer_target_id';
@@ -1100,7 +1087,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity: Main contact (field_activity_main_contact) */
+  /* Filter criterion: CRM Core Activity: Main contact (field_activity_main_contact) */
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['id'] = 'field_activity_main_contact_target_id';
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['table'] = 'field_data_field_activity_main_contact';
   $handler->display->display_options['filters']['field_activity_main_contact_target_id']['field'] = 'field_activity_main_contact_target_id';
@@ -1114,7 +1101,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity Type: Type */
+  /* Filter criterion: CRM Core Activity Type: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'crm_core_activity_type';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -1175,7 +1162,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'crm_core_activity';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  /* Field: CRM Activity: Date */
+  /* Field: CRM Core Activity: Date */
   $handler->display->display_options['fields']['field_activity_event_date']['id'] = 'field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['table'] = 'field_data_field_activity_event_date';
   $handler->display->display_options['fields']['field_activity_event_date']['field'] = 'field_activity_event_date';
@@ -1184,14 +1171,14 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'default',
     'links' => 0,
   );
-  /* Field: CRM Activity: Customer */
+  /* Field: CRM Core Activity: Customer */
   $handler->display->display_options['fields']['field_activity_customer']['id'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['field'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['settings'] = array(
     'link' => 1,
   );
-  /* Field: CRM Activity: Participants */
+  /* Field: CRM Core Activity: Participants */
   $handler->display->display_options['fields']['field_activity_participants']['id'] = 'field_activity_participants';
   $handler->display->display_options['fields']['field_activity_participants']['table'] = 'field_data_field_activity_participants';
   $handler->display->display_options['fields']['field_activity_participants']['field'] = 'field_activity_participants';
@@ -1199,14 +1186,14 @@ function erpal_crm_ui_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_activity_participants']['delta_offset'] = '0';
-  /* Field: CRM Activity: Sales process */
+  /* Field: CRM Core Activity: Sales process */
   $handler->display->display_options['fields']['field_activity_sales_process']['id'] = 'field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['table'] = 'field_data_field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['field'] = 'field_activity_sales_process';
   $handler->display->display_options['fields']['field_activity_sales_process']['settings'] = array(
     'link' => 1,
   );
-  /* Field: CRM Activity: Next contact date */
+  /* Field: CRM Core Activity: Next contact date */
   $handler->display->display_options['fields']['field_activity_next_contact_date']['id'] = 'field_activity_next_contact_date';
   $handler->display->display_options['fields']['field_activity_next_contact_date']['table'] = 'field_data_field_activity_next_contact_date';
   $handler->display->display_options['fields']['field_activity_next_contact_date']['field'] = 'field_activity_next_contact_date';
@@ -1215,7 +1202,7 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'default',
     'links' => 0,
   );
-  /* Field: CRM Activity: Notes */
+  /* Field: CRM Core Activity: Notes */
   $handler->display->display_options['fields']['field_activity_notes']['id'] = 'field_activity_notes';
   $handler->display->display_options['fields']['field_activity_notes']['table'] = 'field_data_field_activity_notes';
   $handler->display->display_options['fields']['field_activity_notes']['field'] = 'field_activity_notes';
@@ -1287,7 +1274,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Activity: Status (field_activity_status) */
+  /* Filter criterion: CRM Core Activity: Status (field_activity_status) */
   $handler->display->display_options['filters']['field_activity_status_value']['id'] = 'field_activity_status_value';
   $handler->display->display_options['filters']['field_activity_status_value']['table'] = 'field_data_field_activity_status';
   $handler->display->display_options['filters']['field_activity_status_value']['field'] = 'field_activity_status_value';
@@ -1352,14 +1339,14 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = 'Activity title';
   $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['title']['alter']['path'] = 'crm-core/activity/[activity_id]';
-  /* Field: CRM Activity: Customer */
+  /* Field: CRM Core Activity: Customer */
   $handler->display->display_options['fields']['field_activity_customer']['id'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['field'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['settings'] = array(
     'link' => 1,
   );
-  /* Field: CRM Activity: Status */
+  /* Field: CRM Core Activity: Status */
   $handler->display->display_options['fields']['field_activity_status']['id'] = 'field_activity_status';
   $handler->display->display_options['fields']['field_activity_status']['table'] = 'field_data_field_activity_status';
   $handler->display->display_options['fields']['field_activity_status']['field'] = 'field_activity_status';
@@ -1409,19 +1396,16 @@ function erpal_crm_ui_views_default_views() {
     t('Latest activities'),
     t(','),
     t('<time>[field_activity_event_date]</time>'),
-    t('<time class="activity">[field_activity_event_date]</time>'),
     t('<span class="activity-type" data-type="[type]" title="[type]"></span>'),
-    t('[title]'),
     t('Activities by Sales Process'),
     t('Communication'),
-    t('CRM Activity entity referenced from field_activity_sales_process'),
+    t('CRM Core Activity entity referenced from field_activity_sales_process'),
     t('Notes'),
     t('All'),
     t('dashboard'),
     t('<a href="activities" class="link-global-view">Full view</a>'),
     t('Currently there are no activities.'),
   );
-
   $views['erpal_crm_activities'] = $view;
 
   /* crm replationships */
