@@ -86,7 +86,7 @@ function erpal_payment_modality_entity_info() {
  * Entity label callback: returns the label for an individual erpal payment
  * modality.
  */
-function erpal_payment_modality_label($entity) {
+function erpal_payment_modality_label($entity, $type = 'full') {
   $payment_modality_wrapper = entity_metadata_wrapper('erpal_payment_modality', $entity);
       
   $query = new EntityFieldQuery();
@@ -105,6 +105,10 @@ function erpal_payment_modality_label($entity) {
     else {
       $amount = commerce_currency_decimal_to_amount($payment_modality_wrapper->field_amount->value(), $total['currency_code']);
     }
+    if ($type == 'amount') {
+      return commerce_currency_format($amount, $total['currency_code']);
+    }
+
     return t('!label (!amount)', array(
       '!label' => $payment_modality_wrapper->title->value(),
       '!amount' => commerce_currency_format($amount, $total['currency_code']),
@@ -326,6 +330,34 @@ function erpal_payment_modality_field_extra_fields() {
   }
 
   return $extra;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function erpal_payment_modality_field_formatter_info() {
+  return array(
+    'erpal_payment_modality_amount' => array(
+      'label' => t('Full amount'),
+      'field types' => array('number_float'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function erpal_payment_modality_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  if ($entity_type == 'erpal_payment_modality') {
+    // Loop through each price value in this field.
+    foreach ($items as $delta => $item) {
+  
+      $element[$delta] = array('#markup' => erpal_payment_modality_label($entity, 'amount'));
+    }
+  }
+
+  return $element;
 }
 
 /**
