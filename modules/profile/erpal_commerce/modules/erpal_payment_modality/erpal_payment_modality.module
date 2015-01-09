@@ -743,3 +743,21 @@ function erpal_payment_modality_title($payment_modality) {
     '!due_with' => $field_due_with[0]['value'] == 'delivery' ? t('On delivery') : t('On order'),
   ));
 }
+
+/**
+ * Load line item for current payment modality.
+ */
+function erpal_payment_modality_load_line_item($payment_modality_id) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'commerce_line_item')
+    ->entityCondition('bundle', 'product')
+    ->fieldCondition('field_payment_modality', 'target_id', $payment_modality_id);
+  $result = $query->execute();
+  if (!empty($result['commerce_line_item'])) {
+    $line_item_id = array_keys($result['commerce_line_item']);
+    $line_item_id = reset($line_item_id);
+    if (!empty($line_item_id)) {
+      return commerce_line_item_load($line_item_id);
+    }
+  }
+}
