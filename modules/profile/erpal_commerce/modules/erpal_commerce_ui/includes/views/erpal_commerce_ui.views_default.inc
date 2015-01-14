@@ -2089,6 +2089,21 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['type_1']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Commerce Line item: Delivery date (field_line_item_delivery_date) */
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['id'] = 'field_line_item_delivery_date_value';
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['table'] = 'field_data_field_line_item_delivery_date';
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['field'] = 'field_line_item_delivery_date_value';
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['expose']['operator_id'] = 'field_line_item_delivery_date_value_op';
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['expose']['label'] = 'Delivery date';
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['expose']['operator'] = 'field_line_item_delivery_date_value_op';
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['expose']['identifier'] = 'field_line_item_delivery_date_value';
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  $handler->display->display_options['filters']['field_line_item_delivery_date_value']['form_type'] = 'date_popup';
   $handler->display->display_options['path'] = 'invoices/line_items';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Invoice';
