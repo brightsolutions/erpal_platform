@@ -1696,6 +1696,84 @@ function erpal_commerce_ui_views_default_views() {
   $handler = $view->new_display('page', 'Revenue page', 'page_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Revenue';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'order_id' => 'order_id',
+    'order_number' => 'order_number',
+    'line_item_title' => 'line_item_title',
+    'commerce_total' => 'commerce_total',
+    'field_customer' => 'field_customer',
+    'field_line_item_delivery_date' => 'field_line_item_delivery_date',
+    'order_number_1' => 'order_number_1',
+    'field_commerce_billy_i_date' => 'field_commerce_billy_i_date',
+    'views_bulk_operations' => 'views_bulk_operations',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'order_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'order_number' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'line_item_title' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'commerce_total' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => 'views-align-right',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_customer' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_line_item_delivery_date' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'order_number_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_commerce_billy_i_date' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
   /* Footer: Global: Result summary */
   $handler->display->display_options['footer']['result']['id'] = 'result';
@@ -1724,6 +1802,13 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['order_id']['label'] = '';
   $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
+  /* Field: Commerce Order: Order number */
+  $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
+  $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
+  $handler->display->display_options['fields']['order_number']['relationship'] = 'field_line_item_order_target_id';
+  $handler->display->display_options['fields']['order_number']['label'] = 'Order';
+  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Line Item: Title */
   $handler->display->display_options['fields']['line_item_title']['id'] = 'line_item_title';
   $handler->display->display_options['fields']['line_item_title']['table'] = 'commerce_line_item';
@@ -1736,12 +1821,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['commerce_total']['settings'] = array(
     'calculation' => FALSE,
   );
-  /* Field: Commerce Order: Order number */
-  $handler->display->display_options['fields']['order_number']['id'] = 'order_number';
-  $handler->display->display_options['fields']['order_number']['table'] = 'commerce_order';
-  $handler->display->display_options['fields']['order_number']['field'] = 'order_number';
-  $handler->display->display_options['fields']['order_number']['relationship'] = 'field_line_item_order_target_id';
-  $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
   /* Field: Commerce Order: Customer */
   $handler->display->display_options['fields']['field_customer']['id'] = 'field_customer';
   $handler->display->display_options['fields']['field_customer']['table'] = 'field_data_field_customer';
@@ -2301,7 +2380,6 @@ function erpal_commerce_ui_views_default_views() {
     t('<a href="invoices/line_items" class="link-global-view">Full view</a>'),
     t('Invoice number'),
   );
-
   $export['erpal_invoice_line_items'] = $view;
 
 

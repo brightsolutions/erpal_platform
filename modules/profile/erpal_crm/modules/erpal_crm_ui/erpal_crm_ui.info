@@ -13,3 +13,4 @@ dependencies[] = page_manager
 dependencies[] = panels
 dependencies[] = panels_tabs
 dependencies[] = views_content
+dependencies[] = ds_extras

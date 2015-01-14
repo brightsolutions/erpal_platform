@@ -51,5 +51,20 @@ function erpal_layout_image_default_styles() {
     ),
   );
 
+  $styles['contact_image'] = array(
+    'label' => 'Contact Image',
+    'effects' => array(
+      array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 340,
+          'height' => 340,
+          'upscale' => 0,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
   return $styles;
 }

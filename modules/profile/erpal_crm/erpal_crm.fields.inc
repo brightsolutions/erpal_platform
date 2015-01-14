@@ -918,7 +918,7 @@ function _erpal_crm_contact_type_default_instances($type) {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
+        'label' => 'above',
         'module' => 'field_collection',
         'settings' => array(
           'view_mode' => 'full',
@@ -950,7 +950,7 @@ function _erpal_crm_contact_type_default_instances($type) {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
+        'label' => 'above',
         'module' => 'field_collection',
         'settings' => array(
           'view_mode' => 'full',
@@ -982,7 +982,7 @@ function _erpal_crm_contact_type_default_instances($type) {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
+        'label' => 'above',
         'module' => 'field_collection',
         'settings' => array(
           'view_mode' => 'full',
@@ -1028,7 +1028,7 @@ function _erpal_crm_contact_type_default_instances($type) {
         'module' => 'image',
         'settings' => array(
           'image_link' => '',
-          'image_style' => '',
+          'image_style' => 'contact_image',
         ),
         'type' => 'image',
         'weight' => 0,
@@ -1153,7 +1153,7 @@ function _erpal_crm_contact_type_field_collection_instances($field_name) {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 1,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -1185,7 +1185,7 @@ function _erpal_crm_contact_type_field_collection_instances($field_name) {
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => 0,
+          'weight' => 1,
         ),
       ),
       'entity_type' => 'field_collection_item',
@@ -1219,7 +1219,7 @@ function _erpal_crm_contact_type_field_collection_instances($field_name) {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => 1,
         ),
       ),
       'entity_type' => 'field_collection_item',
@@ -1257,7 +1257,7 @@ function _erpal_crm_contact_type_field_collection_instances($field_name) {
             'trim_length' => 80,
           ),
           'type' => 'url_default',
-          'weight' => 0,
+          'weight' => 1,
         ),
       ),
       'entity_type' => 'field_collection_item',
