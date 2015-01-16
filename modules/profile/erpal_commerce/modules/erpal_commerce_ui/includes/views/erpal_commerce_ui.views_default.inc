@@ -1425,7 +1425,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -1586,7 +1586,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
-
+  
   /* Display: Revenue */
   $handler = $view->new_display('panel_pane', 'Revenue', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1777,7 +1777,7 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-
+  
   /* Display: Revenue page */
   $handler = $view->new_display('page', 'Revenue page', 'page_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2110,7 +2110,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 1;
-
+  
   /* Display: Project Revenue */
   $handler = $view->new_display('panel_pane', 'Project Revenue', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2322,7 +2322,7 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-
+  
   /* Display: View page */
   $handler = $view->new_display('block', 'View page', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2372,6 +2372,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['commerce_total']['table'] = 'field_data_commerce_total';
   $handler->display->display_options['fields']['commerce_total']['field'] = 'commerce_total';
   $handler->display->display_options['fields']['commerce_total']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_total']['type'] = 'erpal_commerce_commerce_price_base_price';
   $handler->display->display_options['fields']['commerce_total']['settings'] = array(
     'calculation' => FALSE,
   );
@@ -2393,7 +2394,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['arguments']['line_item_id']['break_phrase'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-
+  
   /* Display: Dashboard */
   $handler = $view->new_display('block', 'Dashboard', 'block_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2481,6 +2482,7 @@ function erpal_commerce_ui_views_default_views() {
     t('<a href="invoices/line_items" class="link-global-view">Full view</a>'),
     t('Invoice number'),
   );
+
   $export['erpal_invoice_line_items'] = $view;
 
 

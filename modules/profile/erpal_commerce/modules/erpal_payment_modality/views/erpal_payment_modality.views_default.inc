@@ -106,7 +106,7 @@ function erpal_payment_modality_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -250,7 +250,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
-
+  
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -303,19 +303,10 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['fields']['commerce_unit_price_1']['id'] = 'commerce_unit_price_1';
   $handler->display->display_options['fields']['commerce_unit_price_1']['table'] = 'field_data_commerce_unit_price';
   $handler->display->display_options['fields']['commerce_unit_price_1']['field'] = 'commerce_unit_price';
-  $handler->display->display_options['fields']['commerce_unit_price_1']['label'] = 'Price excl. tax';
+  $handler->display->display_options['fields']['commerce_unit_price_1']['label'] = 'Price';
   $handler->display->display_options['fields']['commerce_unit_price_1']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['commerce_unit_price_1']['type'] = 'erpal_commerce_commerce_price_base_price';
   $handler->display->display_options['fields']['commerce_unit_price_1']['settings'] = array(
-    'calculation' => FALSE,
-  );
-  /* Field: Commerce Line item: Unit price */
-  $handler->display->display_options['fields']['commerce_unit_price']['id'] = 'commerce_unit_price';
-  $handler->display->display_options['fields']['commerce_unit_price']['table'] = 'field_data_commerce_unit_price';
-  $handler->display->display_options['fields']['commerce_unit_price']['field'] = 'commerce_unit_price';
-  $handler->display->display_options['fields']['commerce_unit_price']['label'] = 'Price incl. tax';
-  $handler->display->display_options['fields']['commerce_unit_price']['click_sort_column'] = 'amount';
-  $handler->display->display_options['fields']['commerce_unit_price']['settings'] = array(
     'calculation' => FALSE,
   );
   /* Field: Commerce Line item: Unit */
@@ -340,6 +331,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['fields']['commerce_total_1']['table'] = 'field_data_commerce_total';
   $handler->display->display_options['fields']['commerce_total_1']['field'] = 'commerce_total';
   $handler->display->display_options['fields']['commerce_total_1']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_total_1']['type'] = 'erpal_commerce_commerce_price_base_price';
   $handler->display->display_options['fields']['commerce_total_1']['settings'] = array(
     'calculation' => FALSE,
   );
@@ -387,8 +379,7 @@ function erpal_payment_modality_views_default_views() {
     t(','),
     t('Type'),
     t('Label'),
-    t('Price excl. tax'),
-    t('Price incl. tax'),
+    t('Price'),
     t('Unit'),
     t('Quantity'),
     t('Payment modality'),
