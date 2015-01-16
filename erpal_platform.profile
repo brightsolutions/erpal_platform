@@ -230,11 +230,18 @@ function erpal_platform_vendor_form_submit($form, $form_state) {
   $settings = array(
     'vendor_id' => $entity->contact_id,
     'customer_profile_id' => $profile->profile_id,
-    'currency' => $vendor['currency'],
-    'vat_rate' => $vendor['vat_rate'],
   );
+  variable_set('erpal_vendor_settings', $settings);
+  variable_set('erpal_currency_settings', $vendor['currency']);
+
+  // Set default tax.
+  $tax = array(
+    'vat_rate' => $vendor['vat_rate'],
+    'vat_rate_enable' => TRUE,
+  );
+  variable_set('erpal_vendor_settings', $settings);
 
   variable_set('commerce_default_currency', $vendor['currency']);
   variable_set('commerce_enabled_currencies', array($vendor['currency'] => $vendor['currency']));
-  variable_set('erpal_vendor_settings', $settings);
+
 }

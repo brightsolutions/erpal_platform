@@ -73,7 +73,7 @@ function erpal_commerce_menu_alter(&$items) {
  */
 function erpal_commerce_commerce_tax_rate_info() {
   $tax_rates = array();
-  $settings = variable_get('erpal_vendor_settings', array());
+  $settings = variable_get('erpal_tax_settings', array());
   if ((isset($settings['vat_rate_enable']) && !empty($settings['vat_rate_enable'])) || !isset($settings['vat_rate_enable'])) {
     $tax_rates['vat'] = array(
       'title' => t('VAT'),

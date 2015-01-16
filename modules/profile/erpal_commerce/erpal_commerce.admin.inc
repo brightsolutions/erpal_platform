@@ -64,23 +64,34 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
     '#default_value' => isset($settings['customer_profile_id']) ? $settings['customer_profile_id'] : '',
     '#options' => $profiles,
   );
-  $form['erpal_vendor_settings']['currency'] = array(
+
+  // Settings for erpal currencies.
+  $currency = variable_get('erpal_currency_settings', array());
+  $form['erpal_currency_settings'] = array(
     '#type' => 'select',
     '#title' => t('Default currency'),
-    '#default_value' => isset($settings['currency']) ? $settings['currency'] : '',
+    '#default_value' => !empty($currency) ? $currency : '',
     '#options' => $currencies,
     '#required' => TRUE,
   );
-  $form['erpal_vendor_settings']['vat_rate_enable'] = array(
+
+  // Settings for erpal currencies.
+  $tax = variable_get('erpal_tax_settings', array());
+  $form['erpal_tax_settings'] = array(
+    '#tree' => TRUE,
+    '#type' => 'fieldset',
+    '#title' => t('Tax settings'),
+  );
+  $form['erpal_tax_settings']['vat_rate_enable'] = array(
     '#title' => st('Enable Default VAT rate'),
     '#type' => 'checkbox',
-    '#default_value' => isset($settings['vat_rate_enable']) ? $settings['vat_rate_enable'] : TRUE,
+    '#default_value' => isset($tax['vat_rate_enable']) ? $tax['vat_rate_enable'] : TRUE,
     '#description' => st('Enable or disable default VAT rate on site.'),
   );
-  $form['erpal_vendor_settings']['vat_rate'] = array(
+  $form['erpal_tax_settings']['vat_rate'] = array(
     '#title' => st('Default VAT rate'),
     '#type' => 'textfield',
-    '#default_value' => isset($settings['vat_rate']) ? $settings['vat_rate'] : '',
+    '#default_value' => isset($tax['vat_rate']) ? $tax['vat_rate'] : '',
     '#description' => st('Enter the default VAT rate in percent for your country.'),
     '#maxlength' => 255,
     '#required' => TRUE,
@@ -90,7 +101,7 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
       ),
     ),
   );
-  $form['erpal_vendor_settings']['vat_rate_eu'] = array(
+  $form['erpal_tax_settings']['vat_rate_eu'] = array(
     '#markup' => t('I you want use <a href="@module_url">Commerce European Union VAT</a> module you should change on <a href="@admin_url">admin page</a> "Default country" to country for which you enabled Commerce EU VAT module',
       array(
         '@module_url' => 'https://www.drupal.org/project/commerce_eu_vat',
@@ -100,7 +111,7 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
   );
   $form = system_settings_form($form);
   // Use custom submit handler.
-  $form['#submit'] = array('erpal_commerce_vendor_settings_form_submit');
+  $form['#submit'][] = 'erpal_commerce_vendor_settings_form_submit';
   return $form;
 }
 
@@ -108,12 +119,7 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
  * Submit handler for settings form.
  */
 function erpal_commerce_vendor_settings_form_submit($form, $form_state) {
-  $settings = array();
-  foreach ($form_state['values']['erpal_vendor_settings'] as $key => $value) {
-    $settings[$key] = $value;
-  }
-  variable_set('erpal_vendor_settings', $settings);
-  variable_set('commerce_default_currency', $settings['currency']);
+  variable_set('commerce_default_currency',$form_state['values']['erpal_currency_settings']);
   drupal_set_message(t('The configuration options have been saved.'));
 }
 
