@@ -1286,23 +1286,6 @@ function erpal_commerce_flush_caches() {
       field_update_instance($info_instance);
     }
   }
-
-  // Hide budget for time trackings and monay.
-  $info_instances = array();
-  $info_instances[] = field_info_instance('erpal_output', 'field_output_budget', 'money');
-  $info_instances[] = field_info_instance('erpal_output', 'field_output_budget', 'time');
-  foreach ($info_instances as $info_instance) {
-    if ($info_instance) {
-      $info_instance['widget'] = array(
-        'active' => 1,
-        'module' => 'field_extrawidgets',
-        'settings' => array(),
-        'type' => 'field_extrawidgets_hidden',
-        'weight' => 3,
-      );
-      field_update_instance($info_instance);
-    }
-  }
 }
 
 /**
