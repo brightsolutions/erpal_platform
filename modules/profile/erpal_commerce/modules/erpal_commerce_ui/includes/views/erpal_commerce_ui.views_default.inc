@@ -19,10 +19,11 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'ERPAL Orders';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'view any commerce_order entity of bundle commerce_order';
@@ -30,9 +31,68 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'views_bulk_operations' => 'views_bulk_operations',
+    'order_number' => 'order_number',
+    'erpal_commerce_ui_order_link' => 'erpal_commerce_ui_order_link',
+    'field_customer' => 'field_customer',
+    'status' => 'status',
+    'commerce_order_total' => 'commerce_order_total',
+    'edit_order' => 'edit_order',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'order_number' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'erpal_commerce_ui_order_link' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_customer' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'status' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'commerce_order_total' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'edit_order' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -197,7 +257,7 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
     3 => 0,
   );
-
+  
   /* Display: Admin page */
   $handler = $view->new_display('page', 'Admin page', 'page');
   $handler->display->display_options['defaults']['footer'] = FALSE;
@@ -284,7 +344,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['weight'] = '0';
-
+  
   /* Display: User page */
   $handler = $view->new_display('page', 'User page', 'page_1');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
@@ -556,7 +616,7 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['path'] = 'orders';
-
+  
   /* Display: Activity by Order */
   $handler = $view->new_display('panel_pane', 'Activity by Order', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -621,7 +681,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-
+  
   /* Display: Orders by Activity */
   $handler = $view->new_display('panel_pane', 'Orders by Activity', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -719,7 +779,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-
+  
   /* Display: Orders by Contact */
   $handler = $view->new_display('panel_pane', 'Orders by Contact', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -805,7 +865,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'CRM Contact: Contact ID',
     ),
   );
-
+  
   /* Display: Quote by Order */
   $handler = $view->new_display('panel_pane', 'Quote by Order', 'panel_pane_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -896,7 +956,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-
+  
   /* Display: Invoices by Order */
   $handler = $view->new_display('panel_pane', 'Invoices by Order', 'panel_pane_5');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -985,7 +1045,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order (field_invoice_order)',
     ),
   );
-
+  
   /* Display: Orders by Invoice */
   $handler = $view->new_display('panel_pane', 'Orders by Invoice', 'panel_pane_6');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1094,7 +1154,7 @@ function erpal_commerce_ui_views_default_views() {
       'label' => 'Commerce Order: Order ID',
     ),
   );
-
+  
   /* Display: dashboard */
   $handler = $view->new_display('block', 'dashboard', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1151,7 +1211,7 @@ function erpal_commerce_ui_views_default_views() {
     'commerce_order' => 'commerce_order',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-
+  
   /* Display: Orders by Contact Teaser */
   $handler = $view->new_display('panel_pane', 'Orders by Contact Teaser', 'panel_pane_7');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1312,6 +1372,7 @@ function erpal_commerce_ui_views_default_views() {
     t('<a href="orders" class="link-global-view">Full view</a>'),
     t('Orders by Contact Teaser'),
   );
+
   $export['erpal_order'] = $view;
 
 
@@ -1429,26 +1490,42 @@ function erpal_commerce_ui_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'create commerce_order entities of bundle invoice';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'rendered_entity' => 'rendered_entity',
-    'views_bulk_operations' => 'views_bulk_operations',
+    'line_item_title' => 'line_item_title',
+    'commerce_total' => 'commerce_total',
+    'order_number' => 'order_number',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'rendered_entity' => array(
+    'line_item_title' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'views_bulk_operations' => array(
+    'commerce_total' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'order_number' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1595,7 +1672,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
@@ -1798,14 +1875,14 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
     'order_id' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'order_number' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -1817,35 +1894,35 @@ function erpal_commerce_ui_views_default_views() {
       'empty_column' => 0,
     ),
     'commerce_total' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => 'views-align-right',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_customer' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_line_item_delivery_date' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'order_number_1' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_commerce_billy_i_date' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -2119,7 +2196,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
@@ -2329,6 +2406,72 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'field_line_item_delivery_date' => 'field_line_item_delivery_date',
+    'line_item_id' => 'line_item_id',
+    'type' => 'type',
+    'line_item_label' => 'line_item_label',
+    'commerce_unit_price' => 'commerce_unit_price',
+    'quantity' => 'quantity',
+    'commerce_total' => 'commerce_total',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'field_line_item_delivery_date' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'line_item_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'type' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'line_item_label' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'commerce_unit_price' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'quantity' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'commerce_total' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
@@ -2339,6 +2482,19 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Commerce Line item: Delivery date */
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['id'] = 'field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['table'] = 'field_data_field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['field'] = 'field_line_item_delivery_date';
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_repeat_rule' => 'show',
+  );
+  $handler->display->display_options['fields']['field_line_item_delivery_date']['format_date_sql'] = 0;
   /* Field: Commerce Line Item: Line item ID */
   $handler->display->display_options['fields']['line_item_id']['id'] = 'line_item_id';
   $handler->display->display_options['fields']['line_item_id']['table'] = 'commerce_line_item';
@@ -2485,7 +2641,6 @@ function erpal_commerce_ui_views_default_views() {
 
   $export['erpal_invoice_line_items'] = $view;
 
-
   $view = new view();
   $view->name = 'erpal_products';
   $view->description = 'Display a list of products.';
@@ -2499,6 +2654,7 @@ function erpal_commerce_ui_views_default_views() {
   /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->display->display_options['title'] = 'Products';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'view any commerce_product entity';
@@ -2508,7 +2664,10 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = 50;
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'sku' => 'sku',
@@ -2678,15 +2837,20 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   /* Field: CRM Core Activity: Activity ID */
   $handler->display->display_options['fields']['activity_id']['id'] = 'activity_id';
@@ -2697,14 +2861,14 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'crm_core_activity';
   $handler->display->display_options['fields']['title']['field'] = 'title';
-  /* Field: CRM Activity: Customer */
+  /* Field: CRM Core Activity: Customer */
   $handler->display->display_options['fields']['field_activity_customer']['id'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['field'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['settings'] = array(
     'link' => 0,
   );
-  /* Field: CRM Activity: Notes */
+  /* Field: CRM Core Activity: Notes */
   $handler->display->display_options['fields']['field_activity_notes']['id'] = 'field_activity_notes';
   $handler->display->display_options['fields']['field_activity_notes']['table'] = 'field_data_field_activity_notes';
   $handler->display->display_options['fields']['field_activity_notes']['field'] = 'field_activity_notes';
@@ -2712,10 +2876,14 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['field_activity_notes']['settings'] = array(
     'trim_length' => '400',
   );
-  /* Field: CRM Activity: Status */
+  /* Field: CRM Core Activity: Status */
   $handler->display->display_options['fields']['field_activity_status']['id'] = 'field_activity_status';
   $handler->display->display_options['fields']['field_activity_status']['table'] = 'field_data_field_activity_status';
   $handler->display->display_options['fields']['field_activity_status']['field'] = 'field_activity_status';
+  /* Sort criterion: CRM Core Activity: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'crm_core_activity';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
   /* Filter criterion: CRM Core Activity: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'crm_core_activity';
@@ -2737,18 +2905,18 @@ function erpal_commerce_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-
+  
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
   /* Footer: Global: Result summary */
   $handler->display->display_options['footer']['result']['id'] = 'result';
   $handler->display->display_options['footer']['result']['table'] = 'views';
   $handler->display->display_options['footer']['result']['field'] = 'result';
   $handler->display->display_options['footer']['result']['content'] = '@total rows';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['attach'] = array(
     0 => 'crm_core_activity:field_activity_sales_process:meeting',
     1 => 'crm_core_activity:field_activity_sales_process:phone_call',
@@ -2779,6 +2947,7 @@ function erpal_commerce_ui_views_default_views() {
     t('Status'),
     t('Activity'),
     t('Reference dialog Search'),
+    t('@total rows'),
   );
 
   $export['erpal_activity_search'] = $view;
@@ -2792,17 +2961,22 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
-  /* Field: CRM Contact: Contact ID */
+  /* Field: CRM Core Contact: Contact ID */
   $handler->display->display_options['fields']['contact_id']['id'] = 'contact_id';
   $handler->display->display_options['fields']['contact_id']['table'] = 'crm_core_contact';
   $handler->display->display_options['fields']['contact_id']['field'] = 'contact_id';
@@ -2857,7 +3031,7 @@ function erpal_commerce_ui_views_default_views() {
     'view_mode' => 'full',
   );
   $handler->display->display_options['fields']['field_contact_phone_bundle']['delta_offset'] = '0';
-  /* Sort criterion: CRM Contact: Created date */
+  /* Sort criterion: CRM Core Contact: Created date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'crm_core_contact';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
@@ -2876,7 +3050,7 @@ function erpal_commerce_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-
+  
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -2904,7 +3078,7 @@ function erpal_commerce_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Contact: Contact Type */
+  /* Filter criterion: CRM Core Contact: Contact Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -2931,7 +3105,7 @@ function erpal_commerce_ui_views_default_views() {
     10 => 'commerce_order:field_vendor:invoice',
     11 => 'commerce_order:field_vendor:quote',
   );
-
+  
   /* Display: Reference dialog Search 2 */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search 2', 'references_dialog_2');
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -2959,7 +3133,7 @@ function erpal_commerce_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Contact: Contact Type */
+  /* Filter criterion: CRM Core Contact: Contact Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -2969,7 +3143,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['attach'] = array(
     0 => 'crm_core_contact::individual',
   );
-
+  
   /* Display: Reference dialog Search 3 */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search 3', 'references_dialog_3');
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -2997,7 +3171,7 @@ function erpal_commerce_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Contact: Contact Type */
+  /* Filter criterion: CRM Core Contact: Contact Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -3007,7 +3181,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['attach'] = array(
     0 => 'crm_core_contact::organization',
   );
-
+  
   /* Display: Reference dialog Search 4 */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search 4', 'references_dialog_4');
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -3035,7 +3209,7 @@ function erpal_commerce_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Contact: Contact Type */
+  /* Filter criterion: CRM Core Contact: Contact Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -3084,15 +3258,20 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Commerce Order: Order ID */
@@ -3106,48 +3285,42 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'quote' => 'quote',
   );
-
+  
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
-  $handler->display->display_options['defaults']['footer'] = FALSE;
-  /* Footer: Global: Result summary */
-  $handler->display->display_options['footer']['result']['id'] = 'result';
-  $handler->display->display_options['footer']['result']['table'] = 'views';
-  $handler->display->display_options['footer']['result']['field'] = 'result';
-  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'order_id' => 'order_id',
-    'field_customer' => 'field_customer',
     'order_number' => 'order_number',
+    'field_customer' => 'field_customer',
     'status' => 'status',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
     'order_id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_customer' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'order_number' => array(
-      'sortable' => 0,
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_customer' => array(
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'status' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -3157,6 +3330,12 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Commerce Order: Order ID */
   $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
@@ -3223,6 +3402,7 @@ function erpal_commerce_ui_views_default_views() {
     t('last »'),
     t('Order ID'),
     t('Reference dialog Search'),
+    t('@total rows'),
     t('Order number'),
     t('Customer'),
     t('Order status'),
@@ -3239,21 +3419,31 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Commerce Order: Order ID */
   $handler->display->display_options['fields']['order_id']['id'] = 'order_id';
   $handler->display->display_options['fields']['order_id']['table'] = 'commerce_order';
   $handler->display->display_options['fields']['order_id']['field'] = 'order_id';
+  /* Sort criterion: Commerce Order: Order ID */
+  $handler->display->display_options['sorts']['order_id']['id'] = 'order_id';
+  $handler->display->display_options['sorts']['order_id']['table'] = 'commerce_order';
+  $handler->display->display_options['sorts']['order_id']['field'] = 'order_id';
+  $handler->display->display_options['sorts']['order_id']['order'] = 'DESC';
   /* Filter criterion: Commerce Order: Order type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'commerce_order';
@@ -3261,42 +3451,42 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'quote' => 'quote',
   );
-
+  
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'order_id' => 'order_id',
-    'field_customer' => 'field_customer',
     'order_number' => 'order_number',
+    'field_customer' => 'field_customer',
     'status' => 'status',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
     'order_id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_customer' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'order_number' => array(
-      'sortable' => 0,
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_customer' => array(
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'status' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -3383,6 +3573,7 @@ function erpal_commerce_ui_views_default_views() {
     t('Customer'),
     t('Order status'),
   );
+
   $export['erpal_order_search'] = $view;
 
   return $export;

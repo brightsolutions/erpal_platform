@@ -1202,7 +1202,7 @@ function _erpal_crm_contact_type_field_collection_instances($field_name) {
           'size' => 60,
         ),
         'type' => 'email_textfield',
-        'weight' => 0,
+        'weight' => 2,
       ),
     );
   }
@@ -1276,7 +1276,7 @@ function _erpal_crm_contact_type_field_collection_instances($field_name) {
           'size' => 60,
         ),
         'type' => 'url_external',
-        'weight' => 0,
+        'weight' => 2,
       ),
     );
   }

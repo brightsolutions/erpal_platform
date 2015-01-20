@@ -128,6 +128,7 @@ function erpal_crm_ui_form_alter(&$form, &$form_state, $form_id) {
 
     $form['field_activity_sales_forecast'][$language]['form']['title']['#access'] = FALSE;
     $form['field_activity_sales_forecast'][$language]['form']['field_budget_available']['#access'] = FALSE;
+    $form['field_activity_sales_forecast'][$language]['form']['field_budget_negative']['#access'] = FALSE;
 
     array_unshift($form['#validate'], 'erpal_crm_ui_crm_core_activity_edit_sales_process_form_validate');
 

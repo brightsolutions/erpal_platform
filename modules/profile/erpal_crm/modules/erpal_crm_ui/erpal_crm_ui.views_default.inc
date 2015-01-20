@@ -24,15 +24,72 @@ function erpal_crm_ui_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Customer';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'view any crm_core_contact entity';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'contact_id' => 'contact_id',
+    'field_contact_picture' => 'field_contact_picture',
+    'contact_name' => 'contact_name',
+    'type' => 'type',
+    'field_contact_email_bundle' => 'field_contact_email_bundle',
+    'field_contact_phone_bundle' => 'field_contact_phone_bundle',
+    'field_contact_url_bundle' => 'field_contact_url_bundle',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'contact_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_contact_picture' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'contact_name' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'type' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_contact_email_bundle' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_contact_phone_bundle' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_contact_url_bundle' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -46,7 +103,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['relationships']['reverse_field_activity_customer_crm_core_activity']['field'] = 'reverse_field_activity_customer_crm_core_activity';
   $handler->display->display_options['relationships']['reverse_field_activity_customer_crm_core_activity']['label'] = 'CRM Activity Customer';
   $handler->display->display_options['relationships']['reverse_field_activity_customer_crm_core_activity']['required'] = TRUE;
-  /* Field: CRM Contact: Contact ID */
+  /* Field: CRM Core Contact: Contact ID */
   $handler->display->display_options['fields']['contact_id']['id'] = 'contact_id';
   $handler->display->display_options['fields']['contact_id']['table'] = 'crm_core_contact';
   $handler->display->display_options['fields']['contact_id']['field'] = 'contact_id';
@@ -83,7 +140,7 @@ function erpal_crm_ui_views_default_views() {
     'multiple_el_al_min' => '3',
     'multiple_el_al_first' => '1',
   );
-  /* Field: CRM Contact: Contact Type */
+  /* Field: CRM Core Contact: Contact Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'crm_core_contact';
   $handler->display->display_options['fields']['type']['field'] = 'type';
@@ -120,7 +177,7 @@ function erpal_crm_ui_views_default_views() {
   );
   $handler->display->display_options['fields']['field_contact_url_bundle']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_contact_url_bundle']['separator'] = '<br/>';
-  /* Sort criterion: CRM Contact: Contact ID */
+  /* Sort criterion: CRM Core Contact: Contact ID */
   $handler->display->display_options['sorts']['contact_id']['id'] = 'contact_id';
   $handler->display->display_options['sorts']['contact_id']['table'] = 'crm_core_contact';
   $handler->display->display_options['sorts']['contact_id']['field'] = 'contact_id';
@@ -139,7 +196,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Contact: Contact Type */
+  /* Filter criterion: CRM Core Contact: Contact Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'crm_core_contact';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -159,7 +216,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
@@ -346,7 +403,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['empty']['area']['format'] = 'plain_text';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: CRM Contact: Contact ID */
+  /* Field: CRM Core Contact: Contact ID */
   $handler->display->display_options['fields']['contact_id']['id'] = 'contact_id';
   $handler->display->display_options['fields']['contact_id']['table'] = 'crm_core_contact';
   $handler->display->display_options['fields']['contact_id']['field'] = 'contact_id';
@@ -442,7 +499,7 @@ function erpal_crm_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Activities';
@@ -453,9 +510,100 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'activity_id' => 'activity_id',
+    'title' => 'title',
+    'type' => 'type',
+    'field_activity_event_date' => 'field_activity_event_date',
+    'field_activity_customer' => 'field_activity_customer',
+    'field_activity_participants' => 'field_activity_participants',
+    'field_activity_sales_process' => 'field_activity_sales_process',
+    'field_activity_next_contact_date' => 'field_activity_next_contact_date',
+    'field_activity_status' => 'field_activity_status',
+    'edit_crm_activity' => 'edit_crm_activity',
+    'views_bulk_operations' => 'views_bulk_operations',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'activity_id' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'title' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'type' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_event_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_customer' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_participants' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_sales_process' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_next_contact_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_status' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'edit_crm_activity' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -592,7 +740,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-
+  
   /* Display: Activity list */
   $handler = $view->new_display('panel_pane', 'Activity list', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -808,7 +956,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['allow']['exposed_form'] = 0;
   $handler->display->display_options['allow']['fields_override'] = 0;
   $handler->display->display_options['inherit_panels_path'] = '1';
-
+  
   /* Display: Activities by Contact */
   $handler = $view->new_display('panel_pane', 'Activities by Contact', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -983,7 +1131,7 @@ function erpal_crm_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-
+  
   /* Display: Activities by Contact Teaser */
   $handler = $view->new_display('panel_pane', 'Activities by Contact Teaser', 'panel_pane_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1117,9 +1265,9 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'CRM Contact: Contact ID',
     ),
   );
-  $handler->display->display_options['link_to_view'] = '1';
+  $handler->display->display_options['link_to_view'] = '0';
   $handler->display->display_options['inherit_panels_path'] = '1';
-
+  
   /* Display: Activities by Sales Process */
   $handler = $view->new_display('panel_pane', 'Activities by Sales Process', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1299,7 +1447,7 @@ function erpal_crm_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-
+  
   /* Display: dashboard */
   $handler = $view->new_display('block', 'dashboard', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1406,6 +1554,7 @@ function erpal_crm_ui_views_default_views() {
     t('<a href="activities" class="link-global-view">Full view</a>'),
     t('Currently there are no activities.'),
   );
+
   $views['erpal_crm_activities'] = $view;
 
   /* crm replationships */
@@ -1418,10 +1567,11 @@ function erpal_crm_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Active Relationships';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'view relation entities of any contact relationship';
@@ -1559,6 +1709,11 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['endpoints_2']['click_sort_column'] = 'entity_type';
   $handler->display->display_options['fields']['endpoints_2']['type'] = 'contact_relationship_current';
   $handler->display->display_options['fields']['endpoints_2']['delta_offset'] = '0';
+  /* Sort criterion: Relation: Rid */
+  $handler->display->display_options['sorts']['rid']['id'] = 'rid';
+  $handler->display->display_options['sorts']['rid']['table'] = 'relation';
+  $handler->display->display_options['sorts']['rid']['field'] = 'rid';
+  $handler->display->display_options['sorts']['rid']['order'] = 'DESC';
   /* Contextual filter: Relation: endpoints (endpoints:entity_id) */
   $handler->display->display_options['arguments']['endpoints_entity_id']['id'] = 'endpoints_entity_id';
   $handler->display->display_options['arguments']['endpoints_entity_id']['table'] = 'field_data_endpoints';
@@ -1568,7 +1723,20 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['arguments']['endpoints_entity_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['endpoints_entity_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['endpoints_entity_id']['summary_options']['items_per_page'] = '25';
-
+  /* Filter criterion: Relation: Status (crm_core_relationship_status) */
+  $handler->display->display_options['filters']['crm_core_relationship_status_value']['id'] = 'crm_core_relationship_status_value';
+  $handler->display->display_options['filters']['crm_core_relationship_status_value']['table'] = 'field_data_crm_core_relationship_status';
+  $handler->display->display_options['filters']['crm_core_relationship_status_value']['field'] = 'crm_core_relationship_status_value';
+  $handler->display->display_options['filters']['crm_core_relationship_status_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['crm_core_relationship_status_value']['expose']['operator_id'] = 'crm_core_relationship_status_value_op';
+  $handler->display->display_options['filters']['crm_core_relationship_status_value']['expose']['label'] = 'Status';
+  $handler->display->display_options['filters']['crm_core_relationship_status_value']['expose']['operator'] = 'crm_core_relationship_status_value_op';
+  $handler->display->display_options['filters']['crm_core_relationship_status_value']['expose']['identifier'] = 'crm_core_relationship_status_value';
+  $handler->display->display_options['filters']['crm_core_relationship_status_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  
   /* Display: Contact relationships */
   $handler = $view->new_display('panel_pane', 'Contact relationships', 'panel_pane_1');
   $handler->display->display_options['defaults']['footer'] = FALSE;
@@ -1587,7 +1755,7 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'Relation: endpoints (endpoints:entity_id)',
     ),
   );
-
+  
   /* Display: Contact relationships Teaser */
   $handler = $view->new_display('panel_pane', 'Contact relationships Teaser', 'panel_pane_2');
   $handler->display->display_options['defaults']['pager'] = FALSE;
@@ -1679,7 +1847,7 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'Relation: endpoints (endpoints:entity_id)',
     ),
   );
-  $handler->display->display_options['link_to_view'] = '1';
+  $handler->display->display_options['link_to_view'] = '0';
   $handler->display->display_options['inherit_panels_path'] = '1';
   $translatables['erpal_crm_contact_relationships'] = array(
     t('Master'),
@@ -1703,6 +1871,7 @@ function erpal_crm_ui_views_default_views() {
     t('[edit] [crm_core_relationship_status_1] [delete]'),
     t('Current contact name'),
     t('All'),
+    t('Status'),
     t('Contact relationships'),
     t('@total rows'),
     t('View panes'),
