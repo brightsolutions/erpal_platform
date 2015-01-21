@@ -719,8 +719,8 @@ function erpal_payment_modality_total($payment_modality, $line_item, $quantity =
 /**
  * Merge all price components with line item and invoice line item.
  */
-function erpal_payment_modality_price_components(&$total, $line_item) {
-  $total_line_item = field_get_items('commerce_line_item', $line_item, 'commerce_total');
+function erpal_payment_modality_price_components(&$total, $line_item, $field = 'commerce_total') {
+  $total_line_item = field_get_items('commerce_line_item', $line_item, $field);
   $price_components = $total_line_item[0]['data'];
   $difference = $total_line_item[0]['amount'] / $total['amount'];
   foreach ($price_components['components'] as &$price_component) {

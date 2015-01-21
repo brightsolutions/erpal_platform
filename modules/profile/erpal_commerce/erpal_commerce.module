@@ -522,18 +522,23 @@ function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instanc
 
   if (!empty($product[0]['product_id'])) {
     $product = commerce_product_load($product[0]['product_id']);
-
+    $input = &$form_state['input']['commerce_line_items'][$langcode][$delta];
+    
     // Set title from product.
-    $element['line_item_label']['#value'] = t('!title (!sku)', array('!title' => $product->title, '!sku' => $product->sku));
+    unset($input['line_item_label']);
+    $element['line_item_label']['#default_value'] = t('!title (!sku)', array('!title' => $product->title, '!sku' => $product->sku));
 
     // Set price from product.
     $commerce_price = field_get_items('commerce_product', $product, 'commerce_price');
-    $element['commerce_unit_price'][$langcode][0]['amount']['#value'] = commerce_currency_amount_to_decimal($commerce_price[0]['amount'], $commerce_price[0]['currency_code']);
-    $element['commerce_unit_price'][$langcode][0]['currency_code']['#value'] = $commerce_price[0]['currency_code'];
+
+    unset($input['commerce_unit_price']);
+    $element['commerce_unit_price'][$langcode][0]['amount']['#default_value'] = commerce_currency_amount_to_decimal($commerce_price[0]['amount'], $commerce_price[0]['currency_code']);
+    $element['commerce_unit_price'][$langcode][0]['currency_code']['#default_value'] = $commerce_price[0]['currency_code'];
 
     // Set unit from product.
     $field_product_unit = field_get_items('commerce_product', $product, 'field_product_unit');
-    $element['field_line_item_unit'][$langcode]['#value'] = $field_product_unit[0]['value'];
+    unset($input['field_line_item_unit']);
+    $element['field_line_item_unit'][$langcode]['#default_value'] = $field_product_unit[0]['value'];
 
   }
 
@@ -1357,12 +1362,15 @@ function erpal_commerce_line_item_refresh($line_item) {
 
   // Knowing it exists, clone the line item now.
   $cloned_line_item = clone($line_item_wrapper->value());
+  $current_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $cloned_line_item);
 
   // If the line item is a product line item...
   if (in_array($cloned_line_item->type, commerce_product_line_item_types())) {
     $product = $line_item_wrapper->commerce_product->value();
 
     if (!empty($product)) {
+      $total['amount'] = $line_item_wrapper->commerce_unit_price->amount->value();
+      $total['currency_code'] = $line_item_wrapper->commerce_unit_price->currency_code->value();
 
       // If this price has already been calculated, reset it to its original
       // value so it can be recalculated afresh in the current context.
@@ -1377,15 +1385,17 @@ function erpal_commerce_line_item_refresh($line_item) {
       // as though it had not been added to the cart yet, but preserve the
       // current quantity and display URI information.
       commerce_product_line_item_populate($cloned_line_item, $product);
+  
+      // If price in line item was overide just apply it to all price components.
+      erpal_payment_modality_price_components($total, $cloned_line_item, 'commerce_unit_price');
+      $current_line_item_wrapper->commerce_unit_price = $total;
+
     }
 
     // Process the unit price through Rules so it reflects the user's actual
     // current purchase price.
     rules_invoke_event('commerce_product_calculate_sell_price', $cloned_line_item);
   }
-
-  // Delete this line item if it no longer has a valid price.
-  $current_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $cloned_line_item);
 
   // Compare the refreshed unit price to the original unit price looking for
   // differences in the amount, currency code, or price components.
