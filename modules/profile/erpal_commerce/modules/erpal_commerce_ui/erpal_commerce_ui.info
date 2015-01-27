@@ -17,6 +17,7 @@ dependencies[] = replicate
 dependencies[] = rules_link
 dependencies[] = cat
 dependencies[] = path_breadcrumbs
+dependencies[] = panels_mini
 
 ; Views includes
 files[] = includes/views/handlers/erpal_commerce_ui_field_handler.inc
