@@ -144,60 +144,61 @@ function erpal_commerce_ui_default_page_manager_pages() {
   $display->content['new-0fd95f23-0708-4a67-89c7-eb3322539432'] = $pane;
   $display->panels['middle'][1] = 'new-0fd95f23-0708-4a67-89c7-eb3322539432';
   $pane = new stdClass();
-  $pane->pid = 'new-b46b90d4-1a78-4865-bc12-40fcb7b956a7';
+  $pane->pid = 'new-7450548e-6297-4ae9-9ac0-1a2f39b9a00b';
   $pane->panel = 'middle';
-  $pane->type = 'entity_field';
-  $pane->subtype = 'commerce_order:field_sales_process';
-  $pane->shown = TRUE;
-  $pane->access = array();
-  $pane->configuration = array(
-    'label' => 'hidden',
-    'formatter' => 'entityreference_entity_view',
-    'delta_limit' => 0,
-    'delta_offset' => '0',
-    'delta_reversed' => FALSE,
-    'formatter_settings' => array(
-      'view_mode' => 'full',
-      'links' => 1,
-    ),
-    'context' => 'argument_entity_id:commerce_order_1',
-    'override_title' => 1,
-    'override_title_text' => 'Sales Process',
-  );
-  $pane->cache = array();
-  $pane->style = array(
-    'settings' => NULL,
-  );
-  $pane->css = array();
-  $pane->extras = array();
-  $pane->position = 2;
-  $pane->locks = array();
-  $pane->uuid = 'b46b90d4-1a78-4865-bc12-40fcb7b956a7';
-  $display->content['new-b46b90d4-1a78-4865-bc12-40fcb7b956a7'] = $pane;
-  $display->panels['middle'][2] = 'new-b46b90d4-1a78-4865-bc12-40fcb7b956a7';
-  $pane = new stdClass();
-  $pane->pid = 'new-3835f972-0b8d-46de-a23c-59e6a73584dd';
-  $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'erpal_quote-panel_pane_1';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_quote_merged_tab_orders_an';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
     'context' => array(
       0 => 'argument_entity_id:commerce_order_1',
     ),
+    'override_title' => 0,
+    'override_title_text' => '',
   );
   $pane->cache = array();
   $pane->style = array(
     'settings' => NULL,
   );
-  $pane->css = array();
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'order-merged-tab',
+  );
+  $pane->extras = array();
+  $pane->position = 2;
+  $pane->locks = array();
+  $pane->uuid = '7450548e-6297-4ae9-9ac0-1a2f39b9a00b';
+  $display->content['new-7450548e-6297-4ae9-9ac0-1a2f39b9a00b'] = $pane;
+  $display->panels['middle'][2] = 'new-7450548e-6297-4ae9-9ac0-1a2f39b9a00b';
+  $pane = new stdClass();
+  $pane->pid = 'new-e17275fb-313d-48be-b3c8-d9e5c0abcf40';
+  $pane->panel = 'middle';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_quote_merged_tab_sales_pro';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'argument_entity_id:commerce_order_1',
+    ),
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'order-merged-tab',
+  );
   $pane->extras = array();
   $pane->position = 3;
   $pane->locks = array();
-  $pane->uuid = '3835f972-0b8d-46de-a23c-59e6a73584dd';
-  $display->content['new-3835f972-0b8d-46de-a23c-59e6a73584dd'] = $pane;
-  $display->panels['middle'][3] = 'new-3835f972-0b8d-46de-a23c-59e6a73584dd';
+  $pane->uuid = 'e17275fb-313d-48be-b3c8-d9e5c0abcf40';
+  $display->content['new-e17275fb-313d-48be-b3c8-d9e5c0abcf40'] = $pane;
+  $display->panels['middle'][3] = 'new-e17275fb-313d-48be-b3c8-d9e5c0abcf40';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-ba618a2b-8bb9-450b-9bc1-c701d6e84977';
   $handler->conf['display'] = $display;
@@ -313,74 +314,61 @@ function erpal_commerce_ui_default_page_manager_pages() {
   $display->content['new-325e8ee2-7691-445d-a9ff-c7a740b7ae52'] = $pane;
   $display->panels['middle'][1] = 'new-325e8ee2-7691-445d-a9ff-c7a740b7ae52';
   $pane = new stdClass();
-  $pane->pid = 'new-17ca080d-c238-4583-8092-42cf80d75ec0';
+  $pane->pid = 'new-64593543-a915-4d84-adb6-a1375dd9ff17';
   $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'erpal_order-panel_pane_4';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_order_merged_tab_quotes_an';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
     'context' => array(
       0 => 'argument_entity_id:commerce_order_1',
     ),
+    'override_title' => 0,
+    'override_title_text' => '',
   );
   $pane->cache = array();
   $pane->style = array(
     'settings' => NULL,
   );
-  $pane->css = array();
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'order-merged-tab',
+  );
   $pane->extras = array();
   $pane->position = 2;
   $pane->locks = array();
-  $pane->uuid = '17ca080d-c238-4583-8092-42cf80d75ec0';
-  $display->content['new-17ca080d-c238-4583-8092-42cf80d75ec0'] = $pane;
-  $display->panels['middle'][2] = 'new-17ca080d-c238-4583-8092-42cf80d75ec0';
+  $pane->uuid = '64593543-a915-4d84-adb6-a1375dd9ff17';
+  $display->content['new-64593543-a915-4d84-adb6-a1375dd9ff17'] = $pane;
+  $display->panels['middle'][2] = 'new-64593543-a915-4d84-adb6-a1375dd9ff17';
   $pane = new stdClass();
-  $pane->pid = 'new-b80eec7f-5c4f-4ab3-965a-999ba81e1fb6';
+  $pane->pid = 'new-1a970806-1637-42ae-bc52-d86d383c7220';
   $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'erpal_order-panel_pane_2';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_order_merged_tab_sales_pro';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
     'context' => array(
       0 => 'argument_entity_id:commerce_order_1',
     ),
+    'override_title' => 0,
+    'override_title_text' => '',
   );
   $pane->cache = array();
   $pane->style = array(
     'settings' => NULL,
   );
-  $pane->css = array();
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'order-merged-tab',
+  );
   $pane->extras = array();
   $pane->position = 3;
   $pane->locks = array();
-  $pane->uuid = 'b80eec7f-5c4f-4ab3-965a-999ba81e1fb6';
-  $display->content['new-b80eec7f-5c4f-4ab3-965a-999ba81e1fb6'] = $pane;
-  $display->panels['middle'][3] = 'new-b80eec7f-5c4f-4ab3-965a-999ba81e1fb6';
-  $pane = new stdClass();
-  $pane->pid = 'new-43357c17-2da1-41c5-9ae7-44011ee3ea1f';
-  $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'erpal_order-panel_pane_5';
-  $pane->shown = TRUE;
-  $pane->access = array();
-  $pane->configuration = array(
-    'context' => array(
-      0 => 'argument_entity_id:commerce_order_1',
-    ),
-  );
-  $pane->cache = array();
-  $pane->style = array(
-    'settings' => NULL,
-  );
-  $pane->css = array();
-  $pane->extras = array();
-  $pane->position = 4;
-  $pane->locks = array();
-  $pane->uuid = '43357c17-2da1-41c5-9ae7-44011ee3ea1f';
-  $display->content['new-43357c17-2da1-41c5-9ae7-44011ee3ea1f'] = $pane;
-  $display->panels['middle'][4] = 'new-43357c17-2da1-41c5-9ae7-44011ee3ea1f';
+  $pane->uuid = '1a970806-1637-42ae-bc52-d86d383c7220';
+  $display->content['new-1a970806-1637-42ae-bc52-d86d383c7220'] = $pane;
+  $display->panels['middle'][3] = 'new-1a970806-1637-42ae-bc52-d86d383c7220';
   $pane = new stdClass();
   $pane->pid = 'new-f1c5541f-27f7-48bc-8478-f11140602cc5';
   $pane->panel = 'middle';
@@ -399,34 +387,11 @@ function erpal_commerce_ui_default_page_manager_pages() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 5;
+  $pane->position = 4;
   $pane->locks = array();
   $pane->uuid = 'f1c5541f-27f7-48bc-8478-f11140602cc5';
   $display->content['new-f1c5541f-27f7-48bc-8478-f11140602cc5'] = $pane;
-  $display->panels['middle'][5] = 'new-f1c5541f-27f7-48bc-8478-f11140602cc5';
-  $pane = new stdClass();
-  $pane->pid = 'new-c2180bcc-a852-45be-bc10-ab8877b6ff67';
-  $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'erpal_project-panel_pane_2';
-  $pane->shown = TRUE;
-  $pane->access = array();
-  $pane->configuration = array(
-    'context' => array(
-      0 => 'argument_entity_id:commerce_order_1',
-    ),
-  );
-  $pane->cache = array();
-  $pane->style = array(
-    'settings' => NULL,
-  );
-  $pane->css = array();
-  $pane->extras = array();
-  $pane->position = 6;
-  $pane->locks = array();
-  $pane->uuid = 'c2180bcc-a852-45be-bc10-ab8877b6ff67';
-  $display->content['new-c2180bcc-a852-45be-bc10-ab8877b6ff67'] = $pane;
-  $display->panels['middle'][6] = 'new-c2180bcc-a852-45be-bc10-ab8877b6ff67';
+  $display->panels['middle'][4] = 'new-f1c5541f-27f7-48bc-8478-f11140602cc5';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
@@ -541,33 +506,65 @@ function erpal_commerce_ui_default_page_manager_pages() {
   $display->content['new-158c4cc6-001f-4610-8041-b19f2b49886e'] = $pane;
   $display->panels['middle'][1] = 'new-158c4cc6-001f-4610-8041-b19f2b49886e';
   $pane = new stdClass();
-  $pane->pid = 'new-ee40d253-2b54-4ff9-9dca-094651a6b56c';
+  $pane->pid = 'new-16999b14-9a66-475c-b6b9-d8f870a1c9f3';
   $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'erpal_order-panel_pane_6';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_invoice_merged_tab_orders_';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
     'context' => array(
       0 => 'argument_entity_id:commerce_order_1',
     ),
+    'override_title' => 0,
+    'override_title_text' => '',
   );
   $pane->cache = array();
   $pane->style = array(
     'settings' => NULL,
   );
-  $pane->css = array();
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'order-merged-tab',
+  );
   $pane->extras = array();
   $pane->position = 2;
   $pane->locks = array();
-  $pane->uuid = 'ee40d253-2b54-4ff9-9dca-094651a6b56c';
-  $display->content['new-ee40d253-2b54-4ff9-9dca-094651a6b56c'] = $pane;
-  $display->panels['middle'][2] = 'new-ee40d253-2b54-4ff9-9dca-094651a6b56c';
+  $pane->uuid = '16999b14-9a66-475c-b6b9-d8f870a1c9f3';
+  $display->content['new-16999b14-9a66-475c-b6b9-d8f870a1c9f3'] = $pane;
+  $display->panels['middle'][2] = 'new-16999b14-9a66-475c-b6b9-d8f870a1c9f3';
+  $pane = new stdClass();
+  $pane->pid = 'new-e2607de5-df3e-4935-a33b-62dc88264c29';
+  $pane->panel = 'middle';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_invoice_merged_tab_sales_p';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'argument_entity_id:commerce_order_1',
+    ),
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'order-merged-tab',
+  );
+  $pane->extras = array();
+  $pane->position = 3;
+  $pane->locks = array();
+  $pane->uuid = 'e2607de5-df3e-4935-a33b-62dc88264c29';
+  $display->content['new-e2607de5-df3e-4935-a33b-62dc88264c29'] = $pane;
+  $display->panels['middle'][3] = 'new-e2607de5-df3e-4935-a33b-62dc88264c29';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-cbb8e8a1-3c65-462b-aed1-016f447d58a6';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
-
   $pages['order_view_template'] = $page;
 
   return $pages;
