@@ -20,7 +20,7 @@ function erpal_crm_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Customer';
@@ -156,7 +156,8 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'full',
   );
   $handler->display->display_options['fields']['field_contact_email_bundle']['delta_offset'] = '0';
-  $handler->display->display_options['fields']['field_contact_email_bundle']['separator'] = '<br/>';
+  $handler->display->display_options['fields']['field_contact_email_bundle']['multi_type'] = 'ul';
+  $handler->display->display_options['fields']['field_contact_email_bundle']['separator'] = '';
   /* Field: CRM Core Contact: Phone */
   $handler->display->display_options['fields']['field_contact_phone_bundle']['id'] = 'field_contact_phone_bundle';
   $handler->display->display_options['fields']['field_contact_phone_bundle']['table'] = 'field_data_field_contact_phone_bundle';
@@ -166,6 +167,7 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'full',
   );
   $handler->display->display_options['fields']['field_contact_phone_bundle']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_contact_phone_bundle']['multi_type'] = 'ul';
   $handler->display->display_options['fields']['field_contact_phone_bundle']['separator'] = '<br/>';
   /* Field: CRM Core Contact: URL */
   $handler->display->display_options['fields']['field_contact_url_bundle']['id'] = 'field_contact_url_bundle';
@@ -176,6 +178,7 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'full',
   );
   $handler->display->display_options['fields']['field_contact_url_bundle']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_contact_url_bundle']['multi_type'] = 'ul';
   $handler->display->display_options['fields']['field_contact_url_bundle']['separator'] = '<br/>';
   /* Sort criterion: CRM Core Contact: Contact ID */
   $handler->display->display_options['sorts']['contact_id']['id'] = 'contact_id';
@@ -210,7 +213,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  
+
   /* Display: Contact list */
   $handler = $view->new_display('panel_pane', 'Contact list', 'panel_pane_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -236,7 +239,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['empty']['area']['format'] = 'plain_text';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: Main contact of activity */
   $handler = $view->new_display('panel_pane', 'Main contact of activity', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -278,7 +281,7 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-  
+
   /* Display: Customer of activity */
   $handler = $view->new_display('panel_pane', 'Customer of activity', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -327,7 +330,7 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-  
+
   /* Display: Participiants of activity */
   $handler = $view->new_display('panel_pane', 'Participiants of activity', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -377,7 +380,7 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'CRM Core Activity: Activity ID',
     ),
   );
-  
+
   /* Display: dashboard */
   $handler = $view->new_display('block', 'dashboard', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -488,6 +491,7 @@ function erpal_crm_ui_views_default_views() {
   );
 
   $views['erpal_crm_contacts'] = $view;
+
 
   // ERPAL CRM Activities view.
   $view = new view();
