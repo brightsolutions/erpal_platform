@@ -503,7 +503,7 @@ function erpal_crm_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Activities';
@@ -744,10 +744,367 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  
+
   /* Display: Activity list */
   $handler = $view->new_display('panel_pane', 'Activity list', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Activities';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'activity_id' => 'activity_id',
+    'title' => 'title',
+    'type' => 'type',
+    'field_activity_customer' => 'field_activity_customer',
+    'field_activity_participants' => 'field_activity_participants',
+    'field_activity_event_date' => 'field_activity_event_date',
+    'field_activity_next_contact_date' => 'field_activity_next_contact_date',
+    'field_activity_sales_process' => 'field_activity_sales_process',
+    'edit_crm_activity' => 'edit_crm_activity',
+    'views_bulk_operations' => 'views_bulk_operations',
+  );
+  $handler->display->display_options['style_options']['default'] = 'field_activity_event_date';
+  $handler->display->display_options['style_options']['info'] = array(
+    'activity_id' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'title' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'type' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_customer' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_participants' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_event_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_next_contact_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_sales_process' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'edit_crm_activity' => array(
+      'align' => 'views-align-right',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
+  $handler->display->display_options['footer']['result']['content'] = '@total rows';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_activity_sales_process_target_id']['id'] = 'field_activity_sales_process_target_id';
+  $handler->display->display_options['relationships']['field_activity_sales_process_target_id']['table'] = 'field_data_field_activity_sales_process';
+  $handler->display->display_options['relationships']['field_activity_sales_process_target_id']['field'] = 'field_activity_sales_process_target_id';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: CRM Core Activity: Activity ID */
+  $handler->display->display_options['fields']['activity_id']['id'] = 'activity_id';
+  $handler->display->display_options['fields']['activity_id']['table'] = 'crm_core_activity';
+  $handler->display->display_options['fields']['activity_id']['field'] = 'activity_id';
+  $handler->display->display_options['fields']['activity_id']['label'] = '';
+  $handler->display->display_options['fields']['activity_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['activity_id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['activity_id']['separator'] = '';
+  /* Field: CRM Core Activity: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'crm_core_activity';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = 'Activity title';
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['path'] = 'crm-core/activity/[activity_id]';
+  /* Field: CRM Core Activity: Type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'crm_core_activity';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  /* Field: CRM Core Activity: Customer */
+  $handler->display->display_options['fields']['field_activity_customer']['id'] = 'field_activity_customer';
+  $handler->display->display_options['fields']['field_activity_customer']['table'] = 'field_data_field_activity_customer';
+  $handler->display->display_options['fields']['field_activity_customer']['field'] = 'field_activity_customer';
+  $handler->display->display_options['fields']['field_activity_customer']['relationship'] = 'field_activity_sales_process_target_id';
+  $handler->display->display_options['fields']['field_activity_customer']['empty'] = '-';
+  $handler->display->display_options['fields']['field_activity_customer']['settings'] = array(
+    'link' => 1,
+  );
+  /* Field: CRM Core Activity: Participants */
+  $handler->display->display_options['fields']['field_activity_participants']['id'] = 'field_activity_participants';
+  $handler->display->display_options['fields']['field_activity_participants']['table'] = 'field_data_field_activity_participants';
+  $handler->display->display_options['fields']['field_activity_participants']['field'] = 'field_activity_participants';
+  $handler->display->display_options['fields']['field_activity_participants']['settings'] = array(
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_activity_participants']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_activity_participants']['multi_type'] = 'ul';
+  /* Field: CRM Core Activity: Date */
+  $handler->display->display_options['fields']['field_activity_event_date']['id'] = 'field_activity_event_date';
+  $handler->display->display_options['fields']['field_activity_event_date']['table'] = 'field_data_field_activity_event_date';
+  $handler->display->display_options['fields']['field_activity_event_date']['field'] = 'field_activity_event_date';
+  $handler->display->display_options['fields']['field_activity_event_date']['type'] = 'entityreference_entity_view';
+  $handler->display->display_options['fields']['field_activity_event_date']['settings'] = array(
+    'view_mode' => 'default',
+    'links' => 0,
+  );
+  /* Field: CRM Core Activity: Next contact date */
+  $handler->display->display_options['fields']['field_activity_next_contact_date']['id'] = 'field_activity_next_contact_date';
+  $handler->display->display_options['fields']['field_activity_next_contact_date']['table'] = 'field_data_field_activity_next_contact_date';
+  $handler->display->display_options['fields']['field_activity_next_contact_date']['field'] = 'field_activity_next_contact_date';
+  $handler->display->display_options['fields']['field_activity_next_contact_date']['type'] = 'entityreference_entity_view';
+  $handler->display->display_options['fields']['field_activity_next_contact_date']['settings'] = array(
+    'view_mode' => 'default',
+    'links' => 0,
+  );
+  /* Field: CRM Core Activity: Sales process */
+  $handler->display->display_options['fields']['field_activity_sales_process']['id'] = 'field_activity_sales_process';
+  $handler->display->display_options['fields']['field_activity_sales_process']['table'] = 'field_data_field_activity_sales_process';
+  $handler->display->display_options['fields']['field_activity_sales_process']['field'] = 'field_activity_sales_process';
+  $handler->display->display_options['fields']['field_activity_sales_process']['empty'] = '-';
+  $handler->display->display_options['fields']['field_activity_sales_process']['settings'] = array(
+    'link' => 1,
+  );
+  /* Field: CRM Core Activity: Edit link */
+  $handler->display->display_options['fields']['edit_crm_activity']['id'] = 'edit_crm_activity';
+  $handler->display->display_options['fields']['edit_crm_activity']['table'] = 'crm_core_activity';
+  $handler->display->display_options['fields']['edit_crm_activity']['field'] = 'edit_crm_activity';
+  $handler->display->display_options['fields']['edit_crm_activity']['label'] = '';
+  $handler->display->display_options['fields']['edit_crm_activity']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_crm_activity']['text'] = 'Edit';
+  $handler->display->display_options['fields']['edit_crm_activity']['redirect'] = 0;
+  /* Field: Bulk operations: CRM Core Activity */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'crm_core_activity';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::views_bulk_operations_delete_item' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_revision' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_script_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_modify_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'show_all_tokens' => 1,
+        'display_values' => array(
+          '_all_' => '_all_',
+        ),
+      ),
+    ),
+    'action::views_bulk_operations_argument_selector_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'url' => '',
+      ),
+    ),
+    'action::system_send_email_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: CRM Core Activity: Type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'crm_core_activity';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['operator'] = 'not in';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'sales_process' => 'sales_process',
+  );
+  $handler->display->display_options['filters']['type_1']['group'] = 1;
+  /* Filter criterion: CRM Core Activity: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'crm_core_activity';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = 'contains';
+  $handler->display->display_options['filters']['title']['group'] = 1;
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Title';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  /* Filter criterion: CRM Core Activity: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'crm_core_activity';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
+  $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
+  $handler->display->display_options['filters']['type']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  $handler->display->display_options['allow']['use_pager'] = 0;
+  $handler->display->display_options['allow']['items_per_page'] = 0;
+  $handler->display->display_options['allow']['offset'] = 0;
+  $handler->display->display_options['allow']['link_to_view'] = 0;
+  $handler->display->display_options['allow']['more_link'] = 0;
+  $handler->display->display_options['allow']['path_override'] = 0;
+  $handler->display->display_options['allow']['title_override'] = 0;
+  $handler->display->display_options['allow']['exposed_form'] = 0;
+  $handler->display->display_options['allow']['fields_override'] = 0;
+  $handler->display->display_options['inherit_panels_path'] = '1';
+
+  /* Display: Sales Process list */
+  $handler = $view->new_display('panel_pane', 'Sales Process list', 'panel_pane_8');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Sales Processes';
+  $handler->display->display_options['defaults']['query'] = FALSE;
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'activity_id' => 'activity_id',
+    'title' => 'title',
+    'field_activity_customer' => 'field_activity_customer',
+    'field_activity_event_date' => 'field_activity_event_date',
+    'field_activity_next_contact_date' => 'field_activity_next_contact_date',
+    'title_1' => 'title_1',
+    'edit_crm_activity' => 'edit_crm_activity',
+    'views_bulk_operations' => 'views_bulk_operations',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'activity_id' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'title' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_customer' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_event_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_activity_next_contact_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'title_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'edit_crm_activity' => array(
+      'align' => 'views-align-right',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
   /* Footer: Global: Result summary */
   $handler->display->display_options['footer']['result']['id'] = 'result';
@@ -772,42 +1129,14 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'crm_core_activity';
   $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = 'Activity title';
+  $handler->display->display_options['fields']['title']['label'] = 'Sales Process';
   $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['title']['alter']['path'] = 'crm-core/activity/[activity_id]';
-  /* Field: CRM Core Activity: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'crm_core_activity';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  /* Field: CRM Core Activity: Date */
-  $handler->display->display_options['fields']['field_activity_event_date']['id'] = 'field_activity_event_date';
-  $handler->display->display_options['fields']['field_activity_event_date']['table'] = 'field_data_field_activity_event_date';
-  $handler->display->display_options['fields']['field_activity_event_date']['field'] = 'field_activity_event_date';
-  $handler->display->display_options['fields']['field_activity_event_date']['type'] = 'entityreference_entity_view';
-  $handler->display->display_options['fields']['field_activity_event_date']['settings'] = array(
-    'view_mode' => 'default',
-    'links' => 0,
-  );
   /* Field: CRM Core Activity: Customer */
   $handler->display->display_options['fields']['field_activity_customer']['id'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['table'] = 'field_data_field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['field'] = 'field_activity_customer';
   $handler->display->display_options['fields']['field_activity_customer']['settings'] = array(
-    'link' => 1,
-  );
-  /* Field: CRM Core Activity: Participants */
-  $handler->display->display_options['fields']['field_activity_participants']['id'] = 'field_activity_participants';
-  $handler->display->display_options['fields']['field_activity_participants']['table'] = 'field_data_field_activity_participants';
-  $handler->display->display_options['fields']['field_activity_participants']['field'] = 'field_activity_participants';
-  $handler->display->display_options['fields']['field_activity_participants']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['field_activity_participants']['delta_offset'] = '0';
-  /* Field: CRM Core Activity: Sales process */
-  $handler->display->display_options['fields']['field_activity_sales_process']['id'] = 'field_activity_sales_process';
-  $handler->display->display_options['fields']['field_activity_sales_process']['table'] = 'field_data_field_activity_sales_process';
-  $handler->display->display_options['fields']['field_activity_sales_process']['field'] = 'field_activity_sales_process';
-  $handler->display->display_options['fields']['field_activity_sales_process']['settings'] = array(
     'link' => 1,
   );
   /* Field: CRM Core Activity: Next contact date */
@@ -819,14 +1148,12 @@ function erpal_crm_ui_views_default_views() {
     'view_mode' => 'default',
     'links' => 0,
   );
-  /* Field: CRM Core Activity: Status */
-  $handler->display->display_options['fields']['field_activity_status']['id'] = 'field_activity_status';
-  $handler->display->display_options['fields']['field_activity_status']['table'] = 'field_data_field_activity_status';
-  $handler->display->display_options['fields']['field_activity_status']['field'] = 'field_activity_status';
   /* Field: CRM Core Activity: Edit link */
   $handler->display->display_options['fields']['edit_crm_activity']['id'] = 'edit_crm_activity';
   $handler->display->display_options['fields']['edit_crm_activity']['table'] = 'crm_core_activity';
   $handler->display->display_options['fields']['edit_crm_activity']['field'] = 'edit_crm_activity';
+  $handler->display->display_options['fields']['edit_crm_activity']['label'] = '';
+  $handler->display->display_options['fields']['edit_crm_activity']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_crm_activity']['text'] = 'Edit';
   $handler->display->display_options['fields']['edit_crm_activity']['redirect'] = 0;
   /* Field: Bulk operations: CRM Core Activity */
@@ -910,8 +1237,10 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'crm_core_activity';
   $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'sales_process' => 'sales_process',
+  );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
   $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
@@ -936,20 +1265,6 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: CRM Core Activity: Status (field_activity_status) */
-  $handler->display->display_options['filters']['field_activity_status_value']['id'] = 'field_activity_status_value';
-  $handler->display->display_options['filters']['field_activity_status_value']['table'] = 'field_data_field_activity_status';
-  $handler->display->display_options['filters']['field_activity_status_value']['field'] = 'field_activity_status_value';
-  $handler->display->display_options['filters']['field_activity_status_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_activity_status_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_activity_status_value']['expose']['operator_id'] = 'field_activity_status_value_op';
-  $handler->display->display_options['filters']['field_activity_status_value']['expose']['label'] = 'Status';
-  $handler->display->display_options['filters']['field_activity_status_value']['expose']['operator'] = 'field_activity_status_value_op';
-  $handler->display->display_options['filters']['field_activity_status_value']['expose']['identifier'] = 'field_activity_status_value';
-  $handler->display->display_options['filters']['field_activity_status_value']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-  );
   $handler->display->display_options['allow']['use_pager'] = 0;
   $handler->display->display_options['allow']['items_per_page'] = 0;
   $handler->display->display_options['allow']['offset'] = 0;
@@ -960,7 +1275,7 @@ function erpal_crm_ui_views_default_views() {
   $handler->display->display_options['allow']['exposed_form'] = 0;
   $handler->display->display_options['allow']['fields_override'] = 0;
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: Activities by Contact */
   $handler = $view->new_display('panel_pane', 'Activities by Contact', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1135,7 +1450,7 @@ function erpal_crm_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: Activities by Contact Teaser */
   $handler = $view->new_display('panel_pane', 'Activities by Contact Teaser', 'panel_pane_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1271,7 +1586,7 @@ function erpal_crm_ui_views_default_views() {
   );
   $handler->display->display_options['link_to_view'] = '0';
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: Activities by Sales Process */
   $handler = $view->new_display('panel_pane', 'Activities by Sales Process', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -1451,7 +1766,7 @@ function erpal_crm_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: dashboard */
   $handler = $view->new_display('block', 'dashboard', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2059,13 +2374,18 @@ function erpal_crm_ui_views_default_views() {
     t('Title'),
     t('Activity list'),
     t('@total rows'),
-    t('Edit link'),
+    t('CRM Core Activity entity referenced from field_activity_sales_process'),
+    t('-'),
     t('Edit'),
     t('CRM Core Activity'),
     t('- Choose an operation -'),
     t('View panes'),
+    t('Sales Process list'),
+    t('Sales Processes'),
+    t('Sales Process'),
     t('Activities by Contact'),
     t('CRM Core Contact entity referenced from field_activity_participants'),
+    t('Edit link'),
     t('Contact ID'),
     t('Customer (field_activity_customer)'),
     t('Main contact (field_activity_main_contact)'),
@@ -2076,14 +2396,12 @@ function erpal_crm_ui_views_default_views() {
     t('<span class="activity-type" data-type="[type]" title="[type]"></span>'),
     t('Activities by Sales Process'),
     t('Communication'),
-    t('CRM Core Activity entity referenced from field_activity_sales_process'),
     t('Notes'),
     t('All'),
     t('dashboard'),
     t('<a href="activities" class="link-global-view">Full view</a>'),
     t('Currently there are no activities.'),
     t('Sales Processes by Quote'),
-    t('Sales Processes'),
     t('No related sales processes found.'),
     t('Commerce Order referencing CRM Core Activity from field_sales_process'),
     t('Sales Processes by Order'),
@@ -2091,7 +2409,6 @@ function erpal_crm_ui_views_default_views() {
     t('Sales Processes by Invoice'),
     t('Commerce Order referencing Commerce Order from field_invoice_order'),
   );
-
   $views['erpal_crm_activities'] = $view;
 
   /* crm replationships */

@@ -65,10 +65,29 @@ function erpal_crm_ui_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = 'Activity list';
+  $display->title = 'Activities';
   $display->uuid = '94ceb77a-6ba2-4700-9adf-62dc2d982371';
   $display->content = array();
   $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-ec71da5b-30bd-44f1-a089-eaba857e044d';
+  $pane->panel = 'middle';
+  $pane->type = 'views_panes';
+  $pane->subtype = 'erpal_crm_activities-panel_pane_8';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array();
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'ec71da5b-30bd-44f1-a089-eaba857e044d';
+  $display->content['new-ec71da5b-30bd-44f1-a089-eaba857e044d'] = $pane;
+  $display->panels['middle'][0] = 'new-ec71da5b-30bd-44f1-a089-eaba857e044d';
   $pane = new stdClass();
   $pane->pid = 'new-62aded31-cff3-42b3-ab3d-06cee46e4bff';
   $pane->panel = 'middle';
@@ -83,11 +102,11 @@ function erpal_crm_ui_default_page_manager_pages() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 0;
+  $pane->position = 1;
   $pane->locks = array();
   $pane->uuid = '62aded31-cff3-42b3-ab3d-06cee46e4bff';
   $display->content['new-62aded31-cff3-42b3-ab3d-06cee46e4bff'] = $pane;
-  $display->panels['middle'][0] = 'new-62aded31-cff3-42b3-ab3d-06cee46e4bff';
+  $display->panels['middle'][1] = 'new-62aded31-cff3-42b3-ab3d-06cee46e4bff';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-62aded31-cff3-42b3-ab3d-06cee46e4bff';
   $handler->conf['display'] = $display;
