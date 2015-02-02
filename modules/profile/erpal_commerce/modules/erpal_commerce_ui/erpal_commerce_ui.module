@@ -189,7 +189,11 @@ function erpal_commerce_ui_product_form_submit($form, &$form_state) {
   $submit_element = array_pop($array_parents);
 
   if ($submit_element == 'save_continue') {
-    $form_state['redirect'] = 'product/add/' . strtr($form_state['commerce_product']->type, array('_' => '-'));
+    $des = drupal_get_destination();
+    if (!empty($des['destination'])) {
+      unset($_GET['destination']);
+    }
+    $form_state['redirect'] = array('product/add/' . strtr($form_state['commerce_product']->type, array('_' => '-')), array('query' => $des));
   }
   elseif (arg(0) == 'product' && arg(1) == 'add') {
     $form_state['redirect'] = 'products';
