@@ -9,6 +9,7 @@
  * Implements hook_default_page_manager_pages().
  */
 function erpal_crm_ui_default_page_manager_pages() {
+  /* activity_list_page */
   $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
@@ -113,6 +114,8 @@ function erpal_crm_ui_default_page_manager_pages() {
   $page->default_handlers[$handler->name] = $handler;
   $pages['activity_list_page'] = $page;
 
+
+  /* activity_template */
   $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
@@ -166,7 +169,18 @@ function erpal_crm_ui_default_page_manager_pages() {
     'contexts' => array(),
     'relationships' => array(),
     'access' => array(
-      'plugins' => array(),
+      'plugins' => array(
+        0 => array(
+          'name' => 'entity_bundle:crm_core_activity',
+          'settings' => array(
+            'type' => array(
+              'sales_process' => 'sales_process',
+            ),
+          ),
+          'context' => 'argument_entity_id:crm_core_activity_1',
+          'not' => TRUE,
+        ),
+      ),
       'logic' => 'and',
     ),
   );
@@ -180,6 +194,9 @@ function erpal_crm_ui_default_page_manager_pages() {
         'panel_tab_id_pattern' => 'region',
       ),
       'middle' => array(
+        'region_title' => '',
+        'region_title_tag' => 'none',
+        'region_class' => '',
         'panel_tab_id_pattern' => 'region',
       ),
     ),
@@ -189,6 +206,7 @@ function erpal_crm_ui_default_page_manager_pages() {
     'middle' => array(
       'style' => 'tabs',
     ),
+    'style' => 'default',
   );
   $display->cache = array();
   $display->title = '%crm_core_activity:title';
@@ -244,11 +262,121 @@ function erpal_crm_ui_default_page_manager_pages() {
   $pane->uuid = 'a8f05c6c-565f-4008-8c86-8038bc632ea4';
   $display->content['new-a8f05c6c-565f-4008-8c86-8038bc632ea4'] = $pane;
   $display->panels['middle'][1] = 'new-a8f05c6c-565f-4008-8c86-8038bc632ea4';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = 'new-d339fb59-74ee-417d-9ecf-db1098783c7e';
+  $handler->conf['display'] = $display;
+  $page->default_handlers[$handler->name] = $handler;
+  $handler = new stdClass();
+  $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
+  $handler->api_version = 1;
+  $handler->name = 'page_activity_template_panel_context_2';
+  $handler->task = 'page';
+  $handler->subtask = 'activity_template';
+  $handler->handler = 'panel_context';
+  $handler->weight = 1;
+  $handler->conf = array(
+    'title' => 'Sales Process',
+    'no_blocks' => 0,
+    'pipeline' => 'standard',
+    'body_classes_to_remove' => '',
+    'body_classes_to_add' => '',
+    'css_id' => '',
+    'css' => '',
+    'contexts' => array(),
+    'relationships' => array(),
+    'access' => array(
+      'plugins' => array(
+        0 => array(
+          'name' => 'entity_bundle:crm_core_activity',
+          'settings' => array(
+            'type' => array(
+              'sales_process' => 'sales_process',
+            ),
+          ),
+          'context' => 'argument_entity_id:crm_core_activity_1',
+          'not' => FALSE,
+        ),
+      ),
+      'logic' => 'and',
+    ),
+  );
+  $display = new panels_display();
+  $display->layout = 'onecol';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'middle' => array(
+        'region_title' => '',
+        'region_title_tag' => 'none',
+        'region_class' => '',
+        'panel_tab_id_pattern' => 'region',
+      ),
+    ),
+    'middle' => array(
+      'style' => 'tabs',
+    ),
+  );
+  $display->cache = array();
+  $display->title = '%crm_core_activity:title';
+  $display->uuid = 'd6786c1e-5aab-4f33-be92-283b37b5c173';
+  $display->content = array();
+  $display->panels = array();
   $pane = new stdClass();
-  $pane->pid = 'new-4671d85e-2e4a-44e4-883c-031bf5f169aa';
+  $pane->pid = 'new-5b24d0f5-5c25-4fa1-a0ba-23329e4ecf8b';
+  $pane->panel = 'middle';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_sales_process_main_tab_con';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'argument_entity_id:crm_core_activity_1',
+    ),
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '5b24d0f5-5c25-4fa1-a0ba-23329e4ecf8b';
+  $display->content['new-5b24d0f5-5c25-4fa1-a0ba-23329e4ecf8b'] = $pane;
+  $display->panels['middle'][0] = 'new-5b24d0f5-5c25-4fa1-a0ba-23329e4ecf8b';
+  $pane = new stdClass();
+  $pane->pid = 'new-267d0333-4c60-4950-b039-c7b8c824d574';
+  $pane->panel = 'middle';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_sales_process_merged_conta';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'argument_entity_id:crm_core_activity_1',
+    ),
+    'override_title' => 0,
+    'override_title_text' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = '267d0333-4c60-4950-b039-c7b8c824d574';
+  $display->content['new-267d0333-4c60-4950-b039-c7b8c824d574'] = $pane;
+  $display->panels['middle'][1] = 'new-267d0333-4c60-4950-b039-c7b8c824d574';
+  $pane = new stdClass();
+  $pane->pid = 'new-ce13eaf7-8d86-4a58-aef3-c4fcbe76f2d0';
   $pane->panel = 'middle';
   $pane->type = 'views_panes';
-  $pane->subtype = 'erpal_crm_contacts-panel_pane_3';
+  $pane->subtype = 'erpal_crm_activities-panel_pane_3';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
@@ -264,20 +392,22 @@ function erpal_crm_ui_default_page_manager_pages() {
   $pane->extras = array();
   $pane->position = 2;
   $pane->locks = array();
-  $pane->uuid = '4671d85e-2e4a-44e4-883c-031bf5f169aa';
-  $display->content['new-4671d85e-2e4a-44e4-883c-031bf5f169aa'] = $pane;
-  $display->panels['middle'][2] = 'new-4671d85e-2e4a-44e4-883c-031bf5f169aa';
+  $pane->uuid = 'ce13eaf7-8d86-4a58-aef3-c4fcbe76f2d0';
+  $display->content['new-ce13eaf7-8d86-4a58-aef3-c4fcbe76f2d0'] = $pane;
+  $display->panels['middle'][2] = 'new-ce13eaf7-8d86-4a58-aef3-c4fcbe76f2d0';
   $pane = new stdClass();
-  $pane->pid = 'new-5b7572a2-acd5-4f8a-ad47-7366a4f93637';
+  $pane->pid = 'new-0de5ccd7-4cfc-4fb1-9eac-3ac053a0fb59';
   $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'erpal_crm_contacts-panel_pane_2';
+  $pane->type = 'panels_mini';
+  $pane->subtype = 'erpal_sales_process_merged_quote';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
     'context' => array(
       0 => 'argument_entity_id:crm_core_activity_1',
     ),
+    'override_title' => 0,
+    'override_title_text' => '',
   );
   $pane->cache = array();
   $pane->style = array(
@@ -287,53 +417,17 @@ function erpal_crm_ui_default_page_manager_pages() {
   $pane->extras = array();
   $pane->position = 3;
   $pane->locks = array();
-  $pane->uuid = '5b7572a2-acd5-4f8a-ad47-7366a4f93637';
-  $display->content['new-5b7572a2-acd5-4f8a-ad47-7366a4f93637'] = $pane;
-  $display->panels['middle'][3] = 'new-5b7572a2-acd5-4f8a-ad47-7366a4f93637';
-
-  $pane = new stdClass();
-  $pane->pid = 'new-f52eec44-ce7a-4724-be08-acd1db923f77';
-  $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'erpal_crm_activities-panel_pane_3';
-  $pane->shown = TRUE;
-  $pane->access = array(
-    'plugins' => array(
-      0 => array(
-        'name' => 'entity_bundle:crm_core_activity',
-        'settings' => array(
-          'type' => array(
-            'sales_process' => 'sales_process',
-          ),
-        ),
-        'context' => 'argument_entity_id:crm_core_activity_1',
-        'not' => FALSE,
-      ),
-    ),
-  );
-  $pane->configuration = array(
-    'context' => array(
-      0 => 'argument_entity_id:crm_core_activity_1',
-    ),
-  );
-  $pane->cache = array();
-  $pane->style = array(
-    'settings' => NULL,
-  );
-  $pane->css = array();
-  $pane->extras = array();
-  $pane->position = 6;
-  $pane->locks = array();
-  $pane->uuid = 'f52eec44-ce7a-4724-be08-acd1db923f77';
-  $display->content['new-f52eec44-ce7a-4724-be08-acd1db923f77'] = $pane;
-  $display->panels['middle'][6] = 'new-f52eec44-ce7a-4724-be08-acd1db923f77';
-
+  $pane->uuid = '0de5ccd7-4cfc-4fb1-9eac-3ac053a0fb59';
+  $display->content['new-0de5ccd7-4cfc-4fb1-9eac-3ac053a0fb59'] = $pane;
+  $display->panels['middle'][3] = 'new-0de5ccd7-4cfc-4fb1-9eac-3ac053a0fb59';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-d339fb59-74ee-417d-9ecf-db1098783c7e';
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['activity_template'] = $page;
 
+
+  /* contact_list_template */
   $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
@@ -419,6 +513,8 @@ function erpal_crm_ui_default_page_manager_pages() {
   $page->default_handlers[$handler->name] = $handler;
   $pages['contact_list_template'] = $page;
 
+
+  /* contact_view_template */
   $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
@@ -643,8 +739,8 @@ function erpal_crm_ui_default_page_manager_pages() {
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
-
   $pages['contact_view_template'] = $page;
+
 
   return $pages;
 }

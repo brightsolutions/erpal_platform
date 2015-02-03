@@ -334,6 +334,7 @@ function erpal_crm_ui_ds_field_settings_info() {
 function erpal_crm_ui_ds_layout_settings_info() {
   $ds_layouts = array();
 
+  /* contact */
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'crm_core_contact|household|default';
@@ -447,6 +448,77 @@ function erpal_crm_ui_ds_layout_settings_info() {
     'layout_link_custom' => '',
   );
   $ds_layouts['crm_core_contact|organization|default'] = $ds_layout;
+
+  /* activities (and sales processes)  */
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'crm_core_activity|sales_process|default';
+  $ds_layout->entity_type = 'crm_core_activity';
+  $ds_layout->bundle = 'sales_process';
+  $ds_layout->view_mode = 'default';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'field_activity_next_contact_date',
+        1 => 'field_activity_status',
+        2 => 'field_activity_sales_forecast',
+        3 => 'field_activity_notes',
+        4 => 'field_resource',
+      ),
+    ),
+    'fields' => array(
+      'field_activity_next_contact_date' => 'ds_content',
+      'field_activity_status' => 'ds_content',
+      'field_activity_sales_forecast' => 'ds_content',
+      'field_activity_notes' => 'ds_content',
+      'field_resource' => 'ds_content',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+  );
+  $ds_layouts['crm_core_activity|sales_process|default'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'crm_core_activity|sales_process|full';
+  $ds_layout->entity_type = 'crm_core_activity';
+  $ds_layout->bundle = 'sales_process';
+  $ds_layout->view_mode = 'full';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'field_activity_next_contact_date',
+        1 => 'field_activity_status',
+        2 => 'field_activity_sales_forecast',
+        3 => 'field_activity_notes',
+      ),
+    ),
+    'fields' => array(
+      'field_activity_next_contact_date' => 'ds_content',
+      'field_activity_status' => 'ds_content',
+      'field_activity_sales_forecast' => 'ds_content',
+      'field_activity_notes' => 'ds_content',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+  );
+  $ds_layouts['crm_core_activity|sales_process|full'] = $ds_layout;
 
   return $ds_layouts;
 }

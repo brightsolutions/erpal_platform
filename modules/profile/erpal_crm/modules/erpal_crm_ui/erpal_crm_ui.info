@@ -14,3 +14,4 @@ dependencies[] = panels
 dependencies[] = panels_tabs
 dependencies[] = views_content
 dependencies[] = ds_extras
+dependencies[] = panels_mini

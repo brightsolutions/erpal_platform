@@ -18,4 +18,24 @@ function erpal_crm_ui_install() {
       menu_delete($menu);
     }
   }
+
+  // enabling ds view modes for (activity) sales processes
+  $view_modes = array(
+    'view_modes' => array(
+      'full' => array(
+        'custom_settings' => TRUE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'token' => array(
+        'custom_settings' => FALSE,
+      ),
+    ),
+    'extra_fields' => array(
+      'form' => array(),
+      'display' => array(),
+    ),
+  );
+  variable_set('field_bundle_settings_crm_core_activity__sales_process', $view_modes);
 }
