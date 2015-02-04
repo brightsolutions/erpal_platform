@@ -641,14 +641,24 @@ function _erpal_crm_activity_type_common_field_instances($type) {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
+        'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
           'links' => 0,
           'view_mode' => 'default',
         ),
         'type' => 'entityreference_entity_view',
-        'weight' => 2,
+        'weight' => 0,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'links' => 0,
+          'view_mode' => 'default',
+        ),
+        'type' => 'entityreference_entity_view',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'crm_core_activity',
@@ -838,11 +848,18 @@ function _erpal_crm_activity_type_sales_process_field_instances($type) {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
+        'label' => 'above',
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 0,
+        'weight' => 1,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'crm_core_activity',
@@ -872,6 +889,16 @@ function _erpal_crm_activity_type_sales_process_field_instances($type) {
         'settings' => array(
           'links' => 0,
           'view_mode' => 'default',
+        ),
+        'type' => 'entityreference_entity_view',
+        'weight' => 2,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'links' => 1,
+          'view_mode' => 'teaser',
         ),
         'type' => 'entityreference_entity_view',
         'weight' => 3,
@@ -1302,6 +1329,20 @@ function _erpal_crm_erpal_budget_type_sales_forecast_default_instances() {
         'type' => 'list_default',
         'weight' => 1,
       ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 1,
+      ),
     ),
     'entity_type' => 'erpal_budget',
     'field_name' => 'field_sales_forecast_chance',
@@ -1326,6 +1367,26 @@ function _erpal_crm_erpal_budget_type_sales_forecast_default_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'links' => 0,
+          'view_mode' => 'default',
+        ),
+        'type' => 'entityreference_entity_view',
+        'weight' => 2,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'links' => 0,
+          'view_mode' => 'default',
+        ),
+        'type' => 'entityreference_entity_view',
+        'weight' => 2,
+      ),
+      'teaser' => array(
+        'label' => 'inline',
         'module' => 'entityreference',
         'settings' => array(
           'links' => 0,
