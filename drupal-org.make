@@ -4,7 +4,7 @@ api = 2
 
 ; ### Contrib Modules ###
 projects[addressfield][subdir] = "contrib"
-projects[addressfield][version] = "1.0-rc1"
+projects[addressfield][version] = "1.0"
 
 projects[admin_menu][version] = "3.0-rc5"
 projects[admin_menu][subdir] = "contrib"
@@ -33,8 +33,9 @@ projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/comme
 projects[crm_core][version] = "0.980"
 projects[crm_core][subdir] = "contrib"
 
-projects[ctools][version] = "1.5"
+projects[ctools][version] = "1.6"
 projects[ctools][subdir] = "contrib"
+projects[ctools][patch][] = "https://www.drupal.org/files/issues/undefined_index_in-2119357-36.patch"
 
 projects[custom_order_number][version] = "1.0-alpha1"
 projects[custom_order_number][subdir] = "contrib"
@@ -82,10 +83,10 @@ projects[mvf][subdir] = "contrib"
 projects[mvf][patch][] = "http://drupal.org/files/issues/mvf_save-settings-in-field-instance_2223983_2.patch"
 projects[mvf][patch][] = "http://drupal.org/files/issues/mvf-entity_metadata_wrapper_support-2405779-1.patch"
 
-projects[panels][version] = "3.4"
+projects[panels][version] = "3.5"
 projects[panels][subdir] = "contrib"
 
-projects[panels_everywhere][version] = "1.0-rc1"
+projects[panels_everywhere][version] = "1.0-rc2"
 projects[panels_everywhere][subdir] = "contrib"
 
 projects[pm_existing_pages][version] = "1.4"
@@ -99,10 +100,8 @@ projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/refe
 projects[relation][version] = "1.0-rc6"
 projects[relation][subdir] = "contrib"
 
-projects[relation_add][version] = "1.3"
+projects[relation_add][version] = "1.4"
 projects[relation_add][subdir] = "contrib"
-projects[relation_add][patch][] = "https://www.drupal.org/files/issues/relation_add-crm-core-support-2191933_10.patch"
-projects[relation_add][patch][] = "https://www.drupal.org/files/issues/relation_add-have-error-on-reverse-relation-type-2398287.patch"
 
 projects[relation_view_formatter][version] = "1.0-alpha1"
 projects[relation_view_formatter][subdir] = "contrib"
@@ -110,7 +109,7 @@ projects[relation_view_formatter][subdir] = "contrib"
 projects[replicate][version] = "1.1"
 projects[replicate][subdir] = "contrib"
 
-projects[rules][version] = "2.7"
+projects[rules][version] = "2.8"
 projects[rules][subdir] = "contrib"
 
 projects[rules_link][version] = "1.1"
