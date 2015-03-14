@@ -849,18 +849,18 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
   // Change list of statuses for order.
   if ($form_state['commerce_order']->type == 'commerce_order') {
     $form['order_status']['status']['#options'] = array(
-      'Pending' => $form['order_status']['status']['#options']['Pending'],
-      'Completed' => $form['order_status']['status']['#options']['Completed'],
-      'Canceled' => $form['order_status']['status']['#options']['Canceled'],
+      t('Pending') => $form['order_status']['status']['#options'][t('Pending')],
+      t('Completed') => $form['order_status']['status']['#options'][t('Completed')],
+      t('Canceled') => $form['order_status']['status']['#options'][t('Canceled')],
     );
   }
 
   // Change list of statuses for invoice.
   if ($form_state['commerce_order']->type == 'invoice') {
     $form['order_status']['status']['#options'] = array(
-      'Invoiced' => $form['order_status']['status']['#options']['Invoiced'],
-      'Canceled' => $form['order_status']['status']['#options']['Canceled'],
-      'Paid' => $form['order_status']['status']['#options']['Paid'],
+      t('Invoiced') => $form['order_status']['status']['#options'][t('Invoiced')],
+      t('Canceled') => $form['order_status']['status']['#options'][t('Canceled')],
+      t('Paid') => $form['order_status']['status']['#options'][t('Paid')],
     );
     $form['actions']['submit']['#value'] = t('Save invoice');
     $form['actions']['submit']['#submit'][] = 'erpal_commerce_invoice_form_submit';
