@@ -1230,6 +1230,15 @@ function erpal_commerce_flush_caches() {
       field_update_instance($info_instance);
     }
   }
+
+  // Update list limit to empty in commerce_customer_billing field.
+  $field = field_info_field('commerce_customer_billing');
+  debug($field,'SIZ', TRUE);
+  if ($field) {
+    $field['settings']['options_list_limit'] = '';
+    field_update_field($field);
+  }
+  
   // Enable reference dialog for invoice order field.
   $info_instance = field_info_instance('commerce_order', 'field_invoice_order', 'invoice');
   $info_instance['widget']['settings']['references_dialog_add'] = 1;

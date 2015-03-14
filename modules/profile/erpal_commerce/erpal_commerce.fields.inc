@@ -866,7 +866,7 @@ function erpal_commerce_customer_profile_default_fields() {
     'locked' => 0,
     'module' => 'commerce_customer',
     'settings' => array(
-      'options_list_limit' => 50,
+      'options_list_limit' => '',
       'profile_type' => 'billing',
     ),
     'translatable' => 0,
