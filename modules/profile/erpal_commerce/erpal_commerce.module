@@ -485,7 +485,7 @@ function erpal_commerce_field_widget_form(&$form, &$form_state, $field, $instanc
     '#title' => t('Title'),
     '#description' => t('Supply the line item label to be used for this line item.'),
     '#default_value' => $line_item->line_item_label,
-    '#maxlength' => 128,
+    '#maxlength' => 255,
     '#size' => 15,
     '#required' => !empty($line_item->line_item_id),
     '#fieldset' => 'line_item_details',
