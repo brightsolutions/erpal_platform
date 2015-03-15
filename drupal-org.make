@@ -46,9 +46,8 @@ projects[date][subdir] = "contrib"
 projects[email][version] = "1.3"
 projects[email][subdir] = "contrib"
 
-projects[entity][version] = "1.5"
+projects[entity][version] = "1.6"
 projects[entity][subdir] = "contrib"
-projects[entity][patch][] = "http://drupal.org/files/2003826-16-check_path_index_uri.patch"
 
 projects[entitycache][version] = "1.2"
 projects[entitycache][subdir] = "contrib"
@@ -97,7 +96,7 @@ projects[references_dialog][subdir] = "contrib"
 projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/references_dialog-add-bundle-to-entity-access_2308071_1.patch"
 projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/references_dialog_fix_theme_links-2315905-42.patch"
 
-projects[relation][version] = "1.0-rc6"
+projects[relation][version] = "1.0-rc7"
 projects[relation][subdir] = "contrib"
 
 projects[relation_add][version] = "1.4"
@@ -118,13 +117,13 @@ projects[rules_link][subdir] = "contrib"
 projects[rules_conditional][version] = "1.0-beta2"
 projects[rules_conditional][subdir] = "contrib"
 
-projects[token][version] = "1.5"
+projects[token][version] = "1.6"
 projects[token][subdir] = "contrib"
 
 projects[url][version] = "1.0"
 projects[url][subdir] = "contrib"
 
-projects[views][version] = "3.8"
+projects[views][version] = "3.10"
 projects[views][subdir] = "contrib"
 
 projects[views_bulk_operations][version] = "3.2"
@@ -154,7 +153,7 @@ projects[ds][subdir] = "contrib"
 projects[ds][version] = "2.7"
 
 projects[module_filter][subdir] = "contrib"
-projects[module_filter][version] = "2.0-alpha2"
+projects[module_filter][version] = "2.0"
 
 projects[fpa][subdir] = "contrib"
 projects[fpa][version] = "2.6"
