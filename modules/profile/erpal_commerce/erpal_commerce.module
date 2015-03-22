@@ -1233,7 +1233,6 @@ function erpal_commerce_flush_caches() {
 
   // Update list limit to empty in commerce_customer_billing field.
   $field = field_info_field('commerce_customer_billing');
-  debug($field,'SIZ', TRUE);
   if ($field) {
     $field['settings']['options_list_limit'] = '';
     field_update_field($field);
