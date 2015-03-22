@@ -33,7 +33,7 @@ projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/comme
 projects[crm_core][version] = "0.980"
 projects[crm_core][subdir] = "contrib"
 
-projects[ctools][version] = "1.6"
+projects[ctools][version] = "1.7"
 projects[ctools][subdir] = "contrib"
 projects[ctools][patch][] = "https://www.drupal.org/files/issues/undefined_index_in-2119357-36.patch"
 
@@ -108,7 +108,7 @@ projects[relation_view_formatter][subdir] = "contrib"
 projects[replicate][version] = "1.1"
 projects[replicate][subdir] = "contrib"
 
-projects[rules][version] = "2.8"
+projects[rules][version] = "2.9"
 projects[rules][subdir] = "contrib"
 
 projects[rules_link][version] = "1.1"
