@@ -125,6 +125,22 @@ function erpal_crm_ui_form_alter(&$form, &$form_state, $form_id) {
     $form['actions']['submit']['#submit'][] = 'erpal_crm_ui_form_crm_core_relationship_form_submit';
   }
 
+  // Prefill Address Fullname field from Customer/Company name on Add contact page.
+  if ($form_id == 'crm_core_contact_ui_form') {
+    if (empty($form['field_customer_profiles'][LANGUAGE_NONE]['form']['commerce_customer_address'][LANGUAGE_NONE][0]['#address']) ||
+        empty($form_state['input']['contact_name'])) {
+      return;
+    }
+
+    $fullname = array();
+    foreach (array('given', 'middle', 'family') as $field_name) {
+      if (!empty($form_state['input']['contact_name'][LANGUAGE_NONE][0][$field_name])) {
+        $fullname[] = $form_state['input']['contact_name'][LANGUAGE_NONE][0][$field_name];
+      }
+    }
+    $form['field_customer_profiles'][LANGUAGE_NONE]['form']['commerce_customer_address'][LANGUAGE_NONE][0]['#address']['name_line'] = implode(' ', $fullname);
+  }
+
   // Hide forecast title and available fields. Add custom validation function.
   if ($form_id == 'crm_core_activity_edit_sales_process_form') {
     $language = $form['field_activity_sales_forecast']['#language'];
