@@ -35,7 +35,6 @@ projects[crm_core][subdir] = "contrib"
 
 projects[ctools][version] = "1.7"
 projects[ctools][subdir] = "contrib"
-projects[ctools][patch][] = "https://www.drupal.org/files/issues/undefined_index_in-2119357-36.patch"
 
 projects[custom_order_number][version] = "1.0-alpha1"
 projects[custom_order_number][subdir] = "contrib"
