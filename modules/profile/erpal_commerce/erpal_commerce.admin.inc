@@ -102,10 +102,10 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
     ),
   );
   $form['erpal_tax_settings']['vat_rate_eu'] = array(
-    '#markup' => t('I you want use <a href="@module_url">Commerce European Union VAT</a> module you should change on <a href="@admin_url">admin page</a> "Default country" to country for which you enabled Commerce EU VAT module',
+    '#markup' => t('If you want to use <a href="@module_url">Commerce European Union VAT</a> module you should change "Default country" field on <a href="@admin_url">admin page</a> to country for which you enabled Commerce EU VAT module.',
       array(
         '@module_url' => 'https://www.drupal.org/project/commerce_eu_vat',
-        '@admin_url' => 'admin/config/regional/settings',
+        '@admin_url' => '/admin/config/regional/settings',
       )
     ),
   );
