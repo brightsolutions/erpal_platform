@@ -125,6 +125,7 @@ function erpal_platform_vendor_form($form, &$form_state) {
     '#title' => st('Postal Code:'),
     '#type' => 'textfield',
     '#maxlength' => 10,
+    '#required' => TRUE,
   );
   $form['vendor']['currency'] = array(
     '#title' => st('Default currency'),
