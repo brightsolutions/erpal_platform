@@ -98,4 +98,9 @@ function erpal_crm_install() {
       path_save($path);
     }
   }
+
+  // Set default value for customer profile address.
+  $instance = field_read_instance('commerce_customer_profile', 'commerce_customer_address', 'billing');
+  $instance['widget']['settings']['default_country'] = 'DE';
+  field_update_instance($instance);
 }
