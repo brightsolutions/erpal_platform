@@ -149,7 +149,7 @@ projects[jquery_ui_multiselect_widget][patch][] = "https://www.drupal.org/files/
 projects[jquery_ui_multiselect_widget][patch][] = "https://www.drupal.org/files/issues/jquery_ui_multiselect_widget-ajax_support-2364055-4.patch"
 
 projects[ds][subdir] = "contrib"
-projects[ds][version] = "2.7"
+projects[ds][version] = "2.8"
 
 projects[module_filter][subdir] = "contrib"
 projects[module_filter][version] = "2.0"
