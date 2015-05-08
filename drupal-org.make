@@ -4,7 +4,7 @@ api = 2
 
 ; ### Contrib Modules ###
 projects[addressfield][subdir] = "contrib"
-projects[addressfield][version] = "1.0"
+projects[addressfield][version] = "1.1"
 
 projects[admin_menu][version] = "3.0-rc5"
 projects[admin_menu][subdir] = "contrib"
@@ -23,12 +23,8 @@ projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_bil
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-skip-validation-on-confirm-form.patch"
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy_unique-number-by-type.patch"
 
-projects[commerce_reports][version] = "4.0-beta1"
+projects[commerce_reports][version] = "4.0-beta2"
 projects[commerce_reports][subdir] = "contrib"
-projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-order_delete_hook-2380203-1.patch"
-projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-configurable_statuses-2380219-1.patch"
-projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-tax_insert_for_statuses-2380227-2.patch"
-projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-any_order_type_support-2380309-1.patch"
 
 projects[crm_core][version] = "0.980"
 projects[crm_core][subdir] = "contrib"
@@ -297,4 +293,5 @@ libraries[pause][download][type] = "file"
 libraries[pause][download][url] = "https://github.com/tobia/Pause/archive/master.zip"
 
 ; ### Themes ###
-projects[omega][version] = "4.2"
+projects[omega][version] = "4.3"
+projects[omega][patch][] = "https://www.drupal.org/files/issues/omega-changes-dir-to-direction-in-276-line-2364731-1.patch"
