@@ -79,6 +79,7 @@ dependencies[] = module_filter
 dependencies[] = fpa
 dependencies[] = ds
 dependencies[] = viewfield
+dependencies[] = commerce_custom_product
 dependencies[] = commerce_line_item_widget
 
 ;ERPAL modules

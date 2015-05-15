@@ -247,6 +247,14 @@ projects[relation_dialog][download][url] = "http://git.drupal.org/project/relati
 projects[relation_dialog][download][revision] = "fa981fe904a306bc65ec309fd7eef9dbf741a244"
 projects[relation_dialog][patch][] = "https://www.drupal.org/files/issues/relation_dialog-add-entities-support_2309579_1.patch"
 
+projects[commerce_custom_product][subdir] = "contrib"
+projects[commerce_custom_product][version] = "1.0-beta2"
+
+projects[commerce_line_item_widget][subdir] = "contrib"
+projects[commerce_line_item_widget][download][type] = "git"
+projects[commerce_line_item_widget][download][url] = "http://git.drupal.org/project/commerce_line_item_widget.git"
+projects[commerce_line_item_widget][download][branch] = "7.x-1.x"
+
 ; ### ERPAL contributed modules ###
 projects[erpal_core][subdir] = "erpal"
 projects[erpal_core][download][type] = "git"
