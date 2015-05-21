@@ -63,7 +63,7 @@ function erpal_commerce_views_default_views_alter(&$views) {
     $handler->display->display_options['empty']['area']['table'] = 'views';
     $handler->display->display_options['empty']['area']['field'] = 'area';
     $handler->display->display_options['empty']['area']['empty'] = TRUE;
-    $handler->display->display_options['empty']['area']['content'] = 'Invoices not found. Please, create new invoice. ';
+    $handler->display->display_options['empty']['area']['content'] = 'No Invoices available. Please, create new invoice. ';
     $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
     $handler->display->display_options['defaults']['relationships'] = FALSE;
     /* Relationship: Entity Reference: Referenced Entity */

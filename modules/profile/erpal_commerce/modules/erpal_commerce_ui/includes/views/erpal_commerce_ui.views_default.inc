@@ -39,7 +39,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'Orders not found. Please, create new order.';
+  $handler->display->display_options['empty']['area']['content'] = 'No Orders available. Please, create new order.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   /* Field: Bulk operations: Commerce Order */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -620,7 +620,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['field_sales_process']['relationship'] = 'field_quote_target_id';
   $handler->display->display_options['fields']['field_sales_process']['label'] = '';
   $handler->display->display_options['fields']['field_sales_process']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_sales_process']['empty'] = 'Activity not found. Please, create new Activity or add Activity to the quote.';
+  $handler->display->display_options['fields']['field_sales_process']['empty'] = 'No Activity available. Please, create new Activity or add Activity to the quote.';
   $handler->display->display_options['fields']['field_sales_process']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['field_sales_process']['type'] = 'entityreference_entity_view';
   $handler->display->display_options['fields']['field_sales_process']['settings'] = array(
@@ -992,7 +992,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'Quotes not found. Please, create new quote.';
+  $handler->display->display_options['empty']['area']['content'] = 'No Quotes available. Please, create new quote.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Entity Reference: Referencing entity */
@@ -1476,7 +1476,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'Orders not found. Please, create new order.';
+  $handler->display->display_options['empty']['area']['content'] = 'No Orders available. Please, create new order.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Commerce Order: Order number */
@@ -1626,7 +1626,7 @@ function erpal_commerce_ui_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
-    t('Orders not found. Please, create new order.'),
+    t('No Orders available. Please, create new order.'),
     t('Commerce Order'),
     t('- Choose an operation -'),
     t('Order number'),
@@ -1650,7 +1650,7 @@ function erpal_commerce_ui_views_default_views() {
     t('Activity by Order'),
     t('Sales process'),
     t('Commerce Order entity referenced from field_quote'),
-    t('Activity not found. Please, create new Activity or add Activity to the quote.'),
+    t('No Activity available. Please, create new Activity or add Activity to the quote.'),
     t('All'),
     t('View panes'),
     t('Orders by Activity'),
@@ -1661,7 +1661,7 @@ function erpal_commerce_ui_views_default_views() {
     t('Orders by Contact'),
     t('Quote by Order'),
     t('Quote'),
-    t('Quotes not found. Please, create new quote.'),
+    t('No Quotes available. Please, create new quote.'),
     t('Commerce Order referencing Commerce Order from field_quote'),
     t('Invoices by Order'),
     t('Invoices'),
