@@ -83,12 +83,11 @@ function erpal_payment_modality_entity_info() {
 }
 
 /**
- * Entity label callback: returns the label for an individual erpal payment
- * modality.
+ * Entity label callback: returns the label for an individual payment modality.
  */
 function erpal_payment_modality_label($entity, $type = 'full') {
   $payment_modality_wrapper = entity_metadata_wrapper('erpal_payment_modality', $entity);
-      
+
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'commerce_line_item')
     ->entityCondition('bundle', 'product')
@@ -352,7 +351,7 @@ function erpal_payment_modality_field_formatter_view($entity_type, $entity, $fie
   if ($entity_type == 'erpal_payment_modality') {
     // Loop through each price value in this field.
     foreach ($items as $delta => $item) {
-  
+
       $element[$delta] = array('#markup' => erpal_payment_modality_label($entity, 'amount'));
     }
   }
@@ -478,11 +477,11 @@ function erpal_payment_modality_flush_caches() {
           'type' => 'commerce_line_item_widget',
           'weight' => -10,
         );
-  
+
         if ($commerce_order_type == 'invoice') {
           $info_instance['widget']['settings']['default_type'] = 'invoice';
         }
-  
+
         field_update_instance($info_instance);
       }
     }

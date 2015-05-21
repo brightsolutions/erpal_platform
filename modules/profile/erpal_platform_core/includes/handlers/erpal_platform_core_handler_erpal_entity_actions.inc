@@ -12,7 +12,10 @@
  */
 class erpal_platform_core_handler_erpal_entity_actions extends views_handler_field_entity {
 
-  function render($values) {
+  /**
+   * Render the field.
+   */
+  public function render($values) {
     $entity = $this->get_value($values);
     if ($entity) {
 

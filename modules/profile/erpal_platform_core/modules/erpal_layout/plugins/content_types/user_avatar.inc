@@ -80,7 +80,7 @@ function erpal_user_avatar_render($subtype, $conf, $args, $context) {
       $block->content = render($image);
     }
     else {
-      $block->content = l(render($image), 'user/' . $account->uid, array('html' => TRUE)); 
+      $block->content = l(render($image), 'user/' . $account->uid, array('html' => TRUE));
     }
   }
 

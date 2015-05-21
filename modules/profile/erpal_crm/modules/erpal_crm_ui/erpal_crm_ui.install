@@ -19,7 +19,7 @@ function erpal_crm_ui_install() {
     }
   }
 
-  // enabling ds view modes for (activity) sales processes
+  // Enabling ds view modes for (activity) sales processes.
   $view_modes = array(
     'view_modes' => array(
       'full' => array(

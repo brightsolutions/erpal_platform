@@ -925,7 +925,7 @@ function erpal_commerce_flush_caches() {
     $field['settings']['options_list_limit'] = '';
     field_update_field($field);
   }
-  
+
   // Enable reference dialog for invoice order field.
   $info_instance = field_info_instance('commerce_order', 'field_invoice_order', 'invoice');
   $info_instance['widget']['settings']['references_dialog_add'] = 1;
@@ -1003,12 +1003,15 @@ function erpal_commerce_order_delete_redirect($form, &$form_state) {
     case 'commerce_order':
       $des['destination'] = 'orders';
       break;
+
     case 'qoute':
       $des['destination'] = 'qoutes';
       break;
+
     case 'invoice':
       $des['destination'] = 'invoices';
       break;
+
   }
   $form_state['redirect'] = array('admin/commerce/orders/' . $form_state['commerce_order']->order_id . '/delete', array('query' => $des));
 }
@@ -1081,7 +1084,7 @@ function erpal_commerce_line_item_refresh($line_item) {
       // as though it had not been added to the cart yet, but preserve the
       // current quantity and display URI information.
       commerce_product_line_item_populate($cloned_line_item, $product);
-  
+
       // If price in line item was overide just apply it to all price components.
       erpal_payment_modality_price_components($total, $cloned_line_item, 'commerce_unit_price');
       $current_line_item_wrapper->commerce_unit_price = $total;

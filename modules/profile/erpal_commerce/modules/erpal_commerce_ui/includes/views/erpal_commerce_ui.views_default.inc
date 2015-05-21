@@ -1675,7 +1675,6 @@ function erpal_commerce_ui_views_default_views() {
   );
   $export['erpal_order'] = $view;
 
-
   $view = new view();
   $view->name = 'erpal_customer_profile';
   $view->description = '';
@@ -1786,7 +1785,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -1963,7 +1962,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
-  
+
   /* Display: Revenue */
   $handler = $view->new_display('panel_pane', 'Revenue', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2154,7 +2153,7 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: Revenue page */
   $handler = $view->new_display('page', 'Revenue page', 'page_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2487,7 +2486,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 1;
-  
+
   /* Display: Project Revenue */
   $handler = $view->new_display('panel_pane', 'Project Revenue', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2699,7 +2698,7 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  
+
   /* Display: View page */
   $handler = $view->new_display('block', 'View page', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2850,7 +2849,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['arguments']['line_item_id']['break_phrase'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  
+
   /* Display: Dashboard */
   $handler = $view->new_display('block', 'Dashboard', 'block_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2950,7 +2949,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 0;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->display->display_options['title'] = 'Products';
@@ -3082,7 +3081,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['sku']['expose']['label'] = 'Filter by SKUs containing';
   $handler->display->display_options['filters']['sku']['expose']['operator'] = 'sku_op';
   $handler->display->display_options['filters']['sku']['expose']['identifier'] = 'sku';
-  
+
   /* Display: Products */
   $handler = $view->new_display('page', 'Products', 'products_page');
   $handler->display->display_options['defaults']['footer'] = FALSE;
@@ -3137,7 +3136,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['use_ajax'] = TRUE;
@@ -3205,7 +3204,7 @@ function erpal_commerce_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  
+
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -3261,7 +3260,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['use_ajax'] = TRUE;
@@ -3350,7 +3349,7 @@ function erpal_commerce_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  
+
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -3405,7 +3404,7 @@ function erpal_commerce_ui_views_default_views() {
     10 => 'commerce_order:field_vendor:invoice',
     11 => 'commerce_order:field_vendor:quote',
   );
-  
+
   /* Display: Reference dialog Search 2 */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search 2', 'references_dialog_2');
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -3443,7 +3442,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['attach'] = array(
     0 => 'crm_core_contact::individual',
   );
-  
+
   /* Display: Reference dialog Search 3 */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search 3', 'references_dialog_3');
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -3481,7 +3480,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['attach'] = array(
     0 => 'crm_core_contact::organization',
   );
-  
+
   /* Display: Reference dialog Search 4 */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search 4', 'references_dialog_4');
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -3558,7 +3557,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['use_ajax'] = TRUE;
@@ -3585,7 +3584,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'quote' => 'quote',
   );
-  
+
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
@@ -3719,7 +3718,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['use_ajax'] = TRUE;
@@ -3751,7 +3750,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'quote' => 'quote',
   );
-  
+
   /* Display: Reference dialog Search */
   $handler = $view->new_display('references_dialog', 'Reference dialog Search', 'references_dialog_1');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;

@@ -122,7 +122,6 @@ function erpal_layout_default_panels_mini() {
 
   $export['erpal_dropdown_user_menu'] = $mini;
 
-
   /* contacts merged tab for invoice, order & quote */
   $mini = new stdClass();
   $mini->disabled = FALSE; /* Edit this to true to make a default mini disabled initially */
@@ -230,7 +229,6 @@ function erpal_layout_default_panels_mini() {
   $mini->display = $display;
 
   $export['erpal_contact_view_merged_tab'] = $mini;
-
 
   /* enhanced contact main-tab */
   $mini = new stdClass();
@@ -403,7 +401,6 @@ function erpal_layout_default_panels_mini() {
 
   $export['contact_view_main_tab_content'] = $mini;
 
-
   /* anonymous user login (mini-) panel */
   $mini = new stdClass();
   $mini->disabled = FALSE; /* Edit this to true to make a default mini disabled initially */
@@ -483,7 +480,6 @@ function erpal_layout_default_panels_mini() {
   $mini->display = $display;
 
   $export['erpal_anonymous_user_panel'] = $mini;
-
 
   return $export;
 }

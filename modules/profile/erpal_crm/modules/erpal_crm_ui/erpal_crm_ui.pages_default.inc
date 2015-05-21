@@ -114,7 +114,6 @@ function erpal_crm_ui_default_page_manager_pages() {
   $page->default_handlers[$handler->name] = $handler;
   $pages['activity_list_page'] = $page;
 
-
   /* activity_template */
   $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
@@ -426,7 +425,6 @@ function erpal_crm_ui_default_page_manager_pages() {
   $page->default_handlers[$handler->name] = $handler;
   $pages['activity_template'] = $page;
 
-
   /* contact_list_template */
   $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
@@ -512,7 +510,6 @@ function erpal_crm_ui_default_page_manager_pages() {
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['contact_list_template'] = $page;
-
 
   /* contact_view_template */
   $page = new stdClass();
@@ -740,7 +737,6 @@ function erpal_crm_ui_default_page_manager_pages() {
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['contact_view_template'] = $page;
-
 
   return $pages;
 }

@@ -32,7 +32,7 @@ $plugin = array(
  *   Configuration as done at admin time.
  * @param array $args
  *   current page args.
- * @param array $context
+ * @param array $contexts
  *   Context - in this case we don't have any.
  *
  * @return object

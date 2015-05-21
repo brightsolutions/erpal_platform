@@ -57,7 +57,11 @@ function erpal_platform_core_entity_insert($entity, $type) {
       $bundle = $entity->{$info['bundle keys']['bundle']};
       $bundle_label = $info['bundles'][$bundle]['label'];
 
-      drupal_set_message(t('@type has been created (<a href="@url">@title</a>).', array('@url' => url($url['path']), '@type' => $bundle_label, '@title' => $label)));
+      drupal_set_message(t('@type has been created (<a href="@url">@title</a>).', array(
+        '@url' => url($url['path']),
+        '@type' => $bundle_label,
+        '@title' => $label
+      )));
     }
   }
 }

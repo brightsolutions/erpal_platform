@@ -13,10 +13,10 @@ class erpal_payment_modality_full_label_handler extends views_handler_field_enti
   /**
    * Render the field.
    *
-   * @param $values
+   * @param array $values
    *   The values retrieved from the database.
    */
-  function render($values) {
+  public function render($values) {
     if ($entity = $this->get_value($values)) {
       return erpal_payment_modality_label($entity);
     }

@@ -1,11 +1,19 @@
 <?php
 
 /**
+ * @file
+ * Views handler for product operations.
+ */
+
+/**
  * Field handler to present a product's operations links.
  */
 class erpal_commerce_product_handler_field_product_operations extends commerce_product_handler_field_product_operations {
 
-  function render($values) {
+  /**
+   * Render the field.
+   */
+  public function render($values) {
     $product_id = $this->get_value($values, 'product_id');
 
     // Get the operations links.
@@ -20,7 +28,14 @@ class erpal_commerce_product_handler_field_product_operations extends commerce_p
       }
 
       drupal_add_css(drupal_get_path('module', 'commerce_product') . '/theme/commerce_product.admin.css');
-      return theme('links', array('links' => $links, 'attributes' => array('class' => array('links', 'inline', 'operations'))));
+      return theme('links',
+        array(
+          'links' => $links,
+          'attributes' => array(
+            'class' => array('links', 'inline', 'operations')
+          )
+        )
+      );
     }
   }
 }

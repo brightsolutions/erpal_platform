@@ -561,7 +561,6 @@ function erpal_crm_ui_views_default_views() {
 
   $views['erpal_crm_contacts'] = $view;
 
-
   // ERPAL CRM Activities view.
   $view = new view();
   $view->name = 'erpal_crm_activities';
@@ -2715,7 +2714,7 @@ function erpal_crm_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Active Relationships';
@@ -2884,7 +2883,7 @@ function erpal_crm_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  
+
   /* Display: Contact relationships */
   $handler = $view->new_display('panel_pane', 'Contact relationships', 'panel_pane_1');
   $handler->display->display_options['defaults']['footer'] = FALSE;
@@ -2903,7 +2902,7 @@ function erpal_crm_ui_views_default_views() {
       'label' => 'Relation: endpoints (endpoints:entity_id)',
     ),
   );
-  
+
   /* Display: Contact relationships Teaser */
   $handler = $view->new_display('panel_pane', 'Contact relationships Teaser', 'panel_pane_2');
   $handler->display->display_options['defaults']['pager'] = FALSE;

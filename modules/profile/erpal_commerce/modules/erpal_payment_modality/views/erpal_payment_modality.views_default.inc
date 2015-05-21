@@ -20,7 +20,7 @@ function erpal_payment_modality_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'ERPAL payment modality';
@@ -78,7 +78,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['arguments']['payment_modality_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['payment_modality_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['payment_modality_id']['break_phrase'] = TRUE;
-  
+
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
   $translatables['erpal_payment_modality'] = array(
@@ -106,7 +106,7 @@ function erpal_payment_modality_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
+
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -250,7 +250,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
   );
-  
+
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;

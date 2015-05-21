@@ -118,7 +118,6 @@ function erpal_crm_ui_default_panels_mini() {
   $mini->display = $display;
   $minis['erpal_sales_process_main_tab_con'] = $mini;
 
-
   $mini = new stdClass();
   $mini->disabled = FALSE; /* Edit this to true to make a default mini disabled initially */
   $mini->api_version = 1;

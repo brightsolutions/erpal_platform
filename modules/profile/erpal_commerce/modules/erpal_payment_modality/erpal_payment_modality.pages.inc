@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -41,7 +40,7 @@ function erpal_payment_modality_form($form, &$form_state, $payment_modality) {
         'input[name="title_default"]' => array('checked' => FALSE)
       )
     ),
-    '#description' => t('In title field you can use such tokens: <br> !due_with - will be replaced with value from "Due with" field <br> !amount - will be replaced with value from "Amount" field <br> !amount_type - will be replaced with value from "Amount type" field (like a "%").'),
+    '#description' => t('In title field you can use such tokens: <br /> !due_with - will be replaced with value from "Due with" field <br /> !amount - will be replaced with value from "Amount" field <br /> !amount_type - will be replaced with value from "Amount type" field (like a "%").'),
   );
 
   $form['uid'] = array(

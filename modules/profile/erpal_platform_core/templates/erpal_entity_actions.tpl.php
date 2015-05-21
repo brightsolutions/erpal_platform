@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Theme implementation for the ERPAL entity actions.
@@ -11,5 +10,5 @@
  */
 ?>
 <div class="erpal-ctools-dropbutton">
-<?php print drupal_render($actions); ?>
+  <?php print drupal_render($actions); ?>
 </div>

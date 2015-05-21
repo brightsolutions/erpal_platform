@@ -22,11 +22,12 @@ function erpal_commerce_cart_commerce_checkout_pane_info_alter(&$checkout_panes)
 
 /**
  * Submit callback for the commerce customer profile checkout pane.
+ * 
  * Actually, this is a wrapper around the default commerce default submit
  * callback.
  *
- * @see erpal_commerce_cart_commerce_checkout_pane_info_alter().
- * @see commerce_customer_profile_pane_checkout_form_submit().
+ * @see erpal_commerce_cart_commerce_checkout_pane_info_alter()
+ * @see commerce_customer_profile_pane_checkout_form_submit()
  */
 function erpal_commerce_cart_customer_profile_checkout_submit($form, &$form_state, $checkout_pane, $order) {
   $pane_id = $checkout_pane['pane_id'];

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * @TODO.
+ * Install, update and uninstall functions for the erpal layout install.
  */
 
 /**
@@ -11,11 +11,9 @@
 function erpal_layout_enable() {
   variable_set('panels_everywhere_site_template_enabled', 1);
 
-  /*
-    moving default user picture to drupal default folder to be able to apply
-    image styles.
-    Save the default image first to get the file id.
-  */
+  // Moving default user picture to drupal default folder to be able to apply
+  // image styles.
+  // Save the default image first to get the file id.
   $uri = 'public://erpal_user_default_image.png';
   if ($file = file_load_multiple(array(), array('uri' => $uri))) {
     $file = reset($file);
@@ -26,7 +24,7 @@ function erpal_layout_enable() {
     fclose($handle);
   }
 
-  // enable user picture/avatar plus config
+  // Enable user picture/avatar plus config.
   variable_set('user_pictures', TRUE);
   variable_set('user_picture_default', 'public://erpal_user_default_image.png');
   variable_set('user_picture_path', 'userpictures');
@@ -34,7 +32,7 @@ function erpal_layout_enable() {
   variable_set('user_picture_file_size', '1024');
   variable_set('user_picture_style', 'medium');
 
-  // enable ds plus config
+  // Enable ds plus config.
   variable_set('ds_extras_field_template', TRUE);
   variable_set('ds_extras_switch_field', TRUE);
   variable_set('ds_extras_hide_page_title', TRUE);

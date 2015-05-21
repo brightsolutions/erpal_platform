@@ -13,7 +13,7 @@ class erpal_commerce_ui_field_handler extends views_handler_field_entity {
   /**
    * Default options.
    */
-  function option_definition() {
+  public function option_definition() {
     $options = parent::option_definition();
     $options['text'] = array('default' => '', 'translatable' => TRUE);
     return $options;
@@ -22,7 +22,7 @@ class erpal_commerce_ui_field_handler extends views_handler_field_entity {
   /**
    * Default options form that provides the label widget.
    */
-  function options_form(&$form, &$form_state) {
+  public function options_form(&$form, &$form_state) {
     $form['text'] = array(
       '#type' => 'textfield',
       '#title' => t('Text to display'),
@@ -39,10 +39,10 @@ class erpal_commerce_ui_field_handler extends views_handler_field_entity {
   /**
    * Render the field.
    *
-   * @param $values
+   * @param array $values
    *   The values retrieved from the database.
    */
-  function render($values) {
+  public function render($values) {
     if ($entity = $this->get_value($values)) {
       return $this->render_link($entity, $values);
     }
@@ -51,7 +51,7 @@ class erpal_commerce_ui_field_handler extends views_handler_field_entity {
   /**
    * Render the link.
    */
-  function render_link($order, $values) {
+  public function render_link($order, $values) {
     if (erpal_commerce_ui_order_view_access($order)) {
       $this->options['alter']['make_link'] = TRUE;
       $this->options['alter']['path'] = "order-pdf/$order->order_id";
