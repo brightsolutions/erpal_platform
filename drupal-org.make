@@ -4,7 +4,7 @@ api = 2
 
 ; ### Contrib Modules ###
 projects[addressfield][subdir] = "contrib"
-projects[addressfield][version] = "1.0"
+projects[addressfield][version] = "1.1"
 
 projects[admin_menu][version] = "3.0-rc5"
 projects[admin_menu][subdir] = "contrib"
@@ -23,12 +23,8 @@ projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_bil
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-skip-validation-on-confirm-form.patch"
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy_unique-number-by-type.patch"
 
-projects[commerce_reports][version] = "4.0-beta1"
+projects[commerce_reports][version] = "4.0-beta2"
 projects[commerce_reports][subdir] = "contrib"
-projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-order_delete_hook-2380203-1.patch"
-projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-configurable_statuses-2380219-1.patch"
-projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-tax_insert_for_statuses-2380227-2.patch"
-projects[commerce_reports][patch][] = "https://www.drupal.org/files/issues/commerce_reports-any_order_type_support-2380309-1.patch"
 
 projects[crm_core][version] = "0.980"
 projects[crm_core][subdir] = "contrib"
@@ -122,7 +118,7 @@ projects[token][subdir] = "contrib"
 projects[url][version] = "1.0"
 projects[url][subdir] = "contrib"
 
-projects[views][version] = "3.10"
+projects[views][version] = "3.11"
 projects[views][subdir] = "contrib"
 
 projects[views_bulk_operations][version] = "3.2"
@@ -149,7 +145,7 @@ projects[jquery_ui_multiselect_widget][patch][] = "https://www.drupal.org/files/
 projects[jquery_ui_multiselect_widget][patch][] = "https://www.drupal.org/files/issues/jquery_ui_multiselect_widget-ajax_support-2364055-4.patch"
 
 projects[ds][subdir] = "contrib"
-projects[ds][version] = "2.7"
+projects[ds][version] = "2.8"
 
 projects[module_filter][subdir] = "contrib"
 projects[module_filter][version] = "2.0"
@@ -251,6 +247,14 @@ projects[relation_dialog][download][url] = "http://git.drupal.org/project/relati
 projects[relation_dialog][download][revision] = "fa981fe904a306bc65ec309fd7eef9dbf741a244"
 projects[relation_dialog][patch][] = "https://www.drupal.org/files/issues/relation_dialog-add-entities-support_2309579_1.patch"
 
+projects[commerce_custom_product][subdir] = "contrib"
+projects[commerce_custom_product][version] = "1.0-beta2"
+
+projects[commerce_line_item_widget][subdir] = "contrib"
+projects[commerce_line_item_widget][download][type] = "git"
+projects[commerce_line_item_widget][download][url] = "http://git.drupal.org/project/commerce_line_item_widget.git"
+projects[commerce_line_item_widget][download][branch] = "7.x-1.x"
+
 ; ### ERPAL contributed modules ###
 projects[erpal_core][subdir] = "erpal"
 projects[erpal_core][download][type] = "git"
@@ -297,4 +301,5 @@ libraries[pause][download][type] = "file"
 libraries[pause][download][url] = "https://github.com/tobia/Pause/archive/master.zip"
 
 ; ### Themes ###
-projects[omega][version] = "4.2"
+projects[omega][version] = "4.3"
+projects[omega][patch][] = "https://www.drupal.org/files/issues/omega-changes-dir-to-direction-in-276-line-2364731-1.patch"

@@ -453,20 +453,34 @@ function erpal_payment_modality_flush_caches() {
           $info_instance['display']['customer']['settings']['view'] = $view;
           $info_instance['display']['default']['settings']['view'] = $view;
         }
-  
+
         $info_instance['widget'] = array(
-          'module' => 'erpal_commerce',
+          'module' => 'commerce_line_item_widget',
           'settings' => array(
-            'fields' => array(),
-            'line_item_type' => 'product',
-            'type_settings' => array(),
+            'default_type' => 'product',
+            'invoice' => array(
+              'fields' => array(
+                'commerce_unit_price' => '_none',
+                'field_line_item_delivery_date' => '_none',
+                'field_line_item_order' => '_none',
+              ),
+              'product_type' => '_none',
+            ),
+            'product' => array(
+              'fields' => array(
+                'commerce_unit_price' => 'commerce_price',
+                'field_line_item_unit' => 'field_product_unit',
+                'field_payment_modality' => '_none',
+              ),
+              'product_type' => 'product',
+            ),
           ),
-          'type' => 'erpal_commerce_line_item',
+          'type' => 'commerce_line_item_widget',
           'weight' => -10,
         );
   
         if ($commerce_order_type == 'invoice') {
-          $info_instance['widget']['settings']['line_item_type'] = 'invoice';
+          $info_instance['widget']['settings']['default_type'] = 'invoice';
         }
   
         field_update_instance($info_instance);
