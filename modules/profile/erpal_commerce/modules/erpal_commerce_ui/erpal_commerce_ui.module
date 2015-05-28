@@ -84,7 +84,7 @@ function erpal_commerce_ui_admin_paths() {
     'admin/commerce/orders/*/view' => FALSE,
     'admin/commerce/orders/*' => FALSE,
     'admin/commerce/orders/*/edit' => FALSE,
-    'admin/commerce/products/add/product' => FALSE,
+    'admin/commerce/products/add/*' => FALSE,
     'admin/commerce/products/*/edit' => FALSE,
     'admin/commerce/products/*/delete' => FALSE,
   );
@@ -549,6 +549,18 @@ function erpal_commerce_ui_views_pre_render(&$view) {
     $order = commerce_order_load($oid);
     if ($order) {
       $view->build_info['title'] = t('Create invoice for order') . ' ' . l($order->order_number, 'admin/commerce/orders/' . $order->order_id);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_product_add_list().
+ */
+function erpal_commerce_ui_preprocess_product_add_list(&$variables) {
+  $content = &$variables['content'];
+  if ($content) {
+    foreach ($content as &$item) {
+      $item['localized_options']['query'] = drupal_get_destination();
     }
   }
 }

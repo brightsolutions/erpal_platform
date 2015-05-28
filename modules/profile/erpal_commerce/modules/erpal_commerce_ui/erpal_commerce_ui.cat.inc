@@ -317,10 +317,10 @@ function erpal_commerce_ui_cat_items_settings_info() {
     'category' => '',
     'cat_actions' => array(
       0 => array(
-        'path' => 'product/add/product',
-        'path_router' => 'product/add/product',
-        'path_original' => 'product/add/product',
-        'path_pattern' => 'product/%/%',
+        'path' => 'product/add',
+        'path_router' => 'product/add',
+        'path_original' => 'product/add',
+        'path_pattern' => 'product/%',
         'path_query' => array(),
         'path_destination' => TRUE,
         'title' => 'Add a product',
