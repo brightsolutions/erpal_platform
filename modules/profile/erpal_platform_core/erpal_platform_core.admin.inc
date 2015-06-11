@@ -9,6 +9,13 @@
  * Admin settings form for Vendor.
  */
 function erpal_platform_core_settings_form($form, &$form_state) {
+  $form['erpal_platform_core_beta_banner'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable "Beta banner" mode'),
+    '#description' => t('You could enable or disable "Beta banner" on your site'),
+    '#default_value' => variable_get('erpal_platform_core_beta_banner', TRUE),
+  );
+
   $settings = variable_get('erpal_platform_core_messages', array());
   $form['erpal_platform_core_messages'] = array(
     '#tree' => TRUE,

@@ -1,0 +1,16 @@
+.beta-banner {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    display: block;
+    width: 68px;
+    height: 49px;
+    background: transparent url('../images/state_banner_beta.png') no-repeat 0 0;
+    text-indent: -9999em;
+}
+
+.pane-page-logo {
+    margin-left: 44px;
+    position: relative;
+    z-index: 1;
+}

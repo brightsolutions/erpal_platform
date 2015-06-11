@@ -102,3 +102,18 @@ function erpal_platform_core_module_implements_alter(&$implementations, $hook) {
     $implementations['erpal_platform_core'] = $group;
   }
 }
+
+// hook init
+// add js if var true
+function erpal_platform_core_init() {
+  if (variable_get('erpal_platform_core_beta_banner', TRUE)) {
+    $path = drupal_get_path('module', 'erpal_platform_core');
+    drupal_add_css($path . '/css/beta_banner.css');
+    drupal_add_js($path . '/js/bata_banner.js', 'file');
+    drupal_add_js(array('erpal_platform_core' => array(
+      'bannerUrl' => 'http://www.erpal.info/blog/blog/the-6-most-important-steps-of-the-erpal-platform-roadmap',
+      'bannerTitle' => t('ERPAL is currently a BETA version')
+    )), 'setting');
+  }
+}
+// variable_get('erpal_platform_core_beta_banner')
