@@ -330,5 +330,97 @@ function erpal_crm_ui_default_panels_mini() {
   $mini->display = $display;
   $minis['erpal_sales_process_merged_quote'] = $mini;
 
+
+  /* activity merged tab */
+  /*
+  $mini = new stdClass();
+  $mini->disabled = FALSE;
+  $mini->api_version = 1;
+  $mini->name = 'erpal_activity_merged_tab';
+  $mini->category = 'Mini panels';
+  $mini->admin_title = 'ERPAL Activity merged tab';
+  $mini->admin_description = '';
+  $mini->requiredcontexts = array(
+    0 => array(
+      'identifier' => 'CRM Core Activity',
+      'keyword' => 'crm_core_activity',
+      'name' => 'entity:crm_core_activity',
+      'entity_id' => '',
+      'id' => 1,
+    ),
+  );
+  $mini->contexts = array();
+  $mini->relationships = array();
+  $display = new panels_display();
+  $display->layout = 'onecol';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'header-left' => NULL,
+      'header-right' => NULL,
+      'body' => NULL,
+      'middle' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '%crm_core_activity:title';
+  $display->uuid = '148930ad-6145-4696-8198-7ee5d3219d0a';
+  $display->content = array();
+  $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-acde1a7b-47e7-487c-9c02-6a23b415ca00';
+  $pane->panel = 'middle';
+  $pane->type = 'entity_view';
+  $pane->subtype = 'crm_core_activity';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'view_mode' => 'full',
+    'context' => 'requiredcontext_entity:crm_core_activity_1',
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'acde1a7b-47e7-487c-9c02-6a23b415ca00';
+  $display->content['new-acde1a7b-47e7-487c-9c02-6a23b415ca00'] = $pane;
+  $display->panels['middle'][0] = 'new-acde1a7b-47e7-487c-9c02-6a23b415ca00';
+  $pane = new stdClass();
+  $pane->pid = 'new-97347a3a-f2e4-4aef-95b1-2c0d45483d98';
+  $pane->panel = 'middle';
+  $pane->type = 'views_panes';
+  $pane->subtype = 'erpal_crm_contacts-panel_pane_1';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'requiredcontext_entity:crm_core_activity_1',
+    ),
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = '97347a3a-f2e4-4aef-95b1-2c0d45483d98';
+  $display->content['new-97347a3a-f2e4-4aef-95b1-2c0d45483d98'] = $pane;
+  $display->panels['middle'][1] = 'new-97347a3a-f2e4-4aef-95b1-2c0d45483d98';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = 'new-acde1a7b-47e7-487c-9c02-6a23b415ca00';
+  $mini->display = $display;
+  $minis['erpal_activity_merged_tab'] = $mini;
+  */
+
   return $minis;
 }
