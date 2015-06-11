@@ -43,7 +43,7 @@ function erpal_commerce_ui_default_rules_configuration() {
                   "PROVIDE" : { "new_commerce_order" : { "new_commerce_order" : "New order" } }
                 }
               },
-              { "redirect" : { "url" : "invoice\\/[new-commerce-order:value]\\/edit" } }
+              { "redirect" : { "url" : "invoice\\/[new-commerce-order:value]" } }
             ],
             "LABEL" : "Create invoice"
           }
@@ -69,7 +69,7 @@ function erpal_commerce_ui_default_rules_configuration() {
                   "PROVIDE" : { "new_commerce_order" : { "new_commerce_order" : "New order" } }
                 }
               },
-              { "redirect" : { "url" : "order\\/[new-commerce-order:value]\\/edit" } }
+              { "redirect" : { "url" : "order\\/[new-commerce-order:value]" } }
             ],
             "LABEL" : "Create order"
           }
