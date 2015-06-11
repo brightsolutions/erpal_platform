@@ -324,31 +324,6 @@ function erpal_crm_ui_default_page_manager_pages() {
   $display->content['new-5b24d0f5-5c25-4fa1-a0ba-23329e4ecf8b'] = $pane;
   $display->panels['middle'][0] = 'new-5b24d0f5-5c25-4fa1-a0ba-23329e4ecf8b';
   $pane = new stdClass();
-  $pane->pid = 'new-267d0333-4c60-4950-b039-c7b8c824d574';
-  $pane->panel = 'middle';
-  $pane->type = 'panels_mini';
-  $pane->subtype = 'erpal_sales_process_merged_conta';
-  $pane->shown = TRUE;
-  $pane->access = array();
-  $pane->configuration = array(
-    'context' => array(
-      0 => 'argument_entity_id:crm_core_activity_1',
-    ),
-    'override_title' => 0,
-    'override_title_text' => '',
-  );
-  $pane->cache = array();
-  $pane->style = array(
-    'settings' => NULL,
-  );
-  $pane->css = array();
-  $pane->extras = array();
-  $pane->position = 1;
-  $pane->locks = array();
-  $pane->uuid = '267d0333-4c60-4950-b039-c7b8c824d574';
-  $display->content['new-267d0333-4c60-4950-b039-c7b8c824d574'] = $pane;
-  $display->panels['middle'][1] = 'new-267d0333-4c60-4950-b039-c7b8c824d574';
-  $pane = new stdClass();
   $pane->pid = 'new-ce13eaf7-8d86-4a58-aef3-c4fcbe76f2d0';
   $pane->panel = 'middle';
   $pane->type = 'views_panes';
@@ -366,11 +341,11 @@ function erpal_crm_ui_default_page_manager_pages() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 2;
+  $pane->position = 1;
   $pane->locks = array();
   $pane->uuid = 'ce13eaf7-8d86-4a58-aef3-c4fcbe76f2d0';
   $display->content['new-ce13eaf7-8d86-4a58-aef3-c4fcbe76f2d0'] = $pane;
-  $display->panels['middle'][2] = 'new-ce13eaf7-8d86-4a58-aef3-c4fcbe76f2d0';
+  $display->panels['middle'][1] = 'new-ce13eaf7-8d86-4a58-aef3-c4fcbe76f2d0';
   $pane = new stdClass();
   $pane->pid = 'new-0de5ccd7-4cfc-4fb1-9eac-3ac053a0fb59';
   $pane->panel = 'middle';
@@ -391,11 +366,11 @@ function erpal_crm_ui_default_page_manager_pages() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 3;
+  $pane->position = 2;
   $pane->locks = array();
   $pane->uuid = '0de5ccd7-4cfc-4fb1-9eac-3ac053a0fb59';
   $display->content['new-0de5ccd7-4cfc-4fb1-9eac-3ac053a0fb59'] = $pane;
-  $display->panels['middle'][3] = 'new-0de5ccd7-4cfc-4fb1-9eac-3ac053a0fb59';
+  $display->panels['middle'][2] = 'new-0de5ccd7-4cfc-4fb1-9eac-3ac053a0fb59';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
