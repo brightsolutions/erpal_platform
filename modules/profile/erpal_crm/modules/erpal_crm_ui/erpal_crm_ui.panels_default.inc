@@ -332,7 +332,6 @@ function erpal_crm_ui_default_panels_mini() {
 
 
   /* activity merged tab */
-  /*
   $mini = new stdClass();
   $mini->disabled = FALSE;
   $mini->api_version = 1;
@@ -420,7 +419,6 @@ function erpal_crm_ui_default_panels_mini() {
   $display->title_pane = 'new-acde1a7b-47e7-487c-9c02-6a23b415ca00';
   $mini->display = $display;
   $minis['erpal_activity_merged_tab'] = $mini;
-  */
 
   return $minis;
 }
