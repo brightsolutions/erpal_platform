@@ -84,6 +84,7 @@ function erpal_commerce_ui_admin_paths() {
     'admin/commerce/orders/*/view' => FALSE,
     'admin/commerce/orders/*' => FALSE,
     'admin/commerce/orders/*/edit' => FALSE,
+    'admin/commerce/products/*' => FALSE,
     'admin/commerce/products/add/*' => FALSE,
     'admin/commerce/products/*/edit' => FALSE,
     'admin/commerce/products/*/delete' => FALSE,
