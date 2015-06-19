@@ -62,9 +62,9 @@ projects[field_extrawidgets][subdir] = "contrib"
 projects[field_group][version] = "1.4"
 projects[field_group][subdir] = "contrib"
 
-projects[inline_entity_form][version] = "1.5"
+projects[inline_entity_form][version] = "1.6"
 projects[inline_entity_form][subdir] = "contrib"
-projects[inline_entity_form][patch][] = "http://drupal.org/files/issues/inline_entity_form-fixes-wrong-logic-in-inline_entity_form_form_alter.patch"
+projects[inline_entity_form][patch][] = "https://www.drupal.org/files/issues/2187103.ief_form_alter.patch"
 
 projects[libraries][version] = "2.2"
 projects[libraries][subdir] = "contrib"
