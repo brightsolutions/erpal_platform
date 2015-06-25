@@ -170,6 +170,14 @@ function  erpal_commerce_ui_add_page() {
   return theme('product_add_list', array('content' => $content));
 }
 
+
+/**
+ * Implements hook_commerce_product_type_insert().
+ */
+function erpal_commerce_ui_commerce_product_type_insert($product_type) {
+  variable_set('pathauto_commerce_product_' . $product_type['type'] . '_pattern', 'product/[commerce-product:product-id]');
+}
+
 /**
  * Implements hook_form_FORM_ID_alter().
  *
