@@ -84,7 +84,6 @@ function erpal_commerce_ui_admin_paths() {
     'admin/commerce/orders/*/view' => FALSE,
     'admin/commerce/orders/*' => FALSE,
     'admin/commerce/orders/*/edit' => FALSE,
-    'admin/commerce/products/*' => FALSE,
     'admin/commerce/products/add/*' => FALSE,
     'admin/commerce/products/*/edit' => FALSE,
     'admin/commerce/products/*/delete' => FALSE,
@@ -132,6 +131,7 @@ function erpal_commerce_ui_menu_alter(&$items) {
 
   if (!empty($items['admin/commerce/products/add'])) {
     $items['product/add'] = $items['admin/commerce/products/add'];
+    $items['product/add']['page callback'] = 'erpal_commerce_ui_add_page';
     $items['product/add']['file path'] = drupal_get_path('module', 'commerce_product_ui');
   }
   foreach (commerce_product_types() as $type => $product_type) {
@@ -147,6 +147,27 @@ function erpal_commerce_ui_menu_alter(&$items) {
   }
 
   $items['order/%/invoice']['type'] = MENU_CALLBACK;
+}
+
+/**
+ * Menu callback: display a list of product types that the user can create.
+ */
+function  erpal_commerce_ui_add_page() {
+  $item = menu_get_item();
+  $content = system_admin_menu_block($item);
+  // Bypass the admin/commerce/products/add listing if only one product type is
+  // available.
+  if (count($content) == 1) {
+    $item = array_shift($content);
+
+    // Set destination for next redirect.
+    $destination = drupal_get_destination();
+    unset($_GET['destination']);
+
+    drupal_goto($item['href'], array('query' => $destination));
+  }
+
+  return theme('product_add_list', array('content' => $content));
 }
 
 /**
