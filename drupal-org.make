@@ -255,6 +255,11 @@ projects[commerce_line_item_widget][download][type] = "git"
 projects[commerce_line_item_widget][download][url] = "http://git.drupal.org/project/commerce_line_item_widget.git"
 projects[commerce_line_item_widget][download][branch] = "7.x-1.x"
 
+projects[logintoboggan][subdir] = "contrib"
+projects[logintoboggan][download][type] = "git"
+projects[logintoboggan][download][url] = "http://git.drupal.org/project/logintoboggan.git"
+projects[logintoboggan][download][branch] = "7.x-1.x"
+
 ; ### ERPAL contributed modules ###
 projects[erpal_core][subdir] = "erpal"
 projects[erpal_core][download][type] = "git"
