@@ -92,12 +92,12 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
   if ($commerce_line_items) {
     foreach ($commerce_line_items as $value) {
       $line_item = clone commerce_line_item_load($value['line_item_id']);
-      $type = $replica->type == 'quote' ? 'product' : 'invoice';
+      $type = $replica->type == 'quote' ? $line_item->type : 'invoice';
       $line_item_new = commerce_line_item_new($type);
       unset($line_item->line_item_id, $line_item->order_id);
 
       // Replicate payment modality for line items.
-      $instance = field_info_instance('commerce_line_item', 'field_payment_modality', 'product');
+      $instance = field_info_instance('commerce_line_item', 'field_payment_modality', $type);
       if ($instance && $replica->type != 'commerce_order') {
         $field_payment_modality = field_get_items('commerce_line_item', $line_item, 'field_payment_modality');
         $language = field_language('commerce_line_item', $line_item, 'field_payment_modality');
@@ -121,6 +121,12 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
 
       $line_item_new = $line_item;
       $line_item_new->type = $type;
+      $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item_new, array('bundle' => $line_item_new->type));
+
+      if ($line_item_new->type != 'invoice') {
+        module_load_include('inc', 'commerce_tax', 'commerce_tax.rules');
+        commerce_tax_remove_taxes($line_item_wrapper, FALSE, array());
+      }
       commerce_line_item_save($line_item_new);
       $replica->commerce_line_items[$language][] = array(
         'line_item_id' => $line_item_new->line_item_id,
