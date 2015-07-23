@@ -6,6 +6,11 @@
  */
 
 /**
+ * Include file with funcitons for invoice.
+ */
+module_load_include('inc', 'erpal_commerce_ui', 'includes/erpal_commerce_ui.line_item');
+
+/**
  * Implements hook_menu().
  */
 function erpal_commerce_ui_menu() {
