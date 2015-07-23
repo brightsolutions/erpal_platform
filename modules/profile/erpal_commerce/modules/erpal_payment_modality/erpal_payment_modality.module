@@ -473,6 +473,7 @@ function erpal_payment_modality_flush_caches() {
               ),
               'product_type' => 'product',
             ),
+            'billable' => FALSE,
           ),
           'type' => 'commerce_line_item_widget',
           'weight' => -10,
@@ -480,6 +481,7 @@ function erpal_payment_modality_flush_caches() {
 
         if ($commerce_order_type == 'invoice') {
           $info_instance['widget']['settings']['default_type'] = 'invoice';
+          $info_instance['widget']['settings']['billable'] = TRUE;
         }
 
         field_update_instance($info_instance);

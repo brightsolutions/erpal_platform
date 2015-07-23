@@ -596,7 +596,7 @@ function erpal_commerce_invoice_line_item_default_fields() {
   );
   // Exported field_instance: 'commerce_line_item-invoice-field_line_item_order'
   $instances[] = array(
-    'bundle' => 'invoice',
+    'bundle' => 'product',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -634,7 +634,7 @@ function erpal_commerce_invoice_line_item_default_fields() {
 
   // Exported field_instance: 'commerce_line_item-invoice-field_line_item_delivery_date'
   $instances[] = array(
-    'bundle' => 'invoice',
+    'bundle' => 'product',
     'deleted' => 0,
     'description' => '',
     'display' => array(
