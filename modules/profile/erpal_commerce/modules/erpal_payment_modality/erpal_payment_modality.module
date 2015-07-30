@@ -480,7 +480,6 @@ function erpal_payment_modality_flush_caches() {
         );
 
         if ($commerce_order_type == 'invoice') {
-          $info_instance['widget']['settings']['default_type'] = 'invoice';
           $info_instance['widget']['settings']['billable'] = TRUE;
         }
 
