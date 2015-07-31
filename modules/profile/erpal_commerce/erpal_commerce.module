@@ -11,12 +11,6 @@
 function erpal_commerce_menu() {
   $items = array();
 
-  $items['erpal_commerce/line_item/autocomplete'] = array(
-    'title' => 'line_item autocomplete',
-    'page callback' => 'erpal_commerce_line_item_autocomplete',
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-  );
   $items['admin/erpal/settings/vendor'] = array(
     'title' => 'Vendor Settings',
     'page callback' => 'drupal_get_form',
@@ -471,24 +465,6 @@ function erpal_commerce_invoice_form_submit(&$form, &$form_state) {
     $line_item_wrapper->field_line_item_delivery_date->set(REQUEST_TIME);
     $line_item_wrapper->save();
   }
-}
-
-/**
- * Returns output for line item autocompletes.
- */
-function erpal_commerce_line_item_autocomplete($string = '') {
-  $result = array();
-  if ($string) {
-    $query = db_select('commerce_line_item', 'cli')
-      ->fields('cli', array('line_item_id', 'line_item_label'))
-      ->condition('cli.line_item_label', '%' . db_like($string) . '%', 'LIKE')
-      ->condition('cli.type', 'invoice');
-    $query->join('commerce_order', 'co', 'co.order_id != cli.order_id');
-    $query->condition('co.type', 'invoice');
-
-    $result = $query->execute()->fetchAllKeyed();
-  }
-  drupal_json_output($result);
 }
 
 /**
