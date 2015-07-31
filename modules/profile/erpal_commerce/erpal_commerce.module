@@ -452,22 +452,6 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
     $form['actions']['submit']['#value'] = t('Save invoice');
     $form['actions']['submit']['#submit'][] = 'erpal_commerce_invoice_form_submit';
   }
-
-  // Change list of selectable line item bundles.
-  if (!empty($form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['line_item_type'])) {
-    $options = &$form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['line_item_type']['#options'];
-  }
-  if (!empty($form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['bundle']['#options'])) {
-    $options = &$form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['bundle']['#options'];
-  }
-  if (!empty($options)) {
-    if ($form_state['commerce_order']->type == 'invoice') {
-      $options = array('invoice' => $options['invoice']);
-    }
-    else {
-      unset($options['invoice']);
-    }
-  }
 }
 
 /**
