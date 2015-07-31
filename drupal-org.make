@@ -22,6 +22,7 @@ projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_bil
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-fix-issue-with-watchdog-log.patch"
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-skip-validation-on-confirm-form.patch"
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy_unique-number-by-type.patch"
+projects[commerce_billy][patch][] = "https://www.drupal.org/files/issues/commerce_billy-better-usability-for-deleting-invoiced-orders-2543560.patch"
 
 projects[commerce_reports][version] = "4.0-beta2"
 projects[commerce_reports][subdir] = "contrib"
