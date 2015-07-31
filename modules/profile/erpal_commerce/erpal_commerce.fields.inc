@@ -373,6 +373,32 @@ function erpal_commerce_order_default_fields() {
     'type' => 'datetime',
   );
 
+  // Exported field_base: 'field_line_item_billable'
+  $fields[] = array(
+    'translatable' => '0',
+    'entity_types' => array(),
+    'settings' => array(
+      'allowed_values' => array(
+        '',
+        '',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        'value',
+      ),
+    ),
+    'field_name' => 'field_line_item_billable',
+    'type' => 'list_boolean',
+    'module' => 'list',
+    'active' => '1',
+    'locked' => '0',
+    'cardinality' => '1',
+    'deleted' => '0',
+  );
+
   // Exported field_instance: 'commerce_order-commerce_order-field_quote'
   $instances[] = array(
     'bundle' => 'commerce_order',
@@ -660,6 +686,43 @@ function erpal_commerce_order_default_fields() {
       'type' => 'date_popup',
       'weight' => 4,
     ),
+  );
+
+  // Exported field_instance: 'commerce_line_item-product-field_line_item_billable'
+  $instances[] = array(
+    'label' => 'Billable',
+    'widget' => array(
+      'weight' => '7',
+      'type' => 'field_extrawidgets_hidden',
+      'module' => 'field_extrawidgets',
+      'active' => 1,
+      'settings' => array(),
+    ),
+    'settings' => array(
+      'dfv' => array(
+        'status' => 0,
+        'parent' => '',
+        'view' => '',
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'type' => 'list_default',
+        'settings' => array(),
+        'module' => 'list',
+        'weight' => 6,
+      ),
+    ),
+    'required' => 0,
+    'description' => '',
+    'ds_extras_field_template' => '',
+    'default_value' => NULL,
+    'field_name' => 'field_line_item_billable',
+    'entity_type' => 'commerce_line_item',
+    'bundle' => 'product',
+    'deleted' => '0',
   );
 
   // Translatables
