@@ -54,7 +54,7 @@ function erpal_commerce_ui_field_widget_form_alter(&$element, &$form_state, $con
 
     $hide_fields = array('field_line_item_order', 'field_line_item_delivery_date');
     if (!empty($context['instance']['widget']['settings']['billable'])) {
-      $language = $element['field_vendor_address']['#language'];
+      $language = $element['field_line_item_billable']['#language'];
       $element['field_line_item_billable'][$language]['#value'] = 0;
       $hide_fields = array('commerce_display_path', 'commerce_product', 'field_line_item_unit', 'field_payment_modality');
     }
