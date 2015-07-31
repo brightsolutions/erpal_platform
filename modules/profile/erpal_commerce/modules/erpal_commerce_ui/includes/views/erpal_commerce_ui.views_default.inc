@@ -1947,13 +1947,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['arguments']['field_line_item_order_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_line_item_order_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_line_item_order_target_id']['summary_options']['items_per_page'] = '25';
-  /* Filter criterion: Commerce Line Item: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'commerce_line_item';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'invoice' => 'invoice',
-  );
   /* Filter criterion: Commerce Order: Order type */
   $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
   $handler->display->display_options['filters']['type_1']['table'] = 'commerce_order';
@@ -1961,6 +1954,13 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['type_1']['relationship'] = 'order_id';
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
+  );
+  /* Filter criterion: Commerce Line item: Billable (field_line_item_billable) */
+  $handler->display->display_options['filters']['field_line_item_billable_value']['id'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['table'] = 'field_data_field_line_item_billable';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['field'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['value'] = array(
+    1 => '1',
   );
 
   /* Display: Revenue */
@@ -2116,13 +2116,6 @@ function erpal_commerce_ui_views_default_views() {
   );
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Commerce Line Item: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'commerce_line_item';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'invoice' => 'invoice',
-  );
   /* Filter criterion: Commerce Order: Order type */
   $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
   $handler->display->display_options['filters']['type_1']['table'] = 'commerce_order';
@@ -2142,6 +2135,13 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['type_1']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Commerce Line item: Billable (field_line_item_billable) */
+  $handler->display->display_options['filters']['field_line_item_billable_value']['id'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['table'] = 'field_data_field_line_item_billable';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['field'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['value'] = array(
+    1 => '1',
+  );
   $handler->display->display_options['argument_input'] = array(
     'field_line_item_order_target_id' => array(
       'type' => 'context',
@@ -2407,14 +2407,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Commerce Line Item: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'commerce_line_item';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'invoice' => 'invoice',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Commerce Order: Order number */
   $handler->display->display_options['filters']['order_number']['id'] = 'order_number';
   $handler->display->display_options['filters']['order_number']['table'] = 'commerce_order';
@@ -2480,6 +2472,13 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_line_item_delivery_date_value']['form_type'] = 'date_popup';
+  /* Filter criterion: Commerce Line item: Billable (field_line_item_billable) */
+  $handler->display->display_options['filters']['field_line_item_billable_value']['id'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['table'] = 'field_data_field_line_item_billable';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['field'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['value'] = array(
+    1 => '1',
+  );
   $handler->display->display_options['path'] = 'invoices/line_items';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Invoice';
@@ -2661,13 +2660,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Commerce Line Item: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'commerce_line_item';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'invoice' => 'invoice',
-  );
   /* Filter criterion: Commerce Order: Order type */
   $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
   $handler->display->display_options['filters']['type_1']['table'] = 'commerce_order';
@@ -2687,6 +2679,13 @@ function erpal_commerce_ui_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['type_1']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Commerce Line item: Billable (field_line_item_billable) */
+  $handler->display->display_options['filters']['field_line_item_billable_value']['id'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['table'] = 'field_data_field_line_item_billable';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['field'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['value'] = array(
+    1 => '1',
+  );
   $handler->display->display_options['argument_input'] = array(
     'nid' => array(
       'type' => 'context',
