@@ -651,7 +651,7 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
   // Check if already exists invoice line item for this payment modality.
   $conditions = array(
     'line_item_label' => $invoice_label,
-    'type' => 'invoice',
+    'type' => 'product',
   );
   $invoice = commerce_line_item_load_multiple(array(), $conditions, TRUE);
 
@@ -668,7 +668,7 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
     }
   }
   else {
-    $invoice = commerce_line_item_new('invoice');
+    $invoice = commerce_line_item_new('product');
     if ($status) {
       drupal_set_message(t('Invoice line item was created.'));
     }
@@ -686,7 +686,7 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
     $invoice->field_line_item_order[$langcode][0]['target_id'] = $order['order_id'];
 
     $field = field_info_field('field_line_item_delivery_date');
-    $instance = field_info_instance('commerce_line_item', 'field_line_item_delivery_date', 'invoice');
+    $instance = field_info_instance('commerce_line_item', 'field_line_item_delivery_date', 'product');
     $items = date_default_value($field, $instance, $langcode);
     $invoice->field_line_item_delivery_date[$langcode] = $items;
 
