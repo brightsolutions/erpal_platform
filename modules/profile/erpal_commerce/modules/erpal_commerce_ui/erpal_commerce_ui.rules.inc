@@ -47,7 +47,7 @@ function erpal_commerce_ui_replicate_order($commerce_order) {
         $line_item_wrapper->save();
       }
 
-      if ($line_item_wrapper->type->value() == 'invoice') {
+      if ($line_item_wrapper->field_line_item_billable->value()) {
         $line_item_wrapper->order_id = $order->order_id;
         $line_item_wrapper->field_line_item_order->set($commerce_order->order_id);
         $line_item_wrapper->field_line_item_delivery_date->set(REQUEST_TIME);
@@ -92,8 +92,6 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
   if ($commerce_line_items) {
     foreach ($commerce_line_items as $value) {
       $line_item = clone commerce_line_item_load($value['line_item_id']);
-      $type = $replica->type == 'quote' ? 'product' : 'invoice';
-      $line_item_new = commerce_line_item_new($type);
       unset($line_item->line_item_id, $line_item->order_id);
 
       // Replicate payment modality for line items.
@@ -120,7 +118,11 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
       }
 
       $line_item_new = $line_item;
-      $line_item_new->type = $type;
+      $line_item_new->type = 'product';
+      if ($replica->type != 'quote') {
+        $langcode = field_language('commerce_line_item', $line_item_new, 'field_line_item_billable');
+        $line_item_new->field_line_item_billable[$langcode][0]['value'] = 1;
+      }
       commerce_line_item_save($line_item_new);
       $replica->commerce_line_items[$language][] = array(
         'line_item_id' => $line_item_new->line_item_id,
