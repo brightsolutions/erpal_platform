@@ -685,6 +685,10 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
     $langcode = field_language('commerce_line_item', $invoice, 'field_line_item_order');
     $invoice->field_line_item_order[$langcode][0]['target_id'] = $order['order_id'];
 
+    // Set line item as billable.
+    $langcode = field_language('commerce_line_item', $invoice, 'field_line_item_billable');
+    $invoice->field_line_item_billable[$langcode][0]['value'] = 1;
+
     $field = field_info_field('field_line_item_delivery_date');
     $instance = field_info_instance('commerce_line_item', 'field_line_item_delivery_date', 'product');
     $items = date_default_value($field, $instance, $langcode);
