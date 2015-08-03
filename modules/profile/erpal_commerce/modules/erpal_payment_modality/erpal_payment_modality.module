@@ -649,14 +649,17 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
   }
 
   // Check if already exists invoice line item for this payment modality.
-  $conditions = array(
-    'line_item_label' => $invoice_label,
-    'type' => 'product',
-  );
-  $invoice = commerce_line_item_load_multiple(array(), $conditions, TRUE);
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'commerce_line_item')
+    ->entityCondition('bundle', 'product')
+    ->propertyCondition('line_item_label', $invoice_label)
+    ->fieldCondition('field_line_item_billable', 'value', 1)
+    ->range(0, 1)
+    ->execute();
 
-  if (!empty($invoice) && $unique_label) {
-    $invoice = reset($invoice);
+  if (!empty($result['commerce_line_item']) && $unique_label) {
+    $ids = array_keys($result['commerce_line_item']);
+    $invoice = commerce_line_item_load(reset($ids));
 
     // If invoice line item already added to invoice nothing to do
     // here.
