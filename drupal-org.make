@@ -22,6 +22,7 @@ projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_bil
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-fix-issue-with-watchdog-log.patch"
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-skip-validation-on-confirm-form.patch"
 projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy_unique-number-by-type.patch"
+projects[commerce_billy][patch][] = "https://www.drupal.org/files/issues/commerce_billy-better-usability-for-deleting-invoiced-orders-2543560.patch"
 
 projects[commerce_reports][version] = "4.0-beta2"
 projects[commerce_reports][subdir] = "contrib"
@@ -62,9 +63,9 @@ projects[field_extrawidgets][subdir] = "contrib"
 projects[field_group][version] = "1.4"
 projects[field_group][subdir] = "contrib"
 
-projects[inline_entity_form][version] = "1.5"
+projects[inline_entity_form][version] = "1.6"
 projects[inline_entity_form][subdir] = "contrib"
-projects[inline_entity_form][patch][] = "http://drupal.org/files/issues/inline_entity_form-fixes-wrong-logic-in-inline_entity_form_form_alter.patch"
+projects[inline_entity_form][patch][] = "https://www.drupal.org/files/issues/2187103.ief_form_alter.patch"
 
 projects[libraries][version] = "2.2"
 projects[libraries][subdir] = "contrib"
@@ -121,7 +122,7 @@ projects[url][subdir] = "contrib"
 projects[views][version] = "3.11"
 projects[views][subdir] = "contrib"
 
-projects[views_bulk_operations][version] = "3.2"
+projects[views_bulk_operations][version] = "3.3"
 projects[views_bulk_operations][subdir] = "contrib"
 
 projects[views_field_view][version] = "1.1"
@@ -254,6 +255,11 @@ projects[commerce_line_item_widget][subdir] = "contrib"
 projects[commerce_line_item_widget][download][type] = "git"
 projects[commerce_line_item_widget][download][url] = "http://git.drupal.org/project/commerce_line_item_widget.git"
 projects[commerce_line_item_widget][download][branch] = "7.x-1.x"
+
+projects[logintoboggan][subdir] = "contrib"
+projects[logintoboggan][download][type] = "git"
+projects[logintoboggan][download][url] = "http://git.drupal.org/project/logintoboggan.git"
+projects[logintoboggan][download][branch] = "7.x-1.x"
 
 ; ### ERPAL contributed modules ###
 projects[erpal_core][subdir] = "erpal"

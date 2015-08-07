@@ -37,4 +37,19 @@ function erpal_layout_enable() {
   variable_set('ds_extras_switch_field', TRUE);
   variable_set('ds_extras_hide_page_title', TRUE);
   variable_set('ft-default', 'theme_ds_field_minimal');
+
+  // enable & set logintoboggan config
+  variable_set('logintoboggan_confirm_email_at_registration', '0');
+  variable_set('logintoboggan_immediate_login_on_register', 1);
+  variable_set('logintoboggan_login_successful_message', '0');
+  variable_set('logintoboggan_login_with_email', '1');
+  variable_set('logintoboggan_minimum_password_length', '0');
+  variable_set('logintoboggan_override_destination_parameter', 1);
+  variable_set('logintoboggan_pre_auth_role', '2');
+  variable_set('logintoboggan_purge_unvalidated_user_interval', '0');
+  variable_set('logintoboggan_redirect_on_confirm', '');
+  variable_set('logintoboggan_redirect_on_register', '');
+  variable_set('logintoboggan_unified_login', 1);
+  variable_set('site_403', 'toboggan/denied');
+  variable_set('user_email_verification', TRUE);
 }

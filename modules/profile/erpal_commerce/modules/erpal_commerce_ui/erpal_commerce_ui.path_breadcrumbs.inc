@@ -358,7 +358,7 @@ function erpal_commerce_ui_path_breadcrumbs_settings_info() {
   $path_breadcrumb->api_version = 1;
   $path_breadcrumb->machine_name = 'product';
   $path_breadcrumb->name = 'Product';
-  $path_breadcrumb->path = 'admin/commerce/products/%commerce_product';
+  $path_breadcrumb->path = 'admin/commerce/products/%commerce_product/edit';
   $path_breadcrumb->data = array(
     'titles' => array(
       0 => 'Products',

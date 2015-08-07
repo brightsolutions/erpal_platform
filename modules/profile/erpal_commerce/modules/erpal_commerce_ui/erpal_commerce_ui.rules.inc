@@ -119,9 +119,15 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
 
       $line_item_new = $line_item;
       $line_item_new->type = 'product';
+      // If its invoice line item.
       if ($replica->type != 'quote') {
         $langcode = field_language('commerce_line_item', $line_item_new, 'field_line_item_billable');
         $line_item_new->field_line_item_billable[$langcode][0]['value'] = 1;
+      }
+      else {
+        $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item_new, array('bundle' => $line_item_new->type));
+        module_load_include('inc', 'commerce_tax', 'commerce_tax.rules');
+        commerce_tax_remove_taxes($line_item_wrapper, FALSE, array());
       }
       commerce_line_item_save($line_item_new);
       $replica->commerce_line_items[$language][] = array(
