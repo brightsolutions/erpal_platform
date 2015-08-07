@@ -457,14 +457,6 @@ function erpal_payment_modality_flush_caches() {
           'module' => 'commerce_line_item_widget',
           'settings' => array(
             'default_type' => 'product',
-            'invoice' => array(
-              'fields' => array(
-                'commerce_unit_price' => '_none',
-                'field_line_item_delivery_date' => '_none',
-                'field_line_item_order' => '_none',
-              ),
-              'product_type' => '_none',
-            ),
             'product' => array(
               'fields' => array(
                 'commerce_unit_price' => 'commerce_price',
