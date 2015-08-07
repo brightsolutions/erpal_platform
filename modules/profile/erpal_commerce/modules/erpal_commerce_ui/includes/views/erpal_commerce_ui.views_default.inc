@@ -3871,8 +3871,73 @@ function erpal_commerce_ui_views_default_views() {
     t('Customer'),
     t('Order status'),
   );
-
   $export['erpal_order_search'] = $view;
+
+  $view = new view();
+  $view->name = 'erpal_invoice_line_items_entityreference';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'commerce_line_item';
+  $view->human_name = 'ERPAL Invoice line items entityreference';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Field: Commerce Line Item: Label */
+  $handler->display->display_options['fields']['line_item_label']['id'] = 'line_item_label';
+  $handler->display->display_options['fields']['line_item_label']['table'] = 'commerce_line_item';
+  $handler->display->display_options['fields']['line_item_label']['field'] = 'line_item_label';
+  $handler->display->display_options['fields']['line_item_label']['label'] = '';
+  $handler->display->display_options['fields']['line_item_label']['element_label_colon'] = FALSE;
+  /* Filter criterion: Commerce Line item: Billable (field_line_item_billable) */
+  $handler->display->display_options['filters']['field_line_item_billable_value']['id'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['table'] = 'field_data_field_line_item_billable';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['field'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['value'] = array(
+    1 => '1',
+  );
+
+  /* Display: Invoice line item */
+  $handler = $view->new_display('entityreference', 'Invoice line item', 'entityreference_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'entityreference_style';
+  $handler->display->display_options['style_options']['search_fields'] = array(
+    'line_item_label' => 'line_item_label',
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entityreference_fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $translatables['erpal_invoice_line_items_entityreference'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Invoice line item'),
+  );
+  $export['erpal_invoice_line_items_entityreference'] = $view;
 
   return $export;
 }
