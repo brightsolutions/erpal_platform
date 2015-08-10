@@ -28,6 +28,11 @@ function erpal_commerce_default_rules_configuration() {
             "entity" : [ "commerce-line-item" ],
             "field" : "field_payment_modality"
           }
+        },
+        { "NOT data_is" : {
+            "data" : [ "commerce-line-item:field-line-item-billable" ],
+            "value" : "1"
+          }
         }
       ],
       "DO" : [
