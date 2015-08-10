@@ -1989,10 +1989,10 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['order_id']['label'] = '';
   $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
-  /* Field: Commerce Line Item: Title */
-  $handler->display->display_options['fields']['line_item_title']['id'] = 'line_item_title';
-  $handler->display->display_options['fields']['line_item_title']['table'] = 'commerce_line_item';
-  $handler->display->display_options['fields']['line_item_title']['field'] = 'line_item_title';
+  /* Field: Commerce Line Item: Label */
+  $handler->display->display_options['fields']['line_item_label']['id'] = 'line_item_label';
+  $handler->display->display_options['fields']['line_item_label']['table'] = 'commerce_line_item';
+  $handler->display->display_options['fields']['line_item_label']['field'] = 'line_item_label';
   /* Field: Commerce Line item: Total */
   $handler->display->display_options['fields']['commerce_total']['id'] = 'commerce_total';
   $handler->display->display_options['fields']['commerce_total']['table'] = 'field_data_commerce_total';
@@ -2271,10 +2271,11 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['order_number']['relationship'] = 'field_line_item_order_target_id';
   $handler->display->display_options['fields']['order_number']['label'] = 'Order';
   $handler->display->display_options['fields']['order_number']['link_to_order'] = 'admin';
-  /* Field: Commerce Line Item: Title */
-  $handler->display->display_options['fields']['line_item_title']['id'] = 'line_item_title';
-  $handler->display->display_options['fields']['line_item_title']['table'] = 'commerce_line_item';
-  $handler->display->display_options['fields']['line_item_title']['field'] = 'line_item_title';
+  /* Field: Commerce Line Item: Label */
+  $handler->display->display_options['fields']['line_item_label']['id'] = 'line_item_label';
+  $handler->display->display_options['fields']['line_item_label']['table'] = 'commerce_line_item';
+  $handler->display->display_options['fields']['line_item_label']['field'] = 'line_item_label';
+  $handler->display->display_options['fields']['line_item_label']['label'] = 'Title';
   /* Field: Commerce Line item: Total */
   $handler->display->display_options['fields']['commerce_total']['id'] = 'commerce_total';
   $handler->display->display_options['fields']['commerce_total']['table'] = 'field_data_commerce_total';
@@ -2522,10 +2523,11 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['order_id']['label'] = '';
   $handler->display->display_options['fields']['order_id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['order_id']['element_label_colon'] = FALSE;
-  /* Field: Commerce Line Item: Title */
-  $handler->display->display_options['fields']['line_item_title']['id'] = 'line_item_title';
-  $handler->display->display_options['fields']['line_item_title']['table'] = 'commerce_line_item';
-  $handler->display->display_options['fields']['line_item_title']['field'] = 'line_item_title';
+  /* Field: Commerce Line Item: Label */
+  $handler->display->display_options['fields']['line_item_label']['id'] = 'line_item_label';
+  $handler->display->display_options['fields']['line_item_label']['table'] = 'commerce_line_item';
+  $handler->display->display_options['fields']['line_item_label']['field'] = 'line_item_label';
+  $handler->display->display_options['fields']['line_item_label']['label'] = 'Title';
   /* Field: Commerce Line item: Total */
   $handler->display->display_options['fields']['commerce_total']['id'] = 'commerce_total';
   $handler->display->display_options['fields']['commerce_total']['table'] = 'field_data_commerce_total';
@@ -2865,10 +2867,11 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['footer']['area']['content'] = '<a href="invoices/line_items" class="link-global-view">Full view</a>';
   $handler->display->display_options['footer']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Commerce Line Item: Title */
-  $handler->display->display_options['fields']['line_item_title']['id'] = 'line_item_title';
-  $handler->display->display_options['fields']['line_item_title']['table'] = 'commerce_line_item';
-  $handler->display->display_options['fields']['line_item_title']['field'] = 'line_item_title';
+  /* Field: Commerce Line Item: Label */
+  $handler->display->display_options['fields']['line_item_label']['id'] = 'line_item_label';
+  $handler->display->display_options['fields']['line_item_label']['table'] = 'commerce_line_item';
+  $handler->display->display_options['fields']['line_item_label']['field'] = 'line_item_label';
+  $handler->display->display_options['fields']['line_item_label']['label'] = 'Title';
   /* Field: Commerce Line item: Total */
   $handler->display->display_options['fields']['commerce_total']['id'] = 'commerce_total';
   $handler->display->display_options['fields']['commerce_total']['table'] = 'field_data_commerce_total';
@@ -2911,6 +2914,7 @@ function erpal_commerce_ui_views_default_views() {
     t('All'),
     t('Revenue'),
     t('@total rows'),
+    t('Label'),
     t('Delivery date'),
     t('Invoice'),
     t('[order_number]'),
@@ -2929,7 +2933,6 @@ function erpal_commerce_ui_views_default_views() {
     t('.'),
     t(','),
     t('Type'),
-    t('Label'),
     t('Unit price'),
     t('Quantity'),
     t('Dashboard'),
