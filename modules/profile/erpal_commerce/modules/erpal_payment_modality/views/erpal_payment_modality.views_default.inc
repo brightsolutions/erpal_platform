@@ -239,7 +239,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'commerce_line_item';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'invoice' => 'invoice',
+    'product' => 'product',
   );
   /* Filter criterion: Commerce Order: Order type */
   $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
@@ -249,6 +249,13 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['filters']['type_1']['operator'] = 'not in';
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'invoice' => 'invoice',
+  );
+  /* Filter criterion: Commerce Line item: Billable (field_line_item_billable) */
+  $handler->display->display_options['filters']['field_line_item_billable_value']['id'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['table'] = 'field_data_field_line_item_billable';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['field'] = 'field_line_item_billable_value';
+  $handler->display->display_options['filters']['field_line_item_billable_value']['value'] = array(
+    1 => '1',
   );
 
   /* Display: Block */

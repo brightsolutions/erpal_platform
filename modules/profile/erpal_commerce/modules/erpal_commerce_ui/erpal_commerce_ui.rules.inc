@@ -47,7 +47,7 @@ function erpal_commerce_ui_replicate_order($commerce_order) {
         $line_item_wrapper->save();
       }
 
-      if ($line_item_wrapper->type->value() == 'invoice') {
+      if ($line_item_wrapper->field_line_item_billable->value()) {
         $line_item_wrapper->order_id = $order->order_id;
         $line_item_wrapper->field_line_item_order->set($commerce_order->order_id);
         $line_item_wrapper->field_line_item_delivery_date->set(REQUEST_TIME);
@@ -92,12 +92,10 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
   if ($commerce_line_items) {
     foreach ($commerce_line_items as $value) {
       $line_item = clone commerce_line_item_load($value['line_item_id']);
-      $type = $replica->type == 'quote' ? $line_item->type : 'invoice';
-      $line_item_new = commerce_line_item_new($type);
       unset($line_item->line_item_id, $line_item->order_id);
 
       // Replicate payment modality for line items.
-      $instance = field_info_instance('commerce_line_item', 'field_payment_modality', $type);
+      $instance = field_info_instance('commerce_line_item', 'field_payment_modality', 'product');
       if ($instance && $replica->type != 'commerce_order') {
         $field_payment_modality = field_get_items('commerce_line_item', $line_item, 'field_payment_modality');
         $language = field_language('commerce_line_item', $line_item, 'field_payment_modality');
@@ -120,10 +118,14 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
       }
 
       $line_item_new = $line_item;
-      $line_item_new->type = $type;
-      $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item_new, array('bundle' => $line_item_new->type));
-
-      if ($line_item_new->type != 'invoice') {
+      $line_item_new->type = 'product';
+      // If its invoice line item.
+      if ($replica->type != 'quote') {
+        $langcode = field_language('commerce_line_item', $line_item_new, 'field_line_item_billable');
+        $line_item_new->field_line_item_billable[$langcode][0]['value'] = 1;
+      }
+      else {
+        $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item_new, array('bundle' => $line_item_new->type));
         module_load_include('inc', 'commerce_tax', 'commerce_tax.rules');
         commerce_tax_remove_taxes($line_item_wrapper, FALSE, array());
       }

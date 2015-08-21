@@ -299,6 +299,106 @@ function erpal_commerce_order_default_fields() {
     'type' => 'list_text',
   );
 
+  // Exported field_base: 'field_line_item_order'
+  $fields[] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_line_item_order',
+    'foreign keys' => array(
+      'commerce_order' => array(
+        'columns' => array(
+          'target_id' => 'order_id',
+        ),
+        'table' => 'commerce_order',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'commerce_order' => 'commerce_order',
+        ),
+      ),
+      'target_type' => 'commerce_order',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
+  // Exported field_base: 'field_line_item_delivery_date'
+  $fields[] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_line_item_delivery_date',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'date',
+    'settings' => array(
+      'cache_count' => 4,
+      'cache_enabled' => 0,
+      'granularity' => array(
+        'day' => 'day',
+        'hour' => 0,
+        'minute' => 0,
+        'month' => 'month',
+        'second' => 0,
+        'year' => 'year',
+      ),
+      'repeat' => 0,
+      'timezone_db' => 'UTC',
+      'todate' => '',
+      'tz_handling' => 'site',
+    ),
+    'translatable' => 0,
+    'type' => 'datetime',
+  );
+
+  // Exported field_base: 'field_line_item_billable'
+  $fields[] = array(
+    'translatable' => '0',
+    'entity_types' => array(),
+    'settings' => array(
+      'allowed_values' => array(
+        '',
+        '',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        'value',
+      ),
+    ),
+    'field_name' => 'field_line_item_billable',
+    'type' => 'list_boolean',
+    'module' => 'list',
+    'active' => '1',
+    'locked' => '0',
+    'cardinality' => '1',
+    'deleted' => '0',
+  );
+
   // Exported field_instance: 'commerce_order-commerce_order-field_quote'
   $instances[] = array(
     'bundle' => 'commerce_order',
@@ -416,46 +516,6 @@ function erpal_commerce_order_default_fields() {
     ),
   );
 
-  // Exported field_instance: 'commerce_line_item-product-field_line_item_unit'
-  $instances[] = array(
-    'bundle' => 'product',
-    'default_value' => array(
-      0 => array(
-        'value' => 'item',
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 5,
-      ),
-    ),
-    'entity_type' => 'commerce_line_item',
-    'field_name' => 'field_line_item_unit',
-    'label' => 'Unit',
-    'required' => 1,
-    'settings' => array(
-      'dfv' => array(
-        'parent' => '',
-        'status' => 0,
-        'view' => '',
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 5,
-    ),
-  );
-
   // Exported field_instance: 'commerce_product-product-field_product_unit'
   $instances[] = array(
     'bundle' => 'product',
@@ -496,107 +556,49 @@ function erpal_commerce_order_default_fields() {
     ),
   );
 
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('Quote');
-  t('Order date');
-  t('Order text');
-
-  return array(
-    'fields' => $fields,
-    'instances' => $instances,
-  );
-}
-
-/**
- * Define the default fields for the line item invoice.
- *
- * @return array
- *   Return default fields and instances to be attached to line item invoice.
- *
- * @see field_create_field()
- * @see field_create_instance()
- */
-function erpal_commerce_invoice_line_item_default_fields() {
-  $fields = array();
-  $instances = array();
-
-  // Exported field_base: 'field_line_item_order'
-  $fields[] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_line_item_order',
-    'foreign keys' => array(
-      'commerce_order' => array(
-        'columns' => array(
-          'target_id' => 'order_id',
-        ),
-        'table' => 'commerce_order',
-      ),
-    ),
-    'indexes' => array(
-      'target_id' => array(
-        0 => 'target_id',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'entityreference',
-    'settings' => array(
-      'handler' => 'base',
-      'handler_settings' => array(
-        'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 0,
-          ),
-        ),
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(
-          'commerce_order' => 'commerce_order',
-        ),
-      ),
-      'target_type' => 'commerce_order',
-    ),
-    'translatable' => 0,
-    'type' => 'entityreference',
-  );
-
-  // Exported field_base: 'field_line_item_delivery_date'
-  $fields[] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_line_item_delivery_date',
-    'foreign keys' => array(),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'date',
-    'settings' => array(
-      'cache_count' => 4,
-      'cache_enabled' => 0,
-      'granularity' => array(
-        'day' => 'day',
-        'hour' => 0,
-        'minute' => 0,
-        'month' => 'month',
-        'second' => 0,
-        'year' => 'year',
-      ),
-      'repeat' => 0,
-      'timezone_db' => 'UTC',
-      'todate' => '',
-      'tz_handling' => 'site',
-    ),
-    'translatable' => 0,
-    'type' => 'datetime',
-  );
-  // Exported field_instance: 'commerce_line_item-invoice-field_line_item_order'
+  // Exported field_instance: 'commerce_line_item-product-field_line_item_unit'
   $instances[] = array(
-    'bundle' => 'invoice',
+    'bundle' => 'product',
+    'default_value' => array(
+      0 => array(
+        'value' => 'item',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'commerce_line_item',
+    'field_name' => 'field_line_item_unit',
+    'label' => 'Unit',
+    'required' => 1,
+    'settings' => array(
+      'dfv' => array(
+        'parent' => '',
+        'status' => 0,
+        'view' => '',
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'commerce_line_item-product-field_line_item_order'
+  $instances[] = array(
+    'bundle' => 'product',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -632,9 +634,9 @@ function erpal_commerce_invoice_line_item_default_fields() {
     ),
   );
 
-  // Exported field_instance: 'commerce_line_item-invoice-field_line_item_delivery_date'
+  // Exported field_instance: 'commerce_line_item-product-field_line_item_delivery_date'
   $instances[] = array(
-    'bundle' => 'invoice',
+    'bundle' => 'product',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -685,10 +687,51 @@ function erpal_commerce_invoice_line_item_default_fields() {
       'weight' => 4,
     ),
   );
+
+  // Exported field_instance: 'commerce_line_item-product-field_line_item_billable'
+  $instances[] = array(
+    'label' => 'Billable',
+    'widget' => array(
+      'weight' => '7',
+      'type' => 'field_extrawidgets_hidden',
+      'module' => 'field_extrawidgets',
+      'active' => 1,
+      'settings' => array(),
+    ),
+    'settings' => array(
+      'dfv' => array(
+        'status' => 0,
+        'parent' => '',
+        'view' => '',
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'type' => 'list_default',
+        'settings' => array(),
+        'module' => 'list',
+        'weight' => 6,
+      ),
+    ),
+    'required' => 0,
+    'description' => '',
+    'ds_extras_field_template' => '',
+    'default_value' => NULL,
+    'field_name' => 'field_line_item_billable',
+    'entity_type' => 'commerce_line_item',
+    'bundle' => 'product',
+    'deleted' => '0',
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
-  t('Order');
   t('Delivery date');
+  t('Quote');
+  t('Order');
+  t('Order date');
+  t('Order text');
 
   return array(
     'fields' => $fields,

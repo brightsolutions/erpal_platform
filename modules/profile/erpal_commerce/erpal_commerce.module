@@ -11,12 +11,6 @@
 function erpal_commerce_menu() {
   $items = array();
 
-  $items['erpal_commerce/line_item/autocomplete'] = array(
-    'title' => 'line_item autocomplete',
-    'page callback' => 'erpal_commerce_line_item_autocomplete',
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-  );
   $items['admin/erpal/settings/vendor'] = array(
     'title' => 'Vendor Settings',
     'page callback' => 'drupal_get_form',
@@ -190,107 +184,6 @@ function erpal_commerce_commerce_order_status_info() {
       'state' => 'paid',
     ),
   );
-}
-
-/**
- * Defines line item types that serve as bundles of the line item entity type.
- *
- * @see hook_commerce_line_item_type_info_alter()
- */
-function erpal_commerce_commerce_line_item_type_info() {
-  $line_item_types = array();
-
-  $line_item_types['invoice'] = array(
-    'type' => 'invoice',
-    'name' => t('Invoice'),
-    'description' => t('Invoice line items creates when any bundle of erpal_output is created.'),
-    'product' => FALSE,
-    'add_form_submit_value' => t('Add Invoice item'),
-    'base' => 'erpal_commerce_line_item',
-  );
-
-  return $line_item_types;
-}
-
-/**
- * Add default settings for custom line item types.
- *
- * @param array $line_item_type
- *   The info array of the line item type being configured.
- */
-function erpal_commerce_line_item_configuration($line_item_type) {
-  switch ($line_item_type['type']) {
-    case 'invoice':
-
-      // Include the fields file.
-      module_load_include('inc', 'erpal_commerce', 'erpal_commerce.fields');
-
-      // Add default fields for line item 'invoice' commerce bundle.
-      $fields = erpal_commerce_invoice_line_item_default_fields();
-      erpal_core_add_fields($fields['fields'], 'field');
-      erpal_core_add_fields($fields['instances'], 'instance');
-      break;
-  }
-}
-
-/**
- * Returns an appropriate title for line item.
- */
-function erpal_commerce_line_item_title($line_item) {
-  return $line_item->line_item_label;
-}
-
-/**
- * Returns the elements.
- *
- * necessary to add a line item through a line item manager widget.
- */
-function erpal_commerce_line_item_add_form($element, &$form_state) {
-  $form = array();
-
-  $form['label'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Label'),
-    '#description' => t('Enter the label of line item.'),
-    '#autocomplete_path' => 'erpal_commerce/line_item/autocomplete',
-    '#size' => 60,
-    '#maxlength' => 255,
-  );
-
-  return $form;
-}
-
-/**
- * Prepare line item.
- *
- * @param object $line_item
- *   The newly created line item object.
- * @param array $element
- *   The array representing the widget form element.
- * @param array $form_state
- *   The present state of the form upon the latest submission.
- * @param array $form
- *   The actual form array.
- *
- * @return NULL
- *   NULL if all is well or an error message if something goes wrong.
- */
-function erpal_commerce_line_item_add_form_submit(&$line_item, $element, &$form_state, $form) {
-
-  if (!empty($element['actions']['label']['#value']) && $exists_line_item = commerce_line_item_load($element['actions']['label']['#value'])) {
-    $line_item = $exists_line_item;
-  }
-  else {
-    $line_item->line_item_label = $element['actions']['label']['#value'];
-    $line_item->commerce_unit_price = array(
-      $element['#language'] => array(
-        0 => array(
-          'amount' => 0,
-          'currency_code' => 'USD',
-        ),
-      ),
-    );
-  }
 }
 
 /**
@@ -553,22 +446,6 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
     $form['actions']['submit']['#value'] = t('Save invoice');
     $form['actions']['submit']['#submit'][] = 'erpal_commerce_invoice_form_submit';
   }
-
-  // Change list of selectable line item bundles.
-  if (!empty($form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['line_item_type'])) {
-    $options = &$form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['line_item_type']['#options'];
-  }
-  if (!empty($form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['bundle']['#options'])) {
-    $options = &$form['commerce_line_items'][$form['commerce_line_items']['#language']]['actions']['bundle']['#options'];
-  }
-  if (!empty($options)) {
-    if ($form_state['commerce_order']->type == 'invoice') {
-      $options = array('invoice' => $options['invoice']);
-    }
-    else {
-      unset($options['invoice']);
-    }
-  }
 }
 
 /**
@@ -588,24 +465,6 @@ function erpal_commerce_invoice_form_submit(&$form, &$form_state) {
     $line_item_wrapper->field_line_item_delivery_date->set(REQUEST_TIME);
     $line_item_wrapper->save();
   }
-}
-
-/**
- * Returns output for line item autocompletes.
- */
-function erpal_commerce_line_item_autocomplete($string = '') {
-  $result = array();
-  if ($string) {
-    $query = db_select('commerce_line_item', 'cli')
-      ->fields('cli', array('line_item_id', 'line_item_label'))
-      ->condition('cli.line_item_label', '%' . db_like($string) . '%', 'LIKE')
-      ->condition('cli.type', 'invoice');
-    $query->join('commerce_order', 'co', 'co.order_id != cli.order_id');
-    $query->condition('co.type', 'invoice');
-
-    $result = $query->execute()->fetchAllKeyed();
-  }
-  drupal_json_output($result);
 }
 
 /**

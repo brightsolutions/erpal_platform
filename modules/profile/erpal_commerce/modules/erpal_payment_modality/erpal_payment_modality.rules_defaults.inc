@@ -50,13 +50,26 @@ function erpal_payment_modality_default_rules_configuration() {
       "OWNER" : "rules",
       "TAGS" : [ "ERPAL Payment Modality" ],
       "REQUIRES" : [
+        "rules",
         "erpal_commerce",
         "rules_conditional",
         "erpal_payment_modality",
-        "rules",
         "entity"
       ],
       "ON" : { "commerce_line_item_presave" : [] },
+      "IF" : [
+        { "entity_is_of_bundle" : {
+            "entity" : [ "commerce-line-item" ],
+            "type" : "commerce_line_item",
+            "bundle" : { "value" : { "product" : "product" } }
+          }
+        },
+        { "NOT data_is" : {
+            "data" : [ "commerce-line-item:field-line-item-billable" ],
+            "value" : "1"
+          }
+        }
+      ],
       "DO" : [
         { "erpal_commerce_line_item_recalculate_prices" : { "commerce_line_item" : [ "commerce_line_item" ] } },
         { "CONDITIONAL" : [

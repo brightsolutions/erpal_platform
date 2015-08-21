@@ -457,14 +457,6 @@ function erpal_payment_modality_flush_caches() {
           'module' => 'commerce_line_item_widget',
           'settings' => array(
             'default_type' => 'product',
-            'invoice' => array(
-              'fields' => array(
-                'commerce_unit_price' => '_none',
-                'field_line_item_delivery_date' => '_none',
-                'field_line_item_order' => '_none',
-              ),
-              'product_type' => '_none',
-            ),
             'product' => array(
               'fields' => array(
                 'commerce_unit_price' => 'commerce_price',
@@ -473,13 +465,14 @@ function erpal_payment_modality_flush_caches() {
               ),
               'product_type' => 'product',
             ),
+            'billable' => FALSE,
           ),
           'type' => 'commerce_line_item_widget',
           'weight' => -10,
         );
 
         if ($commerce_order_type == 'invoice') {
-          $info_instance['widget']['settings']['default_type'] = 'invoice';
+          $info_instance['widget']['settings']['billable'] = TRUE;
         }
 
         field_update_instance($info_instance);
@@ -648,14 +641,17 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
   }
 
   // Check if already exists invoice line item for this payment modality.
-  $conditions = array(
-    'line_item_label' => $invoice_label,
-    'type' => 'invoice',
-  );
-  $invoice = commerce_line_item_load_multiple(array(), $conditions, TRUE);
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'commerce_line_item')
+    ->entityCondition('bundle', 'product')
+    ->propertyCondition('line_item_label', $invoice_label)
+    ->fieldCondition('field_line_item_billable', 'value', 1)
+    ->range(0, 1)
+    ->execute();
 
-  if (!empty($invoice) && $unique_label) {
-    $invoice = reset($invoice);
+  if (!empty($result['commerce_line_item']) && $unique_label) {
+    $ids = array_keys($result['commerce_line_item']);
+    $invoice = commerce_line_item_load(reset($ids));
 
     // If invoice line item already added to invoice nothing to do
     // here.
@@ -667,7 +663,7 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
     }
   }
   else {
-    $invoice = commerce_line_item_new('invoice');
+    $invoice = commerce_line_item_new('product');
     if ($status) {
       drupal_set_message(t('Invoice line item was created.'));
     }
@@ -684,8 +680,12 @@ function erpal_payment_modality_create_line_item($payment_modality, $line_item, 
     $langcode = field_language('commerce_line_item', $invoice, 'field_line_item_order');
     $invoice->field_line_item_order[$langcode][0]['target_id'] = $order['order_id'];
 
+    // Set line item as billable.
+    $langcode = field_language('commerce_line_item', $invoice, 'field_line_item_billable');
+    $invoice->field_line_item_billable[$langcode][0]['value'] = 1;
+
     $field = field_info_field('field_line_item_delivery_date');
-    $instance = field_info_instance('commerce_line_item', 'field_line_item_delivery_date', 'invoice');
+    $instance = field_info_instance('commerce_line_item', 'field_line_item_delivery_date', 'product');
     $items = date_default_value($field, $instance, $langcode);
     $invoice->field_line_item_delivery_date[$langcode] = $items;
 
