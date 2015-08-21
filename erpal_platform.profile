@@ -238,9 +238,8 @@ function erpal_platform_vendor_form_submit($form, $form_state) {
     'vat_rate' => $vendor['vat_rate'],
     'vat_rate_enable' => TRUE,
   );
-  variable_set('erpal_vendor_settings', $settings);
+  variable_set('erpal_tax_settings', $tax);
 
   variable_set('commerce_default_currency', $vendor['currency']);
   variable_set('commerce_enabled_currencies', array($vendor['currency'] => $vendor['currency']));
-
 }
