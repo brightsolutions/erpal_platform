@@ -52,14 +52,15 @@ function erpal_commerce_ui_line_item_settings_submit(&$form, &$form_state) {
 function erpal_commerce_ui_field_widget_form_alter(&$element, &$form_state, $context) {
   if ($context['field']['type'] == 'commerce_line_item_reference') {
 
-    $hide_fields = array('field_line_item_order', 'field_line_item_delivery_date');
     if (!empty($context['instance']['widget']['settings']['billable'])) {
       $language = $element['field_line_item_billable']['#language'];
       $element['field_line_item_billable'][$language]['#value'] = 1;
-      $hide_fields = array('commerce_display_path', 'commerce_product', 'field_line_item_unit', 'field_payment_modality');
     }
-    foreach ($hide_fields as $field_name) {
-      $element[$field_name]['#access'] = FALSE;
+    else {
+      $hide_fields = array('field_line_item_order', 'field_line_item_delivery_date');
+      foreach ($hide_fields as $field_name) {
+        $element[$field_name]['#access'] = FALSE;
+      }
     }
   }
 }
