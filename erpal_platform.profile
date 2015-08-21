@@ -35,13 +35,11 @@ function erpal_platform_install_tasks() {
   // Remove all messages we don't need them.
   drupal_get_messages('status', TRUE);
 
-  if (!drupal_is_cli()) {
-    $tasks['erpal_platform_vendor_form'] = array(
-      'display_name' => st('Vendor information'),
-      'display' => TRUE,
-      'type' => 'form',
-    );
-  }
+  $tasks['erpal_platform_vendor_form'] = array(
+    'display_name' => st('Vendor information'),
+    'display' => TRUE,
+    'type' => 'form',
+  );
 
   return $tasks;
 }
