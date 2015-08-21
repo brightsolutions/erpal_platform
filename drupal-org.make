@@ -309,3 +309,6 @@ libraries[pause][download][url] = "https://github.com/tobia/Pause/archive/master
 ; ### Themes ###
 projects[omega][version] = "4.3"
 projects[omega][patch][] = "https://www.drupal.org/files/issues/omega-changes-dir-to-direction-in-276-line-2364731-1.patch"
+
+projects[phingdrushtask][subdir] = "contrib"
+projects[phingdrushtask][version] = "1.2"
