@@ -30,7 +30,7 @@ projects[commerce_reports][subdir] = "contrib"
 projects[crm_core][version] = "0.980"
 projects[crm_core][subdir] = "contrib"
 
-projects[ctools][version] = "1.7"
+projects[ctools][version] = "1.9"
 projects[ctools][subdir] = "contrib"
 
 projects[custom_order_number][version] = "1.0-alpha1"
