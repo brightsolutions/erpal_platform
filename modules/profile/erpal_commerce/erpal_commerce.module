@@ -1034,3 +1034,23 @@ function erpal_commerce_entity_get_properties($data, array $options, $name, $typ
 
   return '';
 }
+
+/**
+ * Implements hook_commerce_custom_product_line_item_type_insert().
+ *
+ * Adds some field for new added line items.
+ */
+function erpal_commerce_commerce_custom_product_line_item_type_insert($line_item_type) {
+  module_load_include('inc', 'erpal_commerce', 'erpal_commerce.fields');
+  $line_item_fields = array('field_line_item_order', 'field_line_item_delivery_date', 'field_line_item_billable');
+
+  $instances = array();
+  $fields = erpal_commerce_order_default_fields();
+  foreach ($fields['instances'] as $instance) {
+    if (in_array($instance['field_name'], $line_item_fields)) {
+      $instance['bundle'] = $line_item_type['type'];
+      $instances[] = $instance;
+    }
+  }
+  erpal_core_add_fields($instances, 'instance');
+}
