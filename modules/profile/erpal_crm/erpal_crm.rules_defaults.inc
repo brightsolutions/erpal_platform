@@ -49,7 +49,7 @@ function erpal_crm_default_rules_configuration() {
   }');
 
   $items['rules_change_sales_process_status_to_win'] = entity_import('rules_config',
-    '{ "rules_change_sales_process_status_to_win" : {
+      '{ "rules_change_sales_process_status_to_win" : {
       "LABEL" : "Change sales process status to win",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
@@ -78,19 +78,27 @@ function erpal_crm_default_rules_configuration() {
             {
               "IF" : { "entity_has_field" : { "entity" : [ "quote-entity" ], "field" : "field_sales_process" } },
               "DO" : [
-                { "entity_fetch" : {
-                    "USING" : {
-                      "type" : "crm_core_activity",
-                      "id" : [ "quote-entity:field-sales-process:activity-id" ]
-                    },
-                    "PROVIDE" : { "entity_fetched" : { "sales_process" : "Sales process" } }
-                  }
-                },
                 { "CONDITIONAL" : [
                     {
-                      "IF" : { "entity_has_field" : { "entity" : [ "sales-process" ], "field" : "field_activity_status" } },
+                      "IF" : { "NOT data_is_empty" : { "data" : [ "quote-entity:field-sales-process:activity-id" ] } },
                       "DO" : [
-                        { "data_set" : { "data" : [ "sales-process:field-activity-status" ], "value" : "4" } }
+                        { "entity_fetch" : {
+                            "USING" : {
+                              "type" : "crm_core_activity",
+                              "id" : [ "quote-entity:field-sales-process:activity-id" ]
+                            },
+                            "PROVIDE" : { "entity_fetched" : { "sales_process" : "Sales process" } }
+                          }
+                        },
+                        { "CONDITIONAL" : [
+                            {
+                              "IF" : { "entity_has_field" : { "entity" : [ "sales-process" ], "field" : "field_activity_status" } },
+                              "DO" : [
+                                { "data_set" : { "data" : [ "sales-process:field-activity-status" ], "value" : "4" } }
+                              ]
+                            }
+                          ]
+                        }
                       ]
                     }
                   ]
