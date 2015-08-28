@@ -95,7 +95,7 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
       unset($line_item->line_item_id, $line_item->order_id);
 
       // Replicate payment modality for line items.
-      $instance = field_info_instance('commerce_line_item', 'field_payment_modality', 'product');
+      $instance = field_info_instance('commerce_line_item', 'field_payment_modality', $line_item->type);
       if ($instance && $replica->type != 'commerce_order') {
         $field_payment_modality = field_get_items('commerce_line_item', $line_item, 'field_payment_modality');
         $language = field_language('commerce_line_item', $line_item, 'field_payment_modality');
@@ -118,7 +118,6 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
       }
 
       $line_item_new = $line_item;
-      $line_item_new->type = 'product';
       // If its invoice line item.
       if ($replica->type != 'quote') {
         $langcode = field_language('commerce_line_item', $line_item_new, 'field_line_item_billable');
