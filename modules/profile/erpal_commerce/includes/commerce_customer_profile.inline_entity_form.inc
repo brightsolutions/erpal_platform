@@ -41,6 +41,16 @@ class CommerceCustomerProfileInlineEntityFormController extends EntityInlineEnti
       if (!empty($form_state['values'])) {
         unset($form_state['addressfield']);
       }
+      $entity->uid = $user->uid;
+      if (!empty($form_state['crm_core_contact']) && !empty($form_state['crm_core_contact']->contact_id)) {
+        $query = new EntityFieldQuery();
+        $query->entityCondition('entity_type', 'user')
+          ->fieldCondition('field_user_crm_contact', 'target_id', $form_state['crm_core_contact']->contact_id);
+        $result = $query->execute();
+        if (!empty($result['user'])) {
+          $entity->uid = key($result['user']);
+        }
+      }
       field_attach_form($this->entityType, $entity, $entity_form, $form_state, $langcode);
     }
 
