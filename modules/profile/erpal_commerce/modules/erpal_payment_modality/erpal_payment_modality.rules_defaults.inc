@@ -47,15 +47,10 @@ function erpal_payment_modality_default_rules_configuration() {
   $items['rules_auto_create_missing_payment_modality_for_line_items'] = entity_import('rules_config', '{ "rules_auto_create_missing_payment_modality_for_line_items" : {
       "LABEL" : "Automatically create missing payment modality for the line items",
       "PLUGIN" : "reaction rule",
+      "WEIGHT" : "4",
       "OWNER" : "rules",
       "TAGS" : [ "ERPAL Payment Modality" ],
-      "REQUIRES" : [
-        "rules",
-        "erpal_commerce",
-        "rules_conditional",
-        "erpal_payment_modality",
-        "entity"
-      ],
+      "REQUIRES" : [ "rules", "erpal_payment_modality", "entity" ],
       "ON" : { "commerce_line_item_presave" : [] },
       "IF" : [
         { "entity_is_of_bundle" : {
@@ -71,28 +66,19 @@ function erpal_payment_modality_default_rules_configuration() {
         }
       ],
       "DO" : [
-        { "erpal_commerce_line_item_recalculate_prices" : { "commerce_line_item" : [ "commerce_line_item" ] } },
-        { "CONDITIONAL" : [
-            {
-              "IF" : { "entity_has_field" : {
-                  "entity" : [ "commerce-line-item" ],
-                  "field" : "field_payment_modality"
-                }
-              },
-              "DO" : [
-                { "CONDITIONAL" : [
-                    {
-                      "IF" : { "entity_has_field" : { "entity" : [ "commerce-line-item" ], "field" : "field_line_item_unit" } },
-                      "DO" : [
-                        { "erpal_payment_modality_auto_create" : { "commerce_line_item" : [ "commerce_line_item" ] } }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
+        { "erpal_payment_modality_auto_create" : { "commerce_line_item" : [ "commerce_line_item" ] } }
+      ]
+    }
+  }');
+  $items['rules_erpal_commerce_line_item_recalculate_prices'] = entity_import('rules_config', '{ "rules_erpal_commerce_line_item_recalculate_prices" : {
+      "LABEL" : "Recalculate line item unit and total prices",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "ERPAL Commerce" ],
+      "REQUIRES" : [ "erpal_commerce", "entity" ],
+      "ON" : { "commerce_line_item_presave" : [] },
+      "DO" : [
+        { "erpal_commerce_line_item_recalculate_prices" : { "commerce_line_item" : [ "commerce_line_item" ] } }
       ]
     }
   }');
