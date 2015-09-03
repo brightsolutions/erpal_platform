@@ -118,15 +118,14 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
         }
       }
 
-
-      // If its invoice line item.
-      if ($replica->type != 'quote') {
+      // If its copied from Order to Invoice.
+      if ($replica->type == 'commerce_order') {
         $line_item_wrapper->field_line_item_billable->set(TRUE);
       }
-      else {
-        module_load_include('inc', 'commerce_tax', 'commerce_tax.rules');
-        commerce_tax_remove_taxes($line_item_wrapper, FALSE, array());
-      }
+
+      module_load_include('inc', 'commerce_tax', 'commerce_tax.rules');
+      commerce_tax_remove_taxes($line_item_wrapper, TRUE, array());
+
       $line_item_wrapper->save();
       
       $new_commerce_line_items[] = $line_item;
