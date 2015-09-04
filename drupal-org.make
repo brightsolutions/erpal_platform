@@ -187,6 +187,7 @@ projects[units][download][type] = "git"
 projects[units][download][url] = "http://git.drupal.org/project/units.git"
 projects[units][download][branch] = "7.x-1.x"
 projects[units][download][revision] = "36d838b85a71c4afb3419690482f4abe1d39764c"
+projects[units][patch][] = "https://www.drupal.org/files/issues/erpal_platform-fixed-error-on-unit-add.patch"
 
 projects[homebox][subdir] = "contrib"
 projects[homebox][download][type] = "git"
