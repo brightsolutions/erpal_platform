@@ -123,13 +123,14 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
         $line_item_wrapper->field_line_item_billable->set(TRUE);
       }
 
+      // Remove double calculated taxes. Taxes was added again after line_item save.
       module_load_include('inc', 'commerce_tax', 'commerce_tax.rules');
-      commerce_tax_remove_taxes($line_item_wrapper, TRUE, array());
+      $unit_price = $line_item_wrapper->commerce_unit_price->value();
+      $increase_base_price = !empty($unit_price['data']['include_tax']);
+      commerce_tax_remove_taxes($line_item_wrapper, $increase_base_price, array());
 
       $line_item_wrapper->save();
-      
       $new_commerce_line_items[] = $line_item;
-
     }
     $replica_wrapper->commerce_line_items->set($new_commerce_line_items);
   }
