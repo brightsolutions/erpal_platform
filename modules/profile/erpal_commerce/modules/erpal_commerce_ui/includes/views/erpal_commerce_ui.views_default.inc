@@ -2952,7 +2952,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 0;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->display->display_options['title'] = 'Products';
@@ -3033,7 +3033,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['empty']['empty_text']['table'] = 'commerce_product';
   $handler->display->display_options['empty']['empty_text']['field'] = 'empty_text';
   $handler->display->display_options['empty']['empty_text']['empty'] = TRUE;
-  $handler->display->display_options['empty']['empty_text']['add_path'] = 'product/add?destination=products';
   /* Field: Commerce Product revision: Product ID */
   $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
   $handler->display->display_options['fields']['product_id']['table'] = 'commerce_product_revision';
@@ -3084,7 +3083,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['sku']['expose']['label'] = 'Filter by SKUs containing';
   $handler->display->display_options['filters']['sku']['expose']['operator'] = 'sku_op';
   $handler->display->display_options['filters']['sku']['expose']['identifier'] = 'sku';
-
+  
   /* Display: Products */
   $handler = $view->new_display('page', 'Products', 'products_page');
   $handler->display->display_options['defaults']['footer'] = FALSE;
