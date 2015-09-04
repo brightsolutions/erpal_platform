@@ -81,7 +81,6 @@ function erpal_commerce_ui_replicate_entity_commerce_order(&$replica) {
   $replica->uid = $user->uid;
   $replica_wrapper = entity_metadata_wrapper('commerce_order', $replica, array('bundle' => $replica->type));
   $commerce_line_items = field_get_items('commerce_order', $replica, 'commerce_line_items');
-  $language = field_language('commerce_order', $replica, 'commerce_line_items');
   unset($replica->order_number,
         $replica->revision_id,
         $replica->revision_uid,
