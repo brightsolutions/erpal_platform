@@ -367,6 +367,7 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
     if ($form_state['commerce_order']->type == 'invoice') {
       $form['actions']['submit']['#validate'][] = 'erpal_commerce_invoice_form_validate';
     }
+
   }
   else {
     // Change page title for edit order page.
@@ -380,6 +381,24 @@ function erpal_commerce_form_commerce_order_order_form_alter(&$form, &$form_stat
     );
     $form['actions']['delete']['#suffix'] = $form['actions']['submit']['#suffix'];
     $form['actions']['submit']['#suffix'] = '';
+
+    // Disable Product field and price.
+    if (!empty($form['commerce_line_items'])) {
+      foreach ($form['commerce_line_items'][$form['commerce_line_items']['#language']] as $delta => &$field) {
+        if (is_numeric($delta) && !empty($field['line_item']['#value']->line_item_id)) {
+          if (!empty($field['commerce_product'])) {
+            $field['commerce_product'][$field['commerce_product']['#language']]['#disabled'] = TRUE;
+          }
+          if (!empty($field['commerce_unit_price'])) {
+            foreach ($field['commerce_unit_price'][$field['commerce_unit_price']['#language']] as $delta_amount => &$field_amount) {
+              if (is_numeric($delta_amount) && !empty($field['line_item']['#value']->line_item_id)) {
+                $field_amount['amount']['#disabled'] = TRUE;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   // Fill default customer billing information.
