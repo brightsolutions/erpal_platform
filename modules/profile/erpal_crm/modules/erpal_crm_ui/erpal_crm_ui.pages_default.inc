@@ -584,7 +584,7 @@ function erpal_crm_ui_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '%crm_core_contact:name-contact-name';
+  $display->title = '%crm_core_contact:contact_name';
   $display->uuid = 'a002cee6-3743-46be-9095-f66543aaf5fd';
   $display->content = array();
   $display->panels = array();
