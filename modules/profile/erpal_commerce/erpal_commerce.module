@@ -615,7 +615,6 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
     $order = commerce_order_new($user->uid, NULL, 'invoice');
   }
 
-  $order_number = $order->order_number;
   $order->type = 'invoice';
   $order->order_id = NULL;
   unset($order->order_number,
@@ -636,10 +635,6 @@ function erpal_commerce_create_invoice_form($context, &$form_state) {
     'commerce_line_items',
     'field_commerce_billy_cancel_date',
   );
-  if ($order_id) {
-    $language = $form['field_invoice_order']['#language'];
-    $form['field_invoice_order'][$language][0]['target_id']['#default_value'] = 'Order ' . $order_number . ' (' . $order_id . ')';
-  }
 
   foreach ($hide_fields as $hide_field) {
     if (!empty($form[$hide_field])) {
