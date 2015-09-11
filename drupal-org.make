@@ -38,6 +38,7 @@ projects[custom_order_number][subdir] = "contrib"
 
 projects[date][version] = "2.8"
 projects[date][subdir] = "contrib"
+projects[date][patch][] = "https://www.drupal.org/files/issues/date-undefined_index_timezone_1392472-22.patch"
 
 projects[email][version] = "1.3"
 projects[email][subdir] = "contrib"
