@@ -106,7 +106,7 @@ function erpal_payment_modality_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -161,56 +161,6 @@ function erpal_payment_modality_views_default_views() {
       'override_label' => 0,
       'label' => '',
     ),
-    'action::views_bulk_operations_delete_item' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_delete_revision' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_script_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_modify_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'show_all_tokens' => 1,
-        'display_values' => array(
-          '_all_' => '_all_',
-        ),
-      ),
-    ),
-    'action::views_bulk_operations_argument_selector_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'url' => '',
-      ),
-    ),
-    'action::system_send_email_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
   );
   /* Field: Commerce Line Item: Title */
   $handler->display->display_options['fields']['line_item_title']['id'] = 'line_item_title';
@@ -257,7 +207,7 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['filters']['field_line_item_billable_value']['value'] = array(
     1 => '1',
   );
-
+  
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -338,7 +288,6 @@ function erpal_payment_modality_views_default_views() {
   $handler->display->display_options['fields']['commerce_total_1']['table'] = 'field_data_commerce_total';
   $handler->display->display_options['fields']['commerce_total_1']['field'] = 'commerce_total';
   $handler->display->display_options['fields']['commerce_total_1']['click_sort_column'] = 'amount';
-  $handler->display->display_options['fields']['commerce_total_1']['type'] = 'erpal_commerce_commerce_price_base_price';
   $handler->display->display_options['fields']['commerce_total_1']['settings'] = array(
     'calculation' => FALSE,
   );

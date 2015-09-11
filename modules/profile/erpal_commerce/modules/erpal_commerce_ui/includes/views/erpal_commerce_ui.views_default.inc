@@ -1785,7 +1785,7 @@ function erpal_commerce_ui_views_default_views() {
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
+  
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Create invoice';
@@ -1850,63 +1850,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
-    'action::erpal_invoice_create_invoice' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_delete_item' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_delete_revision' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_script_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_modify_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'show_all_tokens' => 1,
-        'display_values' => array(
-          '_all_' => '_all_',
-        ),
-      ),
-    ),
-    'action::views_bulk_operations_argument_selector_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'url' => '',
-      ),
-    ),
-    'action::system_send_email_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
     'action::erpal_commerce_create_invoice' => array(
       'selected' => 1,
       'postpone_processing' => 0,
@@ -1962,7 +1905,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['filters']['field_line_item_billable_value']['value'] = array(
     1 => '1',
   );
-
+  
   /* Display: Revenue */
   $handler = $view->new_display('panel_pane', 'Revenue', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2050,13 +1993,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
-    'action::erpal_invoice_create_invoice' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
     'action::erpal_commerce_create_invoice' => array(
       'selected' => 1,
       'postpone_processing' => 0,
@@ -2066,49 +2002,6 @@ function erpal_commerce_ui_views_default_views() {
     ),
     'action::views_bulk_operations_delete_item' => array(
       'selected' => 1,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_delete_revision' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_script_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_modify_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'show_all_tokens' => 1,
-        'display_values' => array(
-          '_all_' => '_all_',
-        ),
-      ),
-    ),
-    'action::views_bulk_operations_argument_selector_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'url' => '',
-      ),
-    ),
-    'action::system_send_email_action' => array(
-      'selected' => 0,
       'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
@@ -2154,7 +2047,7 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-
+  
   /* Display: Revenue page */
   $handler = $view->new_display('page', 'Revenue page', 'page_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2341,13 +2234,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
-    'action::erpal_invoice_create_invoice' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
     'action::erpal_commerce_create_invoice' => array(
       'selected' => 1,
       'postpone_processing' => 0,
@@ -2357,49 +2243,6 @@ function erpal_commerce_ui_views_default_views() {
     ),
     'action::views_bulk_operations_delete_item' => array(
       'selected' => 1,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_delete_revision' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_script_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_modify_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'show_all_tokens' => 1,
-        'display_values' => array(
-          '_all_' => '_all_',
-        ),
-      ),
-    ),
-    'action::views_bulk_operations_argument_selector_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'url' => '',
-      ),
-    ),
-    'action::system_send_email_action' => array(
-      'selected' => 0,
       'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
@@ -2487,7 +2330,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 1;
-
+  
   /* Display: Project Revenue */
   $handler = $view->new_display('panel_pane', 'Project Revenue', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2585,13 +2428,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
-    'action::erpal_invoice_create_invoice' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
     'action::erpal_commerce_create_invoice' => array(
       'selected' => 1,
       'postpone_processing' => 0,
@@ -2601,49 +2437,6 @@ function erpal_commerce_ui_views_default_views() {
     ),
     'action::views_bulk_operations_delete_item' => array(
       'selected' => 1,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_delete_revision' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_script_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::views_bulk_operations_modify_action' => array(
-      'selected' => 0,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'show_all_tokens' => 1,
-        'display_values' => array(
-          '_all_' => '_all_',
-        ),
-      ),
-    ),
-    'action::views_bulk_operations_argument_selector_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'url' => '',
-      ),
-    ),
-    'action::system_send_email_action' => array(
-      'selected' => 0,
       'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
@@ -2700,7 +2493,7 @@ function erpal_commerce_ui_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-
+  
   /* Display: View page */
   $handler = $view->new_display('block', 'View page', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2829,7 +2622,6 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['fields']['commerce_total']['table'] = 'field_data_commerce_total';
   $handler->display->display_options['fields']['commerce_total']['field'] = 'commerce_total';
   $handler->display->display_options['fields']['commerce_total']['click_sort_column'] = 'amount';
-  $handler->display->display_options['fields']['commerce_total']['type'] = 'erpal_commerce_commerce_price_base_price';
   $handler->display->display_options['fields']['commerce_total']['settings'] = array(
     'calculation' => FALSE,
   );
@@ -2851,7 +2643,7 @@ function erpal_commerce_ui_views_default_views() {
   $handler->display->display_options['arguments']['line_item_id']['break_phrase'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-
+  
   /* Display: Dashboard */
   $handler = $view->new_display('block', 'Dashboard', 'block_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2915,7 +2707,6 @@ function erpal_commerce_ui_views_default_views() {
     t('All'),
     t('Revenue'),
     t('@total rows'),
-    t('Label'),
     t('Delivery date'),
     t('Invoice'),
     t('[order_number]'),
@@ -2934,6 +2725,7 @@ function erpal_commerce_ui_views_default_views() {
     t('.'),
     t(','),
     t('Type'),
+    t('Label'),
     t('Unit price'),
     t('Quantity'),
     t('Dashboard'),

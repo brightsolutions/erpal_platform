@@ -941,6 +941,7 @@ function erpal_commerce_line_item_refresh($line_item) {
     $product = $line_item_wrapper->commerce_product->value();
 
     if (!empty($product)) {
+
       $total['amount'] = $line_item_wrapper->commerce_unit_price->amount->value();
       $total['currency_code'] = $line_item_wrapper->commerce_unit_price->currency_code->value();
 

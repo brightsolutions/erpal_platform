@@ -54,7 +54,7 @@ function erpal_payment_modality_add_default_fields() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        'total' => 'Total',
+        'total' => 'Fixed price',
         'percent' => 'Percent',
       ),
       'allowed_values_function' => '',
@@ -182,9 +182,14 @@ function erpal_payment_modality_add_default_fields() {
   // 'erpal_payment_modality-payment_modality-field_amount_type'
   $instances[] = array(
     'bundle' => 'payment_modality',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 'total',
+      ),
+    ),
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Fixed price - Amount of total price including taxes and other price components
+Percent - Percent of total price including taxes and other price components',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -197,7 +202,7 @@ function erpal_payment_modality_add_default_fields() {
     'entity_type' => 'erpal_payment_modality',
     'field_name' => 'field_amount_type',
     'label' => 'Amount type',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'dfv' => array(
         'parent' => '',
@@ -234,7 +239,7 @@ function erpal_payment_modality_add_default_fields() {
     'entity_type' => 'erpal_payment_modality',
     'field_name' => 'field_due_with',
     'label' => 'Due with',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'dfv' => array(
         'parent' => '',

@@ -102,6 +102,8 @@ function erpal_payment_modality_auto_create($line_item) {
   // modality with "percent" type (if needed).
   if ($line_item_unit == 'item') {
     $percentage = 0;
+    $total_amount = 0;
+    $total_type = FALSE;
     if (!empty($field_payment_modality) && is_array($field_payment_modality)) {
       foreach ($field_payment_modality as $payment_modality_id) {
         $payment_modality = erpal_payment_modality_load($payment_modality_id['target_id']);
@@ -109,16 +111,25 @@ function erpal_payment_modality_auto_create($line_item) {
         $field_amount_type = field_get_items('erpal_payment_modality', $payment_modality, 'field_amount_type');
         if (!empty($field_amount_type[0]['value']) && $field_amount_type[0]['value'] == 'percent') {
           $percentage += $field_amount[0]['value'];
+          $pm_amount = erpal_payment_modality_total($payment_modality, $line_item);
+          $total_amount += $pm_amount['amount'];
         }
         else {
           $amount = commerce_currency_decimal_to_amount($field_amount[0]['value'], $commerce_total[0]['currency_code']);
           $percentage += $amount / $commerce_total[0]['amount'] * 100;
+          $total_amount += $amount;
+          $total_type = TRUE;
         }
       }
     }
     if ($percentage < 100) {
       $new_amount = 100 - $percentage;
       $new_amount_type = 'percent';
+      if ($total_type) {
+        $new_amount = $commerce_total[0]['amount'] - $total_amount;
+        $new_amount = commerce_currency_amount_to_decimal($new_amount, $commerce_total[0]['currency_code']);
+        $new_amount_type = 'total';
+      }
     }
   }
 

@@ -736,10 +736,12 @@ function erpal_payment_modality_price_components(&$total, $line_item, $field = '
   $total_line_item = field_get_items('commerce_line_item', $line_item, $field);
   $price_components = $total_line_item[0]['data'];
   $difference = $total_line_item[0]['amount'] / $total['amount'];
-  foreach ($price_components['components'] as &$price_component) {
-    $price_component['price']['amount'] = $price_component['price']['amount'] / $difference;
+  $new_components = array('components' => array());
+  foreach ($price_components['components'] as $key => $price_component) {
+    $new_components['components'][$key] = $price_component;
+    $new_components['components'][$key]['price']['amount'] = $price_component['price']['amount'] / $difference;
   }
-  $total['data'] = $price_components;
+  $total['data'] = $new_components;
 }
 
 /**
