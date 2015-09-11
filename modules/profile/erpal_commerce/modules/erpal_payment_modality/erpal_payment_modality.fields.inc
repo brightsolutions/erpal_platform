@@ -224,7 +224,11 @@ Percent - Percent of total price including taxes and other price components',
   // 'erpal_payment_modality-payment_modality-field_due_with'
   $instances[] = array(
     'bundle' => 'payment_modality',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 'order',
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
