@@ -136,7 +136,7 @@ projects[subpathauto][subdir] = "contrib"
 projects[subpathauto][version] = "1.3"
 
 projects[jquery_update][subdir] = "contrib"
-projects[jquery_update][version] = "7.x-3.0-alpha2"
+projects[jquery_update][version] = "3.0-alpha2"
 
 projects[jquery_ui_multiselect_widget][subdir] = "contrib"
 projects[jquery_ui_multiselect_widget][version] = "1.11"
