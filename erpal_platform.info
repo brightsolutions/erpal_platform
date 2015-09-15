@@ -72,7 +72,6 @@ dependencies[] = pathauto_entity
 dependencies[] = subpathauto
 dependencies[] = pathauto
 dependencies[] = jquery_update
-dependencies[] = jquery_ui_multiselect_widget
 dependencies[] = homebox
 dependencies[] = views_filter_args
 dependencies[] = module_filter
