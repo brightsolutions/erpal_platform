@@ -11,10 +11,14 @@
  * @see system_install()
  */
 function erpal_platform_core_install() {
-
-  // Set to always load the extra jquery version, so its available for the
-  // theme.
-  variable_set('jqmulti_load_always', 1);
+  variable_set('jquery_update_compression_type', 'min');
+  variable_set('jquery_update_jquery_cdn', 'none');
+  variable_set('jquery_update_jquery_migrate_cdn', 'none');
+  variable_set('jquery_update_jquery_migrate_enable', 0);
+  variable_set('jquery_update_jquery_migrate_trace', 0);
+  variable_set('jquery_update_jquery_migrate_warnings', 0);
+  variable_set('jquery_update_jquery_version', '1.11');
+  variable_set('jquery_update__active_tab', 'edit-themes');
 
   variable_set('jquery_ui_multiselect_widget_multiple', 0);
   variable_set('jquery_ui_multiselect_widget_filter', 1);

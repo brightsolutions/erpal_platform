@@ -135,10 +135,8 @@ projects[pathauto][version] = "1.2"
 projects[subpathauto][subdir] = "contrib"
 projects[subpathauto][version] = "1.3"
 
-projects[jqmulti][subdir] = "contrib"
-projects[jqmulti][version] = "1.0"
-projects[jqmulti][patch][] = "http://www.drupal.org/files/issues/jqmulti-fixed-bug-with-path-to-libraries-.patch"
-projects[jqmulti][patch][] = "https://www.drupal.org/files/issues/jqmulti-undefined-index-fix.patch"
+projects[jquery_update][subdir] = "contrib"
+projects[jquery_update][version] = "7.x-3.0-alpha2"
 
 projects[jquery_ui_multiselect_widget][subdir] = "contrib"
 projects[jquery_ui_multiselect_widget][version] = "1.11"
