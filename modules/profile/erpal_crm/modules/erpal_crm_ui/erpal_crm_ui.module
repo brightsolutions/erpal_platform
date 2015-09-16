@@ -234,7 +234,7 @@ function erpal_crm_ui_crm_core_activity_edit_sales_process_form_validate($form, 
  * @param string $string
  *   The string for which the search through entity labels will be run.
  */
-function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target', $field = 'none', $string = '') {
+function erpal_crm_ui_relation_add_autocomplete($type = '', $direction = 'target', $field = 'none', $target_bundles = 'all', $string = '') {
   if (empty($type) || empty($direction) || empty($string)) {
     exit();
   }
