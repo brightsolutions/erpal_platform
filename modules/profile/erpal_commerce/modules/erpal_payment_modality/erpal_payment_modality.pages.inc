@@ -24,6 +24,12 @@ function erpal_payment_modality_form($form, &$form_state, $payment_modality) {
   // Ensure this include file is loaded when the form is rebuilt from the cache.
   $form_state['build_info']['files'][] = drupal_get_path('module', 'erpal_payment_modality') . '/erpal_payment_modality.pages.inc';
 
+  $form['description'] = array(
+    '#type' => 'item',
+    '#markup' => t('Payment modalities are always calculated with the total price of the line item. This includes taxes and all other price components.'),
+    '#weight' => -10,
+  );
+
   $form['title_default'] = array(
     '#type' => 'checkbox',
     '#title' => t('Auto generate title'),
