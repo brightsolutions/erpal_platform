@@ -5,8 +5,7 @@ package = ERPAL Platform
 
 dependencies[] = date_item
 dependencies[] = homebox
-dependencies[] = jqmulti
-dependencies[] = jquery_ui_multiselect_widget
+dependencies[] = jquery_update
 dependencies[] = logintoboggan
 
 ; Module includes
