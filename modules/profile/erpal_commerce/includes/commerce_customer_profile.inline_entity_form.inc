@@ -34,6 +34,7 @@ class CommerceCustomerProfileInlineEntityFormController extends EntityInlineEnti
    *   The form state of the parent form.
    */
   public function entityForm($entity_form, &$form_state) {
+    global $user;
     $info = entity_get_info($this->entityType);
     $entity = $entity_form['#entity'];
     if (!empty($info['fieldable'])) {

@@ -12,7 +12,7 @@ projects[admin_menu][subdir] = "contrib"
 projects[charts][version] = "2.0-rc1"
 projects[charts][subdir] = "contrib"
 
-projects[cat][version] = "1.0-beta2"
+projects[cat][version] = "1.0-rc1"
 projects[cat][subdir] = "contrib"
 
 projects[commerce_billy][version] = "1.0-beta2"
@@ -126,7 +126,7 @@ projects[views][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.3"
 projects[views_bulk_operations][subdir] = "contrib"
 
-projects[views_field_view][version] = "1.1"
+projects[views_field_view][version] = "1.2"
 projects[views_field_view][subdir] = "contrib"
 
 projects[pathauto][subdir] = "contrib"
@@ -139,7 +139,7 @@ projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "3.0-alpha2"
 
 projects[ds][subdir] = "contrib"
-projects[ds][version] = "2.8"
+projects[ds][version] = "2.11"
 
 projects[module_filter][subdir] = "contrib"
 projects[module_filter][version] = "2.0"
