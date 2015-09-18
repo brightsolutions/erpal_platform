@@ -93,10 +93,10 @@ projects[references_dialog][subdir] = "contrib"
 projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/references_dialog-add-bundle-to-entity-access_2308071_1.patch"
 projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/references_dialog_fix_theme_links-2315905-42.patch"
 
-projects[relation][version] = "1.0-rc7"
+projects[relation][version] = "1.0"
 projects[relation][subdir] = "contrib"
 
-projects[relation_add][version] = "1.4"
+projects[relation_add][version] = "1.5"
 projects[relation_add][subdir] = "contrib"
 
 projects[relation_view_formatter][version] = "1.0-alpha1"

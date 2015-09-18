@@ -877,8 +877,8 @@ function erpal_commerce_order_delete_redirect($form, &$form_state) {
       $des['destination'] = 'orders';
       break;
 
-    case 'qoute':
-      $des['destination'] = 'qoutes';
+    case 'quote':
+      $des['destination'] = 'quotes';
       break;
 
     case 'invoice':
