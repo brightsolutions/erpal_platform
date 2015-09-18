@@ -411,6 +411,25 @@ function erpal_layout_default_page_manager_handlers() {
   $display->content = array();
   $display->panels = array();
   $pane = new stdClass();
+  $pane->pid = 'new-13f7b6d4-537d-46ab-8a5e-1b384153ebc5';
+  $pane->panel = 'body';
+  $pane->type = 'pane_messages';
+  $pane->subtype = 'pane_messages';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array();
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '13f7b6d4-537d-46ab-8a5e-1b384153ebc5';
+  $display->content['new-13f7b6d4-537d-46ab-8a5e-1b384153ebc5'] = $pane;
+  $display->panels['body'][0] = 'new-13f7b6d4-537d-46ab-8a5e-1b384153ebc5';
+  $pane = new stdClass();
   $pane->pid = 'new-7df571fd-49aa-420e-b5d5-daae40e7f661';
   $pane->panel = 'body';
   $pane->type = 'page_content';
@@ -429,11 +448,11 @@ function erpal_layout_default_page_manager_handlers() {
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 0;
+  $pane->position = 1;
   $pane->locks = array();
   $pane->uuid = '7df571fd-49aa-420e-b5d5-daae40e7f661';
   $display->content['new-7df571fd-49aa-420e-b5d5-daae40e7f661'] = $pane;
-  $display->panels['body'][0] = 'new-7df571fd-49aa-420e-b5d5-daae40e7f661';
+  $display->panels['body'][1] = 'new-7df571fd-49aa-420e-b5d5-daae40e7f661';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
