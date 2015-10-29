@@ -55,6 +55,33 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
     '#title' => t('Vendor'),
     '#default_value' => isset($settings['vendor_id']) ? $settings['vendor_id'] : '',
     '#options' => $contacts,
+
+// TODO: Module entityreference_autocomplete
+//    '#type' => 'entityreference',
+//    '#title' => t('Vendor'),
+//    '#era_entity_type' => 'crm_core_contact',  // Mandatory.
+////    '#era_bundles' => array(), // Optional (Any bundle by default).
+////    '#era_cardinality' => 3,       // Optional (1 By default).
+////    '#default_value' => isset($settings['vendor_id']) ? $settings['vendor_id'] : '',
+////    '#era_query_settings' => array(
+////      'limit' => 15, // Default is 50.
+////      'property_conditions' => array(
+////        // 'entity property', 'filter value', 'operator'.
+////        array('uid', 30, '>'),
+////      ),
+////      'field_conditions' => array(
+////        // 'field name', 'column', 'value', 'op', 'delta', 'language'.
+////        array('field_test_field', 'value', 'test'),
+////      ),
+////    ),
+
+// TODO: Module entity_autocomplete
+//    '#type' => 'entity_autocomplete',
+//    '#title' => t('Vendor'),
+//    '#default_value' => isset($settings['vendor_id']) ? $settings['vendor_id'] : '',
+////    '#autocomplete_path' => 'entity-autocomplete/crm_core_contact',
+//    '#entity_type' => 'crm_core_contact',
+
     '#ajax' => $ajax,
     '#required' => TRUE,
   );
@@ -119,6 +146,16 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
  * Submit handler for settings form.
  */
 function erpal_commerce_vendor_settings_form_submit($form, $form_state) {
+// TODO: Only needed if entityreference_autcomplete module is used.
+//  dpm($form_state['values'], 'values');
+//  $vendor_ids = $form_state['values']['erpal_vendor_settings']['vendor_id']['entity_id'];
+//  $profile_id = $form_state['values']['erpal_vendor_settings']['customer_profile_id'];
+//  $settings = array(
+//    'vendor_id' => $vendor_ids[0],
+//    'customer_profile_id' => $profile_id,
+//  );
+//  variable_set('erpal_vendor_settings', $settings);
+//
   variable_set('commerce_default_currency', $form_state['values']['erpal_currency_settings']);
   drupal_set_message(t('The configuration options have been saved.'));
 }
