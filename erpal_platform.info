@@ -29,6 +29,7 @@ dependencies[] = number
 dependencies[] = taxonomy
 dependencies[] = block
 dependencies[] = locale
+dependencies[] = entity_autcomplete
 
 ;contrib
 dependencies[] = cat

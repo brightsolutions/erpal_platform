@@ -27,9 +27,6 @@ projects[commerce_billy][patch][] = "https://www.drupal.org/files/issues/commerc
 projects[commerce_reports][version] = "4.0-beta2"
 projects[commerce_reports][subdir] = "contrib"
 
-projects[crm_core][version] = "0.980"
-projects[crm_core][subdir] = "contrib"
-
 projects[ctools][version] = "1.9"
 projects[ctools][subdir] = "contrib"
 
@@ -150,6 +147,10 @@ projects[fpa][version] = "2.6"
 projects[viewfield][subdir] = "contrib"
 projects[viewfield][version] = "2.0"
 
+projects[entity_autocomplete][subdir] = "contrib"
+projects[entity_autocomplete][download][version] = "1.0-beta4"
+projects[entity_autocomplete][patch][] = "https://www.drupal.org/files/issues/entity_autocomplete-support-form-api-ajax-2604356-13.patch"
+
 
 ; ### DEV VERSIONS of contrib modules ###
 projects[timed_messages][subdir] = "contrib"
@@ -255,11 +256,11 @@ projects[logintoboggan][download][type] = "git"
 projects[logintoboggan][download][url] = "http://git.drupal.org/project/logintoboggan.git"
 projects[logintoboggan][download][branch] = "7.x-1.x"
 
-projects[entity_autocomplete][subdir] = "contrib"
-projects[entity_autocomplete][download][type] = "git"
-projects[entity_autocomplete][download][url] = "http://git.drupal.org/project/entity_autocomplete.git"
-projects[entity_autocomplete][download][branch] = "7.x-1.x"
-projects[entity_autocomplete][patch][] = "https://www.drupal.org/files/issues/entity_autocomplete-support-form-api-ajax-2604356-13.patch"
+projects[crm_core][subdir] = "contrib"
+projects[crm_core][download][type] = "git"
+projects[crm_core][download][url] = "http://git.drupal.org/project/crm_core.git"
+projects[crm_core][download][branch] = "7.x-0.x"
+
 
 ; ### ERPAL contributed modules ###
 projects[erpal_core][subdir] = "erpal"
