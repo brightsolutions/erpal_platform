@@ -10,20 +10,8 @@
  */
 function erpal_commerce_vendor_settings_form($form, &$form_state) {
   $settings = variable_get('erpal_vendor_settings', array());
-  $contacts = array('' => t('None'));
   $profiles = array('' => t('None'));
 
-  // Get contacts list.
-  $view = views_get_view('erpal_crm_contacts');
-  $view->set_display('panel_pane_4');
-  $view->pre_execute();
-  $view->execute();
-
-  if (isset($view->result)) {
-    foreach ($view->result as $contact) {
-      $contacts[$contact->contact_id] = $contact->field_contact_name[0]['raw']['family'];
-    }
-  }
 
   if (isset($form_state['triggering_element']) || !empty($settings['vendor_id'])) {
 
@@ -51,37 +39,10 @@ function erpal_commerce_vendor_settings_form($form, &$form_state) {
     '#title' => t('Vendor settings'),
   );
   $form['erpal_vendor_settings']['vendor_id'] = array(
-    '#type' => 'select',
+    '#type' => 'entity_autocomplete',
     '#title' => t('Vendor'),
     '#default_value' => isset($settings['vendor_id']) ? $settings['vendor_id'] : '',
-    '#options' => $contacts,
-
-// TODO: Module entityreference_autocomplete
-//    '#type' => 'entityreference',
-//    '#title' => t('Vendor'),
-//    '#era_entity_type' => 'crm_core_contact',  // Mandatory.
-////    '#era_bundles' => array(), // Optional (Any bundle by default).
-////    '#era_cardinality' => 3,       // Optional (1 By default).
-////    '#default_value' => isset($settings['vendor_id']) ? $settings['vendor_id'] : '',
-////    '#era_query_settings' => array(
-////      'limit' => 15, // Default is 50.
-////      'property_conditions' => array(
-////        // 'entity property', 'filter value', 'operator'.
-////        array('uid', 30, '>'),
-////      ),
-////      'field_conditions' => array(
-////        // 'field name', 'column', 'value', 'op', 'delta', 'language'.
-////        array('field_test_field', 'value', 'test'),
-////      ),
-////    ),
-
-// TODO: Module entity_autocomplete
-//    '#type' => 'entity_autocomplete',
-//    '#title' => t('Vendor'),
-//    '#default_value' => isset($settings['vendor_id']) ? $settings['vendor_id'] : '',
-////    '#autocomplete_path' => 'entity-autocomplete/crm_core_contact',
-//    '#entity_type' => 'crm_core_contact',
-
+    '#entity_type' => 'crm_core_contact',
     '#ajax' => $ajax,
     '#required' => TRUE,
   );

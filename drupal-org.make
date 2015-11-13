@@ -255,6 +255,12 @@ projects[logintoboggan][download][type] = "git"
 projects[logintoboggan][download][url] = "http://git.drupal.org/project/logintoboggan.git"
 projects[logintoboggan][download][branch] = "7.x-1.x"
 
+projects[entity_autocomplete][subdir] = "contrib"
+projects[entity_autocomplete][download][type] = "git"
+projects[entity_autocomplete][download][url] = "http://git.drupal.org/project/entity_autocomplete.git"
+projects[entity_autocomplete][download][branch] = "7.x-1.x"
+projects[entity_autocomplete][patch][] = "https://www.drupal.org/files/issues/entity_autocomplete-support-form-api-ajax-2604356-13.patch"
+
 ; ### ERPAL contributed modules ###
 projects[erpal_core][subdir] = "erpal"
 projects[erpal_core][download][type] = "git"
