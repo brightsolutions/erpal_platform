@@ -29,7 +29,6 @@ dependencies[] = number
 dependencies[] = taxonomy
 dependencies[] = block
 dependencies[] = locale
-dependencies[] = entity_autocomplete
 
 ;contrib
 dependencies[] = cat
@@ -81,6 +80,7 @@ dependencies[] = ds
 dependencies[] = viewfield
 dependencies[] = commerce_custom_product
 dependencies[] = commerce_line_item_widget
+dependencies[] = entity_autocomplete
 
 ;ERPAL modules
 dependencies[] = erpal_core_ui

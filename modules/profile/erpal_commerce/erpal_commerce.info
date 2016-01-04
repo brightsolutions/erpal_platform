@@ -17,6 +17,7 @@ dependencies[] = erpal_quote
 dependencies[] = custom_order_number
 dependencies[] = dfv
 dependencies[] = entityreference_prepopulate
+dependencies[] = entity_autocomplete
 
 ; Module includes
 files[] = includes/commerce_customer_profile.inline_entity_form.inc
