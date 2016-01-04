@@ -148,7 +148,7 @@ projects[viewfield][subdir] = "contrib"
 projects[viewfield][version] = "2.0"
 
 projects[entity_autocomplete][subdir] = "contrib"
-projects[entity_autocomplete][download][version] = "1.0-beta4"
+projects[entity_autocomplete][version] = "1.0-beta4"
 projects[entity_autocomplete][patch][] = "https://www.drupal.org/files/issues/entity_autocomplete-support-form-api-ajax-2604356-13.patch"
 
 
