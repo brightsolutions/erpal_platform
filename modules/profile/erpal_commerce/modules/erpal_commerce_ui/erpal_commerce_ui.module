@@ -112,16 +112,20 @@ function erpal_commerce_ui_menu_alter(&$items) {
 
   // Rules link for quote replication to order.
   if (!empty($items['add/order/%/%'])) {
-    unset($items['add/order/%/%']['access callback']);
-    $items['add/order/%/%']['access arguments'] = array('configure order settings');
-    $items['add/order/%/%']['type'] = MENU_LOCAL_ACTION;
+    if (!empty($items['add/order/%/%']['access arguments'][0]) && is_object($items['add/order/%/%']['access arguments'][0])) {
+      unset($items['add/order/%/%']['access callback']);
+      $items['add/order/%/%']['access arguments'] = array('access rules link ' . $items['add/order/%/%']['access arguments'][0]->name);
+      $items['add/order/%/%']['type'] = MENU_LOCAL_ACTION;
+    }
   }
 
   // Rules link for order replication to invoice.
   if (!empty($items['add/invoice/%/%'])) {
-    unset($items['add/invoice/%/%']['access callback']);
-    $items['add/invoice/%/%']['access arguments'] = array('configure order settings');
-    $items['add/invoice/%/%']['type'] = MENU_LOCAL_ACTION;
+    if (!empty($items['add/invoice/%/%']['access arguments'][0]) && is_object($items['add/invoice/%/%']['access arguments'][0])) {
+      unset($items['add/invoice/%/%']['access callback']);
+      $items['add/invoice/%/%']['access arguments'] = array('access rules link ' . $items['add/invoice/%/%']['access arguments'][0]->name);
+      $items['add/invoice/%/%']['type'] = MENU_LOCAL_ACTION;
+    }
   }
 
   // Just create simple page and for user which not admin.
