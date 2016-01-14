@@ -70,11 +70,11 @@ function erpal_crm_ui_module_implements_alter(&$implementations, $hook) {
 function erpal_crm_ui_permission() {
   $permissions = array(
     'delete any crm_core_contact entity' => array(
-      'title' => t('Delete any cotacts of any type'),
+      'title' => t('Delete any contact of any type'),
       'restrict access' => TRUE,
     ),
     'delete any crm_core_activity entity' => array(
-      'title' => t('Delete any activities of any type'),
+      'title' => t('Delete any activity of any type'),
       'restrict access' => TRUE,
     ),
   );
