@@ -4,7 +4,7 @@ api = 2
 
 ; ### Contrib Modules ###
 projects[addressfield][subdir] = "contrib"
-projects[addressfield][version] = "1.1"
+projects[addressfield][version] = "1.2"
 
 projects[admin_menu][version] = "3.0-rc5"
 projects[admin_menu][subdir] = "contrib"
@@ -27,7 +27,7 @@ projects[commerce_billy][patch][] = "https://www.drupal.org/files/issues/commerc
 projects[commerce_reports][version] = "4.0-beta2"
 projects[commerce_reports][subdir] = "contrib"
 
-projects[ctools][version] = "1.9"
+projects[ctools][version] = "1.10"
 projects[ctools][subdir] = "contrib"
 
 projects[custom_order_number][version] = "1.0-alpha1"
@@ -40,19 +40,19 @@ projects[date][patch][] = "https://www.drupal.org/files/issues/date-undefined_in
 projects[email][version] = "1.3"
 projects[email][subdir] = "contrib"
 
-projects[entity][version] = "1.6"
+projects[entity][version] = "1.7"
 projects[entity][subdir] = "contrib"
 
-projects[entitycache][version] = "1.2"
+projects[entitycache][version] = "1.5"
 projects[entitycache][subdir] = "contrib"
 
 projects[entityreference][version] = "1.1"
 projects[entityreference][subdir] = "contrib"
 
-projects[entityreference_prepopulate][version] = "1.5"
+projects[entityreference_prepopulate][version] = "1.6"
 projects[entityreference_prepopulate][subdir] = "contrib"
 
-projects[field_collection][version] = "1.0-beta8"
+projects[field_collection][version] = "1.0-beta11"
 projects[field_collection][subdir] = "contrib"
 
 projects[field_extrawidgets][version] = "1.1"
@@ -61,11 +61,10 @@ projects[field_extrawidgets][subdir] = "contrib"
 projects[field_group][version] = "1.5"
 projects[field_group][subdir] = "contrib"
 
-projects[inline_entity_form][version] = "1.6"
+projects[inline_entity_form][version] = "1.8"
 projects[inline_entity_form][subdir] = "contrib"
-projects[inline_entity_form][patch][] = "https://www.drupal.org/files/issues/2187103.ief_form_alter.patch"
 
-projects[libraries][version] = "2.2"
+projects[libraries][version] = "2.3"
 projects[libraries][subdir] = "contrib"
 
 projects[module_filter][version] = "2.0-alpha2"
@@ -91,7 +90,7 @@ projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/refe
 projects[relation][version] = "1.0"
 projects[relation][subdir] = "contrib"
 
-projects[relation_add][version] = "1.5"
+projects[relation_add][version] = "1.6"
 projects[relation_add][subdir] = "contrib"
 
 projects[relation_view_formatter][version] = "1.0-alpha1"
@@ -125,16 +124,16 @@ projects[views_field_view][version] = "1.2"
 projects[views_field_view][subdir] = "contrib"
 
 projects[pathauto][subdir] = "contrib"
-projects[pathauto][version] = "1.2"
+projects[pathauto][version] = "1.3"
 
 projects[subpathauto][subdir] = "contrib"
 projects[subpathauto][version] = "1.3"
 
 projects[jquery_update][subdir] = "contrib"
-projects[jquery_update][version] = "3.0-alpha2"
+projects[jquery_update][version] = "3.0-alpha3"
 
 projects[ds][subdir] = "contrib"
-projects[ds][version] = "2.11"
+projects[ds][version] = "2.14"
 
 projects[module_filter][subdir] = "contrib"
 projects[module_filter][version] = "2.0"
@@ -308,8 +307,7 @@ libraries[pause][download][url] = "https://github.com/tobia/Pause/archive/master
 
 ; ### Themes ###
 projects[omega][type] = "theme"
-projects[omega][version] = "4.3"
-projects[omega][patch][] = "https://www.drupal.org/files/issues/omega-changes-dir-to-direction-in-276-line-2364731-1.patch"
+projects[omega][version] = "4.4"
 
 projects[phingdrushtask][subdir] = "contrib"
-projects[phingdrushtask][version] = "1.2"
+projects[phingdrushtask][version] = "1.3"
