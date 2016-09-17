@@ -58,7 +58,7 @@ projects[field_collection][subdir] = "contrib"
 projects[field_extrawidgets][version] = "1.1"
 projects[field_extrawidgets][subdir] = "contrib"
 
-projects[field_group][version] = "1.4"
+projects[field_group][version] = "1.5"
 projects[field_group][subdir] = "contrib"
 
 projects[inline_entity_form][version] = "1.6"
@@ -71,12 +71,11 @@ projects[libraries][subdir] = "contrib"
 projects[module_filter][version] = "2.0-alpha2"
 projects[module_filter][subdir] = "contrib"
 
-projects[mvf][version] = "1.0-beta1"
+projects[mvf][version] = "1.0-beta3"
 projects[mvf][subdir] = "contrib"
-projects[mvf][patch][] = "http://drupal.org/files/issues/mvf_save-settings-in-field-instance_2223983_2.patch"
-projects[mvf][patch][] = "http://drupal.org/files/issues/mvf-entity_metadata_wrapper_support-2405779-1.patch"
+projects[mvf][patch][] = "http://drupal.org/files/issues/mvf_save-settings-in-field-instance_2223983_3.patch"
 
-projects[panels][version] = "3.5"
+projects[panels][version] = "3.7"
 projects[panels][subdir] = "contrib"
 
 projects[panels_everywhere][version] = "1.0-rc2"
@@ -85,10 +84,9 @@ projects[panels_everywhere][subdir] = "contrib"
 projects[pm_existing_pages][version] = "1.4"
 projects[pm_existing_pages][subdir] = "contrib"
 
-projects[references_dialog][version] = "1.0-beta1"
+projects[references_dialog][version] = "1.0-beta2"
 projects[references_dialog][subdir] = "contrib"
 projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/references_dialog-add-bundle-to-entity-access_2308071_1.patch"
-projects[references_dialog][patch][] = "https://www.drupal.org/files/issues/references_dialog_fix_theme_links-2315905-42.patch"
 
 projects[relation][version] = "1.0"
 projects[relation][subdir] = "contrib"
@@ -117,7 +115,7 @@ projects[token][subdir] = "contrib"
 projects[url][version] = "1.0"
 projects[url][subdir] = "contrib"
 
-projects[views][version] = "3.11"
+projects[views][version] = "3.14"
 projects[views][subdir] = "contrib"
 
 projects[views_bulk_operations][version] = "3.3"
@@ -259,7 +257,7 @@ projects[logintoboggan][download][branch] = "7.x-1.x"
 projects[crm_core][subdir] = "contrib"
 projects[crm_core][download][type] = "git"
 projects[crm_core][download][url] = "http://git.drupal.org/project/crm_core.git"
-projects[crm_core][download][branch] = "7.x-0.x"
+projects[crm_core][download][branch] = "7.x-1.x"
 
 
 ; ### ERPAL contributed modules ###
