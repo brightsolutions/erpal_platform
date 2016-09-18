@@ -15,13 +15,9 @@ projects[charts][subdir] = "contrib"
 projects[cat][version] = "1.0-rc1"
 projects[cat][subdir] = "contrib"
 
-projects[commerce_billy][version] = "1.0-beta2"
+projects[commerce_billy][version] = "1.1"
 projects[commerce_billy][subdir] = "contrib"
-projects[commerce_billy][patch][] = "http://drupal.org/files/issues/fixed_issues_on_pdf_view_mode_showing.patch"
-projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-added-alter-for-list-of-order-types.patch"
-projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-fix-issue-with-watchdog-log.patch"
-projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy-skip-validation-on-confirm-form.patch"
-projects[commerce_billy][patch][] = "http://drupal.org/files/issues/commerce_billy_unique-number-by-type.patch"
+projects[commerce_billy][patch][] = "https://www.drupal.org/files/issues/fixed_issues_on_pdf_view_mode_showing-2212793-8.patch"
 projects[commerce_billy][patch][] = "https://www.drupal.org/files/issues/commerce_billy-better-usability-for-deleting-invoiced-orders-2543560.patch"
 
 projects[commerce_reports][version] = "4.0-beta2"
@@ -294,7 +290,7 @@ projects[erpal_theme][download][branch] = "7.x-3.x"
 
 ; ### Libraries ###
 libraries[dompdf][download][type] = "file"
-libraries[dompdf][download][url] = "https://github.com/dompdf/dompdf/releases/download/v0.7.0/dompdf_0-7-0.zip"
+libraries[dompdf][download][url] = "https://github.com/dompdf/dompdf/releases/download/v0.6.2/dompdf-0.6.2.zip"
 
 libraries[jquery][download][type] = "file"
 libraries[jquery][download][url] = "http://code.jquery.com/jquery-1.11.1.min.js"

@@ -21,6 +21,7 @@ function erpal_commerce_install() {
   variable_set('pathauto_commerce_order_quote_pattern', 'quote/[commerce-order:order-id]');
   variable_set('pathauto_commerce_product_product_pattern', 'product/[commerce-product:product-id]');
 
+  variable_set('commerce_billy_auto_invoice', TRUE);
   // Disable custom order number for invoice bundle, because it generate by
   // commerce billy module.
   variable_set('custom_order_number_invoice_nr_enable', FALSE);
