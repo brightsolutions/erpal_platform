@@ -294,7 +294,7 @@ projects[erpal_theme][download][branch] = "7.x-3.x"
 
 ; ### Libraries ###
 libraries[dompdf][download][type] = "file"
-libraries[dompdf][download][url] = "https://github.com/dompdf/dompdf/releases/download/v0.6.1/dompdf-0.6.1.zip"
+libraries[dompdf][download][url] = "https://github.com/dompdf/dompdf/releases/download/v0.7.0/dompdf_0-7-0.zip"
 
 libraries[jquery][download][type] = "file"
 libraries[jquery][download][url] = "http://code.jquery.com/jquery-1.11.1.min.js"
