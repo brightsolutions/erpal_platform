@@ -242,4 +242,20 @@ function erpal_platform_vendor_form_submit($form, $form_state) {
 
   variable_set('commerce_default_currency', $vendor['currency']);
   variable_set('commerce_enabled_currencies', array($vendor['currency'] => $vendor['currency']));
+  if (!units_unit_load_multiple(FALSE, array('measure' => 'money', 'machine_name' => strtolower($vendor['currency'])))) {
+    // No such entity has been created in DB yet. So we create one.
+    $entity = entity_create('units_unit', array(
+      'measure' => 'money',
+      'machine_name' => strtolower($vendor['currency']),
+    ));
+
+    $current_currency = commerce_currency_load($vendor['currency']);
+    $entity->label = $current_currency['name'];
+    $entity->symbol = strtolower($vendor['currency']);
+    $entity->factor = 1;
+    $entity->description = $current_currency['name'];
+
+    entity_save('units_measure', $entity);
+  }
+
 }
