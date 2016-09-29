@@ -144,6 +144,19 @@ projects[entity_autocomplete][subdir] = "contrib"
 projects[entity_autocomplete][version] = "1.0-beta4"
 projects[entity_autocomplete][patch][] = "https://www.drupal.org/files/issues/entity_autocomplete-support-form-api-ajax-2604356-13.patch"
 
+projects[homebox][subdir] = "contrib"
+projects[homebox][version] = "2.0-rc3"
+
+projects[path_breadcrumbs][subdir] = "contrib"
+projects[path_breadcrumbs][version] = "3.3"
+
+projects[commerce][subdir] = "contrib"
+projects[commerce][version] = "1.13"
+projects[commerce][patch][] = "https://drupal.org/files/issues/commerce-made-order_number-to-be-unique-only-for-commerce_order-type_2236731_5.patch"
+
+projects[commerce_custom_product][subdir] = "contrib"
+projects[commerce_custom_product][version] = "1.0-beta2"
+
 
 ; ### DEV VERSIONS of contrib modules ###
 projects[timed_messages][subdir] = "contrib"
@@ -176,14 +189,6 @@ projects[units][download][branch] = "7.x-1.x"
 projects[units][download][revision] = "36d838b85a71c4afb3419690482f4abe1d39764c"
 projects[units][patch][] = "https://www.drupal.org/files/issues/erpal_platform-fixed-error-on-unit-add.patch"
 
-projects[homebox][subdir] = "contrib"
-projects[homebox][download][type] = "git"
-projects[homebox][download][url] = "http://git.drupal.org/project/homebox.git"
-projects[homebox][download][branch] = "7.x-2.x"
-projects[homebox][download][revision] = "27ccfd7b36095a35f00c2573f046926e2d20a03d"
-projects[homebox][patch][] = "https://www.drupal.org/files/issues/homebox-percentage_width-2015203-3.patch"
-projects[homebox][patch][] = "https://www.drupal.org/files/issues/homebox_save-button-not-fired-on-some-theme-2201955-5.patch"
-
 projects[name][subdir] = "contrib"
 projects[name][version] = "1.x-dev"
 projects[name][download][type] = "git"
@@ -199,21 +204,14 @@ projects[panels_tabs][download][revision] = "2caec501daab91001712d153398df585ff6
 projects[views_date_format_sql][subdir] = "contrib"
 projects[views_date_format_sql][download][type] = "git"
 projects[views_date_format_sql][download][url] = "http://git.drupal.org/project/views_date_format_sql.git"
-projects[views_date_format_sql][download][branch] = "master"
-projects[views_date_format_sql][download][revision] = "2304ca30a319e59b146be25dbabf2dc9578f15d1"
-projects[views_date_format_sql][patch][] = "https://www.drupal.org/files/issues/views_date_format_sql-date_field_support-1830436-35.patch"
+projects[views_date_format_sql][download][branch] = "7.x-3.x"
+projects[views_date_format_sql][download][revision] = "fe85b24eaa066833b0995fc3aa6870ffe85c8b7a"
 
 projects[views_filter_args][subdir] = "contrib"
 projects[views_filter_args][download][type] = "git"
 projects[views_filter_args][download][url] = "http://git.drupal.org/project/views_filter_args.git"
 projects[views_filter_args][download][branch] = "7.x-1.x"
 projects[views_filter_args][download][revision] = "c5ca64de67406ef10aa4c060460e9875840006af"
-
-projects[path_breadcrumbs][subdir] = "contrib"
-projects[path_breadcrumbs][download][type] = "git"
-projects[path_breadcrumbs][download][url] = "http://git.drupal.org/project/path_breadcrumbs.git"
-projects[path_breadcrumbs][download][branch] = "7.x-3.x"
-projects[path_breadcrumbs][download][revision] = "871aa78a350c92a25a8ee47880191e42d2bb4c6f"
 
 projects[commerce_order_types][subdir] = "contrib"
 projects[commerce_order_types][version] = "1.x-dev"
@@ -222,22 +220,12 @@ projects[commerce_order_types][download][url] = "http://git.drupal.org/project/c
 projects[commerce_order_types][download][revision] = "0879b45a6a31c7a5a5cb9ac5c61310843e3541b9"
 projects[commerce_order_types][patch][] = "http://drupal.org/files/issues/1868540-refactoring_of_module_and_made_types_exportable-4.patch"
 
-projects[commerce][subdir] = "contrib"
-projects[commerce][version] = "1.x-dev"
-projects[commerce][download][type] = "git"
-projects[commerce][download][url] = "http://git.drupal.org/project/commerce.git"
-projects[commerce][download][revision] = "40751b9e89d18be0df5245c863d0090744325441"
-projects[commerce][patch][] = "https://drupal.org/files/issues/commerce-made-order_number-to-be-unique-only-for-commerce_order-type_2236731_5.patch"
-
 projects[relation_dialog][subdir] = "contrib"
 projects[relation_dialog][version] = "1.x-dev"
 projects[relation_dialog][download][type] = "git"
 projects[relation_dialog][download][url] = "http://git.drupal.org/project/relation_dialog.git"
 projects[relation_dialog][download][revision] = "fa981fe904a306bc65ec309fd7eef9dbf741a244"
 projects[relation_dialog][patch][] = "https://www.drupal.org/files/issues/relation_dialog-add-entities-support_2309579_1.patch"
-
-projects[commerce_custom_product][subdir] = "contrib"
-projects[commerce_custom_product][version] = "1.0-beta2"
 
 projects[commerce_line_item_widget][subdir] = "contrib"
 projects[commerce_line_item_widget][download][type] = "git"
