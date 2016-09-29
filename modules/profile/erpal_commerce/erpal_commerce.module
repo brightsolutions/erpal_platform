@@ -32,6 +32,11 @@ function erpal_commerce_menu_alter(&$items) {
   if (!empty($items['admin/commerce/orders/%commerce_order'])) {
     $items['admin/commerce/orders/%commerce_order']['title callback'] = 'erpal_commerce_order_label';
   }
+
+  // Added call back for add and default commerce order type.
+  if (!empty($items['admin/commerce/orders/add']) && empty($items['admin/commerce/orders/add/commerce_order'])) {
+    $items['admin/commerce/orders/add/commerce_order'] = $items['admin/commerce/orders/add'];
+  }
 }
 
 /**
