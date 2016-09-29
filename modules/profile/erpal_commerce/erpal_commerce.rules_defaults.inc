@@ -63,3 +63,25 @@ function erpal_commerce_default_rules_configuration() {
   }');
   return $items;
 }
+
+
+/**
+ * Implements hook_default_rules_configuration().
+ */
+function erpal_commerce_default_rules_configuration_alter(&$configs) {
+  $configs['rules_commerce_billy_set_to_invoiced'] = entity_import('rules_config', '{ "rules_commerce_billy_set_to_invoiced" : {
+      "LABEL" : "Set order to invoiced",
+      "PLUGIN" : "rule",
+      "TAGS" : [ "Commerce Billy" ],
+      "REQUIRES" : [ "rules", "commerce_order", "commerce_billy" ],
+      "USES VARIABLES" : { "order" : { "label" : "Order", "type" : "commerce_order" } },
+      "IF" : [
+        { "entity_has_field" : { "entity" : [ "order" ], "field" : "field_commerce_billy_i_date" } }
+      ],
+      "DO" : [
+        { "commerce_order_update_state" : { "commerce_order" : [ "order" ], "order_state" : "invoiced" } },
+        { "data_set" : { "data" : [ "order:field-commerce-billy-i-date" ], "value" : "now" } }
+      ]
+    }
+  }');
+}

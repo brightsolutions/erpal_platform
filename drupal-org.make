@@ -36,13 +36,13 @@ projects[date][patch][] = "https://www.drupal.org/files/issues/date-undefined_in
 projects[email][version] = "1.3"
 projects[email][subdir] = "contrib"
 
-projects[entity][version] = "1.7"
+projects[entity][version] = "1.8"
 projects[entity][subdir] = "contrib"
 
 projects[entitycache][version] = "1.5"
 projects[entitycache][subdir] = "contrib"
 
-projects[entityreference][version] = "1.1"
+projects[entityreference][version] = "1.2"
 projects[entityreference][subdir] = "contrib"
 
 projects[entityreference_prepopulate][version] = "1.6"
